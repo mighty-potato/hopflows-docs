@@ -54,9 +54,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </div>
       </sc-if>
 
-      <div role="radiogroup" aria-label="What are you adding?" style="display: flex; padding: 4px; gap: 4px; background: #F4F3EF; border-radius: 999px; align-self: flex-start">
-        <button type="button" role="radio" aria-checked="true" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">New request</button>
-        <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Task for me</button>
+      <div role="radiogroup" aria-label="Who is it for?" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+        <button type="button" role="radio" aria-checked="true" style="min-height: 72px; padding: 12px 16px; border: 0; border-radius: 16px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; text-align: left; display: flex; flex-direction: column; gap: 2px; cursor: pointer"><span style="font-size: 15px; font-weight: 600">Ask Chenda</span><span style="font-size: 12px; line-height: 16px; color: #D9D7D2">Chenda decides what happens. The answer goes to Requests I sent.</span></button>
+        <button type="button" role="radio" aria-checked="false" style="min-height: 72px; padding: 12px 16px; border: 0; border-radius: 16px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; text-align: left; display: flex; flex-direction: column; gap: 2px; cursor: pointer"><span style="font-size: 15px; font-weight: 600">Task for me</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">I'll do it myself. Goes straight to My tasks.</span></button>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 6px">
@@ -82,7 +82,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 22px; background: #F4F3EF">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="2"></rect><rect x="3" y="14" width="18" height="6" rx="2"></rect></svg>
-        <span style="flex: 1 1 240px; font-size: 13px; line-height: 18px">Goes to <strong>Technical's Incoming Queue</strong>. Chenda decides how urgent it is. You'll hear what happens in your Inbox.</span>
+        <span style="flex: 1 1 240px; font-size: 13px; line-height: 18px">Goes to <strong>Chenda Lim</strong>, Technical lead. Chenda decides how urgent it is. You'll see the answer in <strong>Requests I sent</strong> and in your Inbox.</span>
         <button type="button" style="height: 44px; padding: 0 12px; border: 0; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">Change</button>
       </div>
 
@@ -94,7 +94,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </sc-if>
       <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px">
         <a href="Main.dc.html" style="height: 48px; padding: 0 22px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Cancel</a>
-        <a href="MyRequests.dc.html" style="height: 48px; padding: 0 28px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Add</a>
+        <a href="MyRequests.dc.html" style="height: 48px; padding: 0 28px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Send to Chenda</a>
       </div>
     </section>
   </div>

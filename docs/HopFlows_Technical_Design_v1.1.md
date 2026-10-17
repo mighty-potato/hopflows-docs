@@ -34,7 +34,7 @@ Recommended persistence model: PostgreSQL with UUID identifiers, timestamps, org
 | deliverables | id, org_id, goal_id?, title, lead_id, owner_department_id, due_date, status (planned / active / in_review / accepted / cancelled), review_required, acceptance_criteria | Finite team commitments |
 | deliverable_product_lines | deliverable_id, product_line_id, is_primary | Product context and reporting attribution |
 | deliverable_departments | deliverable_id, department_id | Contributing departments |
-| tasks | id, org_id, deliverable_id?, assignee_id?, reviewer_id?, department_id?, product_line_id?, product_area_id?, title, status (to_do / in_progress / review / done / cancelled), priority, work_type, visibility (standard / confidential), review_required, estimate_size?, estimate_minutes?, due_at, blocked_at?, blocked_reason?, blocker_owner_id?, help_requested_at? | Execution work; standalone tasks permitted |
+| tasks | id, org_id, deliverable_id?, assignee_id?, reviewer_id?, department_id?, product_line_id?, product_area_id?, title, status (to_do / in_progress / review / done / cancelled), priority, work_type, visibility (standard / confidential), review_required, estimate_size?, estimate_minutes?, due_at, blocked_at?, blocked_reason?, blocker_owner_id?, help_requested_at?, created_by | Execution work; standalone tasks permitted. A member may create a task for themselves (assignee_id = created_by) without approval; in a committed cycle it is recorded as added work. Tasks for anyone else come from a lead or from intake_requests. |
 | task_checklist_items | id, task_id, title, is_done, position | Steps within a Task |
 | task_collaborators | task_id, membership_id | Contributors without diluted accountability |
 | task_dependencies | task_id, depends_on_task_id | Dependency tracking; both Tasks in the same organization, and no cycles |
@@ -51,7 +51,7 @@ Blocked and Need Help are markers on a Task, not statuses. A Confidential Task i
 |----|----|----|
 | intake_requests | id, org_id, department_id?, title, source, seems_urgent (requester's hint, default false), urgency (set by the lead when sorting), requester_id, triage_status (new / converted / merged / deferred / closed), deferred_until?, task_id?, source_event_id? | Captures unexpected requests; duplicates may map to one Task. Without a department, a request goes to the requester's primary department queue, otherwise to the organization triage queue |
 | planning_cycles | id, org_id, department_id, start_date, end_date, status | Weekly department commitment boundary |
-| plan_baselines | id, cycle_id, committed_at, committed_by | Immutable committed snapshot; at most one per cycle. After commit, every change is a plan_change_events entry |
+| plan_baselines | id, cycle_id, committed_at, committed_by, revoked_at? | Immutable committed snapshot; at most one active (not revoked) per cycle. After commit, every change is a plan_change_events entry. The committer may revoke within 10 minutes only while the cycle has no plan_change_events; revoking sets revoked_at and leaves the cycle uncommitted. |
 | plan_baseline_items | baseline_id, task_id, estimate_minutes, assignee_at_commit | Original work and estimates, retained after changes |
 | cycle_work_items | cycle_id, task_id, allocated_minutes, added_at | Live allocation for work in the week |
 | capacity_profiles | membership_id, work_schedule (working days and minutes per day), weekly_minutes, meeting_allowance_minutes, reserved_buffer_percent | Default capacity settings; weekly_minutes is the sum of the work schedule, and the meeting allowance is prorated to the working days left after holidays and leave |
@@ -146,7 +146,7 @@ Supports Blueprint §04 (Leave; Repeating daily work; Reports, search and offlin
 
 | **Table** | **Key fields** | **Purpose** |
 |----|----|----|
-| leave_requests | id, org_id, membership_id, leave_type (annual / sick / other), start_at, end_at, is_half_day, status (requested / approved / declined / cancelled), private_note?, approver_membership_id?, decided_at?, created_by | Leave requests. Approval writes the matching member_unavailability row; cancellation removes it. |
+| leave_requests | id, org_id, membership_id, leave_type (annual / sick / other), start_at, end_at, is_half_day, status (requested / approved / declined / withdrawn / cancelled), private_note?, approver_membership_id?, decided_at?, created_by | Leave requests. Approval writes the matching member_unavailability row; cancellation removes it. The requester may withdraw a request while it is still requested. |
 | routines | id, org_id, department_id?, owner_membership_id, title, checklist_template, recurrence_rule, window_end_time?, estimate_minutes, assignment_mode (fixed / rotation), assignee_id?, backup_assignee_id?, runs_on_holidays, paused_at? | Routine definitions; edits apply to occurrences not yet generated. |
 | routine_rotation_members | routine_id, membership_id, position | Rotation order. |
 | tasks (added fields) | routine_id?, occurrence_date?; status adds missed | Each routine occurrence is a Task, unique per (routine_id, occurrence_date). |

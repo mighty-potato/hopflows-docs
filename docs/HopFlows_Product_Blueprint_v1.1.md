@@ -184,6 +184,7 @@ These rules apply everywhere in the app. The technical document (`HopFlows_Techn
 - A Goal's result is tracked as a real number (for example, sales) against a starting point and a target, separately from finished tasks.
 - A Task belongs to the same product as its Deliverable. A Task without a Deliverable can name its own product.
 - A new Task or request can have no owner while it is being added or sorted. Once work starts, it always has one owner.
+- Anyone can add a Task for themselves with Add Work → Task for me. It needs no approval and goes straight to their own list, with them as the owner. Their lead can see it, and if the week is already locked it counts as added work. Work for someone else, or anything the lead should decide, is sent as a request instead. (Proposed)
 - A Confidential Task can be seen only by its owner, its reviewer, its helpers, people given access, and company admins. Only the department lead and admins can give access.
 - A Task's size can be Small, Medium or Large (the company decides how many hours each means) or a number of hours. A Task with no size is shown as "No estimate" and counted on its own.
 - A Task can wait on other Tasks in the same company. HopFlows refuses a wait that goes round in a circle.
@@ -199,7 +200,7 @@ These rules apply everywhere in the app. The technical document (`HopFlows_Techn
 - The person who sent the request is told what the lead decided: turned into a Task, merged, postponed (with the date it comes back), or closed (with a short reason). They are told again when the work is Done or Cancelled. If several requests were merged, everyone who sent one is told. (Proposed)
 - Closing a request always needs a short reason the sender can read.
 - If the request became a Confidential Task, the sender sees only its status, never its title or details.
-- Each person can see their own requests and where they are under **My requests**.
+- Each person can see their own requests and where they are under **Requests I sent**.
 
 ## Planning and time
 
@@ -361,7 +362,7 @@ Figure 2. The life of a Task. Blocked and Need Help are markers on a Task, not s
 | Start | Moves the Task to In Progress and records it. |
 | Done | Sends it to Review if a check is needed; otherwise marks it Done. |
 | Need Help | Marks the Task as blocked and tells the lead. |
-| Add Work | Creates a new request without needing a Goal or Deliverable. |
+| Add Work | Asks the lead with a request, or adds a Task for yourself (Task for me). Neither needs a Goal or Deliverable. |
 | Buttons in alerts | Start, Done, Need Help and Snooze in a push alert (and later in chat apps) do exactly what they do in the app. |
 | My week | Says Room, Balanced or Full for this week, with an optional note, and shows it to the person's leads. |
 | Request leave | Sends a leave request to the approver. Sick leave for today is approved right away. |
@@ -734,7 +735,7 @@ HopFlows holds a lot of information, but nobody should have to dig through it. E
 
 | **Role and question** | **On the home screen** | **One tap away** |
 |----|----|----|
-| Employee — "What should I do next?" | Top three priorities, Routine today (folded checklist), today's meetings, deadlines in the next two days, Start / Done / Need Help, add work, private streak | Full task list, My requests, leave, Goals and Deliverables, other people's work, reports, time numbers |
+| Employee — "What should I do next?" | Top three priorities, Routine today (folded checklist), today's meetings, deadlines in the next two days, Start / Done / Need Help, add work, private streak | Full task list, Requests I sent, leave, Goals and Deliverables, other people's work, reports, time numbers |
 | Lead — "Is my team OK, and what needs me?" | A "Needs you" list (new requests, reviews, Need Help, leave to approve, people who say they're Full, routines with nobody to do them, flags to check), this week's team colours, Deliverables at risk | The hours behind each colour, full Deliverable lists, history, detailed measures |
 | Leader — "Are we on track with our Goals?" | Goals with results and risk flags, by product, and the latest weekly summary | Deliverables, Tasks, team workload, history |
 
@@ -915,6 +916,7 @@ Figure 16. Working offline.
 | Set company Goals | Yes | Suggest, or if given the right | No |
 | Manage Deliverables | If given the right | Their own area | No |
 | Give Tasks to people | If given the right | Their own area | No, unless allowed |
+| Add a Task for themselves | Yes | Yes | Yes |
 | Update their own Tasks | Yes | Yes | Yes |
 | Send a request | Yes | Yes | Yes |
 | Sort their department's requests | If given the right | Yes | No |
@@ -1312,6 +1314,7 @@ Each row is what we build unless we decide otherwise. **Open** rows still need a
 | Goal across products | One Goal links to two products without copying the Goal or counting totals twice. |
 | Add Work | An employee adds a request without first picking a department, product or Goal. |
 | Seems urgent | A request marked "Seems urgent" shows the hint to the lead but sends no urgent alert until the lead sorts it as urgent. |
+| Task for me | An employee adds a Task for themselves. It appears in their own list without the lead, the lead can see it, and in a locked week it counts as added work. |
 | One owner | An active Task always has one owner; helpers don't replace the owner. |
 | Urgent midweek request | A new request becomes a Task while the week's locked plan stays the same. |
 | End of week | An unfinished Task moves to next week, and the earlier plan and changes are kept. |
@@ -1388,6 +1391,8 @@ Figure 17. Signing in and joining a company.
 - "Seems urgent" added to Add Work: a hint for the lead, who still decides real urgency when sorting (17 October).
 - After a full review of the web screens: the lead's home is "Needs you", the owner or lead removes Blocked with Unblock, admins manage products and departments, and the blueprint points to the design canvas (17 October).
 - After the design critique (Proposed): locking a week asks for confirmation and can be undone for 10 minutes; a leave request can be withdrawn while it waits (17 October).
+- "My requests" renamed "Requests I sent", so it is clear these are things a person asked their lead to look at (17 October).
+- "Task for me" (Proposed): anyone can add a Task for themselves without approval; work for others still goes to the lead as a request (17 October).
 - Mascot renamed from Hop to Punh Punh (14 October).
 - App icon chosen: Punh Checklist, with usage rules in §11 (15 October).
 - First version split into "pilot core" and "soon after"; later-stage features (Workload view for future weeks, temporary Handover, suggested risk flags) marked in the flows and special cases.
