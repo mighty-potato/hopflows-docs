@@ -37,15 +37,53 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <a href="Main.dc.html" style="height: 44px; display: inline-flex; align-items: center; padding: 0 18px; border-radius: 999px; background: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600">My own Today</a>
     </div>
 
+    <sc-if value="{{isLoading}}" hint-placeholder-val="{{false}}">
+      <div role="status" aria-busy="true" style="display: flex; flex-direction: column; gap: 12px">
+        <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Loading Needs you…</span>
+        <div aria-hidden="true" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px">
+          <div style="grid-column: span 4; height: 240px; border-radius: 28px; background: #ECEAE4"></div>
+          <div style="grid-column: span 8; height: 240px; border-radius: 28px; background: #FFFFFF; display: flex; flex-direction: column; gap: 14px; padding: 28px; box-sizing: border-box"><span style="width: 40%; height: 14px; border-radius: 999px; background: #ECEAE4"></span><span style="width: 75%; height: 14px; border-radius: 999px; background: #F0EEE9"></span><span style="width: 60%; height: 14px; border-radius: 999px; background: #F0EEE9"></span><span style="width: 70%; height: 14px; border-radius: 999px; background: #F0EEE9"></span></div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{isEmpty}}" hint-placeholder-val="{{false}}">
+      <section aria-label="Nothing needs you right now" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
+        <img src="/_blob/a431a6fdd4e19f548f54f9fd97283158" alt="Punh Punh waving" style="width: 144px; height: 144px; border-radius: 28px; object-fit: cover; flex-shrink: 0">
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Nothing needs you right now</h2>
+          <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">New requests, reviews, Need help and leave requests show up here as they come in. Your team looks fine this week.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px"><a href="Planner.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Plan week 43</a><a href="Main.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">My own Today</a></div>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{isError}}" hint-placeholder-val="{{false}}">
+      <section role="alert" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; box-shadow: inset 0 0 0 2px #C2410C">
+        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load Needs you</h2>
+          <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{ok}}" hint-placeholder-val="{{true}}">
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
       <section aria-label="Needs you count" style="grid-column: span 4; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; min-height: 280px">
         <span style="font-size: 13px; font-weight: 600">Waiting on you</span>
-        <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">6</span>
-        <span style="font-size: 15px; line-height: 22px; margin-top: auto">4 requests to sort, 1 review, 1 need help. Team looks OK otherwise.</span>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">9</span>
+        <span style="font-size: 15px; line-height: 22px; margin-top: auto">4 requests to sort, 1 Need help, 1 review, 1 leave request and 2 more.</span>
       </section>
 
       <section aria-label="Needs you list" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 12px 24px; display: flex; flex-direction: column; min-width: 0">
         <sc-for list="{{needs}}" as="n" hint-placeholder-count="5">
+          <sc-if value="{{n.done}}" hint-placeholder-val="{{false}}">
+          <div role="status" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 0; border-bottom: 1px solid #F0EEE9">
+            <span style="flex: 0 0 auto; min-width: 104px; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; box-sizing: border-box; border-radius: 999px; background: #DCEFE2; color: #1F5E3A; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #2E7D4F"></span>Approved</span>
+            <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; line-height: 22px; font-weight: 600">Dara's leave is approved</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">Dara is told in 10 seconds. Thu 22 – Fri 23 Oct show as Away.</span></div>
+            <button type="button" onClick="{{n.undo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button>
+          </div>
+          </sc-if>
+          <sc-if value="{{n.open}}" hint-placeholder-val="{{true}}">
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 0; border-bottom: 1px solid #F0EEE9">
             <span style="flex: 0 0 auto; min-width: 104px; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; box-sizing: border-box; border-radius: 999px; background: {{n.kbg}}; color: {{n.kfg}}; font-size: 12px; font-weight: 600">{{n.kind}}</span>
             <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; line-height: 22px; font-weight: 600">{{n.title}}</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{n.meta}}</span></div>
@@ -53,11 +91,17 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <sc-if value="{{n.second}}" hint-placeholder-val="{{false}}">
                 <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{n.second}}</button>
               </sc-if>
-              <a href="{{n.href}}" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">{{n.action}}</a>
+              <sc-if value="{{n.href}}" hint-placeholder-val="{{true}}">
+                <a href="{{n.href}}" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">{{n.action}}</a>
+              </sc-if>
+              <sc-if value="{{n.inline}}" hint-placeholder-val="{{false}}">
+                <button type="button" onClick="{{n.approve}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{n.action}}</button>
+              </sc-if>
             </div>
           </div>
+          </sc-if>
         </sc-for>
-        <button type="button" style="align-self: flex-start; height: 44px; margin: 6px 0; padding: 0; border: 0; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">See all 7</button>
+        <button type="button" style="align-self: flex-start; height: 44px; margin: 6px 0; padding: 0; border: 0; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">See all 9</button>
       </section>
 
       <section aria-label="Team this week" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
@@ -100,17 +144,19 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </section>
       </div>
     </div>
+    </sc-if>
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
   renderVals() {
     const k = {
       help: { kbg: '#FCE3D3', kfg: '#9A3412' },
       plain: { kbg: '#F4F3EF', kfg: '#1C1B1F' }
     };
-    const need = (kind, tone, title, meta, action, href, second) => Object.assign({ kind, title, meta, action, href, second: second || '' }, k[tone]);
+    const approved = !!(this.state && this.state.approved);
+    const need = (kind, tone, title, meta, action, href, second) => Object.assign({ kind, title, meta, action, href: href || '', inline: !href, second: second || '', open: true, done: false }, k[tone], href ? {} : { open: !approved, done: approved, approve: () => this.setState({ approved: true }), undo: () => this.setState({ approved: false }) });
     const cap = {
       room: { word: 'Room', bg: '#DCEFE2', fg: '#1F5E3A' },
       balanced: { word: 'Balanced', bg: '#C9DDE8', fg: '#33454F' },
@@ -119,14 +165,15 @@ class Component extends DCLogic {
       away: { word: 'Away', bg: 'repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px)', fg: '#4A4950' }
     };
     const person = (name, init, c, says) => Object.assign({ name, init, says: says || '' }, cap[c]);
+    const st = this.props.state ?? 'normal';
     return {
+      ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       needs: [
         need('Need help', 'help', 'Payment webhook times out', 'Rithy Heng · 25 min ago · Launch In-App Ordering v1', 'Open', 'TaskDetail.dc.html'),
         need('New requests', 'plain', '4 waiting in the Incoming Queue', 'Oldest: 1 day · 1 looks like a duplicate', 'Sort', 'Queue.dc.html'),
         need('Review', 'plain', 'Coupon rules screen', 'Dara Sok · done 10:50', 'Review', 'TaskDetail.dc.html'),
-        need('Leave', 'plain', 'Dara asks for Thu 22 – Fri 23 Oct', 'Annual · 1 task due in those days', 'Approve', 'Leave.dc.html', 'Decline'),
-        need('Week status', 'plain', 'Vannak says this week is Full', 'His colour shows Room · note: “covering the shop till”', 'Look', 'Workload.dc.html'),
-        need('Routine', 'plain', 'Close shop checklist, Saturday', 'Sreymom and her backup are both away', 'Assign', 'Routines.dc.html')
+        need('Leave', 'plain', 'Dara asks for Thu 22 – Fri 23 Oct', 'Annual · 1 task due then · team Balanced that week', 'Approve', '', 'Decline'),
+        need('Week status', 'plain', 'Vannak says this week is Full', 'Colour shows Room · note: “covering the shop till”', 'Look', 'Workload.dc.html')
       ],
       team: [
         person('Dara Sok', 'DS', 'balanced'),

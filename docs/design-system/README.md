@@ -1,6 +1,6 @@
 # HopFlows Soft Bento
 
-HopFlows is a simple, role-based work platform: a team captures requests, plans the week against real capacity and sees progress without writing status reports. Soft Bento is its look: big numbers in rounded tiles, near-black actions, a floating tab bar, and Hop yellow on one hero tile at a time. Its mascot is **Punh Punh**, a chubby pencil. It ships in two themes, **Light** and **Black**, from the same tokens.
+HopFlows is a simple, role-based work platform: a team captures requests, plans the week against real capacity and sees progress without writing status reports. Soft Bento is its look: plain words in rounded tiles, near-black actions, a floating tab bar, and Hop yellow on one hero tile at a time. Its mascot is **Punh Punh**, a chubby pencil. It ships in two themes, **Light** and **Black**, from the same tokens.
 
 ## Product principles the design serves
 
@@ -14,7 +14,7 @@ HopFlows is a simple, role-based work platform: a team captures requests, plans 
 
 - **Voice: a calm teammate.** Short, plain, encouraging. "One more hop." beats "You have 1 remaining task."
 - **Name things by what people do.** Capture, Start, Done, Need help, Accept, Later, Reschedule. Buttons are verbs or short answers, never "Submit" or "OK".
-- **Numbers carry the story.** Show `2/3`, `12 days`, `24h / 32h` in Geist Mono and let the label sit small above it (`caption` in `ink-muted`).
+- **Words lead, numbers back them up.** Headline the answer in words ("Fits, but one person is over", "Mostly on track") and put the numbers on a smaller Geist Mono line under it (`115h planned · 128h to plan`). A big number leads only when it is the answer itself, like `2/3` on Today.
 - **Sentence case everywhere.** Labels like "Up next · due today" use a middle dot to join two facts.
 - **Serious moments stay plain.** Urgent alerts, Need help, risk flags, handovers and confidential items use direct wording, no mascot and no celebration.
 - **Tagline:** Small steps. Big wins.
@@ -29,7 +29,7 @@ HopFlows is a simple, role-based work platform: a team captures requests, plans 
 
 **Actions are carbon.** The primary button is `action` on `on-action`, pill shaped (`radius-pill`), 48px tall (44px compact). In Black mode `action` flips to chalk, so the primary button stays the highest-contrast thing on screen. Secondary buttons use `card` on ground or `inset` inside a card.
 
-**Status is form plus colour.** Status pills pair an 8px dot with a word ("On track", "At risk", "Off track"); capacity cells pair a fill with a word ("Room", "Balanced", "Using buffer", "Overloaded", "Away"). Never colour alone. "Away" is a 45° hatch of `away-a` / `away-b`. Warnings are orange (`warning-*`), never yellow, so Hop yellow is never read as an alert.
+**Status is form plus colour.** Status pills pair an 8px dot with a word ("On track", "At risk", "Off track"); capacity cells pair a fill with a word ("Room", "Balanced", "Using buffer", "Too much", "Away"). Never colour alone. "Away" is a 45° hatch of `away-a` / `away-b`. Warnings are orange (`warning-*`), never yellow, so Hop yellow is never read as an alert.
 
 **Type.** Geist 400–700 for everything written, Geist Mono 500–600 for numbers. Headings tighten letter-spacing (−0.02 to −0.045em); body stays at 0.
 

@@ -115,10 +115,10 @@
     "Mascot"
   ],
   "lastChange": {
-    "at": "2026-10-17T13:15:00Z",
+    "at": "2026-10-17T14:40:00Z",
     "by": "Hok",
     "via": "Claude Code",
-    "note": "App icon: card and Punh Punh recentred on the tile (art moved 1.85 right and 4.2 up on the 100 grid); Android foreground recentred to match."
+    "note": "Content rule: words lead, numbers back them up (big numbers only when the number is the answer). 'Overloaded' renamed 'Too much' to match the product."
   },
   "layout": "files",
   "libraries": [

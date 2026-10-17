@@ -32,7 +32,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="flex: 1; min-width: 0; height: 64px; display: flex; align-items: center; gap: 12px; padding: 0 20px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 2px #1C1B1F">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
         <input id="q" type="search" value="{{q}}" placeholder="Search tasks, people, events…" style="flex: 1; min-width: 0; height: 56px; border: 0; background: transparent; font-family: inherit; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; color: #1C1B1F; outline: none">
-        <sc-if value="{{typed}}" hint-placeholder-val="{{true}}"><span style="font-size: 12px; color: #6E6C73">7 results</span></sc-if>
+        <sc-if value="{{found}}" hint-placeholder-val="{{true}}"><span style="font-size: 12px; color: #6E6C73">7 results</span></sc-if><sc-if value="{{none}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: #6E6C73">No results</span></sc-if>
       </div>
       <a href="Main.dc.html" style="height: 48px; padding: 0 18px; border-radius: 999px; background: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Close</a>
     </form>
@@ -51,10 +51,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </section>
       </sc-for>
     </div>
-    <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Start typing to search everything you're allowed to see, in English or Khmer.</p>
+    <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Start typing to search everything you're allowed to see.</p>
     </sc-if>
 
-    <sc-if value="{{typed}}" hint-placeholder-val="{{true}}">
+    <sc-if value="{{found}}" hint-placeholder-val="{{true}}">
     <div style="display: flex; flex-wrap: wrap; gap: 8px">
       <button type="button" aria-pressed="true" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Everything</button>
       <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Tasks · 3</button>
@@ -89,20 +89,31 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </section>
       </sc-for>
     </div>
-    <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Finds words in English and Khmer, including inside Khmer words. Only shows what you're allowed to see.</p>
+    <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Finds whole words and parts of words. Only shows what you're allowed to see.</p>
+    </sc-if>
+    <sc-if value="{{none}}" hint-placeholder-val="{{false}}">
+      <section role="status" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
+        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Nothing matches “refund policy”</h2>
+          <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">Try a shorter word, or someone's name. Search only shows things you're allowed to see, so a confidential task won't appear here.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px"><a href="Search.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Clear search</a><a href="AddWork.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Add it as a request</a></div>
+        </div>
+      </section>
     </sc-if>
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"typed":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":960}}'>
+<script type="text/x-dc" data-dc-script data-props='{"noResults":{"editor":"boolean","default":false},"typed":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":960}}'>
 class Component extends DCLogic {
   renderVals() {
     const typed = this.props.typed ?? true;
     const r = (title, meta, status, href) => ({ title, meta, status, href: href || '', plain: !href });
     return {
-      typed,
+      found: typed && !(this.props.noResults ?? false),
+      none: typed && (this.props.noResults ?? false),
       notTyped: !typed,
-      q: typed ? 'checkout' : '',
+      q: !typed ? '' : (this.props.noResults ? 'refund policy' : 'checkout'),
       before: [
         { name: 'Your open work', items: [
           r('Build the checkout API', 'Due today 17:00 · In Progress', 'Top 3', 'TaskDetail.dc.html'),

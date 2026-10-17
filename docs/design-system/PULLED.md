@@ -3,7 +3,7 @@
 Local copy of the **HopFlows Soft Bento** design system.
 
 - Source: https://claude.ai/artifact/MfdfJyMi7yzpp4iqjiqT8b
-- Pulled: 17 October 2026 (version 1792217447-4a5c)
+- Pulled: 17 October 2026 (version 1792222539-6b6c)
 - Start with `README.md` (the brand book), then `tokens.json`.
 
 | Path | What |

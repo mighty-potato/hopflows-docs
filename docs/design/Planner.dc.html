@@ -31,20 +31,52 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <span style="font-size: 12px; color: #6E6C73">Technical · Week 43 · 19–23 Oct · not locked yet</span>
+        <span style="font-size: 12px; color: #6E6C73">Technical · Week 43 · 19–23 Oct · {{weekState}}</span>
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Plan next week</h1>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
         <button type="button" style="height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">‹ Week 42 · locked</button>
-        <button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Lock week 43</button>
+        <sc-if value="{{planning}}" hint-placeholder-val="{{true}}">
+        <button type="button" onClick="{{askLock}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Lock week 43</button>
+        </sc-if>
+        <sc-if value="{{locked}}" hint-placeholder-val="{{false}}">
+          <span style="height: 48px; padding: 0 20px; border-radius: 999px; background: #DCEFE2; color: #1F5E3A; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Week 43 locked</span>
+        </sc-if>
       </div>
     </div>
 
+    <sc-if value="{{confirming}}" hint-placeholder-val="{{false}}">
+      <section role="alertdialog" aria-labelledby="lock-title" aria-describedby="lock-what" style="background: #FFFFFF; border-radius: 28px; padding: 24px; box-shadow: inset 0 0 0 2px #1C1B1F; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <h2 id="lock-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Lock week 43 with Vannak over?</h2>
+          <p id="lock-what" style="margin: 0; max-width: 68ch; font-size: 15px; line-height: 22px; color: #4A4950">Locking saves this plan as the team's promise for the week. Anything that changes after this is recorded next to it, never written over it.</p>
+        </div>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #FCE3D3; color: #9A3412; font-size: 15px"><strong style="font-weight: 600">Vannak Prum has more work than time.</strong><span>35h planned, 32h available.</span></li>
+          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">2 tasks have no estimate.</strong><span style="color: #4A4950">They're counted apart and won't show in anyone's hours.</span></li>
+        </ul>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <a href="Workload.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Move Vannak's work first</a>
+          <button type="button" onClick="{{doLock}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Lock anyway</button>
+          <button type="button" onClick="{{cancelLock}}" style="height: 48px; padding: 0 16px; border: 0; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; text-decoration: underline; cursor: pointer">Not yet</button>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{locked}}" hint-placeholder-val="{{false}}">
+      <section role="status" aria-label="Week locked" style="background: #1C1B1F; color: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px">
+        <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 6px; min-width: 0">
+          <span style="font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Week 43 is locked. That's the promise.</span>
+          <span style="font-size: 15px; line-height: 22px; color: #D9D7D2">Saved Fri 16 Oct at 16:40 with 115h planned. Everyone sees their plan on Monday morning. Work added from now on counts as added, so the weekly review stays honest.</span>
+        </div>
+        <button type="button" onClick="{{cancelLock}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Undo · 9:52 left</button>
+      </section>
+    </sc-if>
+
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: stretch">
       <section aria-label="Team total" style="grid-column: span 4; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
-        <span style="font-size: 13px; font-weight: 600">Planned vs time to plan · estimated</span>
-        <span style="font-family: 'Geist Mono', monospace; font-size: 56px; line-height: 60px; font-weight: 600; letter-spacing: -0.05em">115h / 128h</span>
-        <span style="font-size: 15px; line-height: 22px; margin-top: auto">It fits, but Vannak has too much. Move 3h or more before you lock.</span>
+        <h2 style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em; text-wrap: balance">Fits, but one person is over</h2>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums">115h planned · 128h to plan · estimated</span>
+        <span style="font-size: 15px; line-height: 22px; margin-top: auto">Move 3h or more from Vannak before you lock.</span>
       </section>
       <section aria-label="Time this week" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px">
         <div style="display: flex; flex-direction: column; gap: 4px; padding: 16px; border-radius: 22px; background: #F4F3EF"><span style="font-size: 12px; color: #6E6C73">Available time</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">171h</span><span style="font-size: 12px; color: #6E6C73">after leave and meetings</span></div>
@@ -85,22 +117,22 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
       <section aria-label="Carried over" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Carried over from week 42 <span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #4A4950">3</span></h2>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">Fix receipt printer driver <span style="font-size: 12px; color: #6E6C73">· Dara · Large · blocked</span></span><button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Remove from week</button></div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">Menu photo export <span style="font-size: 12px; color: #6E6C73">· Sreymom · Medium · moved for urgent work</span></span><button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Remove from week</button></div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0"><span style="flex: 1 1 220px; font-size: 15px">Coupon rules screen <span style="font-size: 12px; color: #6E6C73">· Dara · Medium · in review</span></span><button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Remove from week</button></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">Fix receipt printer driver <span style="font-size: 12px; color: #6E6C73">· Dara · Large · blocked</span></span><button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">Menu photo export <span style="font-size: 12px; color: #6E6C73">· Sreymom · Medium · moved for urgent work</span></span><button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0"><span style="flex: 1 1 220px; font-size: 15px">Coupon rules screen <span style="font-size: 12px; color: #6E6C73">· Dara · Medium · in review</span></span><button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div>
       </section>
 
       <section aria-label="Ready to plan" style="grid-column: span 5; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Ready to plan</h2>
-        <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1; font-size: 15px">Khmer search spike <span style="font-size: 12px; color: #6E6C73">· Large · no owner</span></span><button type="button" aria-label="Add Khmer search spike to week 43" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
-        <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1; font-size: 15px">Store sales export <span style="font-size: 12px; color: #6E6C73">· Small · Pisey</span></span><button type="button" aria-label="Add Store sales export to week 43" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
-        <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0"><span style="flex: 1; font-size: 15px">Order history page <span style="font-size: 12px; color: #6E6C73">· No estimate</span></span><button type="button" aria-label="Add Order history page to week 43" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1; font-size: 15px">Khmer search spike <span style="font-size: 12px; color: #6E6C73">· Large · no owner</span></span><button type="button" aria-label="Add Khmer search spike to week 43" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1; font-size: 15px">Store sales export <span style="font-size: 12px; color: #6E6C73">· Small · Pisey</span></span><button type="button" aria-label="Add Store sales export to week 43" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0"><span style="flex: 1; font-size: 15px">Order history page <span style="font-size: 12px; color: #6E6C73">· No estimate</span></span><button type="button" aria-label="Add Order history page to week 43" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
       </section>
     </div>
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1160}}'>
+<script type="text/x-dc" data-dc-script data-props='{"lock":{"editor":"enum","options":["planning","confirm","locked"],"default":"planning"},"$preview":{"width":1440,"height":1160}}'>
 class Component extends DCLogic {
   renderVals() {
     const cap = {
@@ -115,7 +147,15 @@ class Component extends DCLogic {
       const mark = avail ? (toPlan / avail) * 100 : 0;
       return Object.assign({ name, note, avail: avail + 'h', toPlan: toPlan + 'h', planned: planned + 'h', fill: fill.toFixed(0) + '%', mark: mark.toFixed(0) + '%' }, cap[c]);
     };
+    const lock = (this.state && this.state.lock) || this.props.lock || 'planning';
     return {
+      planning: lock !== 'locked',
+      confirming: lock === 'confirm',
+      locked: lock === 'locked',
+      weekState: lock === 'locked' ? 'locked Fri 16 Oct, 16:40' : 'not locked yet',
+      askLock: () => this.setState({ lock: 'confirm' }),
+      doLock: () => this.setState({ lock: 'locked' }),
+      cancelLock: () => this.setState({ lock: 'planning' }),
       people: [
         row('Chenda Lim', 'Lead · more meetings', 24, 18, 14, 'balanced'),
         row('Dara Sok', 'Leave asked for Thu–Fri, not approved yet', 32, 24, 22, 'balanced'),

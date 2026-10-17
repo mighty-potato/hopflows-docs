@@ -13,30 +13,30 @@
 body{margin:0}
 a{color:#1C1B1F}a:hover{color:#4A4950}
 :focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-pad{padding:24px !important}
+.hf-art{min-height:180px !important}
+.hf-art img{width:min(100%, 220px) !important}
+.hf-claim{font-size:40px !important;line-height:42px !important}
+}
 </style>
 </helmet>
 <div style="min-height: 100vh; box-sizing: border-box; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; gap: 12px; padding: 12px">
-  <section aria-label="Welcome" style="flex: 1 1 480px; min-width: 0; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px; overflow: hidden">
+  <section aria-label="Welcome" class="hf-pad" style="flex: 1 1 480px; min-width: 0; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px; overflow: hidden">
     <div style="display: flex; align-items: center; gap: 10px">
       <img src="/_blob/637eea0f0cb0fc9affcb69602a64aeba" alt="" style="width: 44px; height: 44px; display: block">
       <span style="font-size: 22px; font-weight: 600; letter-spacing: -0.03em; color: #1C1B1F">HopFlows</span>
     </div>
-    <div style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 280px">
+    <div class="hf-art" style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 280px">
       <img src="/_blob/a431a6fdd4e19f548f54f9fd97283158" alt="Punh Punh, a chubby pencil, waving hello" style="width: min(100%, 420px); aspect-ratio: 1 / 1; object-fit: cover; display: block">
     </div>
     <div style="display: flex; flex-direction: column; gap: 10px">
-      <span style="font-size: 64px; line-height: 64px; font-weight: 600; letter-spacing: -0.045em; color: #1C1B1F">Small steps.<br>Big wins.</span>
+      <span class="hf-claim" style="font-size: 64px; line-height: 64px; font-weight: 600; letter-spacing: -0.045em; color: #1C1B1F">Small steps.<br>Big wins.</span>
       <span style="font-size: 15px; line-height: 22px; max-width: 440px">One shared place for work. Each person sees what matters to them.</span>
     </div>
   </section>
 
-  <section aria-label="Sign in" style="flex: 1 1 420px; min-width: 0; background: #FFFFFF; border-radius: 28px; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column">
-    <div style="display: flex; justify-content: flex-end">
-      <div role="group" aria-label="Language" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 999px">
-        <button type="button" aria-pressed="true" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">English</button>
-        <button type="button" aria-pressed="false" lang="km" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">ខ្មែរ</button>
-      </div>
-    </div>
+  <section aria-label="Sign in" class="hf-pad" style="flex: 1 1 420px; min-width: 0; background: #FFFFFF; border-radius: 28px; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column">
     <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 32px 0">
       <form style="width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 20px">
         <div style="display: flex; flex-direction: column; gap: 8px">

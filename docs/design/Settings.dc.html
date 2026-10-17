@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Alerts and Telegram</title>
+<title>Alerts and settings</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -35,23 +35,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </div>
 
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: stretch">
-      <section aria-label="Connect Telegram" style="grid-column: span 5; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
-        <span style="font-size: 12px">Telegram · not linked yet</span>
-        <span style="font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em; color: #1C1B1F">Get alerts where you already chat</span>
-        <span style="font-size: 13px; line-height: 18px">Open the HopFlows bot and send this code. It works once and expires soon.</span>
-        <div style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F">
-          <span style="flex: 1; font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: 0.04em">HF-4821</span>
-          <span style="font-size: 12px; color: #6E6C73">9:42 left</span>
-        </div>
-        <div style="display: flex; flex-wrap: wrap; gap: 8px">
-          <button type="button" style="height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Open the bot</button>
-          <button type="button" style="height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">New code</button>
-        </div>
-      </section>
-
-      <div style="grid-column: span 7; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px">
+      <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px">
         <section aria-label="Push" style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 8px">
-          <span style="font-size: 12px; color: #6E6C73">Push alerts</span>
+          <span style="font-size: 12px; color: #6E6C73">Push alerts · phone and browser</span>
           <div style="display: flex; justify-content: space-between; gap: 8px; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 15px">Android phone</span><span style="font-size: 13px; font-weight: 600; color: #1F5E3A">On</span></div>
           <div style="display: flex; justify-content: space-between; gap: 8px; padding: 8px 0"><span style="font-size: 15px">Chrome on laptop</span><span style="font-size: 13px; font-weight: 600; color: #1F5E3A">On</span></div>
         </section>
@@ -60,12 +46,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">20:00–07:00</span>
           <span style="font-size: 13px; color: #4A4950">Morning summary at <span style="font-family: 'Geist Mono', monospace">08:00</span> · at most 5 normal pushes a day</span>
         </section>
-        <section aria-label="Language" style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
+        <section aria-label="Language" style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 8px">
           <span style="font-size: 12px; color: #6E6C73">Language for alerts and the app</span>
-          <div role="radiogroup" aria-label="Language" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 999px; align-self: flex-start">
-            <button type="button" role="radio" aria-checked="false" lang="km" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">ខ្មែរ</button>
-            <button type="button" role="radio" aria-checked="true" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">English</button>
-          </div>
+          <span style="font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">English</span>
+          <span style="font-size: 13px; color: #4A4950">More languages come later. You'll pick yours here.</span>
         </section>
         <section aria-label="Punh Punh" style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
           <span style="font-size: 12px; color: #6E6C73">Punh Punh and celebrations</span>
@@ -82,7 +66,6 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                 <th scope="col" style="padding: 10px 8px 10px 0; text-align: left; font-weight: 400">Alert</th>
                 <th scope="col" style="padding: 10px 8px; font-weight: 400">Inbox</th>
                 <th scope="col" style="padding: 10px 8px; font-weight: 400">Push</th>
-                <th scope="col" style="padding: 10px 8px; font-weight: 400">Telegram</th>
                 <th scope="col" style="padding: 10px 0 10px 8px; text-align: left; font-weight: 400">When</th>
               </tr>
             </thead>
@@ -92,14 +75,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                   <th scope="row" style="padding: 12px 8px 12px 0; text-align: left; font-weight: 400"><span style="display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">{{k.name}}</span><span style="font-size: 12px; color: #6E6C73">{{k.note}}</span></span></th>
                   <td style="padding: 12px 8px; text-align: center"><input type="checkbox" checked disabled aria-label="Inbox, always on" style="width: 20px; height: 20px; accent-color: #1C1B1F"></td>
                   <td style="padding: 12px 8px; text-align: center"><input type="checkbox" checked="{{k.push}}" aria-label="Push" style="width: 20px; height: 20px; accent-color: #1C1B1F"></td>
-                  <td style="padding: 12px 8px; text-align: center"><input type="checkbox" checked="{{k.tg}}" aria-label="Telegram" style="width: 20px; height: 20px; accent-color: #1C1B1F"></td>
                   <td style="padding: 12px 0 12px 8px"><span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 12px; background: #F4F3EF; font-size: 13px; font-weight: 600">{{k.when}}</span></td>
                 </tr>
               </sc-for>
             </tbody>
           </table>
         </div>
-        <p style="margin: 8px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Confidential tasks never show details outside HopFlows. Telegram gets “You have a confidential update” only.</p>
+        <p style="margin: 8px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Push alerts never show a confidential task's title or details: just “You have a confidential update”. Chat apps like Telegram, Slack and Microsoft Teams come later.</p>
       </section>
     </div>
   </main>
@@ -113,7 +95,7 @@ class Component extends DCLogic {
       kinds: [
         k('Urgent request or problem', 'Always right away, even in quiet hours', true, true, 'Right away · fixed'),
         k('Task given or handed over to you', 'With Start and Open buttons', true, true, 'Right away'),
-        k('Your request was sorted or finished', 'Sent where you made the request', true, true, 'Right away'),
+        k('Your request was sorted or finished', 'With a link to the request', true, true, 'Right away'),
         k('Meeting invite or change', 'With Accept and Decline', true, true, 'Right away'),
         k('Meeting starting soon', '10 minutes before', true, false, 'Right away'),
         k('Deadline today or tomorrow', '', false, false, 'Morning summary'),

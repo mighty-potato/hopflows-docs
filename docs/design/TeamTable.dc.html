@@ -39,7 +39,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"></path></svg>Excel</button>
         <div role="radiogroup" aria-label="View" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
           <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">List</button>
-          <a href="MyTasks.dc.html" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border-radius: 999px; color: #4A4950; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Board</a>
+          <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Board</button>
           <button type="button" role="radio" aria-checked="true" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Table</button>
         </div>
       </div>
@@ -118,14 +118,14 @@ class Component extends DCLogic {
     const row = (sel, title, owner, s, due, size, del, kind, from, w) => Object.assign({ sel, rowBg: sel ? '#FBFAF7' : 'transparent', title, owner, due, size, del, kind, from }, st[s], wk[w]);
     return {
       rows: [
-        row(true, 'Coupon breaks payment at checkout', 'Dara Sok', 'doing', 'Fri 16', 'M', 'Launch In-App Ordering v1', 'Bug', 'Customer', 'added'),
+        row(true, 'Coupon breaks payment at checkout', 'Rithy Heng', 'doing', 'Fri 16', '5h', 'Launch In-App Ordering v1', 'Bug', 'Customer', 'added'),
         row(true, 'Store sales export', 'Dara Sok', 'todo', 'Wed 21', 'S', 'Store sales dashboard v1', 'Feature', 'Manager', 'planned'),
         row(true, 'Payment webhook retries', 'Rithy Heng', 'doing', 'Tue 20', 'M', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
         row(true, 'Nightly backup alerts', 'Vannak Prum', 'todo', 'Thu 22', 'S', '—', 'Operations', 'System alert', 'added'),
         row(true, 'Payroll export', 'Finance', 'todo', 'Fri 23', 'M', '—', 'Support', 'Manager', 'planned'),
         row(false, 'Coupon rules screen', 'Dara Sok', 'review', 'Fri 16', 'M', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
         row(false, 'Order tracking screen', 'Pisey Chea', 'todo', 'Fri 30', 'L', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
-        row(false, 'Receipt printer driver', 'Dara Sok', 'doing', 'Wed 21', 'L', '—', 'Bug', 'Shop team', 'added'),
+        row(false, 'Fix receipt printer driver', 'Dara Sok', 'doing', 'Wed 21', '8h', '—', 'Bug', 'Shop team', 'added'),
         row(false, 'Khmer search spike', '—', 'todo', '—', 'L', 'Menu search', 'Feature', 'Meeting', 'planned')
       ]
     };

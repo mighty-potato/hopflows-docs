@@ -16,7 +16,7 @@ For the people who plan the product, design it, build it and roll it out.
 
 ## About this blueprint
 
-This document explains what HopFlows does and how it should work. It covers the business rules and the design rules: what things exist in the app, who owns what, how work comes in and moves, what each role sees, how we measure progress, and what we build first. How the system is built (the database and engineering rules) is in a separate document, `HopFlows_Technical_Design_v1.1.md`.
+This document explains what HopFlows does and how it should work. It covers the business rules and the design rules: what things exist in the app, who owns what, how work comes in and moves, what each role sees, how we measure progress, and what we build first. How the system is built (the database and engineering rules) is in a separate document, `HopFlows_Technical_Design_v1.1.md`. The web app screens are drawn in the HopFlows Web App design canvas; a local copy is in `design/` next to this file.
 
 01. Summary
 02. How the pieces fit together
@@ -204,6 +204,7 @@ These rules apply everywhere in the app. The technical document (`HopFlows_Techn
 ## Planning and time
 
 - Each department plans one week at a time. A week can be locked once. After that, every change is recorded with its type (added, removed, moved, reassigned, handed over, cancelled or carried over) and a reason.
+- Before a lead locks a week, HopFlows lists anyone with more work than time and any Tasks with no estimate, and asks the lead to confirm. For 10 minutes after locking, and only while nothing in the week has changed, the lead can undo the lock. (Proposed)
 - The locked plan keeps the original work, estimates and owners. It is never edited.
 - Each person has a work schedule (working days and hours each day), a usual amount of meeting time each week, and a buffer. In short weeks, the meeting time shrinks to match.
 - Holidays, leave and accepted events marked "Blocks work time" reduce available time. Overlaps count once, and available time never goes below zero. If such an event is declined or cancelled after the week is locked, the time is worked out again and the change shows in the weekly review.
@@ -216,6 +217,7 @@ These rules apply everywhere in the app. The technical document (`HopFlows_Techn
 
 - Leave is how HopFlows knows someone is away. Every away period comes from a leave request; there is no other way to mark someone as away.
 - A person asks for leave with dates (whole or half days) and a type: Annual, Sick or Other. The reason is optional and only the person, their approver and admins can see it. Everyone else just sees "Away".
+- A person can withdraw a leave request while it is waiting for approval. (Proposed)
 - Planned leave needs a yes from the lead of the person's main department. A lead's own leave is approved by the lead above them or by leadership. If the approver is away, the request goes to the person they chose to cover for them, then to the lead above.
 - Sick leave for today (or earlier days) is approved automatically, and the lead is told. A lead can also add leave for someone on their team.
 - Approved leave lowers available time, shows as Away on the calendar and the Workload view, holds normal alerts, protects the person's streak, and warns about any Task due during the leave. Leave longer than the long-leave limit (see §14) asks the lead to hand over or move the person's work.
@@ -324,7 +326,7 @@ These rules apply everywhere in the app. The technical document (`HopFlows_Techn
 >
 > To Do → In Progress → Review → Done. Review can be skipped for simple tasks. Cancelled is a separate way for a Task to end.
 
-"Blocked" is a marker, not a step. It has a reason and, if possible, the person who can unblock it. A Task can stay In Progress while blocked, so we don't lose track of where the work stopped.
+"Blocked" is a marker, not a step. It has a reason and, if possible, the person who can unblock it. A Task can stay In Progress while blocked, so we don't lose track of where the work stopped. The owner or the lead removes the marker with Unblock.
 
 Once a Task is In Progress, it can't be left without an owner. Removing the owner moves it back to To Do. Only the owner or the lead can mark a Task Done. If a helper taps Done (in the app or from an alert), they are offered "Ask owner" instead. Cancelling a Task in a locked week is recorded as a plan change.
 
@@ -720,7 +722,7 @@ Figure 14. Flow J, weekly summary for leaders.
 | **Screen** | **What it shows** | **What you can do** |
 |----|----|----|
 | Leaders: Goals | Results, deadlines, risk flags, progress by product | Set priorities, approve Goals, look at risks and performance |
-| Leads: Deliverables | Deliverables, the team Workload view, risk flags, blockers, Incoming Queue | Plan, assign, sort requests, approve leave, hand over work, change scope |
+| Leads: Needs you | What is waiting on them (new requests, reviews, Need Help, leave to approve), this week's team colours, Deliverables at risk | Sort requests, approve leave, plan and lock the week, assign, hand over work, change scope |
 | Employees: Today | Top three priorities, next step, due dates, help needed | Start, Done, Need Help, add work, My week, request leave |
 | Everyone: Calendar | Holidays, meetings, events and deadlines; leads also see team deadlines and leave | Create events, answer invites, open or move work |
 
@@ -923,6 +925,7 @@ Figure 16. Working offline.
 | Set At risk / Off track | Yes | Their own Goals and Deliverables | No (use Need Help) |
 | See risk flags | Yes | Their own area | Flags on their own work |
 | Manage holiday calendars | Yes (admin) | No | No |
+| Manage products, product areas and departments | Yes (admin) | No | No |
 | Create meetings and events | Yes | Yes | Yes |
 | See the team calendar (deadlines, leave, shared events) | Yes | Their teams | Their own calendar and shared events |
 | Change a deadline from the calendar | Their own Goals, or if given the right | Their own area | Their own standalone Tasks; otherwise ask |
@@ -1257,6 +1260,7 @@ Each row is what we build unless we decide otherwise. **Open** rows still need a
 |----|----|----|
 | Planning period | Each department plans weekly; reports cover the whole company; Goals are monthly or quarterly. | Default |
 | Who locks the plan | The department lead, or someone they choose. | Default |
+| Undo after locking | 10 minutes, only while nothing in the week has changed. | Proposed |
 | Is review needed? | Optional for each Deliverable or Task; turned on for work where quality is critical. | Default |
 | Estimates | Small / Medium / Large for staff; hours optional for leads. | Default |
 | Hours per size | Small = 1 hour, Medium = 4 hours, Large = 12 hours; each company can change this. | Proposed |
@@ -1382,6 +1386,8 @@ Figure 17. Signing in and joining a company.
 - English is the default language; other languages, such as Khmer, can be added later (17 October).
 - Chat apps moved to a later stage: the first version sends alerts by push (phone and browser) and the in-app inbox; Telegram, Slack and Microsoft Teams come later with the same messages and buttons (17 October).
 - "Seems urgent" added to Add Work: a hint for the lead, who still decides real urgency when sorting (17 October).
+- After a full review of the web screens: the lead's home is "Needs you", the owner or lead removes Blocked with Unblock, admins manage products and departments, and the blueprint points to the design canvas (17 October).
+- After the design critique (Proposed): locking a week asks for confirmation and can be undone for 10 minutes; a leave request can be withdrawn while it waits (17 October).
 - Mascot renamed from Hop to Punh Punh (14 October).
 - App icon chosen: Punh Checklist, with usage rules in §11 (15 October).
 - First version split into "pilot core" and "soon after"; later-stage features (Workload view for future weeks, temporary Handover, suggested risk flags) marked in the flows and special cases.

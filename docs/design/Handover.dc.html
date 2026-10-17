@@ -31,16 +31,17 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <span style="font-size: 12px; color: #6E6C73">Step 2 of 3 · choose who gets each item</span>
+        <span style="font-size: 12px; color: #6E6C73">{{stepText}}</span>
         <h1 style="margin: 0; font-size: 40px; line-height: 44px; font-weight: 600; letter-spacing: -0.04em">Hand over Sophal Ouk's work</h1>
       </div>
       <ol aria-label="Steps" style="list-style: none; margin: 0; padding: 4px; display: flex; gap: 4px; background: #FFFFFF; border-radius: 999px">
         <li style="height: 40px; padding: 0 14px; border-radius: 999px; display: flex; align-items: center; font-size: 13px; color: #4A4950">1 Reason</li>
-        <li aria-current="step" style="height: 40px; padding: 0 14px; border-radius: 999px; display: flex; align-items: center; font-size: 13px; font-weight: 600; background: #1C1B1F; color: #FFFFFF">2 Items</li>
-        <li style="height: 40px; padding: 0 14px; border-radius: 999px; display: flex; align-items: center; font-size: 13px; color: #4A4950">3 Confirm</li>
+        <li aria-current="{{s2.cur}}" style="height: 40px; padding: 0 14px; border-radius: 999px; display: flex; align-items: center; font-size: 13px; font-weight: 600; background: {{s2.bg}}; color: {{s2.fg}}">2 Items</li>
+        <li aria-current="{{s3.cur}}" style="height: 40px; padding: 0 14px; border-radius: 999px; display: flex; align-items: center; font-size: 13px; font-weight: 600; background: {{s3.bg}}; color: {{s3.fg}}">3 Confirm</li>
       </ol>
     </div>
 
+    <sc-if value="{{isItems}}" hint-placeholder-val="{{true}}">
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
       <section aria-label="Handover summary" style="grid-column: span 12; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px">
         <div style="display: flex; flex-direction: column"><span style="font-size: 12px; color: #6E6C73">Reason</span><span style="font-size: 15px; font-weight: 600">Leaving the company</span></div>
@@ -65,9 +66,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                   <sc-if value="{{it.warn}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; margin-top: 4px; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #FCE3D3; color: #9A3412">{{it.warn}}</span></sc-if>
                 </div>
                 <div role="radiogroup" aria-label="Action" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 999px">
-                  <button type="button" role="radio" aria-checked="{{it.mv}}" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: {{it.mvBg}}; color: {{it.mvFg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Move</button>
-                  <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Keep</button>
-                  <button type="button" role="radio" aria-checked="{{it.cx}}" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: {{it.cxBg}}; color: {{it.cxFg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Cancel</button>
+                  <button type="button" role="radio" aria-checked="{{it.mv}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{it.mvBg}}; color: {{it.mvFg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Move</button>
+                  <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Keep</button>
+                  <button type="button" role="radio" aria-checked="{{it.cx}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{it.cxBg}}; color: {{it.cxFg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Cancel</button>
                 </div>
                 <div style="width: 230px; display: flex; align-items: center; gap: 8px">
                   <span style="flex: 1; height: 40px; padding: 0 14px; border-radius: 14px; background: #F4F3EF; font-size: 13px; display: flex; align-items: center">{{it.to}}</span>
@@ -82,13 +83,51 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <section aria-label="Confirm" style="grid-column: span 12; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
         <span style="flex: 1 1 360px; font-size: 13px; line-height: 18px; color: #4A4950">Locked plans keep Sophal as the original owner. This shows as reassigned, not missed. New owners get the status, blockers and recent comments. Sophal's account can be closed once nothing is left.</span>
         <a href="LeadHome.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back</a>
-        <button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Review 8 items</button>
+        <button type="button" onClick="{{toConfirm}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Review 8 items</button>
       </section>
     </div>
+    </sc-if>
+    <sc-if value="{{isConfirm}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <section aria-labelledby="ho-c-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+          <h2 id="ho-c-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">On Fri 23 Oct, Sophal's work moves to 5 people</h2>
+          <dl style="margin: 0; display: grid; grid-template-columns: minmax(120px, 180px) 1fr; gap: 0 16px; font-size: 15px; line-height: 22px">
+            <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Dara Sok</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Store sales export · Data sync weekly (organizer)</dd>
+            <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Rithy Heng</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Payment webhook retries · <span style="color: #9A3412; font-weight: 600">33h of 32h in week 43</span></dd>
+            <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Pisey Chea</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Store sales dashboard v1 (Deliverable lead)</dd>
+            <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Vannak Prum</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Nightly backup check (routine)</dd>
+            <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Chenda Lim</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Release check-in (organizer)</dd>
+            <dt style="padding: 10px 0; font-weight: 600">Cancelled</dt><dd style="margin: 0; padding: 10px 0; color: #4A4950">Old report clean-up</dd>
+          </dl>
+          <div style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
+            <label for="ho-why" style="font-size: 13px; font-weight: 600">Rithy will have more work than time. Say why it's still right</label>
+            <input id="ho-why" type="text" value="Rithy drops the menu export to week 44" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F">
+          </div>
+          <p style="margin: 0; padding: 14px 16px; border-radius: 22px; background: #F4F3EF; font-size: 13px; line-height: 18px"><strong>Salary file check waits for you.</strong> Dara needs access to this confidential task first, so it stays with Sophal until you decide.</p>
+        </section>
+        <section aria-label="Confirm handover" style="background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+          <span style="flex: 1 1 360px; font-size: 13px; line-height: 18px; color: #4A4950">Everything moves at once. Locked plans keep Sophal as the original owner, so reports show this as reassigned, not missed. New owners get the status, blockers and recent comments, and Sophal is told.</span>
+          <button type="button" onClick="{{toItems}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Back</button>
+          <button type="button" onClick="{{toDone}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Hand over 6 items</button>
+        </section>
+      </div>
+    </sc-if>
+    <sc-if value="{{isDone}}" hint-placeholder-val="{{false}}">
+      <section role="status" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 14px">
+        <h2 style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em">Sophal's work is handed over</h2>
+        <p style="margin: 0; max-width: 68ch; font-size: 15px; line-height: 22px; color: #4A4950">6 items now belong to Dara, Rithy, Pisey, Vannak and Chenda, from Fri 23 Oct. Each of them has the background, and Sophal has been told. Week 43's locked plan still shows Sophal as the original owner.</p>
+        <p style="margin: 0; padding: 14px 16px; border-radius: 22px; background: #FCE3D3; color: #9A3412; font-size: 15px; line-height: 22px"><strong>One item left before Sophal's account can be closed:</strong> Salary file check, waiting for access for Dara.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Give Dara access</button>
+          <a href="LeadHome.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back to Needs you</a>
+        </div>
+      </section>
+    </sc-if>
+
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1180}}'>
+<script type="text/x-dc" data-dc-script data-props='{"step":{"editor":"enum","options":["items","confirm","done"],"default":"items"},"$preview":{"width":1440,"height":1180}}'>
 class Component extends DCLogic {
   renderVals() {
     const cap = {
@@ -105,11 +144,21 @@ class Component extends DCLogic {
         mv: mv ? 'true' : 'false', mvBg: mv ? on.bg : off.bg, mvFg: mv ? on.fg : off.fg,
         cx: mv ? 'false' : 'true', cxBg: mv ? off.bg : on.bg, cxFg: mv ? off.fg : on.fg }, cap[c]);
     };
+    const step = (this.state && this.state.step) || this.props.step || 'items';
+    const stepOn = { cur: 'step', bg: '#1C1B1F', fg: '#FFFFFF' };
+    const stepOff = { cur: 'false', bg: 'transparent', fg: '#4A4950' };
     return {
+      isItems: step === 'items', isConfirm: step === 'confirm', isDone: step === 'done',
+      s2: step === 'items' ? stepOn : stepOff,
+      s3: step === 'items' ? stepOff : stepOn,
+      stepText: step === 'items' ? 'Step 2 of 3 · choose who gets each item' : step === 'confirm' ? 'Step 3 of 3 · check and confirm' : 'Done · Fri 16 Oct, 16:52',
+      toItems: () => this.setState({ step: 'items' }),
+      toConfirm: () => this.setState({ step: 'confirm' }),
+      toDone: () => this.setState({ step: 'done' }),
       groups: [
         { name: 'Open tasks · 4', items: [
           item('Store sales export', 'To Do · due Wed 21 Oct · in week 43 plan', 'Dara Sok', 'balanced', 'move'),
-          item('Payment webhook retries', 'In progress · due Tue 20 Oct · blocked: provider keys', 'Rithy Heng', 'over', 'move', 'Rithy would have too much in week 43 (34h of 32h)'),
+          item('Payment webhook retries', 'In progress · due Tue 20 Oct · blocked: provider keys', 'Rithy Heng', 'over', 'move', 'Rithy would have too much in week 43 (33h of 32h)'),
           item('Salary file check', 'Confidential · due Thu 22 Oct', 'Dara Sok', 'balanced', 'move', 'Dara needs access first. Give access or decide later.'),
           item('Old report clean-up', 'To Do · no due date', '—', 'none', 'cancel')
         ]},
@@ -119,9 +168,9 @@ class Component extends DCLogic {
         { name: 'Routines · 1', items: [
           item('Nightly backup check', 'Working days · by 09:00', 'Vannak Prum', 'room', 'move')
         ]},
-        { name: 'Meetings and team chats · 2', items: [
+        { name: 'Meetings · 2', items: [
           item('Data sync weekly · organizer', 'Repeats Tuesdays 10:00', 'Dara Sok', 'balanced', 'move'),
-          item('Telegram group “Tech alerts”', 'Connected by Sophal', 'Chenda Lim', 'balanced', 'move')
+          item('Release check-in · organizer', 'Repeats monthly, first Monday', 'Chenda Lim', 'balanced', 'move')
         ]}
       ]
     };
