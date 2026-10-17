@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>People</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="admin" current="people" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 20px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; color: #6E6C73">Riverline Co. · 42 people · 5 departments</span>
+        <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">People</h1>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button type="button" style="height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Copy invite link</button>
+        <button type="button" style="height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Invite by email</button>
+      </div>
+    </div>
+
+    <div role="status" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 20px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
+      <span style="flex: 1 1 320px; font-size: 13px; line-height: 18px"><strong>Sophal Ouk can't be deactivated yet.</strong> He still owns 8 items. Hand them over or cancel them first.</span>
+      <a href="Handover.dc.html" style="height: 40px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; text-decoration: none; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Start handover</a>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">
+      <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-size: 13px; font-weight: 600">All · 42</span>
+      <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px">Invited · 3</span>
+      <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px">Suspended · 1</span>
+      <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px">Department ▾</span>
+    </div>
+
+    <section aria-label="People" style="background: #FFFFFF; border-radius: 28px; padding: 8px 24px 16px; min-width: 0">
+      <div style="overflow-x: auto">
+        <table style="width: 100%; min-width: 900px; border-collapse: collapse; font-size: 13px">
+          <thead>
+            <tr style="text-align: left; color: #6E6C73; font-size: 12px">
+              <th scope="col" style="padding: 12px 8px 12px 0; font-weight: 400">Person</th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Role</th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Departments</th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Holidays</th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Work days</th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Status</th>
+              <th scope="col" style="padding: 12px 0 12px 8px; font-weight: 400"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Actions</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{people}}" as="p" hint-placeholder-count="8">
+              <tr style="border-top: 1px solid #F0EEE9">
+                <th scope="row" style="padding: 12px 8px 12px 0; text-align: left; font-weight: 400"><span style="display: flex; align-items: center; gap: 10px"><span style="width: 32px; height: 32px; border-radius: 999px; background: #F4F3EF; color: #4A4950; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{p.init}}</span><span style="display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">{{p.name}}</span><span style="font-size: 12px; color: #6E6C73">{{p.email}}</span></span></span></th>
+                <td style="padding: 12px 8px">{{p.role}}</td>
+                <td style="padding: 12px 8px; color: #4A4950">{{p.depts}}</td>
+                <td style="padding: 12px 8px; color: #4A4950">{{p.cal}}</td>
+                <td style="padding: 12px 8px; color: #4A4950">{{p.days}}</td>
+                <td style="padding: 12px 8px"><span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: {{p.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{p.dot}}"></span>{{p.status}}</span></td>
+                <td style="padding: 12px 0 12px 8px; text-align: right"><button type="button" aria-label="More for {{p.name}}" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"></path></svg></button></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = {
+      active: { status: 'Active', fg: '#1F5E3A', dot: '#2E7D4F' },
+      invited: { status: 'Invited', fg: '#33454F', dot: '#33454F' },
+      leaving: { status: 'Active · leaving 23 Oct', fg: '#9A3412', dot: '#C2410C' },
+      suspended: { status: 'Suspended', fg: '#4A4950', dot: '#6E6C73' }
+    };
+    const p = (name, init, email, role, depts, cal, days, k) => Object.assign({ name, init, email, role, depts, cal, days }, s[k]);
+    return {
+      people: [
+        p('Bopha Meas', 'BM', 'bopha@riverline.example', 'Admin', 'Operations', 'Cambodia', 'Mon–Fri', 'active'),
+        p('Chenda Lim', 'CL', 'chenda@riverline.example', 'Member · leads Technical', 'Technical', 'Cambodia', 'Mon–Fri', 'active'),
+        p('Dara Sok', 'DS', 'dara@riverline.example', 'Member', 'Technical', 'Cambodia', 'Mon–Fri', 'active'),
+        p('Kosal Nhem', 'KN', 'kosal@riverline.example', 'Leadership · leads Marketing', 'Marketing', 'Cambodia', 'Mon–Fri', 'active'),
+        p('Pisey Chea', 'PC', 'pisey@riverline.example', 'Member', 'Technical 60% · Design 40%', 'Cambodia', 'Mon–Fri', 'active'),
+        p('Sokha Meng', 'SM', 'sokha@riverline.example', 'Leadership', '—', 'Cambodia', 'Mon–Fri', 'active'),
+        p('Sophal Ouk', 'SO', 'sophal@riverline.example', 'Member', 'Technical', 'Cambodia', 'Mon–Fri', 'leaving'),
+        p('Sophea Tan', 'ST', 'sophea@riverline.example', 'Member', 'Shops', 'Cambodia', 'Mon–Sat morning', 'active'),
+        p('Linh Tran', 'LT', 'linh@riverline.example', 'Member', 'Design', 'Vietnam office', 'Mon–Fri', 'invited')
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

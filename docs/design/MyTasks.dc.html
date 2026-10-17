@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>My tasks</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.hf-board{grid-template-columns:repeat(4, 280px) !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="employee" current="tasks" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; color: #6E6C73">Week 42 · 12–16 Oct</span>
+        <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">My tasks</h1>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8z"></path></svg>This week</button>
+        <sc-if value="{{notList}}" hint-placeholder-val="{{false}}">
+          <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Group: none</button>
+        </sc-if>
+        <button type="button" aria-pressed="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Show cancelled</button>
+        <div role="radiogroup" aria-label="View" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
+          <sc-for list="{{views}}" as="v" hint-placeholder-count="3">
+            <button type="button" role="radio" aria-checked="{{v.on}}" onClick="{{v.pick}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{v.bg}}; color: {{v.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{v.name}}</button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{isList}}" hint-placeholder-val="{{true}}">
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{columns}}" as="col" hint-placeholder-count="4">
+          <section aria-label="{{col.name}}" style="background: #FFFFFF; border-radius: 28px; padding: 12px 24px 8px; display: flex; flex-direction: column; min-width: 0">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0">
+              <h2 style="margin: 0; font-size: 15px; line-height: 22px; font-weight: 600">{{col.name}}</h2>
+              <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">{{col.count}}</span>
+            </div>
+            <sc-for list="{{col.cards}}" as="card" hint-placeholder-count="2">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 12px 0; border-top: 1px solid #F0EEE9; opacity: {{card.opacity}}">
+                <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                  <a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{card.title}}</a>
+                  <span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{card.where}}</span>
+                </div>
+                <sc-if value="{{card.blocked}}" hint-placeholder-val="{{false}}">
+                  <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>{{card.blocked}}</span>
+                </sc-if>
+                <sc-if value="{{card.confidential}}" hint-placeholder-val="{{false}}">
+                  <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #4A4950"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Confidential</span>
+                </sc-if>
+                <span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #F4F3EF; color: #4A4950">{{card.size}}</span>
+                <span style="width: 56px; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500; color: #4A4950">{{card.due}}</span>
+                <sc-if value="{{card.action}}" hint-placeholder-val="{{true}}">
+                  <button type="button" style="height: 40px; min-width: 76px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{card.action}}</button>
+                </sc-if>
+              </div>
+            </sc-for>
+            <sc-if value="{{col.more}}" hint-placeholder-val="{{false}}">
+              <button type="button" style="align-self: flex-start; height: 44px; border: 0; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">{{col.more}}</button>
+            </sc-if>
+          </section>
+        </sc-for>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Cancelled tasks are hidden. Switch to Board to drag tasks between steps.</p>
+    </sc-if>
+
+    <sc-if value="{{isBoard}}" hint-placeholder-val="{{false}}">
+      <div style="overflow-x: auto; margin: 0 -4px; padding: 0 4px">
+        <div class="hf-board" style="display: grid; grid-template-columns: repeat(4, minmax(240px, 1fr)); gap: 12px; align-items: start">
+          <sc-for list="{{columns}}" as="col" hint-placeholder-count="4">
+            <section aria-label="{{col.name}}" style="background: #FFFFFF; border-radius: 28px; padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 4px 6px 4px">
+                <h2 style="margin: 0; font-size: 15px; line-height: 22px; font-weight: 600">{{col.name}}</h2>
+                <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">{{col.count}}</span>
+              </div>
+              <sc-for list="{{col.cards}}" as="card" hint-placeholder-count="2">
+                <a href="TaskDetail.dc.html" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 22px; background: #F4F3EF; text-decoration: none; color: #1C1B1F; opacity: {{card.opacity}}">
+                  <span style="font-size: 15px; line-height: 20px; font-weight: 600">{{card.title}}</span>
+                  <span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{card.where}}</span>
+                  <sc-if value="{{card.blocked}}" hint-placeholder-val="{{false}}">
+                    <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>{{card.blocked}}</span>
+                  </sc-if>
+                  <div style="display: flex; align-items: center; gap: 8px; margin-top: 2px">
+                    <span style="font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500; color: #4A4950">{{card.due}}</span>
+                    <span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #FFFFFF; color: #4A4950">{{card.size}}</span>
+                    <sc-if value="{{card.confidential}}" hint-placeholder-val="{{false}}">
+                      <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #4A4950"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Confidential</span>
+                    </sc-if>
+                    <span style="margin-left: auto; width: 26px; height: 26px; border-radius: 999px; background: #C9DDE8; color: #33454F; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">DS</span>
+                  </div>
+                </a>
+              </sc-for>
+              <sc-if value="{{col.more}}" hint-placeholder-val="{{false}}">
+                <button type="button" style="height: 44px; border: 0; border-radius: 999px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">{{col.more}}</button>
+              </sc-if>
+            </section>
+          </sc-for>
+        </div>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Drag a card to move it. Dragging to Done sends work that needs a check to Review. Cancelled tasks are hidden.</p>
+    </sc-if>
+
+    <sc-if value="{{isTable}}" hint-placeholder-val="{{false}}">
+      <section aria-label="My tasks table" style="background: #FFFFFF; border-radius: 28px; padding: 8px 24px 16px; min-width: 0">
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 820px; border-collapse: collapse; font-size: 13px">
+            <thead>
+              <tr style="text-align: left; color: #6E6C73; font-size: 12px">
+                <th scope="col" style="padding: 12px 8px 12px 0; font-weight: 400">Task ↕</th>
+                <th scope="col" style="padding: 12px 8px; font-weight: 400">Status ↕</th>
+                <th scope="col" style="padding: 12px 8px; font-weight: 400">Due ↓</th>
+                <th scope="col" style="padding: 12px 8px; font-weight: 400">Size</th>
+                <th scope="col" style="padding: 12px 8px; font-weight: 400">Deliverable</th>
+                <th scope="col" style="padding: 12px 0 12px 8px; font-weight: 400">This week</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{rows}}" as="r" hint-placeholder-count="8">
+                <tr style="border-top: 1px solid #F0EEE9; opacity: {{r.opacity}}">
+                  <th scope="row" style="padding: 12px 8px 12px 0; text-align: left; font-weight: 600; font-size: 15px"><a href="TaskDetail.dc.html" style="text-decoration: none">{{r.title}}</a></th>
+                  <td style="padding: 12px 8px">{{r.status}}</td>
+                  <td style="padding: 12px 8px; font-family: 'Geist Mono', monospace; font-size: 12px; color: #4A4950">{{r.due}}</td>
+                  <td style="padding: 12px 8px; color: #4A4950">{{r.size}}</td>
+                  <td style="padding: 12px 8px; color: #4A4950">{{r.deliverable}}</td>
+                  <td style="padding: 12px 0 12px 8px; color: #4A4950">{{r.week}}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Only your own tasks. Sort by any column; download to Excel from Reports.</p>
+    </sc-if>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"view":{"editor":"enum","options":["list","board","table"],"default":"list"},"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const view = (this.state && this.state.view) || this.props.view || 'list';
+    const views = [['list', 'List'], ['board', 'Board'], ['table', 'Table']].map(([id, name]) => ({
+      name,
+      on: view === id ? 'true' : 'false',
+      bg: view === id ? '#1C1B1F' : 'transparent',
+      fg: view === id ? '#FFFFFF' : '#4A4950',
+      pick: () => this.setState({ view: id })
+    }));
+    const card = (title, where, due, size, extra) => Object.assign({ title, where, due, size, blocked: '', confidential: false, opacity: 1, action: '', status: '', deliverable: '', week: 'Planned' }, extra || {});
+    const columns = [
+      { name: 'To Do', count: '4', more: '', cards: [
+        card('Check menu photos with Design', 'Menu refresh', 'Today', 'Small', { action: 'Start', status: 'To Do', deliverable: 'Menu refresh' }),
+        card('Write release notes', 'Launch In-App Ordering v1', 'Mon 19', 'Small', { action: 'Start', status: 'To Do', deliverable: 'Launch In-App Ordering v1' }),
+        card('Menu sync job tests', 'Menu sync', 'Tue 20', 'Medium', { action: 'Start', status: 'To Do', deliverable: 'Menu sync' }),
+        card('Salary file check', 'Standalone task', 'Thu 22', 'Small', { confidential: true, action: 'Start', status: 'To Do', deliverable: '—' })
+      ]},
+      { name: 'In Progress', count: '2', more: '', cards: [
+        card('Build the checkout API', 'Launch In-App Ordering v1 · Chenda checks it', 'Today', 'Medium', { action: 'Done', status: 'In Progress', deliverable: 'Launch In-App Ordering v1' }),
+        card('Fix receipt printer driver', 'Standalone · added this week', 'Wed 21', 'Large', { blocked: 'Blocked · waiting on vendor', action: 'Done', status: 'In Progress · Blocked', deliverable: '—', week: 'Added' })
+      ]},
+      { name: 'Review', count: '1', more: '', cards: [
+        card('Coupon rules screen', 'Launch In-App Ordering v1 · Chenda checks', 'Fri 16', 'Medium', { status: 'Review', deliverable: 'Launch In-App Ordering v1' })
+      ]},
+      { name: 'Done', count: '7', more: 'See all 7', cards: [
+        card('Fix receipt rounding on the POS', 'Standalone', 'Today', 'Small', { opacity: 0.7, status: 'Done', deliverable: '—', week: 'Added' }),
+        card('Coupon banner text', 'Launch In-App Ordering v1', 'Thu 15', 'Small', { opacity: 0.7, status: 'Done', deliverable: 'Launch In-App Ordering v1' })
+      ]}
+    ];
+    const rows = [];
+    columns.forEach((c) => c.cards.forEach((k) => rows.push(k)));
+    return {
+      views,
+      columns,
+      rows,
+      isList: view === 'list',
+      isBoard: view === 'board',
+      isTable: view === 'table',
+      notList: view !== 'list'
+    };
+  }
+}
+</script>
+</body>
+</html>

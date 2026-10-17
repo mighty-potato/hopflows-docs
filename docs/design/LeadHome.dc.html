@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Needs you</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="lead" current="needs" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; color: #6E6C73">Friday, 16 October · Technical · Week 42</span>
+        <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Needs you</h1>
+      </div>
+      <a href="Main.dc.html" style="height: 44px; display: inline-flex; align-items: center; padding: 0 18px; border-radius: 999px; background: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600">My own Today</a>
+    </div>
+
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+      <section aria-label="Needs you count" style="grid-column: span 4; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; min-height: 280px">
+        <span style="font-size: 13px; font-weight: 600">Waiting on you</span>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">6</span>
+        <span style="font-size: 15px; line-height: 22px; margin-top: auto">4 requests to sort, 1 review, 1 need help. Team looks OK otherwise.</span>
+      </section>
+
+      <section aria-label="Needs you list" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 12px 24px; display: flex; flex-direction: column; min-width: 0">
+        <sc-for list="{{needs}}" as="n" hint-placeholder-count="5">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 0; border-bottom: 1px solid #F0EEE9">
+            <span style="flex: 0 0 auto; min-width: 104px; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; box-sizing: border-box; border-radius: 999px; background: {{n.kbg}}; color: {{n.kfg}}; font-size: 12px; font-weight: 600">{{n.kind}}</span>
+            <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; line-height: 22px; font-weight: 600">{{n.title}}</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{n.meta}}</span></div>
+            <div style="display: flex; gap: 6px">
+              <sc-if value="{{n.second}}" hint-placeholder-val="{{false}}">
+                <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{n.second}}</button>
+              </sc-if>
+              <a href="{{n.href}}" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">{{n.action}}</a>
+            </div>
+          </div>
+        </sc-for>
+        <button type="button" style="align-self: flex-start; height: 44px; margin: 6px 0; padding: 0; border: 0; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">See all 7</button>
+      </section>
+
+      <section aria-label="Team this week" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px">
+          <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Team this week</h2>
+          <a href="Workload.dc.html" style="font-size: 13px; font-weight: 600">Open Workload</a>
+        </div>
+        <sc-for list="{{team}}" as="p" hint-placeholder-count="6">
+          <div style="display: flex; align-items: center; gap: 12px; min-height: 44px">
+            <span style="width: 32px; height: 32px; border-radius: 999px; background: #F4F3EF; color: #4A4950; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{p.init}}</span>
+            <span style="flex: 1; min-width: 0; font-size: 15px">{{p.name}}</span>
+            <sc-if value="{{p.says}}" hint-placeholder-val="{{false}}">
+              <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; border: 1.5px solid #9A3412; color: #9A3412">{{p.says}}</span>
+            </sc-if>
+            <span style="width: 132px; height: 36px; border-radius: 12px; background: {{p.bg}}; color: {{p.fg}}; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{p.word}}</span>
+          </div>
+        </sc-for>
+        <span style="font-size: 12px; color: #6E6C73; margin-top: 4px">Sorted by name. Based on estimates. Hours on tap.</span>
+      </section>
+
+      <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <section aria-label="Deliverables at risk" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
+          <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Deliverables at risk</h2>
+          <a href="Deliverable.dc.html" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none">
+            <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 15px; font-weight: 600">Launch In-App Ordering v1</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #9A3412; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>At risk</span></span>
+            <span style="font-size: 12px; color: #6E6C73">Waiting on others · 7 days · due 30 Nov</span>
+          </a>
+          <a href="Deliverable.dc.html" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 0; text-decoration: none">
+            <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 15px; font-weight: 600">School App sign-up flow</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #9B2C24; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C0352B"></span>Off track</span></span>
+            <span style="font-size: 12px; color: #6E6C73">Scope change · 3 days · due 6 Nov</span>
+          </a>
+        </section>
+        <section aria-label="This week's plan" style="background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px">Week 42 · locked Mon 09:30</span>
+          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">3 tasks added since locking</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px">
+            <a href="Planner.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Plan week 43</a>
+            <a href="WeeklyReview.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; color: #1C1B1F; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Weekly review</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const k = {
+      help: { kbg: '#FCE3D3', kfg: '#9A3412' },
+      plain: { kbg: '#F4F3EF', kfg: '#1C1B1F' }
+    };
+    const need = (kind, tone, title, meta, action, href, second) => Object.assign({ kind, title, meta, action, href, second: second || '' }, k[tone]);
+    const cap = {
+      room: { word: 'Room', bg: '#DCEFE2', fg: '#1F5E3A' },
+      balanced: { word: 'Balanced', bg: '#C9DDE8', fg: '#33454F' },
+      buffer: { word: 'Using buffer', bg: '#FCE3D3', fg: '#9A3412' },
+      over: { word: 'Too much', bg: '#F2B8B2', fg: '#7A1F18' },
+      away: { word: 'Away', bg: 'repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px)', fg: '#4A4950' }
+    };
+    const person = (name, init, c, says) => Object.assign({ name, init, says: says || '' }, cap[c]);
+    return {
+      needs: [
+        need('Need help', 'help', 'Payment webhook times out', 'Rithy Heng · 25 min ago · Launch In-App Ordering v1', 'Open', 'TaskDetail.dc.html'),
+        need('New requests', 'plain', '4 waiting in the Incoming Queue', 'Oldest: 1 day · 1 looks like a duplicate', 'Sort', 'Queue.dc.html'),
+        need('Review', 'plain', 'Coupon rules screen', 'Dara Sok · done 10:50', 'Review', 'TaskDetail.dc.html'),
+        need('Leave', 'plain', 'Dara asks for Thu 22 – Fri 23 Oct', 'Annual · 1 task due in those days', 'Approve', 'Leave.dc.html', 'Decline'),
+        need('Week status', 'plain', 'Vannak says this week is Full', 'His colour shows Room · note: “covering the shop till”', 'Look', 'Workload.dc.html'),
+        need('Routine', 'plain', 'Close shop checklist, Saturday', 'Sreymom and her backup are both away', 'Assign', 'Routines.dc.html')
+      ],
+      team: [
+        person('Dara Sok', 'DS', 'balanced'),
+        person('Pisey Chea', 'PC', 'balanced'),
+        person('Rithy Heng', 'RH', 'buffer'),
+        person('Sophal Ouk', 'SO', 'room'),
+        person('Sreymom Ly', 'SL', 'away'),
+        person('Vannak Prum', 'VP', 'room', 'Says Full')
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

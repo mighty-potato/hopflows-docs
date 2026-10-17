@@ -1,0 +1,55 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HopFlows Soft Bento</title>
+<style>
+  html, body { margin:0; height:100%; }
+  body { background:var(--ground); color:var(--ink); font-family:var(--font-sans); overflow:hidden; }
+  .cover { position:relative; height:288px; overflow:hidden; }
+  .art { position:absolute; top:0; left:480px; width:480px; height:288px; overflow:hidden; }
+  .art svg { display:block; width:480px; height:288px; }
+  .yellow { fill:var(--hop-yellow); }
+  .ink { fill:var(--action); }
+  .sky { fill:var(--sky); }
+  .blush { fill:var(--blush); }
+  .cut { fill:var(--ground); }
+  .track { fill:var(--stone); }
+  .tile { rx:var(--radius-xl); }
+  .pill { rx:14px; }
+  .words { position:absolute; left:var(--space-6); bottom:var(--space-6); max-width:440px; }
+  .name { margin:0; font-size:72px; line-height:.95; font-weight:600; letter-spacing:-.045em; color:var(--ink); }
+  .tag { margin:var(--space-2) 0 0 2px; font-size:14px; line-height:20px; color:var(--ink-muted); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 288" width="480" height="288">
+<!--
+  blocks      hop-yellow 176x268 slab bled off the top (the hero, largest) · action 208x136 · sky 208x46 · blush 100x192 bled off the right edge — about 40% of 960x288
+  arrangement one tall yellow slab with satellites, all bottoms on one line at y=240, space-3 (12px) gutters
+  pattern     pills from "one hero, 2/3 progress": three radius-pill pills on the action tile, two hop-yellow and one stone; four ground discs cut into the slab climbing like hops ("Small steps. Big wins.")
+  scales      gutters space-3; tile corners radius-xl; pills 56x28 at rx 14 (half the short side); discs r=9 on a 32px pitch (space-7 minus space-2)
+-->
+<rect class="yellow tile" x="0" y="-28" width="176" height="268" rx="28"/>
+<circle class="cut" cx="34" cy="196" r="9"/>
+<circle class="cut" cx="66" cy="164" r="9"/>
+<circle class="cut" cx="98" cy="132" r="9"/>
+<circle class="cut" cx="130" cy="100" r="9"/>
+<rect class="ink tile" x="188" y="46" width="208" height="136" rx="28"/>
+<rect class="yellow pill" x="208" y="130" width="56" height="28" rx="14"/>
+<rect class="yellow pill" x="270" y="130" width="56" height="28" rx="14"/>
+<rect class="track pill" x="332" y="130" width="44" height="28" rx="14"/>
+<rect class="sky tile" x="188" y="194" width="208" height="46" rx="23"/>
+<rect class="blush tile" x="408" y="48" width="100" height="192" rx="28"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">HopFlows<br>Soft Bento</h1>
+<p class="tag">Small steps. Big wins.</p>
+</div>
+</div>
+</body>
+</html>

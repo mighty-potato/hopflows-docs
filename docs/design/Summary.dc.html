@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Weekly summary</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="leader" current="summary" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; color: #6E6C73">Monday 12 October · covers week 41 · also sent to Telegram</span>
+        <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Weekly summary</h1>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">‹ Earlier weeks</button>
+        <button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"></path></svg>PDF</button>
+      </div>
+    </div>
+
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+      <section aria-label="Are we on track" style="grid-column: span 5; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-height: 260px; box-sizing: border-box">
+        <span style="font-size: 13px; font-weight: 600">Goals on track</span>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">5/8</span>
+        <span style="font-size: 15px; line-height: 22px; margin-top: auto">Same count as last week: support reply time came back on track, in-app sales slipped to At risk.</span>
+      </section>
+
+      <section aria-label="Goals by status" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; min-width: 0">
+        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">What changed</h2>
+        <sc-for list="{{changes}}" as="c" hint-placeholder-count="4">
+          <a href="GoalDetail.dc.html" style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 12px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none">
+            <span style="flex: 1 1 240px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">{{c.goal}}</span><span style="font-size: 12px; color: #6E6C73">{{c.why}}</span></span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: {{c.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{c.dot}}"></span>{{c.now}}</span>
+          </a>
+        </sc-for>
+      </section>
+
+      <section aria-label="Unplanned work by department" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Surprise work by department</h2>
+          <span style="font-size: 12px; color: #6E6C73">Share of the week's work added after locking · estimated</span>
+        </div>
+        <sc-for list="{{depts}}" as="d" hint-placeholder-count="4">
+          <div style="display: grid; grid-template-columns: 110px 1fr 44px; align-items: center; gap: 12px">
+            <span style="font-size: 13px">{{d.name}}</span>
+            <div style="height: 12px; border-radius: 999px; background: #E7E5DF"><div style="height: 12px; border-radius: 999px; background: {{d.bg}}; width: {{d.w}}"></div></div>
+            <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600; text-align: right">{{d.v}}</span>
+          </div>
+        </sc-for>
+        <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Operations keeps getting shop requests. Its buffer may be too small.</span>
+      </section>
+
+      <section aria-label="Risk flags" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Risk flags</h2>
+        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #9A3412">New</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Launch In-App Ordering v1</strong> · At risk · Waiting on others: payment provider keys late</span></div>
+        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #9B2C24">Still on</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>School App sign-up flow</strong> · Off track · Scope change: schools asked for Khmer forms</span></div>
+        <div style="display: flex; gap: 12px; padding: 10px 0"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #1F5E3A">Cleared</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Support inbox rules</strong> · “Second person joined from Operations”</span></div>
+      </section>
+
+      <section aria-label="Finished and results" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Finished and updated</h2>
+        <div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Deliverable accepted · New app store screenshots</span><span style="font-size: 12px; color: #6E6C73">Design</span></div>
+        <div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Deliverable accepted · Support inbox rules</span><span style="font-size: 12px; color: #6E6C73">Operations</span></div>
+        <div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0"><span style="font-size: 13px">Result · in-app sales +11% → +14%</span><span style="font-size: 12px; color: #6E6C73">Sokha</span></div>
+      </section>
+
+      <section aria-label="Decisions" style="grid-column: span 6; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <h2 style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Decisions waiting · 2</h2>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">Approve Goal: Cut stock-outs by 30%</span><a href="Goals.dc.html" style="height: 40px; padding: 0 14px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Open</a></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">School App: move the date or cut scope?</span><a href="GoalDetail.dc.html" style="height: 40px; padding: 0 14px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Open</a></div>
+      </section>
+    </div>
+    <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">This summary never lists individual tasks or how busy individual people are.</p>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = {
+      ok: { fg: '#1F5E3A', dot: '#2E7D4F' },
+      risk: { fg: '#9A3412', dot: '#C2410C' },
+      off: { fg: '#9B2C24', dot: '#C0352B' }
+    };
+    const c = (goal, why, now, k) => Object.assign({ goal, why, now }, s[k]);
+    const d = (name, pct, k) => ({ name, v: pct + '%', w: Math.round(pct / 40 * 100) + '%', bg: k });
+    return {
+      changes: [
+        c('Cut support reply time to 4 hours', 'Was At risk · flag cleared Thursday', 'On track', 'ok'),
+        c('Increase in-app sales by 20%', 'Was On track · new flag on a Deliverable', 'At risk', 'risk'),
+        c('Onboard 40 pilot schools', 'No change · flag 3 days old', 'Off track', 'off'),
+        c('Reach 25,000 monthly users', 'No change', 'On track', 'ok')
+      ],
+      depts: [
+        d('Operations', 31, '#C2410C'),
+        d('Technical', 13, '#1C1B1F'),
+        d('Marketing', 9, '#1C1B1F'),
+        d('Design', 6, '#1C1B1F')
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

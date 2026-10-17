@@ -1,0 +1,65 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-10-15T18:15:00Z"},
+  "title": "HopFlows Web App",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "SignIn.dc.html": {"x": 0, "y": 0, "w": 1440, "h": 900, "title": "01 · Sign in", "expand": "fill", "is_interactive": true},
+    "Welcome.dc.html": {"x": 1520, "y": 0, "w": 1440, "h": 900, "title": "02 · First steps with Punh Punh", "expand": "fill", "is_interactive": true},
+    "Sidebar.dc.html": {"x": 3040, "y": 0, "w": 232, "h": 1010, "title": "Shared · Sidebar", "is_interactive": true},
+    "Topbar.dc.html": {"x": 3352, "y": 0, "w": 1100, "h": 64, "title": "Shared · Top bar", "is_interactive": true},
+
+    "Main.dc.html": {"x": 0, "y": 1360, "w": 1440, "h": 1100, "title": "03 · Employee · Today", "expand": "fill", "is_interactive": true},
+    "AddWork.dc.html": {"x": 1520, "y": 1360, "w": 1440, "h": 960, "title": "04 · Add Work", "expand": "fill", "is_interactive": true},
+    "TaskDetail.dc.html": {"x": 3040, "y": 1360, "w": 1440, "h": 1180, "title": "05 · Task", "expand": "fill", "is_interactive": true},
+    "MyTasks.dc.html": {"x": 4560, "y": 1360, "w": 1440, "h": 1000, "title": "06 · My tasks", "expand": "fill", "is_interactive": true},
+    "MyRequests.dc.html": {"x": 6080, "y": 1360, "w": 1440, "h": 1000, "title": "07 · My requests", "expand": "fill", "is_interactive": true},
+    "Leave.dc.html": {"x": 7600, "y": 1360, "w": 1440, "h": 1100, "title": "08 · My week & leave", "expand": "fill", "is_interactive": true},
+    "NeedHelp.dc.html": {"x": 9120, "y": 1360, "w": 1440, "h": 960, "title": "05b · Need help", "expand": "fill", "is_interactive": true},
+
+    "LeadHome.dc.html": {"x": 0, "y": 2940, "w": 1440, "h": 1100, "title": "09 · Lead · Needs you", "expand": "fill", "is_interactive": true},
+    "Queue.dc.html": {"x": 1520, "y": 2940, "w": 1440, "h": 1120, "title": "10 · Incoming Queue · Sort", "expand": "fill", "is_interactive": true},
+    "Planner.dc.html": {"x": 3040, "y": 2940, "w": 1440, "h": 1160, "title": "11 · Weekly plan · Lock the week", "expand": "fill", "is_interactive": true},
+    "Workload.dc.html": {"x": 4560, "y": 2940, "w": 1440, "h": 1000, "title": "12 · Workload view", "expand": "fill", "is_interactive": true},
+    "Deliverable.dc.html": {"x": 6080, "y": 2940, "w": 1440, "h": 1240, "title": "13 · Deliverable & risk flag", "expand": "fill", "is_interactive": true},
+    "WeeklyReview.dc.html": {"x": 7600, "y": 2940, "w": 1440, "h": 1160, "title": "14 · Weekly review", "expand": "fill", "is_interactive": true},
+    "Handover.dc.html": {"x": 9120, "y": 2940, "w": 1440, "h": 1180, "title": "15 · Handover", "expand": "fill", "is_interactive": true},
+    "Routines.dc.html": {"x": 10640, "y": 2940, "w": 1440, "h": 1100, "title": "16 · Routines", "expand": "fill", "is_interactive": true},
+    "TeamTable.dc.html": {"x": 12160, "y": 2940, "w": 1440, "h": 1000, "title": "17 · Team tasks · Table", "expand": "fill", "is_interactive": true},
+
+    "Goals.dc.html": {"x": 0, "y": 4580, "w": 1440, "h": 1100, "title": "18 · Leader · Goals", "expand": "fill", "is_interactive": true},
+    "GoalDetail.dc.html": {"x": 1520, "y": 4580, "w": 1440, "h": 1180, "title": "19 · Goal", "expand": "fill", "is_interactive": true},
+    "Summary.dc.html": {"x": 3040, "y": 4580, "w": 1440, "h": 1240, "title": "20 · Weekly summary for leaders", "expand": "fill", "is_interactive": true},
+
+    "Calendar.dc.html": {"x": 0, "y": 6220, "w": 1440, "h": 1160, "title": "21 · Calendar · Month", "expand": "fill", "is_interactive": true},
+    "Inbox.dc.html": {"x": 1520, "y": 6220, "w": 1440, "h": 1000, "title": "22 · Inbox", "expand": "fill", "is_interactive": true},
+    "Search.dc.html": {"x": 3040, "y": 6220, "w": 1440, "h": 960, "title": "23 · Search", "expand": "fill", "is_interactive": true},
+    "Reports.dc.html": {"x": 4560, "y": 6220, "w": 1440, "h": 1100, "title": "24 · Reports", "expand": "fill", "is_interactive": true},
+    "Settings.dc.html": {"x": 6080, "y": 6220, "w": 1440, "h": 1200, "title": "25 · Alerts & Telegram", "expand": "fill", "is_interactive": true},
+
+    "People.dc.html": {"x": 0, "y": 7820, "w": 1440, "h": 1040, "title": "26 · Admin · People", "expand": "fill", "is_interactive": true},
+    "Holidays.dc.html": {"x": 1520, "y": 7820, "w": 1440, "h": 1040, "title": "27 · Admin · Holiday calendars", "expand": "fill", "is_interactive": true},
+    "Org.dc.html": {"x": 3040, "y": 7820, "w": 1440, "h": 1040, "title": "28 · Admin · Products & teams", "expand": "fill", "is_interactive": true}
+  },
+  "order": [
+    "Main.dc.html",
+    "SignIn.dc.html", "Welcome.dc.html", "Sidebar.dc.html", "Topbar.dc.html",
+    "AddWork.dc.html", "TaskDetail.dc.html", "MyTasks.dc.html", "MyRequests.dc.html", "Leave.dc.html", "NeedHelp.dc.html",
+    "LeadHome.dc.html", "Queue.dc.html", "Planner.dc.html", "Workload.dc.html", "Deliverable.dc.html", "WeeklyReview.dc.html", "Handover.dc.html", "Routines.dc.html", "TeamTable.dc.html",
+    "Goals.dc.html", "GoalDetail.dc.html", "Summary.dc.html",
+    "Calendar.dc.html", "Inbox.dc.html", "Search.dc.html", "Reports.dc.html", "Settings.dc.html",
+    "People.dc.html", "Holidays.dc.html", "Org.dc.html"
+  ],
+  "notes": {
+    "t0": {"x": 0, "y": -300, "text": "Get started · shared parts", "kind": "title1", "maxW": 4452},
+    "t1": {"x": 0, "y": 1060, "text": "Employee · What should I do next?", "kind": "title1", "maxW": 10560},
+    "t2": {"x": 0, "y": 2640, "text": "Lead · Is my team OK, and what needs me?", "kind": "title1", "maxW": 13600},
+    "t3": {"x": 0, "y": 4280, "text": "Leader · Are we on track with our Goals?", "kind": "title1", "maxW": 4480},
+    "t4": {"x": 0, "y": 5920, "text": "Everyone · Calendar, Inbox, Search, Reports, Alerts", "kind": "title1", "maxW": 7520},
+    "t5": {"x": 0, "y": 7520, "text": "Admin · People, holidays, products and teams", "kind": "title1", "maxW": 4480}
+  },
+  "designSystems": [
+    {"title": "HopFlows Soft Bento", "namespace": "hopflows", "artifact": "https://claude.ai/code/artifact/a75ba11a-1d90-45f8-9d27-0963f7c80a30", "version": "1792087436-1d6b", "copiedAt": "2026-10-15T18:15:00Z"}
+  ]
+}

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Search</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="employee" current="none" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 20px">
+    <form role="search" style="display: flex; gap: 8px; align-items: center">
+      <label for="q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search</label>
+      <div style="flex: 1; min-width: 0; height: 64px; display: flex; align-items: center; gap: 12px; padding: 0 20px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 2px #1C1B1F">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <input id="q" type="search" value="{{q}}" placeholder="Search tasks, people, events…" style="flex: 1; min-width: 0; height: 56px; border: 0; background: transparent; font-family: inherit; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; color: #1C1B1F; outline: none">
+        <sc-if value="{{typed}}" hint-placeholder-val="{{true}}"><span style="font-size: 12px; color: #6E6C73">7 results</span></sc-if>
+      </div>
+      <a href="Main.dc.html" style="height: 48px; padding: 0 18px; border-radius: 999px; background: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Close</a>
+    </form>
+
+    <sc-if value="{{notTyped}}" hint-placeholder-val="{{false}}">
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+      <sc-for list="{{before}}" as="g" hint-placeholder-count="2">
+        <section aria-label="{{g.name}}" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; min-width: 0">
+          <h2 style="margin: 0 0 6px; font-size: 13px; line-height: 18px; font-weight: 600; color: #4A4950">{{g.name}}</h2>
+          <sc-for list="{{g.items}}" as="r" hint-placeholder-count="3">
+            <a href="{{r.href}}" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none">
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; line-height: 22px; font-weight: 600">{{r.title}}</span><span style="font-size: 12px; color: #6E6C73">{{r.meta}}</span></span>
+              <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; white-space: nowrap">{{r.status}}</span>
+            </a>
+          </sc-for>
+        </section>
+      </sc-for>
+    </div>
+    <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Start typing to search everything you're allowed to see, in English or Khmer.</p>
+    </sc-if>
+
+    <sc-if value="{{typed}}" hint-placeholder-val="{{true}}">
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">
+      <button type="button" aria-pressed="true" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Everything</button>
+      <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Tasks · 3</button>
+      <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Deliverables · 1</button>
+      <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Requests · 1</button>
+      <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Events · 1</button>
+      <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">People · 1</button>
+      <span style="width: 1px; background: #E7E5DF; margin: 0 4px"></span>
+      <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Status ▾</button>
+      <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Person ▾</button>
+      <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Date ▾</button>
+    </div>
+
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+      <sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+        <section aria-label="{{g.name}}" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; min-width: 0">
+          <h2 style="margin: 0 0 6px; font-size: 13px; line-height: 18px; font-weight: 600; color: #4A4950">{{g.name}}</h2>
+          <sc-for list="{{g.items}}" as="r" hint-placeholder-count="2">
+            <sc-if value="{{r.href}}" hint-placeholder-val="{{true}}">
+              <a href="{{r.href}}" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none">
+                <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; line-height: 22px; font-weight: 600">{{r.title}}</span><span style="font-size: 12px; color: #6E6C73">{{r.meta}}</span></span>
+                <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; white-space: nowrap">{{r.status}}</span>
+              </a>
+            </sc-if>
+            <sc-if value="{{r.plain}}" hint-placeholder-val="{{false}}">
+              <div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F0EEE9">
+                <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; line-height: 22px; font-weight: 600">{{r.title}}</span><span style="font-size: 12px; color: #6E6C73">{{r.meta}}</span></span>
+                <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; white-space: nowrap">{{r.status}}</span>
+              </div>
+            </sc-if>
+          </sc-for>
+        </section>
+      </sc-for>
+    </div>
+    <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Finds words in English and Khmer, including inside Khmer words. Only shows what you're allowed to see.</p>
+    </sc-if>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"typed":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const typed = this.props.typed ?? true;
+    const r = (title, meta, status, href) => ({ title, meta, status, href: href || '', plain: !href });
+    return {
+      typed,
+      notTyped: !typed,
+      q: typed ? 'checkout' : '',
+      before: [
+        { name: 'Your open work', items: [
+          r('Build the checkout API', 'Due today 17:00 · In Progress', 'Top 3', 'TaskDetail.dc.html'),
+          r('Check menu photos with Design', 'Due today · To Do', 'Top 3', 'TaskDetail.dc.html'),
+          r('Write release notes', 'Due Mon 19 · To Do', 'To Do', 'TaskDetail.dc.html')
+        ]},
+        { name: 'Recently opened', items: [
+          r('Launch In-App Ordering v1', 'Deliverable · Chenda Lim', 'At risk', 'Deliverable.dc.html'),
+          r('Coupon breaks payment at checkout', 'Your request · today', 'Task for Rithy', 'MyRequests.dc.html'),
+          r('Checkout API sync', 'Today 14:30 · Room 2', 'Meeting', 'Calendar.dc.html')
+        ]}
+      ],
+      groups: [
+        { name: 'Tasks', items: [
+          r('Build the checkout API', 'Dara Sok · due today', 'In Progress', 'TaskDetail.dc.html'),
+          r('Checkout error messages in Khmer', 'Pisey Chea · due Fri 30 Oct', 'To Do', 'TaskDetail.dc.html'),
+          r('Checkout page speed', 'Vannak Prum · done 7 Oct', 'Done', 'TaskDetail.dc.html')
+        ]},
+        { name: 'Requests', items: [
+          r('Coupon breaks payment at checkout', 'Your request · today', 'Task for Rithy', 'MyRequests.dc.html')
+        ]},
+        { name: 'Deliverables', items: [
+          r('Launch In-App Ordering v1', 'Includes the checkout · Chenda Lim', 'At risk', 'Deliverable.dc.html')
+        ]},
+        { name: 'Events and people', items: [
+          r('Checkout API sync', 'Today 14:30 · Room 2', 'Meeting', 'Calendar.dc.html'),
+          r('Rithy Heng', 'Technical · helps on Build the checkout API', 'Person', '')
+        ]}
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

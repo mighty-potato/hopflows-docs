@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Need help</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.hf-dialog{padding:20px !important}
+}
+</style>
+</helmet>
+<div style="position: relative; min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="employee" current="tasks" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span style="font-size: 12px; color: #6E6C73">Launch In-App Ordering v1 › Task</span>
+      <span style="font-size: 40px; line-height: 44px; font-weight: 600; letter-spacing: -0.04em">Build the checkout API</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px" aria-hidden="true">
+      <div style="grid-column: span 8; height: 260px; border-radius: 28px; background: #FFFFFF"></div>
+      <div style="grid-column: span 4; height: 260px; border-radius: 28px; background: #FFFFFF"></div>
+      <div style="grid-column: span 8; height: 360px; border-radius: 28px; background: #FFFFFF"></div>
+      <div style="grid-column: span 4; height: 360px; border-radius: 28px; background: #FFFFFF"></div>
+    </div>
+  </main>
+
+  <div style="position: absolute; inset: 0; background: rgba(28,27,31,0.48); display: flex; align-items: flex-start; justify-content: center; padding: 72px 16px; box-sizing: border-box">
+    <section role="dialog" aria-modal="true" aria-labelledby="nh-title" class="hf-dialog" style="width: 100%; max-width: 600px; background: #FFFFFF; border-radius: 28px; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+          <h1 id="nh-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Need help</h1>
+          <span style="font-size: 13px; line-height: 18px; color: #6E6C73">Build the checkout API · due today 17:00</span>
+        </div>
+        <a href="TaskDetail.dc.html" aria-label="Close" style="width: 44px; height: 44px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
+      </div>
+
+      <sc-if value="{{asking}}" hint-placeholder-val="{{true}}">
+        <div role="radiogroup" aria-label="What's in the way?" style="display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 13px; line-height: 18px; font-weight: 600">What's in the way?</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <button type="button" role="radio" aria-checked="true" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Waiting on someone</button>
+            <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Missing access or info</button>
+            <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Not sure how</button>
+            <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Too much on my plate</button>
+            <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Other</button>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="nh-who" style="font-size: 13px; line-height: 18px; font-weight: 600">Who can unblock it? <span style="font-weight: 400; color: #6E6C73">· optional</span></label>
+          <input id="nh-who" type="text" value="Payment provider support (outside the company)" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F">
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="nh-note" style="font-size: 13px; line-height: 18px; font-weight: 600">Note <span style="font-weight: 400; color: #6E6C73">· optional</span></label>
+          <textarea id="nh-note" rows="3" style="box-sizing: border-box; padding: 14px 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; line-height: 22px; color: #1C1B1F; resize: vertical">The sandbox returns an error when a coupon makes the total zero. I've emailed them, no answer yet.</textarea>
+        </div>
+
+        <div style="display: flex; align-items: flex-start; gap: 10px; padding: 14px 16px; border-radius: 22px; background: #F4F3EF; font-size: 13px; line-height: 18px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+          <span><strong>Chenda is told right away</strong>, in the app and Telegram. The task stays In Progress with a Blocked marker, so nobody loses track of where it stopped.</span>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px">
+          <a href="TaskDetail.dc.html" style="height: 48px; padding: 0 22px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Cancel</a>
+          <button type="button" onClick="{{send}}" style="height: 48px; padding: 0 28px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Send to Chenda</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
+        <div role="status" style="display: flex; flex-direction: column; gap: 14px">
+          <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 13px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>Blocked · waiting on payment provider</span>
+          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Chenda knows. You'll hear back here and in Telegram.</span>
+          <span style="font-size: 15px; line-height: 22px; color: #4A4950">Keep going with your next task in the meantime. When it's sorted, tap Unblock on the task.</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px">
+          <a href="TaskDetail.dc.html" style="height: 48px; padding: 0 22px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back to the task</a>
+          <a href="Main.dc.html" style="height: 48px; padding: 0 28px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back to Today</a>
+        </div>
+      </sc-if>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"sent":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const sent = (this.state && this.state.sent) || (this.props.sent ?? false);
+    return {
+      sent,
+      asking: !sent,
+      send: () => this.setState({ sent: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

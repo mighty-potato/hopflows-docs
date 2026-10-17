@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Workload</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="lead" current="workload" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; color: #6E6C73">Technical · who has room, and who has too much?</span>
+        <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Workload</h1>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Department: Technical</button>
+        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">4 weeks</button>
+      </div>
+    </div>
+
+    <ul aria-label="Legend" style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px">
+      <li style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: #DCEFE2; color: #1F5E3A; font-size: 13px; font-weight: 600">Room · under 70%</li>
+      <li style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: #C9DDE8; color: #33454F; font-size: 13px; font-weight: 600">Balanced · 70–100%</li>
+      <li style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: #FCE3D3; color: #9A3412; font-size: 13px; font-weight: 600">Using buffer</li>
+      <li style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: #F2B8B2; color: #7A1F18; font-size: 13px; font-weight: 600">Too much</li>
+      <li style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px); color: #4A4950; font-size: 13px; font-weight: 600">Away</li>
+    </ul>
+
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+      <section aria-label="Workload grid" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; min-width: 0">
+        <div style="overflow-x: auto">
+          <div style="min-width: 620px; display: flex; flex-direction: column; gap: 8px">
+            <div style="display: grid; grid-template-columns: 180px repeat(4, minmax(0, 1fr)); gap: 8px; font-size: 12px; color: #6E6C73">
+              <span>Person</span><span style="font-weight: 600; color: #1C1B1F">Wk 42 · this week</span><span>Wk 43 · 19 Oct</span><span>Wk 44 · 26 Oct</span><span>Wk 45 · 2 Nov</span>
+            </div>
+            <sc-for list="{{rows}}" as="row" hint-placeholder-count="6">
+              <div style="display: grid; grid-template-columns: 180px repeat(4, minmax(0, 1fr)); gap: 8px; align-items: center">
+                <span style="display: flex; flex-direction: column; min-width: 0"><span style="font-size: 15px; font-weight: 600">{{row.name}}</span><span style="font-size: 12px; color: #6E6C73">{{row.note}}</span></span>
+                <sc-for list="{{row.cells}}" as="c" hint-placeholder-count="4">
+                  <button type="button" style="position: relative; height: 56px; border: 0; border-radius: 12px; background: {{c.bg}}; color: {{c.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; box-shadow: {{c.ring}}; cursor: pointer">{{c.word}}<sc-if value="{{c.says}}" hint-placeholder-val="{{false}}"><span style="position: absolute; top: 4px; right: 6px; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 999px; background: #FFFFFF; color: #9A3412">{{c.says}}</span></sc-if></button>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <p style="margin: 14px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Sorted by name. Worked out from estimates each time you open it, never saved as a score. Teammates never see each other's colours.</p>
+      </section>
+
+      <section aria-label="Rithy, week 42" style="grid-column: span 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 12px; color: #6E6C73">Rithy Heng · Week 42</span>
+          <span style="align-self: flex-start; display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: #FCE3D3; color: #9A3412; font-size: 13px; font-weight: 600">Using buffer</span>
+        </div>
+        <dl style="margin: 0; display: grid; grid-template-columns: 1fr auto; font-size: 13px; line-height: 18px">
+          <dt style="padding: 8px 0; color: #4A4950">Working week</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">40h</dd>
+          <dt style="padding: 8px 0; color: #4A4950">Meetings and time off</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">−8h</dd>
+          <dt style="padding: 8px 0; border-top: 1px solid #F0EEE9; font-weight: 600">Available</dt><dd style="margin: 0; padding: 8px 0; border-top: 1px solid #F0EEE9; font-family: 'Geist Mono', monospace; font-weight: 600; text-align: right">32h</dd>
+          <dt style="padding: 8px 0; color: #4A4950">Buffer</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">−8h</dd>
+          <dt style="padding: 8px 0; border-top: 1px solid #F0EEE9; font-weight: 600">Time to plan</dt><dd style="margin: 0; padding: 8px 0; border-top: 1px solid #F0EEE9; font-family: 'Geist Mono', monospace; font-weight: 600; text-align: right">24h</dd>
+          <dt style="padding: 8px 0; color: #4A4950">Planned</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">24h</dd>
+          <dt style="padding: 8px 0; color: #4A4950">Added after locking</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">+6h</dd>
+          <dt style="padding: 8px 0; border-top: 1px solid #F0EEE9; font-weight: 600">Total work</dt><dd style="margin: 0; padding: 8px 0; border-top: 1px solid #F0EEE9; font-family: 'Geist Mono', monospace; font-weight: 600; text-align: right">30h</dd>
+        </dl>
+        <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Estimated · 1 task has no estimate</span>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <a href="TeamTable.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Move work</a>
+          <a href="TeamTable.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Open his tasks</a>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const cap = {
+      room: { word: 'Room', bg: '#DCEFE2', fg: '#1F5E3A' },
+      balanced: { word: 'Balanced', bg: '#C9DDE8', fg: '#33454F' },
+      buffer: { word: 'Using buffer', bg: '#FCE3D3', fg: '#9A3412' },
+      over: { word: 'Too much', bg: '#F2B8B2', fg: '#7A1F18' },
+      away: { word: 'Away', bg: 'repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px)', fg: '#4A4950' }
+    };
+    const cell = (c, says, selected) => Object.assign({ says: says || '', ring: selected ? 'inset 0 0 0 2px #1C1B1F' : 'none' }, cap[c]);
+    const row = (name, note, cells) => ({ name, note, cells });
+    return {
+      rows: [
+        row('Chenda Lim', 'Lead', [cell('balanced'), cell('balanced'), cell('room'), cell('room')]),
+        row('Dara Sok', '', [cell('balanced'), cell('balanced'), cell('room'), cell('room')]),
+        row('Pisey Chea', 'Technical 60%', [cell('balanced'), cell('room'), cell('room'), cell('away')]),
+        row('Rithy Heng', '', [cell('buffer', '', true), cell('buffer'), cell('balanced'), cell('room')]),
+        row('Sreymom Ly', '', [cell('away'), cell('away'), cell('balanced'), cell('room')]),
+        row('Vannak Prum', '', [cell('room', 'Says Full'), cell('over'), cell('balanced'), cell('room')])
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

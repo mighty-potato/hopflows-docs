@@ -1,0 +1,17 @@
+<!-- @dsCard group="Actions" height=96 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Button</title></head>
+<body style="margin:0">
+<div id="root" class="hf-stage"></div>
+<script>
+  var H = window.HopFlows, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(H.Button, null, 'Start'),
+    h(H.Button, { variant: 'secondary' }, 'Need help'),
+    h(H.Button, { variant: 'accent' }, 'All clear'),
+    h(H.Button, { variant: 'ghost', size: 'sm' }, 'Reschedule'),
+    h(H.Button, { variant: 'primary', size: 'sm', disabled: true }, 'Done')));
+</script>
+</body>
+</html>

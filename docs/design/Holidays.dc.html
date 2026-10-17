@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Holiday calendars</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="admin" current="holidays" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; color: #6E6C73">Days off that lower everyone's working time</span>
+        <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Holiday calendars</h1>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button type="button" style="height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Load 2027 public holidays</button>
+        <button type="button" style="height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Add a day off</button>
+      </div>
+    </div>
+
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+      <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <button type="button" aria-pressed="true" style="display: flex; flex-direction: column; gap: 4px; padding: 20px 24px; border: 0; border-radius: 28px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; text-align: left; cursor: pointer">
+          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Cambodia</span>
+          <span style="font-size: 12px; opacity: 0.8">Main calendar · 38 people</span>
+        </button>
+        <button type="button" aria-pressed="false" style="display: flex; flex-direction: column; gap: 4px; padding: 20px 24px; border: 0; border-radius: 28px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; text-align: left; cursor: pointer">
+          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Vietnam office</span>
+          <span style="font-size: 12px; color: #6E6C73">4 people</span>
+        </button>
+        <section aria-label="How holidays work" style="background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 15px; font-weight: 600; color: #1C1B1F">Add lunar holidays each year</span>
+          <span style="font-size: 13px; line-height: 18px">Khmer New Year, Pchum Ben and the Water Festival move every year. A new holiday lowers available time for that week; locked plans stay as they are and the change shows in the weekly review.</span>
+        </section>
+      </div>
+
+      <section aria-label="Cambodia 2026" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; min-width: 0">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px">
+          <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Cambodia · rest of 2026</h2>
+          <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Show earlier this year · 14</button>
+        </div>
+        <sc-for list="{{days}}" as="d" hint-placeholder-count="5">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 14px 0; border-bottom: 1px solid #F0EEE9">
+            <span style="width: 120px; font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">{{d.date}}</span>
+            <span style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">{{d.name}}</span><span style="font-size: 12px; color: #6E6C73">{{d.note}}</span></span>
+            <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: {{d.bg}}; color: {{d.fg}}">{{d.kind}}</span>
+            <button type="button" aria-label="Edit {{d.name}}" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"></path></svg></button>
+          </div>
+        </sc-for>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const k = {
+      pub: { kind: 'Public', bg: '#F4F3EF', fg: '#1C1B1F' },
+      co: { kind: 'Company', bg: '#F9D3DE', fg: '#6E4850' },
+      check: { kind: 'Date to confirm', bg: '#FCE3D3', fg: '#9A3412' }
+    };
+    const d = (date, name, note, t) => Object.assign({ date, name, note }, k[t]);
+    return {
+      days: [
+        d('Thu 15 Oct', "King Father's Commemoration Day", 'Whole day', 'pub'),
+        d('Thu 29 Oct', 'Coronation Day', 'Whole day', 'pub'),
+        d('Mon 9 Nov', 'Independence Day', 'Whole day', 'pub'),
+        d('[3 days, Nov]', 'Water Festival', 'Follows the lunar calendar · add the dates', 'check'),
+        d('Fri 18 Dec', 'Company retreat', 'Half day · afternoon', 'co')
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

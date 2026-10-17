@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Routines</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="lead" current="routines" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span style="font-size: 12px; color: #6E6C73">Technical · work that repeats</span>
+      <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Routines</h1>
+    </div>
+
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+      <section aria-label="Team routines" style="grid-column: span 7; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <sc-for list="{{routines}}" as="r" hint-placeholder-count="4">
+          <article style="background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 8px">
+              <div style="display: flex; flex-direction: column; gap: 2px">
+                <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{r.title}}</h2>
+                <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{r.when}}</span>
+              </div>
+              <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: {{r.bg}}; color: {{r.fg}}; font-size: 13px; font-weight: 600">{{r.state}}</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px">
+              <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{r.who}}</span>
+              <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{r.backup}}</span>
+              <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{r.steps}}</span>
+              <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{r.holidays}}</span>
+            </div>
+            <span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{r.rate}}</span>
+          </article>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="new-r" style="grid-column: span 5; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px; min-width: 0">
+        <h2 id="new-r" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">New routine</h2>
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-title" style="font-size: 13px; font-weight: 600">Title</label><input id="r-title" type="text" value="Check payment errors log" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span id="r-rep" style="font-size: 13px; font-weight: 600">Repeats</span>
+          <div role="radiogroup" aria-labelledby="r-rep" style="display: flex; flex-wrap: wrap; gap: 6px">
+            <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Every day</button>
+            <button type="button" role="radio" aria-checked="true" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Working days</button>
+            <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Chosen weekdays</button>
+            <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">A day each month</button>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-by" style="font-size: 13px; font-weight: 600">Done by</label><input id="r-by" type="text" value="10:00" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: 'Geist Mono', monospace; font-size: 15px; color: #1C1B1F"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-est" style="font-size: 13px; font-weight: 600">Estimate</label><select id="r-est" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>15 min</option><option>30 min</option><option>1 hour</option></select></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span id="r-who" style="font-size: 13px; font-weight: 600">Who does it</span>
+          <div role="radiogroup" aria-labelledby="r-who" style="display: flex; padding: 4px; gap: 4px; background: #F4F3EF; border-radius: 999px; align-self: flex-start">
+            <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">One person</button>
+            <button type="button" role="radio" aria-checked="true" style="height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Take turns</button>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px">
+            <span style="padding: 8px 12px; border-radius: 999px; background: #C9DDE8; color: #33454F; font-size: 13px; font-weight: 600">1 · Rithy</span>
+            <span style="padding: 8px 12px; border-radius: 999px; background: #C9DDE8; color: #33454F; font-size: 13px; font-weight: 600">2 · Vannak</span>
+            <span style="padding: 8px 12px; border-radius: 999px; background: #C9DDE8; color: #33454F; font-size: 13px; font-weight: 600">3 · Dara</span>
+            <button type="button" style="height: 36px; padding: 0 12px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">+ Add</button>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-backup" style="font-size: 13px; font-weight: 600">Backup</label><select id="r-backup" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Pisey Chea</option><option>Chenda Lim</option></select></div>
+        <label style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; font-size: 15px">Runs on holidays<input type="checkbox" style="width: 22px; height: 22px; accent-color: #1C1B1F"></label>
+        <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Shows in each person's Today under “Routine today”. Not done in time closes as Missed. Changes only affect future days.</span>
+        <button type="button" style="height: 48px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Create routine</button>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = {
+      on: { state: 'On', bg: '#DCEFE2', fg: '#1F5E3A' },
+      paused: { state: 'Paused', bg: '#F4F3EF', fg: '#4A4950' },
+      gap: { state: 'Nobody this Saturday', bg: '#FCE3D3', fg: '#9A3412' }
+    };
+    const r = (title, when, who, backup, steps, holidays, rate, s) => Object.assign({ title, when, who, backup, steps, holidays, rate }, st[s]);
+    return {
+      routines: [
+        r('Open shop checklist', 'Every day · by 09:00 · 20 min', 'Takes turns: Sreymom, Vannak, Dara', 'Backup: Pisey', '5 steps', 'Runs on holidays', 'On time this month: 96% · team rate', 'on'),
+        r('Close shop checklist', 'Every day · by 21:00 · 20 min', 'Takes turns: Sreymom, Vannak', 'Backup: Sreymom (away)', '6 steps', 'Runs on holidays', 'Saturday has nobody: owner and backup are away', 'gap'),
+        r('Daily stand-up notes', 'Working days · by 10:00 · 15 min', 'Dara Sok', 'Backup: Rithy', '3 steps', 'Skips holidays', 'On time this month: 88% · team rate', 'on'),
+        r('Month-end server costs', '1st of each month · by 17:00 · 1 hour', 'Chenda Lim', 'No backup', '4 steps', 'Skips holidays', 'Paused since September', 'paused')
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

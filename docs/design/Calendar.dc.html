@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Calendar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="employee" current="calendar" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 20px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px; color: #6E6C73">Calendar · Cambodia holidays</span>
+          <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">October 2026</h1>
+        </div>
+        <div style="display: flex; gap: 4px">
+          <button type="button" aria-label="Previous month" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+          <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Today</button>
+          <button type="button" aria-label="Next month" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+        </div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <div role="radiogroup" aria-label="View" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
+          <button type="button" role="radio" aria-checked="true" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Month</button>
+          <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Week</button>
+          <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">List</button>
+        </div>
+        <button type="button" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>New event</button>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+      <span style="font-size: 12px; color: #6E6C73; margin-right: 4px">Show</span>
+      <label style="display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px"><input type="checkbox" checked style="accent-color: #1C1B1F">Holidays</label>
+      <label style="display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; background: #C9DDE8; color: #33454F; font-size: 13px"><input type="checkbox" checked style="accent-color: #1C1B1F">Meetings</label>
+      <label style="display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; background: #F9D3DE; color: #6E4850; font-size: 13px"><input type="checkbox" checked style="accent-color: #1C1B1F">Events</label>
+      <label style="display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px; box-shadow: inset 0 0 0 1.5px #1C1B1F"><input type="checkbox" checked style="accent-color: #1C1B1F">Deadlines · Mine</label>
+      <label style="display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; background: repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px); font-size: 13px"><input type="checkbox" checked style="accent-color: #1C1B1F">Leave</label>
+    </div>
+
+    <section aria-label="October 2026" style="background: #FFFFFF; border-radius: 28px; padding: 16px; min-width: 0">
+      <div style="overflow-x: auto">
+        <div style="min-width: 760px">
+          <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; padding: 0 0 8px">
+            <sc-for list="{{dows}}" as="d" hint-placeholder-count="7"><span style="padding: 0 8px; font-size: 12px; color: #6E6C73">{{d}}</span></sc-for>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px">
+            <sc-for list="{{days}}" as="day" hint-placeholder-count="35">
+              <div style="min-height: 118px; box-sizing: border-box; padding: 8px; border-radius: 16px; background: {{day.bg}}; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+                <span style="align-self: flex-start; min-width: 26px; height: 26px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; background: {{day.numBg}}; color: {{day.numFg}}">{{day.n}}</span>
+                <sc-for list="{{day.items}}" as="it" hint-placeholder-count="1">
+                  <span style="display: block; padding: 4px 8px; border-radius: 8px; font-size: 12px; line-height: 16px; background: {{it.bg}}; color: {{it.fg}}; box-shadow: {{it.ring}}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: {{it.w}}">{{it.t}}</span>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+    <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Deadlines come straight from your tasks. Drag one to move its due date; if you can't edit it, HopFlows asks the owner for you. Times are in Phnom Penh time.</p>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1160}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const K = {
+      holiday: { bg: '#E7E5DF', fg: '#1C1B1F', ring: 'none', w: 600 },
+      meeting: { bg: '#C9DDE8', fg: '#33454F', ring: 'none', w: 500 },
+      event: { bg: '#F9D3DE', fg: '#6E4850', ring: 'none', w: 500 },
+      due: { bg: '#FFFFFF', fg: '#1C1B1F', ring: 'inset 0 0 0 1.5px #1C1B1F', w: 500 },
+      overdue: { bg: '#F2B8B2', fg: '#7A1F18', ring: 'none', w: 600 },
+      leave: { bg: 'repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px)', fg: '#4A4950', ring: 'none', w: 600 }
+    };
+    const it = (k, t) => Object.assign({ t }, K[k]);
+    const items = {
+      '2': [it('leave', 'You: away')],
+      '6': [it('meeting', '10:00 Team retro')],
+      '9': [it('event', '12:00 Team lunch')],
+      '13': [it('overdue', 'Payment error copy · overdue')],
+      '15': [it('holiday', "King Father's Commemoration Day")],
+      '16': [it('meeting', '14:00 Checkout API sync'), it('due', 'Build the checkout API'), it('due', 'Coupon rules screen')],
+      '19': [it('meeting', '09:00 Sprint planning'), it('due', 'Write release notes')],
+      '20': [it('meeting', '10:00 Data sync weekly'), it('due', 'Menu sync job tests')],
+      '21': [it('event', 'Training: secure coding')],
+      '22': [it('leave', 'You: leave asked')],
+      '23': [it('leave', 'You: leave asked')],
+      '27': [it('meeting', '10:00 Data sync weekly')],
+      '29': [it('holiday', 'Coronation Day')],
+      '30': [it('due', 'Order tracking screen')]
+    };
+    const days = [];
+    const start = [28, 29, 30];
+    start.forEach((n) => days.push({ n: String(n), other: true }));
+    for (let d = 1; d <= 31; d++) days.push({ n: String(d), other: false });
+    days.push({ n: '1', other: true });
+    const out = days.map((d, i) => {
+      const weekend = i % 7 >= 5;
+      const today = !d.other && d.n === '16';
+      const its = d.other ? [] : (items[d.n] || []);
+      return {
+        n: d.n,
+        items: its,
+        bg: d.other ? 'transparent' : (weekend ? '#F4F3EF' : '#FBFAF7'),
+        numBg: today ? '#1C1B1F' : 'transparent',
+        numFg: today ? '#FFFFFF' : (d.other ? '#6E6C73' : '#1C1B1F')
+      };
+    });
+    return { dows: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], days: out };
+  }
+}
+</script>
+</body>
+</html>

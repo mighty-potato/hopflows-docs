@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reports</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="lead" current="reports" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 20px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; color: #6E6C73">Technical · weeks 39–42</span>
+        <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Reports</h1>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Technical ▾</button>
+        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Last 4 weeks ▾</button>
+        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"></path></svg>Excel</button>
+        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">PDF</button>
+      </div>
+    </div>
+
+    <div role="tablist" aria-label="Report" style="display: flex; flex-wrap: wrap; gap: 6px">
+      <button type="button" role="tab" aria-selected="true" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Plan vs. reality</button>
+      <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Goal status</button>
+      <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">New requests</button>
+      <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Workload and routines</button>
+    </div>
+
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: stretch">
+      <section aria-label="Promises kept" style="grid-column: span 4; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 13px; font-weight: 600">Promises kept · 4 weeks</span>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">84%</span>
+        <span style="font-size: 15px; line-height: 22px; margin-top: auto">65 of 77 locked tasks done in their week (handed-over and cancelled work left out). Most misses came from surprise work, not slow work.</span>
+      </section>
+
+      <section aria-label="Planned and added by week" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px">
+          <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Planned and added work · estimated hours</h2>
+          <div style="display: flex; gap: 12px; font-size: 12px; color: #4A4950"><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 4px; background: #1C1B1F"></span>Planned</span><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 4px; background: #C2410C"></span>Added</span></div>
+        </div>
+        <sc-for list="{{weeks}}" as="w" hint-placeholder-count="4">
+          <div style="display: grid; grid-template-columns: 64px 1fr 92px; align-items: center; gap: 12px">
+            <span style="font-size: 13px; color: #4A4950">{{w.label}}</span>
+            <div style="display: flex; height: 22px; border-radius: 8px; overflow: hidden; background: #F4F3EF">
+              <div style="height: 22px; background: #1C1B1F; width: {{w.pw}}"></div>
+              <div style="height: 22px; background: #C2410C; width: {{w.aw}}"></div>
+            </div>
+            <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; text-align: right">{{w.p}} + {{w.a}}</span>
+          </div>
+        </sc-for>
+      </section>
+
+      <section aria-label="By week" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 16px 24px; min-width: 0">
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13px">
+            <thead>
+              <tr style="text-align: right; color: #6E6C73; font-size: 12px">
+                <th scope="col" style="padding: 10px 8px 10px 0; text-align: left; font-weight: 400">Week</th>
+                <th scope="col" style="padding: 10px 8px; font-weight: 400">Locked</th>
+                <th scope="col" style="padding: 10px 8px; font-weight: 400">Done</th>
+                <th scope="col" style="padding: 10px 8px; font-weight: 400">Carried over</th>
+                <th scope="col" style="padding: 10px 8px; font-weight: 400">Pushed back</th>
+                <th scope="col" style="padding: 10px 8px; font-weight: 400">Reassigned</th>
+                <th scope="col" style="padding: 10px 0 10px 8px; font-weight: 400">Cancelled</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{weeks}}" as="w" hint-placeholder-count="4">
+                <tr style="border-top: 1px solid #F0EEE9; text-align: right; font-family: 'Geist Mono', monospace">
+                  <th scope="row" style="padding: 12px 8px 12px 0; text-align: left; font-family: 'Geist', sans-serif; font-weight: 600">{{w.label}}</th>
+                  <td style="padding: 12px 8px">{{w.locked}}</td>
+                  <td style="padding: 12px 8px; font-weight: 600">{{w.done}}</td>
+                  <td style="padding: 12px 8px">{{w.carried}}</td>
+                  <td style="padding: 12px 8px">{{w.pushed}}</td>
+                  <td style="padding: 12px 8px">{{w.reassigned}}</td>
+                  <td style="padding: 12px 0 12px 8px">{{w.cancelled}}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin: 8px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Task counts. Confidential tasks you can't see are left out. Downloads are deleted after 7 days.</p>
+      </section>
+
+      <section aria-label="Why work moved" style="grid-column: span 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
+        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Why work moved</h2>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">New urgent work</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">6</span></div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Waiting on others</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">3</span></div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Priorities changed</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">2</span></div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Leave</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">1</span></div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0"><span style="font-size: 13px">Wrong estimate</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">1</span></div>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const max = 130;
+    const w = (label, p, a, locked, done, carried, pushed, reassigned, cancelled) => ({
+      label, p: p + 'h', a: a + 'h', pw: (p / max * 100).toFixed(1) + '%', aw: (a / max * 100).toFixed(1) + '%',
+      locked, done, carried, pushed, reassigned, cancelled
+    });
+    return {
+      weeks: [
+        w('Wk 39', 92, 10, 19, 16, 2, 1, 0, 0),
+        w('Wk 40', 98, 22, 20, 15, 3, 2, 0, 0),
+        w('Wk 41', 90, 8, 19, 17, 1, 0, 0, 1),
+        w('Wk 42', 96, 14, 23, 17, 3, 1, 2, 1)
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

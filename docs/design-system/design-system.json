@@ -1,0 +1,137 @@
+{
+  "v": 3,
+  "assetGroups": {
+    "Mascot": {
+      "files": {
+        "punh-punh-done.png": {
+          "blob": "39dc4555184bfc76e29f9147b63a5756",
+          "name": "punh-punh-done.png",
+          "size": 288821,
+          "type": "image/png"
+        },
+        "punh-punh-done-right.png": {
+          "blob": "e0237ec34a8ad99eddb06e9bb69a2107",
+          "name": "punh-punh-done-right.png",
+          "size": 298449,
+          "type": "image/png"
+        },
+        "punh-punh-wave.png": {
+          "blob": "cecc32e66e6933e19653d73d1d272f07",
+          "name": "punh-punh-wave.png",
+          "size": 286322,
+          "type": "image/png"
+        },
+        "punh-punh-wave-right.png": {
+          "blob": "9b4b0b0fd4fa226bf157f38f11b2d101",
+          "name": "punh-punh-wave-right.png",
+          "size": 290516,
+          "type": "image/png"
+        },
+        "punh-punh-welcome.png": {
+          "blob": "233c851a835538a54800a253c631b306",
+          "name": "punh-punh-welcome.png",
+          "size": 288809,
+          "type": "image/png"
+        },
+        "punh-punh-welcome-right.png": {
+          "blob": "18cfa9f840b1b562fcbfd72166dd1eea",
+          "name": "punh-punh-welcome-right.png",
+          "size": 288043,
+          "type": "image/png"
+        }
+      },
+      "name": "Mascot",
+      "order": [
+        "punh-punh-done.png",
+        "punh-punh-done-right.png",
+        "punh-punh-wave.png",
+        "punh-punh-wave-right.png",
+        "punh-punh-welcome.png",
+        "punh-punh-welcome-right.png"
+      ],
+      "tile": "m"
+    },
+    "Logos": {
+      "files": {
+        "hopflows-app-icon.svg": {
+          "blob": "2a983312493508aad021a7b0b4b6cdcd",
+          "name": "hopflows-app-icon.svg",
+          "size": 1933,
+          "type": "image/svg+xml"
+        },
+        "hopflows-app-icon-square.svg": {
+          "blob": "e1f49f82e79698dfadc7a09fddee1135",
+          "name": "hopflows-app-icon-square.svg",
+          "size": 1925,
+          "type": "image/svg+xml"
+        },
+        "hopflows-notification-icon.svg": {
+          "blob": "fa7aa83befb52a5469dc0f813bbea6b0",
+          "name": "hopflows-notification-icon.svg",
+          "size": 328,
+          "type": "image/svg+xml"
+        },
+        "app-store-1024.png": {
+          "blob": "2c710c7f6ce223030d7eaa6eb972452f",
+          "name": "app-store-1024.png",
+          "size": 49606,
+          "type": "image/png"
+        },
+        "hopflows-adaptive-foreground.svg": {
+          "blob": "58b22416bfd1449f6f90d3ae6ae0b579",
+          "name": "hopflows-adaptive-foreground.svg",
+          "size": 1780,
+          "type": "image/svg+xml"
+        },
+        "hopflows-adaptive-monochrome.svg": {
+          "blob": "d134789b5808cdc8b46c9d594cfa67ec",
+          "name": "hopflows-adaptive-monochrome.svg",
+          "size": 394,
+          "type": "image/svg+xml"
+        }
+      },
+      "name": "Logos",
+      "order": [
+        "hopflows-app-icon.svg",
+        "hopflows-app-icon-square.svg",
+        "hopflows-notification-icon.svg",
+        "app-store-1024.png",
+        "hopflows-adaptive-foreground.svg",
+        "hopflows-adaptive-monochrome.svg"
+      ],
+      "tile": "l"
+    }
+  },
+  "blobs": {},
+  "createdOnFiles": {
+    "at": "2026-10-14T13:55:00Z",
+    "v": 1
+  },
+  "docs": {
+    "sections": []
+  },
+  "groups": [
+    "Logos",
+    "Mascot"
+  ],
+  "lastChange": {
+    "at": "2026-10-17T13:15:00Z",
+    "by": "Hok",
+    "via": "Claude Code",
+    "note": "App icon: card and Punh Punh recentred on the tile (art moved 1.85 right and 4.2 up on the 100 grid); Android foreground recentred to match."
+  },
+  "layout": "files",
+  "libraries": [
+    {
+      "name": "react",
+      "version": "18"
+    },
+    {
+      "name": "react-dom",
+      "version": "18"
+    }
+  ],
+  "namespace": "HopFlows",
+  "sections": {},
+  "title": "HopFlows Soft Bento"
+}

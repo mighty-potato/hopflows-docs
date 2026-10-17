@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Handover</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="lead" current="workload" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; color: #6E6C73">Step 2 of 3 · choose who gets each item</span>
+        <h1 style="margin: 0; font-size: 40px; line-height: 44px; font-weight: 600; letter-spacing: -0.04em">Hand over Sophal Ouk's work</h1>
+      </div>
+      <ol aria-label="Steps" style="list-style: none; margin: 0; padding: 4px; display: flex; gap: 4px; background: #FFFFFF; border-radius: 999px">
+        <li style="height: 40px; padding: 0 14px; border-radius: 999px; display: flex; align-items: center; font-size: 13px; color: #4A4950">1 Reason</li>
+        <li aria-current="step" style="height: 40px; padding: 0 14px; border-radius: 999px; display: flex; align-items: center; font-size: 13px; font-weight: 600; background: #1C1B1F; color: #FFFFFF">2 Items</li>
+        <li style="height: 40px; padding: 0 14px; border-radius: 999px; display: flex; align-items: center; font-size: 13px; color: #4A4950">3 Confirm</li>
+      </ol>
+    </div>
+
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+      <section aria-label="Handover summary" style="grid-column: span 12; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px">
+        <div style="display: flex; flex-direction: column"><span style="font-size: 12px; color: #6E6C73">Reason</span><span style="font-size: 15px; font-weight: 600">Leaving the company</span></div>
+        <div style="display: flex; flex-direction: column"><span style="font-size: 12px; color: #6E6C73">Kind</span><span style="font-size: 15px; font-weight: 600">Permanent</span></div>
+        <div style="display: flex; flex-direction: column"><span style="font-size: 12px; color: #6E6C73">Starts</span><span style="font-size: 15px; font-weight: 600; font-family: 'Geist Mono', monospace">Fri 23 Oct</span></div>
+        <div style="flex: 1 1 320px; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px">
+          <label for="ho-all" style="font-size: 13px; font-weight: 600">Give everything to</label>
+          <select id="ho-all" style="height: 48px; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Dara Sok</option><option>Rithy Heng</option><option>Pisey Chea</option></select>
+          <span style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: #C9DDE8; color: #33454F; font-size: 13px; font-weight: 600">Balanced this week</span>
+        </div>
+      </section>
+
+      <section aria-label="Items" style="grid-column: span 12; background: #FFFFFF; border-radius: 28px; padding: 12px 24px 20px; min-width: 0">
+        <sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column">
+            <h2 style="margin: 16px 0 4px; font-size: 13px; line-height: 18px; font-weight: 600; color: #4A4950">{{g.name}}</h2>
+            <sc-for list="{{g.items}}" as="it" hint-placeholder-count="2">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 12px 0; border-bottom: 1px solid #F0EEE9">
+                <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                  <span style="font-size: 15px; line-height: 22px; font-weight: 600">{{it.title}}</span>
+                  <span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{it.meta}}</span>
+                  <sc-if value="{{it.warn}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; margin-top: 4px; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #FCE3D3; color: #9A3412">{{it.warn}}</span></sc-if>
+                </div>
+                <div role="radiogroup" aria-label="Action" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 999px">
+                  <button type="button" role="radio" aria-checked="{{it.mv}}" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: {{it.mvBg}}; color: {{it.mvFg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Move</button>
+                  <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Keep</button>
+                  <button type="button" role="radio" aria-checked="{{it.cx}}" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: {{it.cxBg}}; color: {{it.cxFg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Cancel</button>
+                </div>
+                <div style="width: 230px; display: flex; align-items: center; gap: 8px">
+                  <span style="flex: 1; height: 40px; padding: 0 14px; border-radius: 14px; background: #F4F3EF; font-size: 13px; display: flex; align-items: center">{{it.to}}</span>
+                  <span style="min-width: 76px; height: 28px; padding: 0 8px; box-sizing: border-box; border-radius: 10px; background: {{it.capBg}}; color: {{it.capFg}}; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{it.cap}}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </section>
+
+      <section aria-label="Confirm" style="grid-column: span 12; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+        <span style="flex: 1 1 360px; font-size: 13px; line-height: 18px; color: #4A4950">Locked plans keep Sophal as the original owner. This shows as reassigned, not missed. New owners get the status, blockers and recent comments. Sophal's account can be closed once nothing is left.</span>
+        <a href="LeadHome.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back</a>
+        <button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Review 8 items</button>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const cap = {
+      room: { cap: 'Room', capBg: '#DCEFE2', capFg: '#1F5E3A' },
+      balanced: { cap: 'Balanced', capBg: '#C9DDE8', capFg: '#33454F' },
+      over: { cap: 'Too much', capBg: '#F2B8B2', capFg: '#7A1F18' },
+      none: { cap: '—', capBg: '#F4F3EF', capFg: '#4A4950' }
+    };
+    const on = { bg: '#1C1B1F', fg: '#FFFFFF' };
+    const off = { bg: 'transparent', fg: '#4A4950' };
+    const item = (title, meta, to, c, act, warn) => {
+      const mv = act !== 'cancel';
+      return Object.assign({ title, meta, to, warn: warn || '',
+        mv: mv ? 'true' : 'false', mvBg: mv ? on.bg : off.bg, mvFg: mv ? on.fg : off.fg,
+        cx: mv ? 'false' : 'true', cxBg: mv ? off.bg : on.bg, cxFg: mv ? off.fg : on.fg }, cap[c]);
+    };
+    return {
+      groups: [
+        { name: 'Open tasks · 4', items: [
+          item('Store sales export', 'To Do · due Wed 21 Oct · in week 43 plan', 'Dara Sok', 'balanced', 'move'),
+          item('Payment webhook retries', 'In progress · due Tue 20 Oct · blocked: provider keys', 'Rithy Heng', 'over', 'move', 'Rithy would have too much in week 43 (34h of 32h)'),
+          item('Salary file check', 'Confidential · due Thu 22 Oct', 'Dara Sok', 'balanced', 'move', 'Dara needs access first. Give access or decide later.'),
+          item('Old report clean-up', 'To Do · no due date', '—', 'none', 'cancel')
+        ]},
+        { name: 'Deliverables Sophal leads · 1', items: [
+          item('Store sales dashboard v1', 'Active · due Fri 13 Nov · On track', 'Pisey Chea', 'room', 'move')
+        ]},
+        { name: 'Routines · 1', items: [
+          item('Nightly backup check', 'Working days · by 09:00', 'Vannak Prum', 'room', 'move')
+        ]},
+        { name: 'Meetings and team chats · 2', items: [
+          item('Data sync weekly · organizer', 'Repeats Tuesdays 10:00', 'Dara Sok', 'balanced', 'move'),
+          item('Telegram group “Tech alerts”', 'Connected by Sophal', 'Chenda Lim', 'balanced', 'move')
+        ]}
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

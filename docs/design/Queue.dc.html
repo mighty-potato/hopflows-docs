@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Incoming Queue</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="lead" current="queue" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; color: #6E6C73">Technical · sort each request: make a Task, merge, postpone or close</span>
+        <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Incoming Queue</h1>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <div role="tablist" aria-label="Queue" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
+          <button type="button" role="tab" aria-selected="true" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">New · 4</button>
+          <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Postponed · 2</button>
+          <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Sorted</button>
+        </div>
+        <button type="button" style="height: 48px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">View: List</button>
+      </div>
+    </div>
+
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+      <section aria-label="New requests" style="grid-column: span 5; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <sc-for list="{{requests}}" as="r" hint-placeholder-count="4">
+          <button type="button" aria-pressed="{{r.selected}}" style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 0; border-radius: 22px; background: {{r.bg}}; color: {{r.fg}}; font-family: inherit; text-align: left; cursor: pointer">
+            <span style="display: flex; align-items: center; gap: 8px; width: 100%">
+              <span style="flex: 1; font-size: 15px; line-height: 22px; font-weight: 600">{{r.title}}</span>
+              <sc-if value="{{r.urgent}}" hint-placeholder-val="{{false}}"><span style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>Urgent</span></sc-if>
+            </span>
+            <span style="font-size: 12px; line-height: 16px; opacity: 0.8">{{r.meta}}</span>
+          </button>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="sort-title" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px; color: #6E6C73">From Sophea Tan · Telegram · 12 min ago · kind: Bug</span>
+          <h2 id="sort-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Coupon breaks payment at checkout</h2>
+          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">A customer at the Toul Kork shop can't pay when the 10% coupon is used.</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 16px; background: #F4F3EF">
+          <span style="width: 72px; height: 52px; border-radius: 12px; background: #E7E5DF; color: #4A4950; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center">[photo]</span>
+          <span style="font-size: 13px">screenshot.jpg · attached by Sophea</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 22px; background: #C9DDE8; color: #33454F">
+          <span style="flex: 1 1 260px; font-size: 13px; line-height: 18px">Looks like <strong style="color: #1C1B1F">“Payment fails with discount code”</strong> · Task · In progress · Rithy</span>
+          <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Merge into it</button>
+        </div>
+
+        <div role="radiogroup" aria-label="Decision" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+          <button type="button" role="radio" aria-checked="true" style="height: 56px; border: 0; border-radius: 16px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Make a Task</button>
+          <button type="button" role="radio" aria-checked="false" style="height: 56px; border: 0; border-radius: 16px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Merge</button>
+          <button type="button" role="radio" aria-checked="false" style="height: 56px; border: 0; border-radius: 16px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Postpone</button>
+          <button type="button" role="radio" aria-checked="false" style="height: 56px; border: 0; border-radius: 16px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Close</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <label for="q-owner" style="font-size: 13px; font-weight: 600">Owner</label>
+            <div style="display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 8px 0 16px; border-radius: 16px; background: #F4F3EF">
+              <select id="q-owner" style="flex: 1; min-width: 0; height: 44px; border: 0; background: transparent; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Dara Sok</option><option>Rithy Heng</option><option>Sreymom Ly</option></select>
+              <span style="padding: 4px 10px; border-radius: 10px; background: #C9DDE8; color: #33454F; font-size: 12px; font-weight: 600">Balanced</span>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <span id="q-size" style="font-size: 13px; font-weight: 600">Size</span>
+            <div role="radiogroup" aria-labelledby="q-size" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 16px; height: 48px; box-sizing: border-box">
+              <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">S</button>
+              <button type="button" role="radio" aria-checked="true" style="flex: 1; border: 0; border-radius: 14px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">M</button>
+              <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">L</button>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="q-due" style="font-size: 13px; font-weight: 600">Due</label><input id="q-due" type="text" value="Today" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="q-del" style="font-size: 13px; font-weight: 600">Deliverable <span style="font-weight: 400; color: #6E6C73">· optional</span></label><select id="q-del" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Launch In-App Ordering v1</option><option>None (standalone)</option></select></div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
+          <span style="font-size: 13px; font-weight: 600">Week 42 is locked. This counts as added work.</span>
+          <label for="q-why" style="font-size: 12px">Moving something to make room? Say why <span style="opacity: 0.8">· optional</span></label>
+          <input id="q-why" type="text" value="Menu photo export moves to week 43 · urgent customer problem" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 13px; color: #1C1B1F">
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+          <span style="font-size: 12px; line-height: 16px; color: #6E6C73; flex: 1 1 260px">Sophea will be told in Telegram: “Your request is now a Task for Dara.”</span>
+          <button type="button" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Make Task</button>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1120}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const sel = { bg: '#1C1B1F', fg: '#FFFFFF', selected: 'true' };
+    const idle = { bg: '#FFFFFF', fg: '#1C1B1F', selected: 'false' };
+    return {
+      requests: [
+        Object.assign({ title: 'Coupon breaks payment at checkout', meta: 'Sophea Tan · Telegram · 12 min · 1 photo · possible duplicate', urgent: true }, sel),
+        Object.assign({ title: 'Receipt printer offline at Toul Kork', meta: 'Shop team · app · 1 h', urgent: false }, idle),
+        Object.assign({ title: 'Add Khmer search to the menu', meta: 'Dara Sok · from a meeting: Product sync · yesterday', urgent: false }, idle),
+        Object.assign({ title: 'Export sales by store', meta: 'Sokha Meng · app · 2 days', urgent: false }, idle)
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

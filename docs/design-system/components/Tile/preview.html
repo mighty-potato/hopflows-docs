@@ -1,0 +1,16 @@
+<!-- @dsCard group="Layout" height=260 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Tile</title></head>
+<body style="margin:0">
+<div id="root" class="hf-stage hf-tiles"></div>
+<script>
+  var H = window.HopFlows, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(H.Tile, { tone: 'yellow', hero: true, label: 'Top 3 progress', value: '2/3', note: 'One more hop.', style: { minHeight: 220, position: 'relative', overflow: 'hidden' } },
+      h('img', { src: '/_blob/39dc4555184bfc76e29f9147b63a5756', alt: 'Punh Punh holding a checked note', style: { position: 'absolute', right: -8, bottom: -8, width: 132, height: 132, objectFit: 'cover', borderRadius: 22 } })),
+    h(H.Tile, { label: 'Streak', value: '12 days' }),
+    h(H.Tile, { tone: 'sky', label: 'Next meeting', text: '14:00 · Design review' })));
+</script>
+</body>
+</html>

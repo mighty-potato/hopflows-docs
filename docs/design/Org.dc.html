@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Products and teams</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="admin" current="org" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 20px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span style="font-size: 12px; color: #6E6C73">Riverline Co. · 3 products · 5 departments</span>
+      <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Products &amp; teams</h1>
+      <p style="margin: 4px 0 0; font-size: 15px; line-height: 22px; color: #4A4950">Products are what the company runs. Departments are who does the work. Work links to both, so one Goal can help several products and one person can be in several teams.</p>
+    </div>
+
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+      <section aria-labelledby="org-products" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px">
+          <h2 id="org-products" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Products</h2>
+          <button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add product</button>
+        </div>
+        <sc-for list="{{products}}" as="p" hint-placeholder-count="3">
+          <div style="display: flex; flex-direction: column; gap: 8px; padding: 14px 0; border-top: 1px solid #F0EEE9">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <span style="flex: 1; min-width: 0; font-size: 15px; line-height: 22px; font-weight: 600">{{p.name}}</span>
+              <span style="font-size: 12px; color: #6E6C73">Owner · {{p.owner}}</span>
+              <button type="button" aria-label="Edit {{p.name}}" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"></path></svg></button>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px">
+              <sc-for list="{{p.areas}}" as="a" hint-placeholder-count="3">
+                <span style="display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{a}}</span>
+              </sc-for>
+              <button type="button" style="height: 30px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600; text-decoration: underline; cursor: pointer">Add area</button>
+            </div>
+          </div>
+        </sc-for>
+        <p style="margin: 8px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Areas are optional and long-lasting, like Ordering. Work with an end, like "Launch Ordering v1", is a Deliverable, not an area.</p>
+      </section>
+
+      <section aria-labelledby="org-depts" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px">
+          <h2 id="org-depts" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Departments</h2>
+          <button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add department</button>
+        </div>
+        <sc-for list="{{depts}}" as="d" hint-placeholder-count="5">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 14px 0; border-top: 1px solid #F0EEE9">
+            <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-size: 15px; line-height: 22px; font-weight: 600">{{d.name}}</span>
+              <span style="font-size: 12px; color: #6E6C73">Lead · {{d.lead}} · {{d.people}} people</span>
+            </div>
+            <span style="font-size: 12px; color: #4A4950">{{d.chat}}</span>
+            <a href="People.dc.html" style="height: 40px; padding: 0 14px; border-radius: 999px; background: #F4F3EF; text-decoration: none; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">People</a>
+          </div>
+        </sc-for>
+        <p style="margin: 8px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Leading a department makes someone a lead. Requests without a department go to the sender's main department.</p>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      products: [
+        { name: 'Retail App', owner: 'Sokha Meng', areas: ['Ordering', 'Menu', 'Payments'] },
+        { name: 'Shops POS', owner: 'Bopha Meas', areas: ['Receipts', 'Stock'] },
+        { name: 'School App', owner: 'Not set', areas: ['Enrolment', 'Fees'] }
+      ],
+      depts: [
+        { name: 'Technical', lead: 'Chenda Lim', people: '12', chat: 'Telegram group linked' },
+        { name: 'Design', lead: 'Sreymom Kim', people: '5', chat: 'No team chat' },
+        { name: 'Marketing', lead: 'Kosal Nhem', people: '6', chat: 'Telegram group linked' },
+        { name: 'Operations', lead: 'Bopha Meas', people: '7', chat: 'No team chat' },
+        { name: 'Shops', lead: 'Vannak Prum', people: '12', chat: 'Telegram group linked' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

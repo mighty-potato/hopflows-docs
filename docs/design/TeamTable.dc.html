@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Team tasks · Table</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="lead" current="team" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 20px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; color: #6E6C73">Technical · Week 42</span>
+        <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Team tasks</h1>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Group: Owner</button>
+        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Columns · 9</button>
+        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"></path></svg>Excel</button>
+        <div role="radiogroup" aria-label="View" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
+          <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">List</button>
+          <a href="MyTasks.dc.html" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border-radius: 999px; color: #4A4950; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Board</a>
+          <button type="button" role="radio" aria-checked="true" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Table</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">
+      <span style="display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-size: 13px; font-weight: 600">Status: open</span>
+      <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px">Deliverable: any</span>
+      <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px">Kind: any</span>
+      <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px">Cancelled hidden</span>
+    </div>
+
+    <div role="status" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 20px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
+      <span style="flex: 1 1 320px; font-size: 13px; line-height: 18px"><strong>Changed 4 of 5.</strong> Skipped “Payroll export”: it belongs to Finance, which you can't edit.</span>
+      <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">OK</button>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 8px 8px 20px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF">
+      <span style="flex: 1 1 140px; font-size: 13px; font-weight: 600">5 selected</span>
+      <button type="button" style="height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Change owner</button>
+      <button type="button" style="height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: #34333A; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Due date</button>
+      <button type="button" style="height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: #34333A; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Move to week</button>
+    </div>
+
+    <section aria-label="Tasks table" style="background: #FFFFFF; border-radius: 28px; padding: 8px 20px 16px; min-width: 0">
+      <div style="overflow-x: auto">
+        <table style="width: 100%; min-width: 1000px; border-collapse: collapse; font-size: 13px">
+          <thead>
+            <tr style="text-align: left; color: #6E6C73; font-size: 12px">
+              <th scope="col" style="padding: 12px 8px 12px 0; width: 32px; font-weight: 400"><input type="checkbox" aria-label="Select all" style="width: 18px; height: 18px; accent-color: #1C1B1F"></th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Title ↓</th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Owner</th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Status</th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Due</th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Size</th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Deliverable</th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Kind</th>
+              <th scope="col" style="padding: 12px 8px; font-weight: 400">Came from</th>
+              <th scope="col" style="padding: 12px 0 12px 8px; font-weight: 400">This week</th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{rows}}" as="r" hint-placeholder-count="9">
+              <tr style="border-top: 1px solid #F0EEE9; background: {{r.rowBg}}">
+                <td style="padding: 12px 8px 12px 0"><input type="checkbox" checked="{{r.sel}}" aria-label="Select row" style="width: 18px; height: 18px; accent-color: #1C1B1F"></td>
+                <td style="padding: 12px 8px; font-size: 15px; font-weight: 600"><a href="TaskDetail.dc.html" style="text-decoration: none">{{r.title}}</a></td>
+                <td style="padding: 12px 8px">{{r.owner}}</td>
+                <td style="padding: 12px 8px"><span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: {{r.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{r.dot}}"></span>{{r.status}}</span></td>
+                <td style="padding: 12px 8px; font-family: 'Geist Mono', monospace">{{r.due}}</td>
+                <td style="padding: 12px 8px">{{r.size}}</td>
+                <td style="padding: 12px 8px; color: #4A4950">{{r.del}}</td>
+                <td style="padding: 12px 8px; color: #4A4950">{{r.kind}}</td>
+                <td style="padding: 12px 8px; color: #4A4950">{{r.from}}</td>
+                <td style="padding: 12px 0 12px 8px"><span style="padding: 4px 10px; border-radius: 999px; background: {{r.wkBg}}; color: {{r.wkFg}}; font-size: 12px; font-weight: 600">{{r.wk}}</span></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = {
+      todo: { status: 'To Do', fg: '#4A4950', dot: '#6E6C73' },
+      doing: { status: 'In Progress', fg: '#1C1B1F', dot: '#1C1B1F' },
+      review: { status: 'Review', fg: '#33454F', dot: '#33454F' }
+    };
+    const wk = {
+      planned: { wk: 'Planned', wkBg: '#F4F3EF', wkFg: '#1C1B1F' },
+      added: { wk: 'Added', wkBg: '#FCE3D3', wkFg: '#9A3412' }
+    };
+    const row = (sel, title, owner, s, due, size, del, kind, from, w) => Object.assign({ sel, rowBg: sel ? '#FBFAF7' : 'transparent', title, owner, due, size, del, kind, from }, st[s], wk[w]);
+    return {
+      rows: [
+        row(true, 'Coupon breaks payment at checkout', 'Dara Sok', 'doing', 'Fri 16', 'M', 'Launch In-App Ordering v1', 'Bug', 'Customer', 'added'),
+        row(true, 'Store sales export', 'Dara Sok', 'todo', 'Wed 21', 'S', 'Store sales dashboard v1', 'Feature', 'Manager', 'planned'),
+        row(true, 'Payment webhook retries', 'Rithy Heng', 'doing', 'Tue 20', 'M', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
+        row(true, 'Nightly backup alerts', 'Vannak Prum', 'todo', 'Thu 22', 'S', '—', 'Operations', 'System alert', 'added'),
+        row(true, 'Payroll export', 'Finance', 'todo', 'Fri 23', 'M', '—', 'Support', 'Manager', 'planned'),
+        row(false, 'Coupon rules screen', 'Dara Sok', 'review', 'Fri 16', 'M', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
+        row(false, 'Order tracking screen', 'Pisey Chea', 'todo', 'Fri 30', 'L', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
+        row(false, 'Receipt printer driver', 'Dara Sok', 'doing', 'Wed 21', 'L', '—', 'Bug', 'Shop team', 'added'),
+        row(false, 'Khmer search spike', '—', 'todo', '—', 'L', 'Menu search', 'Feature', 'Meeting', 'planned')
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

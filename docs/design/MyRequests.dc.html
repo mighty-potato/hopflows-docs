@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>My requests</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="employee" current="requests" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; color: #6E6C73">Everything you've asked for, and what happened to it</span>
+        <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">My requests</h1>
+      </div>
+      <div role="tablist" aria-label="Filter requests" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
+        <button type="button" role="tab" aria-selected="true" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Open · 3</button>
+        <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">All · 7</button>
+      </div>
+    </div>
+
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+      <section aria-label="Requests" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 8px 24px; display: flex; flex-direction: column; min-width: 0">
+        <sc-for list="{{requests}}" as="r" hint-placeholder-count="6">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 18px 0; border-bottom: 1px solid #F0EEE9">
+            <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+              <span style="font-size: 15px; line-height: 22px; font-weight: 600">{{r.title}}</span>
+              <span style="font-size: 15px; line-height: 22px; color: #4A4950">{{r.said}}</span>
+              <span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{r.meta}}</span>
+            </div>
+            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: {{r.bg}}; color: {{r.fg}}; font-size: 13px; font-weight: 600; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{r.dot}}"></span>{{r.status}}</span>
+          </div>
+        </sc-for>
+        <div style="height: 8px"></div>
+      </section>
+
+      <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <section aria-label="How requests work" style="background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">You'll always hear back</span>
+          <span style="font-size: 13px; line-height: 18px">When your lead sorts a request, you're told here and wherever you sent it, Telegram included. You're told again when the work is done.</span>
+        </section>
+        <a href="AddWork.dc.html" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 56px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>New request</a>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = {
+      waiting: { status: 'Waiting to be sorted', bg: '#F4F3EF', fg: '#1C1B1F', dot: '#6E6C73' },
+      task: { status: 'Task · in progress', bg: '#C9DDE8', fg: '#33454F', dot: '#33454F' },
+      joined: { status: 'Joined', bg: '#F4F3EF', fg: '#1C1B1F', dot: '#1C1B1F' },
+      later: { status: 'Postponed', bg: '#FCE3D3', fg: '#9A3412', dot: '#C2410C' },
+      closed: { status: 'Closed', bg: '#F4F3EF', fg: '#4A4950', dot: '#6E6C73' },
+      done: { status: 'Done', bg: '#DCEFE2', fg: '#1F5E3A', dot: '#2E7D4F' }
+    };
+    const r = (title, said, meta, s) => Object.assign({ title, said, meta }, st[s]);
+    return {
+      requests: [
+        r('Coupon breaks payment at checkout', 'Your request is now a Task for Rithy.', 'Sent today 13:02 in the app · Technical', 'task'),
+        r('Add Khmer search to the menu', 'Waiting for Chenda to sort it. Usually within a day.', 'Sent today 09:40 from Telegram · Technical', 'waiting'),
+        r('Confidential request', 'This became a confidential task. You can see its status only.', 'Sent Wed 14 Oct in the app', 'task'),
+        r('Receipt printer offline at Toul Kork', 'Joined with an earlier report. You will hear when it is fixed.', 'Sent Tue 13 Oct from Telegram', 'joined'),
+        r('Khmer font in menu PDFs', 'We will look at it again on Tue 3 November.', 'Sent Mon 12 Oct in the app', 'later'),
+        r('Change the office Wi-Fi password', 'Closed: already done by Operations on Friday.', 'Sent Fri 9 Oct in the app', 'closed'),
+        r('Resize menu photos for the app', 'Done by Sreymom on Wed 14 Oct.', 'Sent Thu 8 Oct in the app', 'done')
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

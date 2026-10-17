@@ -1,0 +1,16 @@
+<!-- @dsCard group="Status" height=72 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>StatusPill</title></head>
+<body style="margin:0">
+<div id="root" class="hf-stage"></div>
+<script>
+  var H = window.HopFlows, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+    h(H.StatusPill, { tone: 'on-track' }),
+    h(H.StatusPill, { tone: 'at-risk' }),
+    h(H.StatusPill, { tone: 'off-track' }),
+    h(H.StatusPill, { tone: 'urgent' })));
+</script>
+</body>
+</html>
