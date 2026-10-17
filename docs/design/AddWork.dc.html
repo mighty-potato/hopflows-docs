@@ -55,8 +55,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </sc-if>
 
       <div role="radiogroup" aria-label="Who is it for?" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
-        <button type="button" role="radio" aria-checked="true" style="min-height: 72px; padding: 12px 16px; border: 0; border-radius: 16px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; text-align: left; display: flex; flex-direction: column; gap: 2px; cursor: pointer"><span style="font-size: 15px; font-weight: 600">Ask Chenda</span><span style="font-size: 12px; line-height: 16px; color: #D9D7D2">Chenda decides what happens. The answer goes to Requests I sent.</span></button>
-        <button type="button" role="radio" aria-checked="false" style="min-height: 72px; padding: 12px 16px; border: 0; border-radius: 16px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; text-align: left; display: flex; flex-direction: column; gap: 2px; cursor: pointer"><span style="font-size: 15px; font-weight: 600">Task for me</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">I'll do it myself. Goes straight to My tasks.</span></button>
+        <button type="button" role="radio" aria-checked="{{tk.on}}" onClick="{{pickTask}}" style="min-height: 72px; padding: 12px 16px; border: 0; border-radius: 16px; background: {{tk.bg}}; color: {{tk.fg}}; font-family: inherit; text-align: left; display: flex; flex-direction: column; gap: 2px; cursor: pointer"><span style="font-size: 15px; font-weight: 600">Task for me</span><span style="font-size: 12px; line-height: 16px; color: {{tk.sub}}">I'll do it myself. Goes straight to My tasks.</span></button>
+        <button type="button" role="radio" aria-checked="{{rq.on}}" onClick="{{pickRequest}}" style="min-height: 72px; padding: 12px 16px; border: 0; border-radius: 16px; background: {{rq.bg}}; color: {{rq.fg}}; font-family: inherit; text-align: left; display: flex; flex-direction: column; gap: 2px; cursor: pointer"><span style="font-size: 15px; font-weight: 600">Ask Chenda</span><span style="font-size: 12px; line-height: 16px; color: {{rq.sub}}">Chenda decides what happens. The answer goes to Requests I sent.</span></button>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 6px">
@@ -67,6 +67,25 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <label for="aw-details" style="font-size: 13px; line-height: 18px; font-weight: 600">Details <span style="font-weight: 400; color: #6E6C73">· optional</span></label>
         <textarea id="aw-details" rows="3" style="box-sizing: border-box; padding: 14px 18px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; line-height: 22px; color: #1C1B1F; resize: vertical">A customer at the Toul Kork shop can't pay when the 10% coupon is used. Screenshot attached.</textarea>
       </div>
+      <sc-if value="{{isTask}}" hint-placeholder-val="{{true}}">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span id="aw-steps" style="font-size: 13px; line-height: 18px; font-weight: 600">Checklist <span style="font-weight: 400; color: #6E6C73">· optional · small steps you tick off as you go</span></span>
+          <ul aria-labelledby="aw-steps" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px">
+            <sc-for list="{{steps}}" as="s" hint-placeholder-count="2">
+              <li style="display: flex; align-items: center; gap: 10px; padding: 0 0 0 14px; border-radius: 14px; background: #F4F3EF">
+                <span aria-hidden="true" style="width: 20px; height: 20px; box-sizing: border-box; border-radius: 6px; border: 2px solid #6E6C73; flex-shrink: 0"></span>
+                <span style="flex: 1; min-width: 0; font-size: 15px; line-height: 22px">{{s.text}}</span>
+                <button type="button" aria-label="Remove step: {{s.text}}" onClick="{{s.remove}}" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+              </li>
+            </sc-for>
+          </ul>
+          <div style="display: flex; gap: 8px">
+            <label for="aw-new" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">New step</label>
+            <input id="aw-new" type="text" placeholder="Add a step, then press Enter" style="flex: 1; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 14px; border: 2px dashed #E7E5DF; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F">
+            <button type="button" onClick="{{addStep}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Add step</button>
+          </div>
+        </div>
+      </sc-if>
 
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
         <span style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 8px 0 6px; border-radius: 16px; background: #F4F3EF; font-size: 13px">
@@ -76,14 +95,19 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </span>
         <button type="button" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"></rect><circle cx="12" cy="13" r="3.5"></circle><path d="M8 6l1.5-2h5L16 6"></path></svg>Photo</button>
         <button type="button" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>Due date</button>
-        <button type="button" aria-pressed="false" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><span style="width: 8px; height: 8px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid #C2410C"></span>Seems urgent</button>
+        <sc-if value="{{isRequest}}" hint-placeholder-val="{{false}}"><button type="button" aria-pressed="false" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><span style="width: 8px; height: 8px; box-sizing: border-box; border-radius: 999px; border: 1.5px solid #C2410C"></span>Seems urgent</button></sc-if>
         <button type="button" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">From a meeting</button>
       </div>
 
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 22px; background: #F4F3EF">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="2"></rect><rect x="3" y="14" width="18" height="6" rx="2"></rect></svg>
+        <sc-if value="{{isRequest}}" hint-placeholder-val="{{false}}">
         <span style="flex: 1 1 240px; font-size: 13px; line-height: 18px">Goes to <strong>Chenda Lim</strong>, Technical lead. Chenda decides how urgent it is. You'll see the answer in <strong>Requests I sent</strong> and in your Inbox.</span>
         <button type="button" style="height: 44px; padding: 0 12px; border: 0; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">Change</button>
+        </sc-if>
+        <sc-if value="{{isTask}}" hint-placeholder-val="{{true}}">
+        <span style="flex: 1 1 240px; font-size: 13px; line-height: 18px">Goes straight to <strong>My tasks</strong> with you as the owner. Chenda can see it, and because week 42 is locked it counts as added work.</span>
+        </sc-if>
       </div>
 
       <sc-if value="{{sendFailed}}" hint-placeholder-val="{{false}}">
@@ -94,16 +118,36 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </sc-if>
       <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px">
         <a href="Main.dc.html" style="height: 48px; padding: 0 22px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Cancel</a>
-        <a href="MyRequests.dc.html" style="height: 48px; padding: 0 28px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Send to Chenda</a>
+        <a href="{{doneHref}}" style="height: 48px; padding: 0 28px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">{{doneLabel}}</a>
       </div>
     </section>
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"sendFailed":{"editor":"boolean","default":false},"offline":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":960}}'>
+<script type="text/x-dc" data-dc-script data-props='{"mode":{"editor":"enum","options":["task","request"],"default":"task"},"sendFailed":{"editor":"boolean","default":false},"offline":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":960}}'>
 class Component extends DCLogic {
   renderVals() {
-    return { offline: this.props.offline ?? false, sendFailed: this.props.sendFailed ?? false };
+    const pool = ['Reproduce it with the 10% coupon', 'Check the total sent to the payment provider', 'Test the fix on the Toul Kork till'];
+    const n = (this.state && this.state.n != null) ? this.state.n : 2;
+    const gone = (this.state && this.state.gone) || [];
+    const steps = pool.slice(0, n).map((text, i) => ({ text, i })).filter((s) => gone.indexOf(s.i) < 0)
+      .map((s) => ({ text: s.text, remove: () => this.setState({ gone: gone.concat([s.i]) }) }));
+    const addStep = () => this.setState({ n: Math.min(n + 1, pool.length) });
+    const mode = (this.state && this.state.mode) || this.props.mode || 'task';
+    const on = { on: 'true', bg: '#1C1B1F', fg: '#FFFFFF', sub: '#D9D7D2' };
+    const off = { on: 'false', bg: '#F4F3EF', fg: '#1C1B1F', sub: '#4A4950' };
+    const task = mode === 'task';
+    return {
+      offline: this.props.offline ?? false,
+      sendFailed: this.props.sendFailed ?? false,
+      isTask: task, isRequest: !task,
+      rq: task ? off : on, tk: task ? on : off,
+      pickRequest: () => this.setState({ mode: 'request' }),
+      pickTask: () => this.setState({ mode: 'task' }),
+      doneHref: task ? 'MyTasks.dc.html' : 'MyRequests.dc.html',
+      doneLabel: task ? 'Add to my tasks' : 'Send to Chenda',
+      steps, addStep
+    };
   }
 }
 </script>

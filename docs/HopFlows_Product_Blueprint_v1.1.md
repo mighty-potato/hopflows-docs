@@ -147,7 +147,7 @@ A Product Area lasts a long time (for example, Ordering). A Deliverable has an e
 
 - Use Goal, Deliverable and Task. Don't use Initiative or Epic on normal screens.
 - Product Line means a real product the company runs, not a short project.
-- Employees add new work with **Add Work** (it opens the Quick Capture screen). Leads see new requests in the **Incoming Queue**. Words like "intake" appear only in reports, never on screens.
+- Employees add new work with **Add Work** (it opens the Quick Capture screen). It starts on **Task for me**, because most of what employees add is their own work; **Ask** their lead sends a request instead. Leads see new requests in the **Incoming Queue**. Words like "intake" appear only in reports, never on screens.
 - Say **Checklist**, not Subtask, when the item is a small step rather than separate work for someone else.
 - Use **Sort** for the lead deciding what to do with a new request. Use **Review** only for checking finished work.
 
@@ -185,6 +185,7 @@ These rules apply everywhere in the app. The technical document (`HopFlows_Techn
 - A Task belongs to the same product as its Deliverable. A Task without a Deliverable can name its own product.
 - A new Task or request can have no owner while it is being added or sorted. Once work starts, it always has one owner.
 - Anyone can add a Task for themselves with Add Work → Task for me. It needs no approval and goes straight to their own list, with them as the owner. Their lead can see it, and if the week is already locked it counts as added work. Work for someone else, or anything the lead should decide, is sent as a request instead. (Proposed)
+- Whoever creates a Task (with Task for me, or a lead making one from a request or a Deliverable) can add Checklist steps right away. Steps are optional; the owner can add, tick or remove them later. A request has no checklist: the lead adds steps if it becomes a Task. (Proposed)
 - A Confidential Task can be seen only by its owner, its reviewer, its helpers, people given access, and company admins. Only the department lead and admins can give access.
 - A Task's size can be Small, Medium or Large (the company decides how many hours each means) or a number of hours. A Task with no size is shown as "No estimate" and counted on its own.
 - A Task can wait on other Tasks in the same company. HopFlows refuses a wait that goes round in a circle.
@@ -1393,6 +1394,8 @@ Figure 17. Signing in and joining a company.
 - After the design critique (Proposed): locking a week asks for confirmation and can be undone for 10 minutes; a leave request can be withdrawn while it waits (17 October).
 - "My requests" renamed "Requests I sent", so it is clear these are things a person asked their lead to look at (17 October).
 - "Task for me" (Proposed): anyone can add a Task for themselves without approval; work for others still goes to the lead as a request (17 October).
+- Checklist steps can be added while creating a Task (17 October).
+- Add Work opens on Task for me; asking the lead is the second choice (17 October).
 - Mascot renamed from Hop to Punh Punh (14 October).
 - App icon chosen: Punh Checklist, with usage rules in §11 (15 October).
 - First version split into "pilot core" and "soon after"; later-stage features (Workload view for future weeks, temporary Handover, suggested risk flags) marked in the flows and special cases.
