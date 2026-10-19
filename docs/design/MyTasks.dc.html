@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>My tasks</title>
 <script src="./support.js"></script>
-<link rel="stylesheet" href="/_blob/c52bbdf2c39dd7f3bbf7d8eb18fb6c9c">
+<link rel="stylesheet" href="/_blob/9275412045caede2fafcdfc2bb2771d3">
 </head>
 <body>
 <x-dc>
@@ -35,13 +35,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="display: flex; flex-direction: column; gap: 6px">
         <span style="font-size: 12px; color: #6E6C73">Week 42 · 12–16 Oct</span>
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">My tasks</h1>
+        <p class="hf-task-intro">Your full task list, with your Top 3 highlighted.</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8z"></path></svg>This week</button>
-        <sc-if value="{{notList}}" hint-placeholder-val="{{false}}">
-          <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Group: none</button>
-        </sc-if>
-        <button type="button" aria-pressed="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Show cancelled</button>
+        <a href="AddWork.dc.html" class="hf-add-task">Add a task</a>
         <div role="radiogroup" aria-label="View" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
           <sc-for list="{{views}}" as="v" hint-placeholder-count="3">
             <button type="button" role="radio" aria-checked="{{v.on}}" onClick="{{v.pick}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{v.bg}}; color: {{v.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{v.name}}</button>
@@ -50,16 +47,26 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
     </div>
 
-    <p role="status" style="margin: 0; font-size: 13px; line-height: 18px; color: #4A4950">{{notice}}</p>
+    <section class="hf-task-tools" aria-label="Find your tasks">
+      <label class="hf-task-search" for="task-search">Search my tasks<input id="task-search" type="search" placeholder="Task or project name" value="{{query}}" onChange="{{setQuery}}"></label>
+      <div class="hf-task-filters" role="group" aria-label="Filter tasks">
+        <sc-for list="{{filters}}" as="f" hint-placeholder-count="4"><button type="button" aria-label="{{f.label}}: {{f.count}} tasks" aria-pressed="{{f.selected}}" onClick="{{f.pick}}">{{f.label}} <span>{{f.count}}</span></button></sc-for>
+      </div>
+      <p class="hf-task-result-count">{{visibleCount}} of {{totalCount}} tasks · {{openCount}} open · {{doneCount}} done</p>
+    </section>
+    <sc-if value="{{noResults}}" hint-placeholder-val="{{false}}"><div class="hf-task-empty"><h2>No matching tasks</h2><p>Try another name or return to all your tasks.</p><button type="button" onClick="{{resetFilters}}">Clear search and filters</button></div></sc-if>
+    <sc-if value="{{hasNotice}}" hint-placeholder-val="{{false}}"><div class="hf-task-feedback" role="status"><span>{{notice}}</span><sc-if value="{{canUndo}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{undo}}">Undo</button></sc-if></div></sc-if>
     <sc-if value="{{isList}}" hint-placeholder-val="{{true}}">
-      <div style="display: flex; flex-direction: column; gap: 12px">
+      <div class="hf-scan-list">
         <sc-for list="{{listColumns}}" as="col" hint-placeholder-count="5">
-          <section aria-label="{{col.name}}" style="background: #FFFFFF; border-radius: 28px; padding: 20px; min-width: 0">
+          <section class="hf-task-group" aria-label="{{col.name}}">
             <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600">{{col.name}} <span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #4A4950; margin-left: 8px">{{col.count}}</span></h2>
+            <sc-if value="{{col.isDone}}" hint-placeholder-val="{{false}}"><button class="hf-completed-toggle" type="button" aria-expanded="{{col.expanded}}" onClick="{{toggleDone}}">{{doneToggleLabel}}</button></sc-if>
+            <sc-if value="{{col.expanded}}" hint-placeholder-val="{{true}}">
             <sc-for list="{{col.cards}}" as="card" hint-placeholder-count="2">
-              <article style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-top: 1px solid #F0EEE9">
+              <article class="hf-task-row" style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-top: 1px solid #F0EEE9">
                 <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px">
-                  <div style="flex: 1 1 240px; min-width: 0"><a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{card.title}}</a><p style="margin: 4px 0 0; font-size: 13px; line-height: 18px; color: #4A4950">{{card.where}} · {{card.due}} · {{card.size}}</p></div>
+                  <div style="flex: 1 1 240px; min-width: 0"><a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{card.title}}</a><sc-if value="{{card.topThree}}" hint-placeholder-val="{{false}}"><span class="hf-priority-tag">Top 3</span></sc-if><p style="margin: 4px 0 0; font-size: 13px; line-height: 18px; color: #4A4950">{{card.where}} · {{card.size}}</p><span class="hf-task-due">Due {{card.due}}</span></div>
                   <sc-if value="{{card.confidential}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px">Confidential</span></sc-if>
                   <sc-if value="{{card.hasAction}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{card.primary}}" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{card.action}}</button></sc-if>
                   <details class="hf-status-menu"><summary aria-label="Update status: {{card.title}}">Update status</summary><div class="hf-status-options">
@@ -76,6 +83,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </div></details></sc-if>
               </article>
             </sc-for>
+            </sc-if>
           </section>
         </sc-for>
       </div>
@@ -88,7 +96,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600">{{col.name}} · {{col.count}}</h2>
               <sc-for list="{{col.cards}}" as="card" hint-placeholder-count="2">
                 <article style="display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 22px; background: #F4F3EF">
-                  <a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{card.title}}</a>
+                  <a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{card.title}}</a><sc-if value="{{card.topThree}}" hint-placeholder-val="{{false}}"><span class="hf-priority-tag">Top 3</span></sc-if>
                   <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{card.where}} · {{card.due}} · {{card.size}}</span>
                   <sc-if value="{{card.isBlocked}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #9A3412">Blocked · {{card.blockerNote}}</span></sc-if>
                   <details class="hf-status-menu"><summary aria-label="Update status: {{card.title}}">Update status</summary><div class="hf-status-options">
@@ -112,7 +120,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <section aria-label="My tasks table" style="background: #FFFFFF; border-radius: 28px; padding: 16px 20px; min-width: 0; overflow-x: auto">
         <table style="width: 100%; min-width: 820px; border-collapse: collapse; font-size: 13px; text-align: left">
           <thead><tr><th scope="col" style="padding: 12px">Task</th><th scope="col" style="padding: 12px">Status</th><th scope="col" style="padding: 12px">Due</th><th scope="col" style="padding: 12px">Size</th><th scope="col" style="padding: 12px">Deliverable</th><th scope="col" style="padding: 12px">This week</th><th scope="col" style="padding: 12px">Actions</th></tr></thead>
-          <tbody><sc-for list="{{rows}}" as="r" hint-placeholder-count="9"><tr style="border-top: 1px solid #F0EEE9; vertical-align: top"><th scope="row" style="padding: 12px; font-weight: 600"><a href="TaskDetail.dc.html">{{r.title}}</a></th><td style="padding: 12px">{{r.statusLabel}}</td><td style="padding: 12px; white-space: nowrap">{{r.due}}</td><td style="padding: 12px">{{r.size}}</td><td style="padding: 12px">{{r.where}}</td><td style="padding: 12px">{{r.week}}</td><td style="padding: 12px"><details class="hf-status-menu"><summary aria-label="Update status: {{r.title}}">Update status</summary><div class="hf-status-options">
+          <tbody><sc-for list="{{rows}}" as="r" hint-placeholder-count="9"><tr style="border-top: 1px solid #F0EEE9; vertical-align: top"><th scope="row" style="padding: 12px; font-weight: 600"><a href="TaskDetail.dc.html">{{r.title}}</a><sc-if value="{{r.topThree}}" hint-placeholder-val="{{false}}"><span class="hf-priority-tag">Top 3</span></sc-if></th><td style="padding: 12px">{{r.statusLabel}}</td><td style="padding: 12px; white-space: nowrap">{{r.due}}</td><td style="padding: 12px">{{r.size}}</td><td style="padding: 12px">{{r.where}}</td><td style="padding: 12px">{{r.week}}</td><td style="padding: 12px"><details class="hf-status-menu"><summary aria-label="Update status: {{r.title}}">Update status</summary><div class="hf-status-options">
 <sc-if value="{{r.canStart}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{r.start}}">Start</button></sc-if>
 <sc-if value="{{r.canFinish}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{r.finish}}">{{r.finishLabel}}</button></sc-if>
 <sc-if value="{{r.canReopen}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{r.start}}">Back to In progress</button></sc-if>
@@ -142,7 +150,7 @@ class Component extends DCLogic {
       {id: 'rounding', title: 'Fix receipt rounding on the POS', where: 'Standalone', due: 'Today', size: 'Small', status: 'Done', week: 'Added'},
       {id: 'banner', title: 'Coupon banner text', where: 'Launch In-App Ordering v1', due: 'Thu 15', size: 'Small', status: 'Done'}
     ];
-    const update = (id, patch, notice) => this.setState({changes: Object.assign({}, local.changes, {[id]: Object.assign({}, (local.changes || {})[id], patch)}), notice});
+    const update = (id, patch, notice) => this.setState({changes: Object.assign({}, local.changes, {[id]: Object.assign({}, (local.changes || {})[id], patch)}), notice, undoChanges: local.changes || {}, canUndo: true});
     const cards = seed.map(seedCard => {
       const c = Object.assign({week: 'Planned', confidential: false, blocked: false, needsReview: false, blockerNote: ''}, seedCard, (local.changes || {})[seedCard.id]);
       const finishLabel = c.needsReview ? 'Send to review' : 'Mark done';
@@ -150,7 +158,7 @@ class Component extends DCLogic {
       const finish = () => update(c.id, {status: c.needsReview ? 'Review' : 'Done'}, c.needsReview ? c.title + ' is awaiting Chenda’s review. Your part is done.' : c.title + ' is done.');
       const unblock = () => update(c.id, {blocked: false}, c.title + ' is unblocked and stays In progress.');
       return Object.assign(c, {
-        isBlocked: c.blocked, statusLabel: c.status + (c.blocked ? ' · Blocked' : ''),
+        topThree: ['photos', 'checkout', 'rounding'].includes(c.id), isBlocked: c.blocked, statusLabel: c.status + (c.blocked ? ' · Blocked' : ''),
         canStart: c.status === 'To do', canFinish: c.status === 'In progress' && !c.blocked,
         canReopen: c.status === 'Review' || c.status === 'Done',
         hasAction: c.status === 'To do' || c.status === 'In progress',
@@ -161,9 +169,14 @@ class Component extends DCLogic {
         saveBlocker: () => this.setState({notice: 'Blocker update saved for Chenda: ' + c.title + '.'})
       });
     });
-    const group = (name, matches) => {const list = cards.filter(matches); return {name, count: list.length, cards: list};};
+    const query = local.query || '';
+    const scope = local.scope || 'all';
+    const matchesScope = (c, id) => id === 'top' ? c.topThree : id === 'blocked' ? c.blocked : id === 'review' ? c.status === 'Review' : true;
+    const filtered = cards.filter(c => matchesScope(c, scope) && (c.title + ' ' + c.where).toLowerCase().includes(query.trim().toLowerCase()));
+    const filters = [['all', 'All tasks'], ['top', 'Top 3'], ['blocked', 'Needs help'], ['review', 'Awaiting review']].map(([id, label]) => ({label, count: cards.filter(c => matchesScope(c, id)).length, selected: scope === id ? 'true' : 'false', pick: () => this.setState({scope: id})}));
+    const group = (name, matches) => {const list = filtered.filter(matches); return {name, count: list.length, cards: list, isDone: name === 'Done', expanded: name !== 'Done' || !!local.showDone || !!query.trim()};};
     const listColumns = [group('In progress', c => c.status === 'In progress' && !c.blocked), group('Needs help', c => c.blocked), group('To do', c => c.status === 'To do'), group('Awaiting review', c => c.status === 'Review'), group('Done', c => c.status === 'Done')].filter(c => c.count);
-    return {views, listColumns, columns: ['To do','In progress','Review','Done'].map(name => group(name, c => c.status === name)), rows: listColumns.flatMap(c => c.cards), notice: local.notice || 'Active work first. Blocked tasks stay In progress and appear under Needs help.', isList: view === 'list', isBoard: view === 'board', isTable: view === 'table', notList: view !== 'list'};
+    return {query, filters, openCount: cards.filter(c => c.status !== 'Done').length, doneCount: cards.filter(c => c.status === 'Done').length, toggleDone: () => this.setState({showDone: !local.showDone, query: ''}), doneToggleLabel: local.showDone || query.trim() ? 'Hide completed tasks' : 'Show completed tasks', hasNotice: !!local.notice, canUndo: !!local.canUndo, undo: () => this.setState({changes: local.undoChanges || {}, canUndo: false, notice: 'Last task update undone.'}), totalCount: cards.length, visibleCount: filtered.length, noResults: !filtered.length, setQuery: e => this.setState({query: e.target.value}), resetFilters: () => this.setState({query: '', scope: 'all'}), views, listColumns, columns: ['To do','In progress','Review','Done'].map(name => group(name, c => c.status === name)), rows: listColumns.flatMap(c => c.cards), notice: local.notice || 'Active work first. Blocked tasks stay In progress and appear under Needs help.', isList: view === 'list', isBoard: view === 'board', isTable: view === 'table', notList: view !== 'list'};
   }
 }
 </script>

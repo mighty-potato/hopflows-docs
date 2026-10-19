@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Search</title>
 <script src="./support.js"></script>
-<link rel="stylesheet" href="/_blob/c52bbdf2c39dd7f3bbf7d8eb18fb6c9c">
+<link rel="stylesheet" href="/_blob/9275412045caede2fafcdfc2bb2771d3">
 </head>
 <body>
 <x-dc>
@@ -34,15 +34,15 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="flex: 1; min-width: 0; height: 64px; display: flex; align-items: center; gap: 12px; padding: 0 20px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 2px #1C1B1F">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
         <input id="q" type="search" value="{{q}}" placeholder="Search tasks, people, events…" style="flex: 1; min-width: 0; height: 56px; border: 0; background: transparent; font-family: inherit; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; color: #1C1B1F; outline: none">
-        <sc-if value="{{found}}" hint-placeholder-val="{{true}}"><span style="font-size: 12px; color: #6E6C73">7 results</span></sc-if><sc-if value="{{none}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: #6E6C73">No results</span></sc-if>
+        <sc-if value="{{found}}" hint-placeholder-val="{{true}}"><span style="font-size: 12px; color: #6E6C73">8 results</span></sc-if><sc-if value="{{none}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: #6E6C73">No results</span></sc-if>
       </div>
       <a href="Main.dc.html" style="height: 48px; padding: 0 18px; border-radius: 999px; background: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Close</a>
     </form>
 
     <sc-if value="{{notTyped}}" hint-placeholder-val="{{false}}">
-    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+    <div class="bento" style="columns: 2 320px; column-gap: 12px; margin-bottom: -12px">
       <sc-for list="{{before}}" as="g" hint-placeholder-count="2">
-        <section aria-label="{{g.name}}" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; min-width: 0">
+        <section aria-label="{{g.name}}" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; min-width: 0">
           <h2 style="margin: 0 0 6px; font-size: 13px; line-height: 18px; font-weight: 600; color: #4A4950">{{g.name}}</h2>
           <sc-for list="{{g.items}}" as="r" hint-placeholder-count="3">
             <a href="{{r.href}}" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none">
@@ -60,7 +60,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <div style="display: flex; flex-wrap: wrap; gap: 8px">
       <button type="button" aria-pressed="true" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Everything</button>
       <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Tasks · 3</button>
-      <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Deliverables · 1</button>
+      <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Deliverables · 2</button>
       <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Requests · 1</button>
       <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Events · 1</button>
       <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">People · 1</button>
@@ -70,9 +70,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Date ▾</button>
     </div>
 
-    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+    <div class="bento" style="columns: 2 320px; column-gap: 12px; margin-bottom: -12px">
       <sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
-        <section aria-label="{{g.name}}" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; min-width: 0">
+        <section aria-label="{{g.name}}" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; min-width: 0">
           <h2 style="margin: 0 0 6px; font-size: 13px; line-height: 18px; font-weight: 600; color: #4A4950">{{g.name}}</h2>
           <sc-for list="{{g.items}}" as="r" hint-placeholder-count="2">
             <sc-if value="{{r.href}}" hint-placeholder-val="{{true}}">
@@ -139,7 +139,8 @@ class Component extends DCLogic {
           r('Coupon breaks payment at checkout', 'Your request · today', 'Task for Rithy', 'MyRequests.dc.html')
         ]},
         { name: 'Deliverables', items: [
-          r('Launch In-App Ordering v1', 'Includes the checkout · Chenda Lim', 'At risk', 'Deliverable.dc.html')
+          r('Launch In-App Ordering v1', 'Includes the checkout · Chenda Lim', 'At risk', 'Deliverable.dc.html'),
+          r('Checkout launch campaign', 'Marketing · Malis Ouk · view only', 'On track', 'OtherTeam.dc.html')
         ]},
         { name: 'Events and people', items: [
           r('Checkout API sync', 'Today 14:30 · Room 2', 'Meeting', 'Calendar.dc.html'),

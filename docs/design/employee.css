@@ -59,3 +59,67 @@
   .hf-dialog { margin-bottom: calc(100px + env(safe-area-inset-bottom)); }
   .hf-dialog-overlay { z-index: 30; padding-top: 20px !important; }
 }
+
+/* Priorities are a subset of the employee's full workload. */
+.hf-work-overview { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding: 16px 20px; border: 1px solid #E7E5DF; border-radius: 16px; }
+.hf-work-overview a { display: flex; flex-direction: column; gap: 4px; min-height: 44px; justify-content: center; text-decoration: none; font-size: 14px; }
+.hf-work-overview span { color: #4A4950; font-size: 13px; }
+.hf-work-overview .hf-capture-link { margin-left: auto; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+.hf-other-work { background: #FFFFFF; border-radius: 28px; padding: 20px; scroll-margin-top: 20px; }
+.hf-other-work h2 { margin: 0; font-size: 18px; line-height: 24px; }
+.hf-other-work p, .hf-task-intro { margin: 6px 0 0; color: #4A4950; font-size: 14px; line-height: 21px; max-width: 65ch; }
+.hf-other-task { display: flex; flex-direction: column; gap: 5px; padding: 16px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none; font-size: 14px; line-height: 20px; }
+.hf-other-task span { color: #4A4950; font-size: 13px; }
+.hf-other-task .hf-blocked-copy { color: #9A3412; }
+.hf-all-tasks-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; font-size: 13px; font-weight: 600; text-underline-offset: 4px; }
+.hf-add-task { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; background: #F7C83A; font-size: 13px; font-weight: 600; text-decoration: none; }
+.hf-task-tools { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; }
+.hf-task-search { display: flex; flex: 1 1 240px; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 500; }
+.hf-task-search input { width: 100%; box-sizing: border-box; min-height: 44px; padding: 10px 14px; border: 1px solid #6E6C73; border-radius: 12px; background: #FFFFFF; color: #1C1B1F; font: inherit; }
+.hf-task-search input::placeholder { color: #6E6C73; }
+.hf-task-filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.hf-task-filters button, .hf-task-empty button { border: 1px solid #E7E5DF; border-radius: 999px; padding: 10px 16px; background: #FFFFFF; color: #1C1B1F; font: inherit; font-size: 13px; cursor: pointer; }
+.hf-task-filters button[aria-pressed="true"] { background: #1C1B1F; color: #FFFFFF; border-color: #1C1B1F; }
+.hf-task-filters span { margin-left: 6px; font-variant-numeric: tabular-nums; }
+.hf-task-result-count { flex-basis: 100%; margin: 0; font-size: 13px; color: #4A4950; }
+.hf-priority-tag { display: inline-block; margin: 4px 0 4px 8px; padding: 3px 8px; border-radius: 999px; background: #FAE7AC; color: #1C1B1F; font-size: 12px; font-weight: 500; white-space: nowrap; }
+.hf-task-empty { padding: 24px; background: #FFFFFF; border-radius: 16px; }
+.hf-task-empty h2 { margin: 0; font-size: 18px; }
+.hf-task-empty p { font-size: 14px; color: #4A4950; }
+.hf-other-task:hover, .hf-work-overview a:hover { color: #1C1B1F; text-decoration: underline; text-underline-offset: 4px; }
+.hf-task-filters button:hover, .hf-task-empty button:hover { border-color: #1C1B1F; }
+@media (max-width: 760px) {
+  .hf-work-overview { gap: 12px; padding: 12px 16px; }
+  .hf-work-overview a { flex: 1 1 130px; }
+  .hf-work-overview .hf-capture-link { margin-left: 0; flex-basis: 100%; }
+  .hf-task-tools { align-items: stretch; }
+}
+
+/* Daily use: a stable scan path and reversible task updates. */
+.hf-today-grid { row-gap: 12px; }
+.hf-today-grid .hf-progress { min-height: 0 !important; padding: 18px 24px !important; gap: 8px !important; }
+.hf-today-grid .hf-progress-number { font-size: 48px !important; line-height: 52px !important; }
+.hf-today-grid .hf-progress-copy { font-size: 14px !important; line-height: 20px !important; }
+.hf-today-grid .hf-progress-bars { display: none !important; }
+.hf-scan-list { background: #FFFFFF; border-radius: 16px; padding: 4px 24px; }
+.hf-task-group { min-width: 0; padding: 20px 0 8px; }
+.hf-task-group + .hf-task-group { border-top: 1px solid #E7E5DF; }
+.hf-task-group h2 { font-size: 15px !important; margin-bottom: 4px !important; }
+.hf-task-row { padding: 12px 0 !important; }
+.hf-task-due { display: inline-block; margin-top: 6px; color: #1C1B1F; font-size: 12px; line-height: 18px; font-weight: 600; }
+.hf-completed-toggle { padding: 0; background: transparent; border: 0; color: #4A4950; font: inherit; font-size: 13px; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.hf-task-feedback { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 16px; background: #DCEFE2; border-radius: 12px; color: #1F5E3A; font-size: 13px; line-height: 20px; }
+.hf-task-feedback button { background: transparent; border: 0; color: inherit; font: inherit; font-weight: 600; text-decoration: underline; cursor: pointer; }
+@media (min-width: 1025px) {
+  .hf-today-grid > .hf-today-context { order: 2; }
+}
+@media (max-width: 760px) {
+  .hf-work-overview { gap: 4px 12px; padding: 8px 12px; }
+  .hf-work-overview a { flex: 1 1 auto; font-size: 12px; }
+  .hf-work-overview span { display: none; }
+  .hf-work-overview .hf-capture-link { flex: 0 0 auto; }
+  .hf-today-grid .hf-progress-number { font-size: 28px !important; line-height: 32px !important; }
+  .hf-today-grid .hf-progress { padding: 12px 16px !important; }
+  .hf-scan-list { padding: 0 16px; }
+  .hf-task-tools { gap: 12px; }
+}

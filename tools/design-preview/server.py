@@ -18,7 +18,7 @@ BLOBS = {
     '780266c96f9700604ecc05b950fef158': 'assets/punh-punh-wave-right.png',
     '8baaebf55e0c1d993e17cdd2cd7bfe02': 'assets/punh-punh-welcome.png',
     '45ad8afd0afb75ee4546f634d05e9875': 'assets/punh-punh-welcome-right.png',
-    'c52bbdf2c39dd7f3bbf7d8eb18fb6c9c': 'employee.css',
+    '9275412045caede2fafcdfc2bb2771d3': 'employee.css',
 }
 
 

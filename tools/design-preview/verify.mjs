@@ -76,10 +76,44 @@ check('Calendar exposes all view choices and Week filters to the current week', 
 check('Every employee screen imports mobile navigation, shared CSS, and valid local components', () => {
   const files=fs.readdirSync(root).filter(f=>f.endsWith('.dc.html'));
   for(const file of files){const html=fs.readFileSync(path.join(root,file),'utf8');
-    if(html.includes('persona="employee"')){assert.match(html,/name="MobileNav"/);assert.match(html,/href="\/_blob\/c52bbdf2c39dd7f3bbf7d8eb18fb6c9c"/);}
+    if(html.includes('persona="employee"')){assert.match(html,/name="MobileNav"/);assert.match(html,/href="\/_blob\/9275412045caede2fafcdfc2bb2771d3"/);}
     for(const match of html.matchAll(/<dc-import name="([^"]+)"/g)) assert.ok(files.includes(match[1]+'.dc.html'),file+': missing import '+match[1]);
     // Parse every component script, including unchanged shared/lead screens.
     component(file.replace('.dc.html',''));
   }
+});
+check('Top 3 is a subset; search and filters preserve task state across views', () => {
+  const c = component('MyTasks');
+  assert.equal(c.renderVals().totalCount, 9);
+  c.renderVals().filters.find(f => f.label === 'Top 3').pick();
+  assert.equal(c.renderVals().visibleCount, 3);
+  c.renderVals().rows.find(t => t.id === 'photos').start();
+  c.renderVals().resetFilters();
+  assert.equal(c.renderVals().visibleCount, 9);
+  assert.equal(c.renderVals().rows.find(t => t.id === 'photos').status, 'In progress');
+  c.renderVals().setQuery({target: {value: 'MENU'}});
+  assert.equal(c.renderVals().visibleCount, 2);
+  c.renderVals().filters.find(f => f.label === 'Needs help').pick();
+  assert.equal(c.renderVals().noResults, true);
+  c.renderVals().resetFilters();
+  c.renderVals().filters.find(f => f.label === 'Awaiting review').pick();
+  assert.equal(c.renderVals().visibleCount, 1);
+});
+check('Completed tasks collapse, search reveals matches, and Undo restores status', () => {
+  const c = component('MyTasks');
+  assert.equal(c.renderVals().listColumns.find(g => g.isDone).expanded, false);
+  c.renderVals().toggleDone();
+  assert.equal(c.renderVals().listColumns.find(g => g.isDone).expanded, true);
+  c.renderVals().toggleDone();
+  c.renderVals().setQuery({target: {value: 'rounding'}});
+  assert.equal(c.renderVals().listColumns.find(g => g.isDone).expanded, true);
+  c.renderVals().resetFilters();
+  c.renderVals().rows.find(t => t.id === 'photos').start();
+  c.renderVals().rows.find(t => t.id === 'photos').finish();
+  assert.equal(c.renderVals().doneCount, 3);
+  c.renderVals().undo();
+  assert.equal(c.renderVals().rows.find(t => t.id === 'photos').status, 'In progress');
+  assert.equal(c.renderVals().doneCount, 2);
+  assert.equal(c.renderVals().canUndo, false);
 });
 console.log(`${checks} verification groups passed.`);

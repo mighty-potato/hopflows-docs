@@ -72,3 +72,52 @@ These refinements are now on the
 Other work landed on the canvas between those two versions: more states on
 Today, Task, Leave and Calendar, plus new `Event`, `MyReport` and `MyRoutines`
 screens. The 19 October pull brought all of it into `docs/design/`.
+
+
+## Full workload and Top 3 · 20 October 2026
+
+- Today labels its completion metric **Top 3 progress**. Completing priorities no
+  longer suggests that the employee has finished every task.
+- A workload navigation strip links to all tasks, other work, and task capture.
+  Beyond your Top 3 surfaces blocked, awaiting-review, and upcoming sample work.
+- My tasks keeps all nine sample tasks available, with Top 3 badges across List,
+  Board, and Table. Search combines with All tasks, Top 3, Needs help, and
+  Awaiting review filters. Counts and an empty-results reset follow the data.
+- Removed nonfunctional week/group/cancelled controls from My tasks and added a
+  direct Add a task link. Existing review and blocked-task rules remain intact.
+- Verified 15 source/state groups, including the 9-task/3-priority distinction,
+  combined search/filter behavior, and state preservation. Chrome's local suite
+  passed 21 screen/state checks; desktop and phone layouts were visually reviewed.
+- These changes are local only. The older screenshots and source hashes above
+  describe the previous revision. Prototype state is local to each screen and
+  is not persisted or synchronized across navigation; backend integration and
+  publication to Claude Design remain outside this update.
+
+
+### Scanability follow-up · 20 October 2026
+
+Today puts priority work on the left on desktop and reduces progress to a small
+supporting tile. Phone workload links are compact. My tasks uses a continuous
+list with consistent headings and distinct due-date text; completed rows are
+collapsed until requested (search reveals matching completed work). Open/done
+counts remain visible. Task updates offer a one-step Undo and confirmation.
+Routine explanatory status text appears only after an action. Source verification
+now passes 16 groups, including completed disclosure, search and undo transitions.
+These changes support daily use but do not establish employee retention; that
+requires testing with employees and persistent, integrated task data.
+
+## Pushed to Claude Design · 20 October 2026
+
+Version 49 of the canvas carries the full-workload and Top 3 changes:
+
+- `employee.css` was uploaded again as `/_blob/9275412045caede2fafcdfc2bb2771d3`,
+  and all 15 employee screens now link that id.
+- The canvas had moved Today to a two-column masonry layout after the 19 October
+  pull. The local Today changes were merged onto it: the workload overview sits
+  above the columns, "Beyond your Top 3" replaces "Due soon", and on desktop the
+  Top 3 column comes first.
+- `Leave`, `MyReport`, `Search` and `Settings` were refreshed from the canvas.
+- The new canvas artboards `Setup` (first admin sets up the company) and
+  `OtherTeam` (another department's Deliverable, view only) were pulled, with
+  the updated `canvas.json`. `OtherTeam` still linked the old `employee.css`
+  copy, so version 50 points it at the new one.

@@ -313,6 +313,24 @@
       "w": 1440,
       "x": 7600,
       "y": 6220
+    },
+    "OtherTeam.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": true,
+      "title": "08d · Another department's Deliverable · view only",
+      "w": 1440,
+      "x": 13680,
+      "y": 1360
+    },
+    "Setup.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "title": "01b · Set up your company · first admin",
+      "w": 1440,
+      "x": 5002,
+      "y": 0
     }
   },
   "createdOnFiles": {
@@ -334,7 +352,7 @@
   "notes": {
     "t0": {
       "kind": "title1",
-      "maxW": 4452,
+      "maxW": 6442,
       "text": "Get started · shared parts",
       "w": 240,
       "x": 0,
@@ -342,7 +360,7 @@
     },
     "t1": {
       "kind": "title1",
-      "maxW": 13600,
+      "maxW": 15120,
       "text": "Employee · What should I do next?",
       "w": 240,
       "x": 0,
@@ -384,6 +402,7 @@
   "order": [
     "Main.dc.html",
     "SignIn.dc.html",
+    "Setup.dc.html",
     "Welcome.dc.html",
     "Sidebar.dc.html",
     "Topbar.dc.html",
@@ -396,6 +415,7 @@
     "NeedHelp.dc.html",
     "MyRoutines.dc.html",
     "MyReport.dc.html",
+    "OtherTeam.dc.html",
     "LeadHome.dc.html",
     "Queue.dc.html",
     "Planner.dc.html",

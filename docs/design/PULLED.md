@@ -3,13 +3,13 @@
 Local copy of the **HopFlows Web App** design canvas.
 
 - Source: https://claude.ai/artifact/KcFhzuaEqjfwAJoM3jnTSz
-- Pulled: 19 October 2026 (version 1792418324-b343)
+- Pulled: 19 October 2026 (version 1792418324-b343); pushed and re-pulled 20 October 2026 (version 50, 1792437141-4c09)
 - Design system it uses: `ds/hopflows/tokens.json` (same as `../design-system/tokens.json`)
 
 | Path | What |
 |---|---|
 | `canvas.json` | Canvas index: every artboard, its position and size |
-| `*.dc.html` | One file per screen (35): `Main` (Today), `SignIn`, `Welcome`, `MyTasks`, `MyRequests`, `MyRoutines`, `MyReport`, `Calendar`, `Event`, `Inbox`, `AddWork`, `TaskDetail`, `NeedHelp`, `Search`, `Leave`, `Handover`, `LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `TeamTable`, `Routines`, `WeeklyReview`, `Goals`, `GoalDetail`, `Summary`, `Reports`, `People`, `Holidays`, `Org`, `Settings`, plus the shared `Sidebar`, `Topbar` and `MobileNav` |
+| `*.dc.html` | One file per screen (37): `Main` (Today), `SignIn`, `Setup`, `Welcome`, `MyTasks`, `MyRequests`, `MyRoutines`, `MyReport`, `OtherTeam`, `Calendar`, `Event`, `Inbox`, `AddWork`, `TaskDetail`, `NeedHelp`, `Search`, `Leave`, `Handover`, `LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `TeamTable`, `Routines`, `WeeklyReview`, `Goals`, `GoalDetail`, `Summary`, `Reports`, `People`, `Holidays`, `Org`, `Settings`, plus the shared `Sidebar`, `Topbar` and `MobileNav` |
 | `assets/` | Images the screens use |
 | `employee.css` | Employee responsive and accessibility rules, uploaded to the canvas as an asset |
 
@@ -25,7 +25,7 @@ The screens point at uploads as `/_blob/<id>`. Those resolve only inside Claude 
 | `/_blob/780266c96f9700604ecc05b950fef158` | `assets/punh-punh-wave-right.png` |
 | `/_blob/8baaebf55e0c1d993e17cdd2cd7bfe02` | `assets/punh-punh-welcome.png` |
 | `/_blob/45ad8afd0afb75ee4546f634d05e9875` | `assets/punh-punh-welcome-right.png` |
-| `/_blob/c52bbdf2c39dd7f3bbf7d8eb18fb6c9c` | `employee.css` |
+| `/_blob/9275412045caede2fafcdfc2bb2771d3` | `employee.css` |
 
 The `.dc.html` files are Design Component pages: they load `./support.js` from Claude Design and use `<dc-import>`, `<sc-for>` and `{{…}}` holes, so they do not render as plain HTML. Read them as the source of each screen's layout, copy and styles.
 
