@@ -3,18 +3,19 @@
 Local copy of the **HopFlows Web App** design canvas.
 
 - Source: https://claude.ai/artifact/KcFhzuaEqjfwAJoM3jnTSz
-- Pulled: 17 October 2026 (version 1792255139-b878)
+- Pulled: 19 October 2026 (version 1792418324-b343)
 - Design system it uses: `ds/hopflows/tokens.json` (same as `../design-system/tokens.json`)
 
 | Path | What |
 |---|---|
 | `canvas.json` | Canvas index: every artboard, its position and size |
-| `*.dc.html` | One file per screen (31): `Main` (Today), `SignIn`, `Welcome`, `MyTasks`, `MyRequests`, `Calendar`, `Inbox`, `AddWork`, `TaskDetail`, `NeedHelp`, `Search`, `Leave`, `Handover`, `LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `TeamTable`, `Routines`, `WeeklyReview`, `Goals`, `GoalDetail`, `Summary`, `Reports`, `People`, `Holidays`, `Org`, `Settings`, plus the shared `Sidebar` and `Topbar` |
+| `*.dc.html` | One file per screen (35): `Main` (Today), `SignIn`, `Welcome`, `MyTasks`, `MyRequests`, `MyRoutines`, `MyReport`, `Calendar`, `Event`, `Inbox`, `AddWork`, `TaskDetail`, `NeedHelp`, `Search`, `Leave`, `Handover`, `LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `TeamTable`, `Routines`, `WeeklyReview`, `Goals`, `GoalDetail`, `Summary`, `Reports`, `People`, `Holidays`, `Org`, `Settings`, plus the shared `Sidebar`, `Topbar` and `MobileNav` |
 | `assets/` | Images the screens use |
+| `employee.css` | Employee responsive and accessibility rules, uploaded to the canvas as an asset |
 
-## Image references
+## Asset references
 
-The screens point at uploads as `/_blob/<id>`. Those resolve only inside Claude Design; the local files are:
+The screens point at uploads as `/_blob/<id>`. Those resolve only inside Claude Design; the local preview server maps them to these files:
 
 | Reference | File |
 |---|---|
@@ -24,7 +25,19 @@ The screens point at uploads as `/_blob/<id>`. Those resolve only inside Claude 
 | `/_blob/780266c96f9700604ecc05b950fef158` | `assets/punh-punh-wave-right.png` |
 | `/_blob/8baaebf55e0c1d993e17cdd2cd7bfe02` | `assets/punh-punh-welcome.png` |
 | `/_blob/45ad8afd0afb75ee4546f634d05e9875` | `assets/punh-punh-welcome-right.png` |
+| `/_blob/c52bbdf2c39dd7f3bbf7d8eb18fb6c9c` | `employee.css` |
 
 The `.dc.html` files are Design Component pages: they load `./support.js` from Claude Design and use `<dc-import>`, `<sc-for>` and `{{…}}` holes, so they do not render as plain HTML. Read them as the source of each screen's layout, copy and styles.
 
 This is a snapshot. Edits made here do not flow back to Claude Design; pull again after changes there.
+
+## Employee refinements · 18–19 October 2026
+
+The seven employee improvements in [`review/README.md`](review/README.md) were
+made here on 18 October and pushed to the canvas on 19 October (versions 43
+and 45). Work continued on the canvas after that, and this pull includes it.
+
+Preview with `rtk proxy python3 tools/design-preview/server.py` from the repository
+root, then open `http://127.0.0.1:4173`. The preview implements the template features
+used by these files locally; it is not Claude Design's runtime. Prototype actions
+use sample state and do not send requests or publish changes to the source artifact.

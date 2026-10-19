@@ -1,0 +1,371 @@
+{
+  "generatedAt": "2026-10-18T08:17:43.989Z",
+  "renderer": "Local DC adapter; native Claude Design runtime is not available",
+  "passed": true,
+  "failures": [],
+  "checks": [
+    {
+      "screen": "Main",
+      "state": "",
+      "results": [
+        "PASS phone preview rendered",
+        "PASS Today checklist toggles",
+        "PASS control exists: Discuss priorities",
+        "PASS control exists: Send to Chenda",
+        "PASS empty priority note is rejected",
+        "PASS control exists: Send to Chenda",
+        "PASS priority discussion confirms without changing plan",
+        "PASS control exists: Send to review",
+        "PASS sending to review shows review state",
+        "PASS sending to review does not increase Done count",
+        "PASS control exists: Start",
+        "PASS control exists: Done",
+        "PASS finishing own work separates Done from review",
+        "PASS no phone page overflow",
+        "PASS no unresolved template expressions",
+        "PASS no runtime errors"
+      ]
+    },
+    {
+      "screen": "MyTasks",
+      "state": "",
+      "results": [
+        "PASS phone preview rendered",
+        "PASS active group exists first",
+        "PASS control exists: Send to review",
+        "PASS review-required task goes to Review",
+        "PASS control exists: Unblock",
+        "PASS unblock returns task to active work",
+        "PASS control exists: Board",
+        "PASS board offers keyboard-accessible status menus",
+        "PASS board status menu changes task status",
+        "PASS control exists: Table",
+        "PASS table offers status menu",
+        "PASS no phone page overflow",
+        "PASS no unresolved template expressions",
+        "PASS no runtime errors"
+      ]
+    },
+    {
+      "screen": "AddWork",
+      "state": "",
+      "results": [
+        "PASS phone preview rendered",
+        "PASS optional fields start collapsed",
+        "PASS control exists: Add details \u00b7 optional",
+        "PASS optional details expand",
+        "PASS request mode changes primary action",
+        "PASS task action is removed in request mode",
+        "PASS no phone page overflow",
+        "PASS no unresolved template expressions",
+        "PASS no runtime errors"
+      ]
+    },
+    {
+      "screen": "Calendar",
+      "state": "",
+      "results": [
+        "PASS phone preview rendered",
+        "PASS phone defaults to agenda",
+        "PASS desktop defaults to month",
+        "PASS Week selection works",
+        "PASS no phone page overflow",
+        "PASS no unresolved template expressions",
+        "PASS no runtime errors"
+      ]
+    },
+    {
+      "screen": "TaskDetail",
+      "state": "",
+      "results": [
+        "PASS phone preview rendered",
+        "PASS control exists: Send to review",
+        "PASS detail completion explains review gate",
+        "PASS duplicate review submission is removed",
+        "PASS no phone page overflow",
+        "PASS no unresolved template expressions",
+        "PASS no runtime errors"
+      ]
+    },
+    {
+      "screen": "Main",
+      "state": "state=awaitingReview",
+      "desktop": {
+        "width": 1440,
+        "documentWidth": 1440,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      },
+      "mobile": {
+        "width": 390,
+        "documentWidth": 390,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "Main",
+      "state": "state=allClear",
+      "desktop": {
+        "width": 1440,
+        "documentWidth": 1440,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      },
+      "mobile": {
+        "width": 390,
+        "documentWidth": 390,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "Main",
+      "state": "state=empty",
+      "desktop": {
+        "width": 1440,
+        "documentWidth": 1440,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      },
+      "mobile": {
+        "width": 390,
+        "documentWidth": 390,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "AddWork",
+      "state": "mode=request",
+      "desktop": {
+        "width": 1440,
+        "documentWidth": 1440,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      },
+      "mobile": {
+        "width": 390,
+        "documentWidth": 390,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "TaskDetail",
+      "state": "viewer=helper",
+      "desktop": {
+        "width": 1440,
+        "documentWidth": 1440,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      },
+      "mobile": {
+        "width": 390,
+        "documentWidth": 390,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "MyRequests",
+      "state": "",
+      "desktop": {
+        "width": 1440,
+        "documentWidth": 1440,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      },
+      "mobile": {
+        "width": 390,
+        "documentWidth": 390,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "Leave",
+      "state": "",
+      "desktop": {
+        "width": 1440,
+        "documentWidth": 1440,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      },
+      "mobile": {
+        "width": 390,
+        "documentWidth": 390,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "Inbox",
+      "state": "",
+      "desktop": {
+        "width": 1440,
+        "documentWidth": 1440,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      },
+      "mobile": {
+        "width": 390,
+        "documentWidth": 390,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "NeedHelp",
+      "state": "",
+      "desktop": {
+        "width": 1440,
+        "documentWidth": 1440,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      },
+      "mobile": {
+        "width": 390,
+        "documentWidth": 390,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "Search",
+      "state": "",
+      "desktop": {
+        "width": 1440,
+        "documentWidth": 1440,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      },
+      "mobile": {
+        "width": 390,
+        "documentWidth": 390,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "Settings",
+      "state": "",
+      "desktop": {
+        "width": 1440,
+        "documentWidth": 1440,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      },
+      "mobile": {
+        "width": 390,
+        "documentWidth": 390,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "Main",
+      "width": 320,
+      "metrics": {
+        "width": 320,
+        "documentWidth": 320,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "Main",
+      "width": 390,
+      "metrics": {
+        "width": 390,
+        "documentWidth": 390,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "Main",
+      "width": 760,
+      "metrics": {
+        "width": 760,
+        "documentWidth": 760,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "Main",
+      "width": 768,
+      "metrics": {
+        "width": 768,
+        "documentWidth": 768,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    },
+    {
+      "screen": "Main",
+      "width": 1440,
+      "metrics": {
+        "width": 1440,
+        "documentWidth": 1440,
+        "overflow": false,
+        "smallTargets": [],
+        "unresolved": false,
+        "errors": []
+      }
+    }
+  ]
+}

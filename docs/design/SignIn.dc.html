@@ -38,6 +38,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
   <section aria-label="Sign in" class="hf-pad" style="flex: 1 1 420px; min-width: 0; background: #FFFFFF; border-radius: 28px; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column">
     <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 32px 0">
+      <sc-if value="{{onEmail}}" hint-placeholder-val="{{true}}">
       <form style="width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 20px">
         <div style="display: flex; flex-direction: column; gap: 8px">
           <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Sign in</h1>
@@ -47,21 +48,50 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <label for="email" style="font-size: 13px; line-height: 18px; font-weight: 600">Work email</label>
           <input id="email" type="email" value="dara.sok@riverline.example" style="height: 52px; box-sizing: border-box; padding: 0 18px; border: 2px solid #1C1B1F; border-radius: 16px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F">
         </div>
-        <a href="Welcome.dc.html" style="height: 52px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px">Send me a code</a>
+        <button type="button" onClick="{{toCode}}" style="height: 52px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; cursor: pointer">Send me a code</button>
         <div style="display: flex; align-items: center; gap: 12px; color: #6E6C73; font-size: 12px"><span style="flex: 1; height: 1px; background: #E7E5DF"></span>or<span style="flex: 1; height: 1px; background: #E7E5DF"></span></div>
         <button type="button" style="height: 52px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12h-8"></path><path d="M20 12a8 8 0 1 1-2.3-5.7"></path></svg>Continue with Google</button>
         <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Invited by your team? Use the email your invite was sent to. Company single sign-on comes later.</p>
       </form>
+      </sc-if>
+      <sc-if value="{{onCode}}" hint-placeholder-val="{{false}}">
+      <form style="width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Check your email</h1>
+          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">We sent a 6-digit code to <strong style="color: #1C1B1F">dara.sok@riverline.example</strong>. It works for 10 minutes.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="code" style="font-size: 13px; line-height: 18px; font-weight: 600">Code</label>
+          <input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="{{codeValue}}" aria-invalid="{{wrong}}" aria-describedby="code-help" style="height: 64px; box-sizing: border-box; padding: 0 18px; border: 2px solid {{codeBorder}}; border-radius: 16px; background: #FFFFFF; font-family: 'Geist Mono', monospace; font-size: 32px; font-weight: 600; letter-spacing: 0.3em; color: #1C1B1F; font-variant-numeric: tabular-nums">
+          <sc-if value="{{isWrong}}" hint-placeholder-val="{{false}}"><p id="code-help" role="alert" style="margin: 0; font-size: 13px; line-height: 18px; color: #9A3412">That code doesn't match. Use the newest email we sent, or get a new code.</p></sc-if>
+          <sc-if value="{{notWrong}}" hint-placeholder-val="{{true}}"><p id="code-help" style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Can't find it? Check your spam folder.</p></sc-if>
+        </div>
+        <a href="Welcome.dc.html" style="height: 52px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center">Sign in</a>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px">
+          <button type="button" onClick="{{toEmail}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Use a different email</button>
+          <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Send a new code · 0:42</button>
+        </div>
+      </form>
+      </sc-if>
     </div>
     <span style="font-size: 12px; line-height: 16px; color: #6E6C73">New company? <a href="People.dc.html" style="font-weight: 600">Create a company</a> and you become its first admin.</span>
   </section>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+<script type="text/x-dc" data-dc-script data-props='{"step":{"editor":"enum","options":["email","code","wrongCode"],"default":"email"},"$preview":{"width":1440,"height":900}}'>
 class Component extends DCLogic {
   renderVals() {
-    return {};
+    const step = (this.state && this.state.step) || this.props.step || 'email';
+    const wrong = step === 'wrongCode';
+    return {
+      onEmail: step === 'email', onCode: step !== 'email',
+      isWrong: wrong, notWrong: !wrong, wrong: wrong ? 'true' : 'false',
+      codeValue: wrong ? '482019' : '',
+      codeBorder: wrong ? '#C2410C' : '#1C1B1F',
+      toCode: () => this.setState({ step: 'code' }),
+      toEmail: () => this.setState({ step: 'email' })
+    };
   }
 }
 </script>

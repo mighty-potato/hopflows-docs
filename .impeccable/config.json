@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "files": [
+          "docs/design/employee.css"
+        ],
+        "createdAt": "2026-10-18T08:22:06.153Z",
+        "reason": "Agent: docs/design-system/README.md specifies Geist for interface text; preserve the existing HopFlows typography in employee refinements."
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "tools/design-preview/index.html"
+        ],
+        "createdAt": "2026-10-18T08:22:06.305Z",
+        "reason": "Agent: this local design-review fixture deliberately uses the HopFlows stone token #E7E5DF from docs/design-system/tokens.json to frame the existing design."
+      }
+    ]
+  }
+}

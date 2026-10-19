@@ -1,0 +1,15 @@
+PASS Today starts with 1 confirmed Done; review submission does not increment Done
+PASS Owner finishes remaining work: 2 Done, 1 awaiting review
+PASS Accepted state alone shows 3 Done and All clear
+PASS Checklist changes survive subsequent component state updates
+PASS Discuss priorities requires a note and does not change task status
+PASS Default task order prioritizes active and blocked work
+PASS Blocked task cannot finish until unblocked
+PASS Review-required task is sent to Review, not Done
+PASS All task views use the same updated data
+PASS Blocker note edits survive view switches
+PASS Task detail owner can request review; helper cannot
+PASS Add Work retains the task/request routing distinction
+PASS Calendar exposes all view choices and Week filters to the current week
+PASS Every employee screen imports mobile navigation, shared CSS, and valid local components
+14 verification groups passed.

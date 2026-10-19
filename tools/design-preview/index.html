@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HopFlows employee design review</title>
+<style>
+body{margin:0;padding:16px;background:#E7E5DF;color:#1C1B1F;font:14px system-ui,sans-serif}header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}h1{font-size:18px;margin:0}select,button,a{min-height:44px;box-sizing:border-box;font:inherit}select,button{padding:8px 12px;border:1px solid #6E6C73;border-radius:12px;background:#FFF;color:#1C1B1F}a{color:inherit;display:inline-flex;align-items:center}.notice{margin:0 0 12px;font-size:12px}main{display:flex;gap:16px;align-items:flex-start}.frame{background:#FFF;border:1px solid #6E6C73;position:relative;overflow:hidden}.frame.desktop{width:663px;height:530px}.frame.mobile{width:254px;height:549px}iframe{border:0;transform-origin:top left;width:1440px;height:1151px;transform:scale(.46)}.mobile iframe{width:390px;height:844px;transform:scale(.65)}#results{white-space:pre-wrap;max-width:1100px;font:12px/1.5 ui-monospace,monospace;padding:12px;background:#FFF;border-radius:12px}#interaction-results{white-space:pre-wrap;font:12px/1.5 ui-monospace,monospace}
+</style></head><body>
+<header><h1>HopFlows · design review</h1><label>Screen <select id="screen"><option>Main</option><option>MyTasks</option><option>AddWork</option><option>TaskDetail</option><option>Calendar</option><option>MyRequests</option><option>Leave</option><option>Inbox</option><option>NeedHelp</option><option>Search</option><option>Settings</option></select></label><label>State <select id="state"><option value="">Default</option><option value="state=awaitingReview">Your part is done</option><option value="state=allClear">All accepted</option><option value="state=empty">Empty Today</option><option value="mode=request">Ask Chenda</option><option value="view=board">Task board</option><option value="view=table">Task table</option><option value="viewer=helper">Helper</option></select></label><button id="reload">Reload</button><button id="test">Test screen</button><button id="suite">Verify all</button><a id="open" target="_blank">Full size</a></header>
+<p class="notice">Local adapter for the checked-in design snapshot. Desktop 1440px and phone 390px. Actions use local sample state; nothing is sent or published. This is not Claude Design’s renderer.</p>
+<main><section><p>Desktop · 1440px</p><div class="frame desktop"><iframe id="desktop" title="Desktop employee design"></iframe></div></section><section><p>Phone · 390px</p><div class="frame mobile"><iframe id="mobile" title="Phone employee design"></iframe></div></section></main>
+<p id="results" role="status">Loading previews…</p><pre id="interaction-results" role="status"></pre>
+<script>
+const screen = document.getElementById('screen'), state = document.getElementById('state');
+const desktop = document.getElementById('desktop'), mobile = document.getElementById('mobile');
+function load(){const url='/docs/design/'+screen.value+'.dc.html'+(state.value?'?'+state.value:''); desktop.src=url;mobile.src=url;document.getElementById('open').href=url;document.getElementById('results').textContent='Loading previews…';}
+screen.onchange=()=>{state.value='';load()};state.onchange=load;document.getElementById('reload').onclick=load;
+function report(){document.getElementById('results').textContent=[desktop,mobile].map(frame=>{const w=frame.contentWindow;if(!w.previewReady)return frame.id+': loading';return frame.id+': '+JSON.stringify(w.previewDiagnostics())}).join('\n')}
+window.addEventListener('message',e=>{if(e.origin===location.origin && e.data.type?.startsWith('preview-'))setTimeout(report,100)});
+async function checkCurrent(){
+ const output=document.getElementById('interaction-results'); output.textContent='Checking…'; const results=[];
+ const tick=()=>new Promise(r=>setTimeout(r,150));
+ function assert(ok,message){results.push((ok?'PASS ':'FAIL ')+message);if(!ok)throw Error(message)}
+ async function click(doc,text){const el=[...doc.querySelectorAll('button,summary')].find(el=>el.textContent.trim()===text);assert(!!el,'control exists: '+text);el.click();await tick()}
+ try{
+  const doc=mobile.contentDocument; const name=screen.value;
+  assert(mobile.contentWindow.previewReady,'phone preview rendered');
+  if(name==='Main'){
+   const checkbox=doc.querySelector('.hf-check-row input');const old=checkbox.checked;checkbox.click();await tick();assert(doc.querySelector('.hf-check-row input').checked!==old,'Today checklist toggles');
+   await click(doc,'Discuss priorities');await click(doc,'Send to Chenda');assert(doc.querySelector('[role=alert]')?.textContent.includes('Add a note'),'empty priority note is rejected');
+   let note=doc.getElementById('priority-note');note.value='Payment outage should come before menu photos.';note.dispatchEvent(new Event('change',{bubbles:true}));await tick();await click(doc,'Send to Chenda');assert(doc.body.textContent.includes('Sent to Chenda. Your Top 3 stay the same'),'priority discussion confirms without changing plan');
+   await click(doc,'Send to review');assert(doc.body.textContent.includes('Awaiting Chenda’s review'),'sending to review shows review state');
+   assert(doc.querySelector('.hf-progress-number').textContent==='1/3','sending to review does not increase Done count');
+   await click(doc,'Start');await click(doc,'Done');assert(doc.body.textContent.includes('2 done · 1 awaiting review'),'finishing own work separates Done from review');
+  }else if(name==='MyTasks'){
+   assert(doc.querySelector('section[aria-label="In progress"]')!==null,'active group exists first');
+   await click(doc,'Send to review');assert(doc.body.textContent.includes('is awaiting Chenda’s review'),'review-required task goes to Review');
+   await click(doc,'Unblock');assert(!doc.querySelector('section[aria-label="Needs help"]'),'unblock returns task to active work');
+   await click(doc,'Board');assert(doc.querySelector('.hf-board details summary')!==null,'board offers keyboard-accessible status menus');
+   const menu=doc.querySelector('.hf-board details');menu.open=true;const start=menu.querySelector('button');start.click();await tick();assert(doc.body.textContent.includes('is in progress'),'board status menu changes task status');
+   await click(doc,'Table');assert(doc.querySelector('table details summary')!==null,'table offers status menu');
+  }else if(name==='AddWork'){
+   const details=doc.querySelector('.hf-disclosure');assert(!details.open,'optional fields start collapsed');await click(doc,'Add details · optional');assert(doc.querySelector('.hf-disclosure').open,'optional details expand');
+   const ask=[...doc.querySelectorAll('button')].find(b=>b.textContent.includes('Ask Chenda'));ask.click();await tick();assert(doc.body.textContent.includes('Send to Chenda'),'request mode changes primary action');assert(!doc.body.textContent.includes('Add to my tasks'),'task action is removed in request mode');
+  }else if(name==='Calendar'){
+   const agenda=doc.querySelector('.hf-agenda');assert(getComputedStyle(agenda).display==='flex','phone defaults to agenda');const deskAgenda=desktop.contentDocument.querySelector('.hf-agenda');assert(desktop.contentWindow.getComputedStyle(deskAgenda).display==='none','desktop defaults to month');
+   const controls=doc.querySelector('.hf-calendar-mobile-controls');controls.querySelectorAll('button')[1].click();await tick();assert(doc.querySelector('.hf-calendar-explicit-week'),'Week selection works');
+  }else if(name==='TaskDetail'){
+   await click(doc,'Send to review');assert(doc.body.textContent.includes('the task will be Done when accepted'),'detail completion explains review gate');assert(![...doc.querySelectorAll('button')].some(b=>b.textContent.trim()==='Send to review'),'duplicate review submission is removed');
+  }
+  report(); const metrics=mobile.contentWindow.previewDiagnostics();assert(!metrics.overflow,'no phone page overflow');assert(!metrics.unresolved,'no unresolved template expressions');assert(metrics.errors.length===0,'no runtime errors');
+ }catch(error){results.push('Stopped: '+error.message)}
+ output.textContent=results.join('\n');
+ window.latestCheck={screen:screen.value,state:state.value,results};
+ return window.latestCheck;
+}
+document.getElementById('test').onclick=checkCurrent;
+document.getElementById('suite').onclick=async()=>{
+ const suite=[];const button=document.getElementById('suite');button.disabled=true;
+ const pause=ms=>new Promise(r=>setTimeout(r,ms));
+ async function ready(){for(let i=0;i<100;i++){await pause(100);if([desktop,mobile].every(f=>f.contentWindow.previewReady))return}throw Error('preview load timeout')}
+ async function navigate(name,params=''){screen.value=name;state.value=params;desktop.contentWindow.previewReady=false;mobile.contentWindow.previewReady=false;load();await ready()}
+ try{
+  for(const name of ['Main','MyTasks','AddWork','Calendar','TaskDetail']){await navigate(name);suite.push(await checkCurrent())}
+  for(const [name,params] of [['Main','state=awaitingReview'],['Main','state=allClear'],['Main','state=empty'],['AddWork','mode=request'],['TaskDetail','viewer=helper'],['MyRequests',''],['Leave',''],['Inbox',''],['NeedHelp',''],['Search',''],['Settings','']]){
+   await navigate(name,params);
+   suite.push({screen:name,state:params,desktop:desktop.contentWindow.previewDiagnostics(),mobile:mobile.contentWindow.previewDiagnostics()});
+  }
+  await navigate('Main');
+  for(const width of [320,390,760,768,1440]){mobile.style.width=width+'px';await pause(100);suite.push({screen:'Main',width,metrics:mobile.contentWindow.previewDiagnostics()})}
+  mobile.style.width='390px';
+  const failures=[];
+  for(const entry of suite){for(const result of entry.results||[])if(result.startsWith('FAIL ')||result.startsWith('Stopped:'))failures.push(entry.screen+': '+result);for(const metric of [entry.desktop,entry.mobile,entry.metrics].filter(Boolean)){if(metric.overflow||metric.unresolved||metric.errors.length||metric.smallTargets.length)failures.push(entry.screen+': '+JSON.stringify(metric))}}
+  const result={generatedAt:new Date().toISOString(),renderer:'Local DC adapter; native Claude Design runtime is not available',passed:failures.length===0,failures,checks:suite};
+  await fetch('/__verification',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(result)});
+  document.getElementById('interaction-results').textContent=(result.passed?'PASS':'FAIL')+' · '+suite.length+' screen/state checks · '+failures.length+' failures. Saved docs/design/review/verification.json'+(failures.length?'\n'+failures.join('\n'):'');
+ }catch(error){document.getElementById('interaction-results').textContent='FAIL '+error.stack}finally{button.disabled=false;report()}
+};
+load();
+</script></body></html>
