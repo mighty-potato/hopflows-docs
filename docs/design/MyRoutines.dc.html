@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My routines</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+}
+</style>
+<link rel="stylesheet" href="./employee.css">
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="employee" current="today" hint-size="232px,900px"></dc-import>
+  </div>
+  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">My routines</h1>
+        <p style="margin: 0; max-width: 64ch; font-size: 15px; line-height: 22px; color: #4A4950">Work that repeats. Each day it shows on Today under Routine today, and it skips your days off and leave.</p>
+      </div>
+      <a href="Main.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Back to Today</a>
+    </div>
+
+    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
+      <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <section aria-labelledby="rt-team" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+          <h2 id="rt-team" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">From your team</h2>
+          <p style="margin: 0 0 6px; font-size: 13px; line-height: 18px; color: #6E6C73">Chenda sets these. Ask Chenda if one should change.</p>
+          <sc-for list="{{team}}" as="r" hint-placeholder-count="2">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 12px 0; border-top: 1px solid #F0EEE9">
+              <span style="font-size: 15px; line-height: 22px; font-weight: 600">{{r.title}}</span>
+              <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{r.when}}</span>
+            </div>
+          </sc-for>
+        </section>
+        <section aria-labelledby="rt-mine" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+          <h2 id="rt-mine" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Just for me</h2>
+          <p style="margin: 0 0 6px; font-size: 13px; line-height: 18px; color: #6E6C73">Only you see these.</p>
+          <sc-for list="{{mine}}" as="r" hint-placeholder-count="1">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 0; border-top: 1px solid #F0EEE9">
+              <div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; line-height: 22px; font-weight: 600">{{r.title}}</span><span style="font-size: 13px; line-height: 18px; color: #4A4950">{{r.when}}</span></div>
+              <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: {{r.bg}}; color: {{r.fg}}; font-size: 13px; font-weight: 600">{{r.state}}</span>
+              <button type="button" onClick="{{r.toggle}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{r.action}}</button>
+            </div>
+          </sc-for>
+        </section>
+      </div>
+
+      <section aria-labelledby="rt-new" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px; min-width: 0">
+        <h2 id="rt-new" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">New personal routine</h2>
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="rt-title" style="font-size: 13px; line-height: 18px; font-weight: 600">What do you do each time?</label><input id="rt-title" type="text" value="Clear my review queue" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span id="rt-rep" style="font-size: 13px; line-height: 18px; font-weight: 600">Repeats</span>
+          <div role="radiogroup" aria-labelledby="rt-rep" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+            <sc-for list="{{repeats}}" as="o" hint-placeholder-count="4"><button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="height: 44px; border: 0; border-radius: 14px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="rt-by" style="font-size: 13px; line-height: 18px; font-weight: 600">Done by</label><input id="rt-by" type="time" value="16:00" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="rt-est" style="font-size: 13px; line-height: 18px; font-weight: 600">About how long?</label><select id="rt-est" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>15 min</option><option selected>30 min</option><option>1 hour</option></select></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 13px; line-height: 18px; font-weight: 600">Checklist <span style="font-weight: 400; color: #6E6C73">· optional</span></span>
+          <label class="hf-check-row" style="padding: 0 12px; border-radius: 14px; background: #F4F3EF"><input type="checkbox" disabled><span>Open my reviews</span></label>
+          <label class="hf-check-row" style="padding: 0 12px; border-radius: 14px; background: #F4F3EF"><input type="checkbox" disabled><span>Reply or pass each one on</span></label>
+          <button type="button" style="align-self: flex-start; height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add a step</button>
+        </div>
+        <label class="hf-check-row"><input type="checkbox"><span>Runs on holidays too</span></label>
+        <p style="margin: 0; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 13px; line-height: 18px">If it isn't done by 16:00 it closes as missed and starts fresh the next day. Missed ones never pile up.</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Create routine</button></div>
+      </section>
+    </div>
+  </main>
+  <dc-import name="MobileNav" current="today" hint-size="390px,80px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const rep = s.rep || 'work';
+    const repeats = [['daily', 'Every day'], ['work', 'Working days'], ['days', 'Chosen days'], ['month', 'Monthly']].map(([id, name]) => ({
+      name, on: rep === id ? 'true' : 'false', bg: rep === id ? '#1C1B1F' : '#F4F3EF', fg: rep === id ? '#FFFFFF' : '#1C1B1F', pick: () => this.setState({ rep: id })
+    }));
+    const paused = !!s.paused;
+    return {
+      repeats,
+      team: [
+        { title: 'Open shop checklist', when: 'Every day by 09:00 · takes turns · your turn Tue and Thu' },
+        { title: 'Daily wrap-up notes', when: 'Working days by 18:00 · you' }
+      ],
+      mine: [
+        { title: 'Check overnight error emails', when: 'Working days by 09:30 · 3 steps',
+          state: paused ? 'Paused' : 'On', bg: paused ? '#F4F3EF' : '#DCEFE2', fg: paused ? '#4A4950' : '#1F5E3A',
+          action: paused ? 'Turn back on' : 'Pause', toggle: () => this.setState({ paused: !paused }) }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alerts and settings</title>
 <script src="./support.js"></script>
 </head>
@@ -21,6 +22,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .bento>*{grid-column:1 / -1 !important}
 }
 </style>
+<link rel="stylesheet" href="./employee.css">
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
   <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
@@ -53,8 +55,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </section>
         <section aria-label="Punh Punh" style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
           <span style="font-size: 12px; color: #6E6C73">Punh Punh and celebrations</span>
-          <label style="display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px; font-size: 15px">Animations<input type="checkbox" checked style="width: 22px; height: 22px; accent-color: #1C1B1F"></label>
-          <label style="display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px; font-size: 15px">Celebrations<input type="checkbox" checked style="width: 22px; height: 22px; accent-color: #1C1B1F"></label>
+          <label style="display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; font-size: 15px">Animations<input type="checkbox" checked style="width: 22px; height: 22px; accent-color: #1C1B1F"></label>
+          <label style="display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; font-size: 15px">Celebrations<input type="checkbox" checked style="width: 22px; height: 22px; accent-color: #1C1B1F"></label>
         </section>
       </div>
 
@@ -85,6 +87,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
     </div>
   </main>
+  <dc-import name="MobileNav" current="settings" hint-size="390px,80px"></dc-import>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1200}}'>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Search</title>
 <script src="./support.js"></script>
 </head>
@@ -21,6 +22,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .bento>*{grid-column:1 / -1 !important}
 }
 </style>
+<link rel="stylesheet" href="./employee.css">
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
   <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
@@ -102,6 +104,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
     </sc-if>
   </main>
+  <dc-import name="MobileNav" current="none" hint-size="390px,80px"></dc-import>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"noResults":{"editor":"boolean","default":false},"typed":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":960}}'>
