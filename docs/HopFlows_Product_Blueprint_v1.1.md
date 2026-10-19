@@ -175,6 +175,7 @@ These rules apply everywhere in the app. The technical document (`HopFlows_Techn
 - A person becomes a lead by leading a department, not by job title. Leaders and leads can give a named person one specific right, for a set area and a set time.
 - Each person has their own time zone and follows one holiday calendar: the company's main one, unless another is chosen.
 - A person can be in several departments, and each gets a share of their time. If no shares are set, their main department gets all of it. Leads can change the shares for a week.
+- People can look at other departments' work, read-only (Proposed). Anyone in the company can open another department's Goals, Deliverables and Tasks and see the title, owner, status, due date and the Blocked marker. From there they can only send a request or give kudos. Workload colours, time, reports, weekly plans and reviews stay inside the department, Confidential Tasks follow their own rules, and a Task for me that isn't linked to a Deliverable is seen only inside its department. An admin can close a department's work to people outside it (for example HR or Finance).
 
 ## Work
 
@@ -919,6 +920,7 @@ Figure 16. Working offline.
 | Give Tasks to people | If given the right | Their own area | No, unless allowed |
 | Add a Task for themselves | Yes | Yes | Yes |
 | Update their own Tasks | Yes | Yes | Yes |
+| See other departments' work (read-only) | Yes | Yes | Yes |
 | Send a request | Yes | Yes | Yes |
 | Sort their department's requests | If given the right | Yes | No |
 | See company-wide reports | Yes | Only if allowed | Only their own |
@@ -929,6 +931,7 @@ Figure 16. Working offline.
 | See risk flags | Yes | Their own area | Flags on their own work |
 | Manage holiday calendars | Yes (admin) | No | No |
 | Manage products, product areas and departments | Yes (admin) | No | No |
+| Close a department's work to other departments | Yes (admin) | No | No |
 | Create meetings and events | Yes | Yes | Yes |
 | See the team calendar (deadlines, leave, shared events) | Yes | Their teams | Their own calendar and shared events |
 | Change a deadline from the calendar | Their own Goals, or if given the right | Their own area | Their own standalone Tasks; otherwise ask |
@@ -1094,6 +1097,8 @@ Once teams use HopFlows every day, add more ways to recognize people, built on t
 | Surprise Task has no Deliverable | Allow it as a standalone Task in the queue and on Today. |
 | The same problem is reported many times | Link all the requests to one Task. |
 | Confidential Task | Hide its details, whatever someone's role or team; give access person by person. |
+| Someone opens another department's Task or Deliverable | Show it read-only with title, owner, status, due date and Blocked; offer Send a request and Give kudos; never show workload colours. |
+| A department's work is closed by an admin | People outside it find none of its work in search, lists or links, and see no hint it exists. Shared Deliverables they help on stay visible. |
 | Task reopened after review | Keep the earlier Done and review history; show how often work is reopened separately. |
 | Owner removed from an In Progress Task | Move the Task back to To Do; active work always has an owner. |
 | A helper marks a Task Done | Offer "Ask owner"; only the owner or the lead can finish it. |
@@ -1289,6 +1294,8 @@ Each row is what we build unless we decide otherwise. **Open** rows still need a
 | Quiet hours and morning summary | Quiet hours 20:00–07:00 in each person's time zone, broken only by urgent alerts; morning summary at 08:00 on working days. | Default |
 | Snooze | 1 hour, 3 hours, or tomorrow morning; never stops an urgent alert being passed on. | Proposed |
 | What outside apps see | Titles, due dates and buttons in private messages; summaries only in group chats; nothing from Confidential Tasks. | Default |
+| Other departments' work | Open to everyone in the company, read-only; admins can close a department. | Proposed |
+| Company setup | Five steps for whoever creates the company: company, departments, people, products (optional), check and invite. Invites are sent together at the end. | Proposed |
 | Streak | Finishing a Task or a checklist step on a working day; weekends, holidays and leave don't count; one missed day a week is forgiven. | Default |
 | Mascot | Punh Punh, a chubby pencil (artwork in `design/mascot/`). | Default |
 | App icon | Punh Checklist: Punh Punh leaning in beside a checklist on a sky tile (files in `design/app-icon/`, rules in §11). | Default |
@@ -1322,6 +1329,8 @@ Each row is what we build unless we decide otherwise. **Open** rows still need a
 | Two departments | Someone in two departments is counted once in company-wide time. |
 | Result vs. finished work | A Goal can stay below target even if every Deliverable is accepted. |
 | Permissions | An employee can't see another company's information or a Confidential Task. |
+| Other departments' work | An employee opens another department's Deliverable read-only, sees no workload colours, and finds nothing from a department an admin has closed. |
+| Company setup | A new admin sets up the company, two departments and five people; no invite is sent before Send on the last step, and leaving halfway resumes at the same step. |
 | Load in the planner | In the weekly planner, a lead sees each person's planned and added hours against their time before locking the week. |
 | Handover | A lead moves a leaving person's open work to others in one action; locked plans keep the original owner and the history shows who owned what. |
 | Deactivation block | Someone who still owns active work can't be deactivated until it is handed over or cancelled. |
@@ -1376,6 +1385,21 @@ flowchart TD
 
 Figure 17. Signing in and joining a company.
 
+## Setting up a company (Proposed)
+
+When someone chooses "Create a company", HopFlows walks them through five short steps before anyone else is invited. People who join an existing company never see these steps: they go from the invite to Welcome and Today.
+
+1. **Company:** name, country, time zone, working days and hours a day. The country loads that year's public holidays. The defaults are Monday to Friday, 8 hours a day.
+2. **Departments:** each department and its lead. A department can be added without a lead and get one later. Each has an "Others can see our work" switch, on by default (see §04).
+3. **People:** paste work emails or upload a CSV, then set each person's department and role (member, leadership or admin). An invite link can be copied instead.
+4. **Products (optional):** the company's apps or services, so Goals and reports can be split by product. Most pilot companies can skip this.
+5. **Check and invite:** totals for departments, people and holidays, and what each person sees first. Invites go out only when the admin presses Send.
+
+- Every step is saved as the admin goes. Steps 2–4 can be skipped, and "Finish later" works on any step; a "Finish setup" card stays on the admin's home screen until all five are done.
+- Nothing is sent before step 5, so the team gets their invites together and nobody signs in to an empty company.
+- Everything set here can be changed later in Admin: People, Holiday calendars, and Products & teams.
+- After the invites: employees see First steps with Punh Punh, then Today; leads also see "Plan week" on Needs you.
+
 ## Looking after data
 
 - History is never edited. If a person asks for their data to be deleted, their profile is removed and their name in the history is replaced with a made-up name, so reports still add up.
@@ -1385,7 +1409,7 @@ Figure 17. Signing in and joining a company.
 
 # Change log
 
-**v1.1, 15 October 2026 (updated 17 October)**
+**v1.1, 15 October 2026 (updated 20 October)**
 
 - English is the default language; other languages, such as Khmer, can be added later (17 October).
 - Chat apps moved to a later stage: the first version sends alerts by push (phone and browser) and the in-app inbox; Telegram, Slack and Microsoft Teams come later with the same messages and buttons (17 October).
@@ -1396,6 +1420,8 @@ Figure 17. Signing in and joining a company.
 - "Task for me" (Proposed): anyone can add a Task for themselves without approval; work for others still goes to the lead as a request (17 October).
 - Checklist steps can be added while creating a Task (17 October).
 - Add Work opens on Task for me; asking the lead is the second choice (17 October).
+- Other departments' work can be seen read-only, without workload or reports; admins can close a department (Proposed, 20 October).
+- Company setup (Proposed): whoever creates a company is walked through company details, departments, people and optional products, and invites are sent together at the end (20 October).
 - Mascot renamed from Hop to Punh Punh (14 October).
 - App icon chosen: Punh Checklist, with usage rules in §11 (15 October).
 - First version split into "pilot core" and "soon after"; later-stage features (Workload view for future weeks, temporary Handover, suggested risk flags) marked in the flows and special cases.

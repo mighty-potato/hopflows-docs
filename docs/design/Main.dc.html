@@ -24,6 +24,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important;grid-row:auto !important}
 }
+@media (max-width:1024px){
+.hf-masonry{flex-direction:column !important;align-items:stretch !important}
+.hf-masonry>.hf-col{display:contents}
+}
 </style>
 <link rel="stylesheet" href="./employee.css">
 </helmet>
@@ -72,8 +76,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
     </sc-if>
     <sc-if value="{{hasWork}}" hint-placeholder-val="{{true}}">
-    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
-      <section aria-label="Top 3 progress" class="hf-progress" style="grid-column: 1 / span 4; grid-row: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; min-height: 260px; position: relative; overflow: hidden">
+    <div class="bento hf-masonry" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
+      <div class="hf-col" style="flex: 4 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <section aria-label="Top 3 progress" class="hf-progress" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; min-height: 260px; position: relative; overflow: hidden">
         <span style="font-size: 13px; line-height: 18px; font-weight: 600">Today's progress</span>
         <span class="hf-progress-number" style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.04em">{{doneCount}}/3</span>
         <span class="hf-progress-copy" style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{progressCopy}}</span>
@@ -83,8 +88,19 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <span style="flex: 1; height: 10px; border-radius: 999px; background: {{thirdBar}}"></span>
         </div>
       </section>
-
-      <section aria-label="Top 3" class="hf-top-three" style="grid-column: 5 / span 8; grid-row: 1 / span 2; background: #FFFFFF; border-radius: 28px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+        <section aria-label="Next meeting" style="order: 3; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px; line-height: 16px">Next meeting · 14:30 · moved from 14:00</span>
+          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Checkout API sync</span>
+          <span style="font-size: 13px; line-height: 18px">30 min · Room 2 · You said Yes</span>
+        </section>
+        <section aria-label="Due soon" style="order: 4; background: #FFFFFF; border-radius: 28px; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 12px; line-height: 16px; color: #6E6C73; margin-bottom: 4px">Due in the next two working days</span>
+          <div style="display: flex; justify-content: space-between; gap: 8px; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 15px; line-height: 22px">Write release notes</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">Mon 19</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 8px; padding: 8px 0"><span style="font-size: 15px; line-height: 22px">Menu sync job tests</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">Tue 20</span></div>
+        </section>
+      </div>
+      <div class="hf-col" style="flex: 8 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <section aria-label="Top 3" class="hf-top-three" style="order: 2; background: #FFFFFF; border-radius: 28px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px">
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Top 3</h2>
           <a href="MyTasks.dc.html" style="font-size: 13px; font-weight: 600">See all tasks</a>
@@ -156,18 +172,6 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <div class="hf-disclosure-content"><label class="hf-check-row"><input type="checkbox" checked><span>Morning check-in</span></label><label class="hf-check-row"><input type="checkbox"><span>Daily wrap-up notes · by 18:00 · 1h 20m left</span></label><a href="MyRoutines.dc.html" style="min-height: 44px; align-self: flex-start; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600">Your routines</a></div>
         </details>
       </section>
-
-      <div style="grid-column: 1 / span 4; grid-row: 2; display: flex; flex-direction: column; gap: 12px; min-width: 0">
-        <section aria-label="Next meeting" style="background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 12px; line-height: 16px">Next meeting · 14:30 · moved from 14:00</span>
-          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Checkout API sync</span>
-          <span style="font-size: 13px; line-height: 18px">30 min · Room 2 · You said Yes</span>
-        </section>
-        <section aria-label="Due soon" style="background: #FFFFFF; border-radius: 28px; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px">
-          <span style="font-size: 12px; line-height: 16px; color: #6E6C73; margin-bottom: 4px">Due in the next two working days</span>
-          <div style="display: flex; justify-content: space-between; gap: 8px; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 15px; line-height: 22px">Write release notes</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">Mon 19</span></div>
-          <div style="display: flex; justify-content: space-between; gap: 8px; padding: 8px 0"><span style="font-size: 15px; line-height: 22px">Menu sync job tests</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">Tue 20</span></div>
-        </section>
       </div>
     </div>
     </sc-if>

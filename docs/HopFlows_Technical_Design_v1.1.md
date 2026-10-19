@@ -14,10 +14,10 @@ Recommended persistence model: PostgreSQL with UUID identifiers, timestamps, org
 
 | **Table** | **Key fields** | **Purpose** |
 |----|----|----|
-| organizations | id, name, timezone, settings | Company workspace and defaults |
+| organizations | id, name, country, timezone, settings, setup_step, setup_completed_at? | Company workspace and defaults; setup_step records where the first admin left company setup (Proposed) |
 | users | id, name, email, locale | Global account identity |
 | org_memberships | id, org_id, user_id, role (admin / leadership / member), status (invited / active / suspended / deactivated), timezone, holiday_calendar_id? | User membership and access within a company; lead rights come from department roles and delegations |
-| departments | id, org_id, name, lead_id | Functional teams |
+| departments | id, org_id, name, lead_id, work_visibility (organization / department) | Functional teams; work_visibility = organization lets other departments read its Goals, Deliverables and Tasks (Proposed) |
 | department_memberships | department_id, membership_id, role (lead / member), allocation_percent, start_at, end_at | Team membership, historical assignment and each member's default capacity share per department |
 | product_lines | id, org_id, name, owner_id, status | Company product and service lines |
 | product_areas | id, product_line_id, name | Optional modules within each product |
@@ -163,6 +163,8 @@ Supports Blueprint §04 (Leave; Repeating daily work; Reports, search and offlin
 - Routine estimates for a cycle are added to plan_baseline_items at commit; routines created later write plan_change_events with change_type = added.
 - Requester updates are notifications to intake_requests.requester_id, delivered through the channel recorded in intake_requests.source plus in_app.
 - Search uses one index per organization with substring (n-gram) matching for languages written without spaces, such as Khmer, filtered by the same visibility rules as the item at query time; Confidential Tasks are filtered before results are counted.
+- Cross-department reads (Proposed): a member outside a department gets a read-only projection of its Goals, Deliverables and standard Tasks (title, owner, status, due_at, blocked marker) when departments.work_visibility = organization. Load, capacity, plan baselines, reports and personal Tasks without a deliverable_id are excluded. Contributing departments listed in deliverable_departments keep full access to that Deliverable even when its owner department is closed. Enforce in the query layer, not only in the UI.
+- Company setup (Proposed): each step saves as a draft; memberships created in the People step stay at status invited with no email sent until the admin confirms the last step, which sends all invites in one batch. Choosing the country on the Company step creates the holiday calendar for the current year.
 - The offline cache is encrypted on the device, holds at most the scope in Blueprint §14, and is wiped on sign-out or when the membership ends.
 - Offline actions carry the entity version they were based on; the server rejects an action whose precondition no longer holds and returns a reason for the app to show.
 

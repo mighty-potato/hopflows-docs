@@ -20,6 +20,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:1024px){
+.hf-masonry{flex-direction:column !important;align-items:stretch !important}
+.hf-masonry>.hf-col{display:contents}
+}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -40,14 +44,27 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
     </div>
 
-    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
-      <section aria-label="Are we on track" style="grid-column: span 5; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-height: 260px; box-sizing: border-box">
+    <div class="bento hf-masonry" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
+      <div class="hf-col" style="flex: 5 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <section aria-label="Are we on track" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-height: 260px; box-sizing: border-box">
         <span style="font-size: 13px; font-weight: 600">Goals on track</span>
         <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">5/8</span>
         <span style="font-size: 15px; line-height: 22px; margin-top: auto">Same count as last week: support reply time came back on track, in-app sales slipped to At risk.</span>
       </section>
-
-      <section aria-label="Goals by status" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; min-width: 0">
+      <section aria-label="Risk flags" style="order: 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Risk flags</h2>
+        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #9A3412">New</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Launch In-App Ordering v1</strong> · At risk · Waiting on others: payment provider keys late</span></div>
+        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #9B2C24">Still on</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>School App sign-up flow</strong> · Off track · Scope change: schools asked for Khmer forms</span></div>
+        <div style="display: flex; gap: 12px; padding: 10px 0"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #1F5E3A">Cleared</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Support inbox rules</strong> · “Second person joined from Operations”</span></div>
+      </section>
+      <section aria-label="Decisions" style="order: 6; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <h2 style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Decisions waiting · 2</h2>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">Approve Goal: Cut stock-outs by 30%</span><a href="Goals.dc.html" style="height: 40px; padding: 0 14px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Open</a></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">School App: move the date or cut scope?</span><a href="GoalDetail.dc.html" style="height: 40px; padding: 0 14px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Open</a></div>
+      </section>
+      </div>
+      <div class="hf-col" style="flex: 7 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <section aria-label="Goals by status" style="order: 2; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">What changed</h2>
         <sc-for list="{{changes}}" as="c" hint-placeholder-count="4">
           <a href="GoalDetail.dc.html" style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 12px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none">
@@ -56,8 +73,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </a>
         </sc-for>
       </section>
-
-      <section aria-label="Unplanned work by department" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+      <section aria-label="Unplanned work by department" style="order: 3; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <div style="display: flex; flex-direction: column; gap: 2px">
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Surprise work by department</h2>
           <span style="font-size: 12px; color: #6E6C73">Share of the week's work added after locking · estimated</span>
@@ -71,26 +87,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </sc-for>
         <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Operations keeps getting shop requests. Its buffer may be too small.</span>
       </section>
-
-      <section aria-label="Risk flags" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
-        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Risk flags</h2>
-        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #9A3412">New</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Launch In-App Ordering v1</strong> · At risk · Waiting on others: payment provider keys late</span></div>
-        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #9B2C24">Still on</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>School App sign-up flow</strong> · Off track · Scope change: schools asked for Khmer forms</span></div>
-        <div style="display: flex; gap: 12px; padding: 10px 0"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #1F5E3A">Cleared</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Support inbox rules</strong> · “Second person joined from Operations”</span></div>
-      </section>
-
-      <section aria-label="Finished and results" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+      <section aria-label="Finished and results" style="order: 5; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Finished and updated</h2>
         <div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Deliverable accepted · New app store screenshots</span><span style="font-size: 12px; color: #6E6C73">Design</span></div>
         <div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Deliverable accepted · Support inbox rules</span><span style="font-size: 12px; color: #6E6C73">Operations</span></div>
         <div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0"><span style="font-size: 13px">Result · in-app sales +11% → +14%</span><span style="font-size: 12px; color: #6E6C73">Sokha</span></div>
       </section>
-
-      <section aria-label="Decisions" style="grid-column: span 6; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
-        <h2 style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Decisions waiting · 2</h2>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">Approve Goal: Cut stock-outs by 30%</span><a href="Goals.dc.html" style="height: 40px; padding: 0 14px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Open</a></div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">School App: move the date or cut scope?</span><a href="GoalDetail.dc.html" style="height: 40px; padding: 0 14px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center">Open</a></div>
-      </section>
+      </div>
     </div>
     <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">This summary never lists individual tasks or how busy individual people are.</p>
   </main>

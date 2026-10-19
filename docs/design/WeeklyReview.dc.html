@@ -20,6 +20,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:1024px){
+.hf-masonry{flex-direction:column !important;align-items:stretch !important}
+.hf-masonry>.hf-col{display:contents}
+}
+@media (max-width:760px){
+.hf-tiles{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -37,13 +44,30 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <a href="Planner.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px">Plan week 43<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
     </div>
 
-    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: stretch">
-      <section aria-label="Promises kept" style="grid-column: span 4; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
+    <div class="bento hf-masonry" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
+      <div class="hf-col" style="flex: 4 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <section aria-label="Promises kept" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
         <span style="font-size: 13px; font-weight: 600">Promises kept</span>
         <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">17/20</span>
         <span style="font-size: 15px; line-height: 22px; margin-top: auto">Locked tasks done by Friday. Cancelled and handed-over work isn't counted against anyone.</span>
       </section>
-      <div style="grid-column: span 8; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px">
+        <section aria-label="Flags to check" style="order: 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
+          <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Flags to check</h2>
+          <a href="Deliverable.dc.html" style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; text-decoration: none"><span style="font-size: 15px">Launch In-App Ordering v1</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #9A3412; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>At risk · 7d</span></a>
+        </section>
+        <section aria-label="Requests" style="order: 5; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 6px">
+          <h2 style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Requests</h2>
+          <span style="font-size: 15px; line-height: 22px">11 came in · 9 sorted within a day</span>
+          <span style="font-size: 13px; line-height: 18px; color: #4A4950">“Receipt printer offline” was reported 3 times.</span>
+        </section>
+        <section aria-label="Buffer" style="order: 6; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px">Buffer</span>
+          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Surprises used about a third of the buffer.</span>
+          <span style="font-size: 13px; line-height: 18px">Keeping it at 8h per person looks right for now.</span>
+        </section>
+      </div>
+      <div class="hf-col" style="flex: 8 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <div class="hf-tiles" style="order: 2; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
         <div style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Planned</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">96h</span><span style="font-size: 12px; color: #6E6C73">Estimated</span></div>
         <div style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Surprise work</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">14h</span><span style="font-size: 12px; color: #6E6C73">13% of all work · 3 tasks</span></div>
         <div style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Carried over</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">3</span><span style="font-size: 12px; color: #6E6C73">tasks to week 43</span></div>
@@ -51,8 +75,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Routines on time</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">92%</span><span style="font-size: 12px; color: #6E6C73">team rate, never ranked</span></div>
         <div style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Time changes</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">−8h</span><span style="font-size: 12px; color: #6E6C73">sick leave after locking</span></div>
       </div>
-
-      <section aria-label="What changed" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; min-width: 0">
+      <section aria-label="What changed" style="order: 3; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">What changed after locking</h2>
         <sc-for list="{{changes}}" as="c" hint-placeholder-count="6">
           <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding: 12px 0; border-bottom: 1px solid #F0EEE9">
@@ -61,22 +84,6 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </div>
         </sc-for>
       </section>
-
-      <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 12px; min-width: 0">
-        <section aria-label="Flags to check" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
-          <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Flags to check</h2>
-          <a href="Deliverable.dc.html" style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; text-decoration: none"><span style="font-size: 15px">Launch In-App Ordering v1</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #9A3412; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>At risk · 7d</span></a>
-        </section>
-        <section aria-label="Requests" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 6px">
-          <h2 style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Requests</h2>
-          <span style="font-size: 15px; line-height: 22px">11 came in · 9 sorted within a day</span>
-          <span style="font-size: 13px; line-height: 18px; color: #4A4950">“Receipt printer offline” was reported 3 times.</span>
-        </section>
-        <section aria-label="Buffer" style="background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 12px">Buffer</span>
-          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Surprises used about a third of the buffer.</span>
-          <span style="font-size: 13px; line-height: 18px">Keeping it at 8h per person looks right for now.</span>
-        </section>
       </div>
     </div>
   </main>

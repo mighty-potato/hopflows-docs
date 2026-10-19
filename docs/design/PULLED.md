@@ -3,13 +3,13 @@
 Local copy of the **HopFlows Web App** design canvas.
 
 - Source: https://claude.ai/artifact/KcFhzuaEqjfwAJoM3jnTSz
-- Pulled: 19 October 2026 (version 1792385534-5406)
+- Pulled: 20 October 2026 (version 1792434967-a84c)
 - Design system it uses: `ds/hopflows/tokens.json` (same as `../design-system/tokens.json`)
 
 | Path | What |
 |---|---|
 | `canvas.json` | Canvas index: every artboard, its position and size |
-| `*.dc.html` | One file per screen (35): employee `Main` (Today), `SignIn`, `Welcome`, `AddWork`, `TaskDetail`, `NeedHelp`, `MyTasks`, `MyRequests`, `Leave`, `MyReport`, `MyRoutines`; lead `LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `WeeklyReview`, `Handover`, `Routines`, `TeamTable`; leader `Goals`, `GoalDetail`, `Summary`; everyone `Calendar`, `Event`, `Inbox`, `Search`, `Reports`, `Settings`; admin `People`, `Holidays`, `Org`; shared `Sidebar`, `Topbar`, `MobileNav` |
+| `*.dc.html` | One file per screen (37): employee `Main` (Today), `SignIn`, `Setup` (first admin sets up the company), `Welcome`, `AddWork`, `TaskDetail`, `NeedHelp`, `MyTasks`, `MyRequests`, `Leave`, `MyReport`, `MyRoutines`, `OtherTeam` (another department's Deliverable, view only); lead `LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `WeeklyReview`, `Handover`, `Routines`, `TeamTable`; leader `Goals`, `GoalDetail`, `Summary`; everyone `Calendar`, `Event`, `Inbox`, `Search`, `Reports`, `Settings`; admin `People`, `Holidays`, `Org`; shared `Sidebar`, `Topbar`, `MobileNav` |
 | `employee.css` | Shared employee styles (touch targets, disclosures, phone navigation) |
 | `assets/` | Images the screens use |
 

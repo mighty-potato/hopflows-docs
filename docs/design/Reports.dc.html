@@ -20,6 +20,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:1024px){
+.hf-masonry{flex-direction:column !important;align-items:stretch !important}
+.hf-masonry>.hf-col{display:contents}
+}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -49,14 +53,24 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Workload and routines</button>
     </div>
 
-    <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: stretch">
-      <section aria-label="Promises kept" style="grid-column: span 4; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
+    <div class="bento hf-masonry" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
+      <div class="hf-col" style="flex: 4 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <section aria-label="Promises kept" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
         <span style="font-size: 13px; font-weight: 600">Promises kept · 4 weeks</span>
         <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">84%</span>
         <span style="font-size: 15px; line-height: 22px; margin-top: auto">65 of 77 locked tasks done in their week (handed-over and cancelled work left out). Most misses came from surprise work, not slow work.</span>
       </section>
-
-      <section aria-label="Planned and added by week" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+      <section aria-label="Why work moved" style="order: 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
+        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Why work moved</h2>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">New urgent work</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">6</span></div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Waiting on others</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">3</span></div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Priorities changed</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">2</span></div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Leave</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">1</span></div>
+        <div style="display: flex; justify-content: space-between; padding: 8px 0"><span style="font-size: 13px">Wrong estimate</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">1</span></div>
+      </section>
+      </div>
+      <div class="hf-col" style="flex: 8 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+      <section aria-label="Planned and added by week" style="order: 2; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0">
         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px">
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Planned and added work · estimated hours</h2>
           <div style="display: flex; gap: 12px; font-size: 12px; color: #4A4950"><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 4px; background: #1C1B1F"></span>Planned</span><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 4px; background: #C2410C"></span>Added</span></div>
@@ -72,8 +86,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </div>
         </sc-for>
       </section>
-
-      <section aria-label="By week" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 16px 24px; min-width: 0">
+      <section aria-label="By week" style="order: 3; background: #FFFFFF; border-radius: 28px; padding: 16px 24px; min-width: 0">
         <div style="overflow-x: auto">
           <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13px">
             <thead>
@@ -104,15 +117,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </div>
         <p style="margin: 8px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Task counts. Confidential tasks you can't see are left out. Downloads are deleted after 7 days.</p>
       </section>
-
-      <section aria-label="Why work moved" style="grid-column: span 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
-        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Why work moved</h2>
-        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">New urgent work</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">6</span></div>
-        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Waiting on others</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">3</span></div>
-        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Priorities changed</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">2</span></div>
-        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Leave</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">1</span></div>
-        <div style="display: flex; justify-content: space-between; padding: 8px 0"><span style="font-size: 13px">Wrong estimate</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">1</span></div>
-      </section>
+      </div>
     </div>
   </main>
 </div>

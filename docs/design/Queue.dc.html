@@ -109,15 +109,15 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <button type="button" role="radio" aria-checked="false" style="height: 56px; border: 0; border-radius: 16px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Close</button>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px">
-          <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; flex-wrap: wrap; gap: 12px">
+          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
             <label for="q-owner" style="font-size: 13px; font-weight: 600">Owner</label>
             <div style="display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 8px 0 16px; border-radius: 16px; background: #F4F3EF">
               <select id="q-owner" style="flex: 1; min-width: 0; height: 44px; border: 0; background: transparent; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Dara Sok</option><option selected="">Rithy Heng</option><option>Sreymom Ly</option></select>
               <span style="padding: 4px 10px; border-radius: 10px; background: #FCE3D3; color: #9A3412; font-size: 12px; font-weight: 600">Using buffer</span>
             </div>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 6px">
+          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
             <span id="q-size" style="font-size: 13px; font-weight: 600">Size</span>
             <div role="radiogroup" aria-labelledby="q-size" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 16px; height: 48px; box-sizing: border-box">
               <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">S</button>
@@ -125,15 +125,15 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">L</button>
             </div>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 6px">
+          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
             <span id="q-urgency" style="font-size: 13px; font-weight: 600">How urgent? <span style="font-weight: 400; color: #6E6C73">· you decide</span></span>
             <div role="radiogroup" aria-labelledby="q-urgency" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 16px; height: 48px; box-sizing: border-box">
               <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Normal</button>
               <button type="button" role="radio" aria-checked="true" style="flex: 1; border: 0; border-radius: 14px; background: #C2410C; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Urgent</button>
             </div>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 6px"><label for="q-due" style="font-size: 13px; font-weight: 600">Due</label><input id="q-due" type="text" value="Today" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
-          <div style="display: flex; flex-direction: column; gap: 6px"><label for="q-del" style="font-size: 13px; font-weight: 600">Deliverable <span style="font-weight: 400; color: #6E6C73">· optional</span></label><select id="q-del" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Launch In-App Ordering v1</option><option>None (standalone)</option></select></div>
+          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-due" style="font-size: 13px; font-weight: 600">Due</label><input id="q-due" type="text" value="Today" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-del" style="font-size: 13px; font-weight: 600">Deliverable <span style="font-weight: 400; color: #6E6C73">· optional</span></label><select id="q-del" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Launch In-App Ordering v1</option><option>None (standalone)</option></select></div>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 8px">
