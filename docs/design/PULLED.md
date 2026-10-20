@@ -9,7 +9,7 @@ Local copy of the **HopFlows Web App** design canvas.
 | Path | What |
 |---|---|
 | `canvas.json` | Canvas index: every artboard, its position and size |
-| `*.dc.html` | One file per screen (37): `Main` (Today), `SignIn`, `Setup`, `Welcome`, `MyTasks`, `MyRequests`, `MyRoutines`, `MyReport`, `OtherTeam`, `Calendar`, `Event`, `Inbox`, `AddWork`, `TaskDetail`, `NeedHelp`, `Search`, `Leave`, `Handover`, `LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `TeamTable`, `Routines`, `WeeklyReview`, `Goals`, `GoalDetail`, `Summary`, `Reports`, `People`, `Holidays`, `Org`, `Settings`, plus the shared `Sidebar`, `Topbar` and `MobileNav` |
+| `*.dc.html` | One file per screen (37): employee `Main` (Today), `SignIn`, `Setup` (first admin sets up the company), `Welcome`, `AddWork`, `TaskDetail`, `NeedHelp`, `MyTasks`, `MyRequests`, `Leave`, `MyReport`, `MyRoutines`, `OtherTeam` (another department's Deliverable, view only); lead `LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `WeeklyReview`, `Handover`, `Routines`, `TeamTable`; leader `Goals`, `GoalDetail`, `Summary`; everyone `Calendar`, `Event`, `Inbox`, `Search`, `Reports`, `Settings`; admin `People`, `Holidays`, `Org`; shared `Sidebar`, `Topbar`, `MobileNav` |
 | `assets/` | Images the screens use |
 | `employee.css` | Employee responsive and accessibility rules, uploaded to the canvas as an asset |
 
