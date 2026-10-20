@@ -207,7 +207,7 @@ These rules apply everywhere in the app. The technical document (`HopFlows_Techn
 ## Planning and time
 
 - Each department plans one week at a time. A week can be locked once. After that, every change is recorded with its type (added, removed, moved, reassigned, handed over, cancelled or carried over) and a reason.
-- Before a lead locks a week, HopFlows lists anyone with more work than time and any Tasks with no estimate, and asks the lead to confirm. For 10 minutes after locking, and only while nothing in the week has changed, the lead can undo the lock. (Proposed)
+- Before a lead locks a week, HopFlows lists anyone with more work than time, any Tasks with no estimate, and any leave request for that week that is still waiting, and asks the lead to confirm. The lead can decide the leave first or lock anyway; leave approved after locking shows as a change in the weekly review, never as a miss. For 10 minutes after locking, and only while nothing in the week has changed, the lead can undo the lock. (Proposed)
 - The locked plan keeps the original work, estimates and owners. It is never edited.
 - Each person has a work schedule (working days and hours each day), a usual amount of meeting time each week, and a buffer. In short weeks, the meeting time shrinks to match.
 - Holidays, leave and accepted events marked "Blocks work time" reduce available time. Overlaps count once, and available time never goes below zero. If such an event is declined or cancelled after the week is locked, the time is worked out again and the change shows in the weekly review.
@@ -536,7 +536,7 @@ Figure 7. Flow C, weekly review.
 
 1. A lead starts a Handover for a team member and picks the reason (leaving, long leave, new role, or balancing work), the start date, and whether it is permanent or temporary.
 2. HopFlows lists everything the person still owns: open Tasks, Deliverables they lead, Goals they own, requests waiting to be sorted, departments they lead, products they own, meetings they organize, routines they do and team chats they added, with due dates and this week's plan.
-3. The lead picks one person to receive everything, or a person for each item. The Workload view shows how busy each possible receiver is (this week only at first; future weeks once that view is built) and warns if they would be too busy. The receiver must be another active team member.
+3. The lead picks one person to receive everything, or a person for each item. The Workload view shows how busy each possible receiver is (this week only at first; future weeks once that view is built) and warns if they would be too busy or are on leave when the work is due. The receiver must be another active team member.
 4. When the lead confirms, everything moves at once. The new owners get the background (status, blockers, recent comments) and the old owner is told.
 5. Locked plans don't change. The move is recorded as a handover, so reports show the work as "reassigned", not "missed" or "pushed back".
 6. For a temporary handover (later stage), the department's current lead is reminded on the return date to give the work back, keep it with the new owner, or extend the date.
@@ -650,7 +650,7 @@ Figure 11. Flow G, alerts.
 ## Flow H — Leave (Proposed)
 
 1. A person taps Request leave, picks the dates and type, and can add a reason.
-2. The approver gets the request with Approve and Decline buttons in the app and in a push alert. They also see the person's Tasks due in those days and how busy the team is in those weeks.
+2. The approver gets the request with Approve and Decline buttons in the app and in a push alert. Before approving, they see what the leave changes: the person's time to plan and planned work for that week, before and after, and each Task due on those days, with a choice to give it to someone with room or move it to a later week. Approving applies those choices and tells the people involved. (Proposed)
 3. Once approved, the days show as Away and available time goes down. HopFlows lists the Tasks due during the leave so the person and lead can move them or give them to someone else. Leave longer than the long-leave limit asks the lead to start a Handover.
 4. Sick today: the person taps "Sick today", no approval is needed, and the lead is told right away.
 5. Cancelling approved leave gives the time back. Changes after the week is locked show in the weekly review.
@@ -1422,6 +1422,7 @@ When someone chooses "Create a company", HopFlows walks them through five short 
 - Add Work opens on Task for me; asking the lead is the second choice (17 October).
 - Other departments' work can be seen read-only, without workload or reports; admins can close a department (Proposed, 20 October).
 - Company setup (Proposed): whoever creates a company is walked through company details, departments, people and optional products, and invites are sent together at the end (20 October).
+- After the lead-flow review (Proposed): approving leave first shows its effect on the person's week and lets the approver give away or move the Tasks due then; locking a week warns about leave requests still waiting but allows the lock; Handover warns when a receiver is on leave (20 October).
 - Mascot renamed from Hop to Punh Punh (14 October).
 - App icon chosen: Punh Checklist, with usage rules in §11 (15 October).
 - First version split into "pilot core" and "soon after"; later-stage features (Workload view for future weeks, temporary Handover, suggested risk flags) marked in the flows and special cases.

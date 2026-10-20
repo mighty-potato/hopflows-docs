@@ -19,6 +19,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-hide-sm{display:none !important}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
+.hf-wgrid{min-width:0 !important}
+.hf-wrow{grid-template-columns:112px repeat(var(--n),minmax(0,1fr)) !important}
 }
 </style>
 </helmet>
@@ -51,14 +53,14 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
       <section aria-label="Workload grid" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; min-width: 0">
         <div style="overflow-x: auto">
-          <div style="min-width: 620px; display: flex; flex-direction: column; gap: 8px">
-            <div style="display: grid; grid-template-columns: {{cols}}; gap: 8px; font-size: 12px; color: #6E6C73">
+          <div class="hf-wgrid" style="min-width: 620px; display: flex; flex-direction: column; gap: 8px; --n: {{n}}">
+            <div class="hf-wrow" style="display: grid; grid-template-columns: {{cols}}; gap: 8px; font-size: 12px; color: #6E6C73">
               <span>Person</span>
               <sc-for list="{{heads}}" as="h" hint-placeholder-count="4"><span style="font-weight: {{h.w}}; color: {{h.c}}">{{h.t}}</span></sc-for>
             </div>
             <sc-for list="{{rows}}" as="row" hint-placeholder-count="6">
-              <div style="display: grid; grid-template-columns: {{cols}}; gap: 8px; align-items: center">
-                <span style="display: flex; flex-direction: column; min-width: 0"><span style="font-size: 15px; font-weight: 600">{{row.name}}</span><span style="font-size: 12px; color: #6E6C73">{{row.note}}</span></span>
+              <div class="hf-wrow" style="display: grid; grid-template-columns: {{cols}}; gap: 8px; align-items: center">
+                <span style="display: flex; flex-direction: column; min-width: 0"><span style="font-size: 15px; font-weight: 600">{{row.name}}</span><sc-if value="{{row.plainNote}}" hint-placeholder-val="{{true}}"><span style="font-size: 12px; color: #6E6C73">{{row.note}}</span></sc-if><sc-if value="{{row.href}}" hint-placeholder-val="{{false}}"><a href="{{row.href}}" style="font-size: 12px; font-weight: 600">{{row.note}}</a></sc-if></span>
                 <sc-for list="{{row.cells}}" as="c" hint-placeholder-count="4">
                   <button type="button" style="position: relative; height: 56px; border: 0; border-radius: 12px; background: {{c.bg}}; color: {{c.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; box-shadow: {{c.ring}}; cursor: pointer">{{c.word}}<sc-if value="{{c.says}}" hint-placeholder-val="{{false}}"><span style="position: absolute; top: 4px; right: 6px; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: #FFFFFF; color: #9A3412">{{c.says}}</span></sc-if></button>
                 </sc-for>
@@ -81,8 +83,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <dt style="padding: 8px 0; color: #4A4950">Buffer</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">−8h</dd>
           <dt style="padding: 8px 0; border-top: 1px solid #F0EEE9; font-weight: 600">Time to plan</dt><dd style="margin: 0; padding: 8px 0; border-top: 1px solid #F0EEE9; font-family: 'Geist Mono', monospace; font-weight: 600; text-align: right">24h</dd>
           <dt style="padding: 8px 0; color: #4A4950">Planned</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">24h</dd>
-          <dt style="padding: 8px 0; color: #4A4950">Added after locking</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">+6h</dd>
-          <dt style="padding: 8px 0; border-top: 1px solid #F0EEE9; font-weight: 600">Total work</dt><dd style="margin: 0; padding: 8px 0; border-top: 1px solid #F0EEE9; font-family: 'Geist Mono', monospace; font-weight: 600; text-align: right">30h</dd>
+          <dt style="padding: 8px 0; color: #4A4950">Added after locking</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">+5h</dd>
+          <dt style="padding: 8px 0; border-top: 1px solid #F0EEE9; font-weight: 600">Total work</dt><dd style="margin: 0; padding: 8px 0; border-top: 1px solid #F0EEE9; font-family: 'Geist Mono', monospace; font-weight: 600; text-align: right">29h</dd>
         </dl>
         <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Estimated · 1 task has no estimate</span>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
@@ -107,9 +109,10 @@ class Component extends DCLogic {
     const cell = (c, says, selected) => Object.assign({ says: says || '', ring: selected ? 'inset 0 0 0 2px #1C1B1F' : 'none' }, cap[c]);
     const later = (this.props.weeks ?? 'pilot') === 'later';
     const n = later ? 4 : 1;
-    const row = (name, note, cells) => ({ name, note, cells: cells.slice(0, n) });
+    const row = (name, note, cells) => { const href = /handover/.test(note) ? 'Handover.dc.html' : ''; return { name, note, href, plainNote: !href, cells: cells.slice(0, n) }; };
     const heads = [['Wk 42 · this week', 600, '#1C1B1F'], ['Wk 43 · 19 Oct', 400, '#6E6C73'], ['Wk 44 · 26 Oct', 400, '#6E6C73'], ['Wk 45 · 2 Nov', 400, '#6E6C73']].slice(0, n).map(([t, w, c]) => ({ t, w, c }));
     return {
+      n,
       cols: '180px repeat(' + n + ', minmax(0, 1fr))',
       heads,
       weeksLabel: later ? '4 weeks' : 'This week · future weeks come later',
@@ -118,7 +121,7 @@ class Component extends DCLogic {
         row('Dara Sok', '', [cell('balanced'), cell('balanced'), cell('room'), cell('room')]),
         row('Pisey Chea', 'Technical 60%', [cell('balanced'), cell('room'), cell('room'), cell('away')]),
         row('Rithy Heng', '', [cell('buffer', '', true), cell('buffer'), cell('balanced'), cell('room')]),
-        row('Sophal Ouk', 'Leaving 23 Oct', [cell('room'), cell('room'), cell('away'), cell('away')]),
+        row('Sophal Ouk', 'Leaving 23 Oct · finish the handover', [cell('room'), cell('room'), cell('away'), cell('away')]),
         row('Sreymom Ly', '', [cell('away'), cell('away'), cell('balanced'), cell('room')]),
         row('Vannak Prum', '', [cell('room', 'Says Full'), cell('over'), cell('balanced'), cell('room')])
       ]

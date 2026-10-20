@@ -19,6 +19,14 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-hide-sm{display:none !important}
 .hf-main{padding:16px !important}
 }
+@media (max-width:760px){
+.hf-ttable{min-width:0 !important}
+.hf-ttable thead{display:none}
+.hf-ttable tr{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:12px 0}
+.hf-ttable td{padding:0 !important}
+.hf-ttable td.hf-ttitle{flex:1 1 calc(100% - 48px);min-width:0}
+.hf-ttable td.hf-sm-hide{display:none}
+}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -30,7 +38,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <span style="font-size: 12px; color: #6E6C73">Technical · Week 42</span>
+        <span style="font-size: 12px; color: #6E6C73">Technical · open tasks · this week and next</span>
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Team tasks</h1>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
@@ -66,7 +74,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
     <section aria-label="Tasks table" style="background: #FFFFFF; border-radius: 28px; padding: 8px 20px 16px; min-width: 0">
       <div style="overflow-x: auto">
-        <table style="width: 100%; min-width: 1000px; border-collapse: collapse; font-size: 13px">
+        <table class="hf-ttable" style="width: 100%; min-width: 1000px; border-collapse: collapse; font-size: 13px">
           <thead>
             <tr style="text-align: left; color: #6E6C73; font-size: 12px">
               <th scope="col" style="padding: 12px 8px 12px 0; width: 32px; font-weight: 400"><input type="checkbox" aria-label="Select all" style="width: 18px; height: 18px; accent-color: #1C1B1F"></th>
@@ -78,21 +86,21 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <th scope="col" style="padding: 12px 8px; font-weight: 400">Deliverable</th>
               <th scope="col" style="padding: 12px 8px; font-weight: 400">Kind</th>
               <th scope="col" style="padding: 12px 8px; font-weight: 400">Came from</th>
-              <th scope="col" style="padding: 12px 0 12px 8px; font-weight: 400">This week</th>
+              <th scope="col" style="padding: 12px 0 12px 8px; font-weight: 400">Plan</th>
             </tr>
           </thead>
           <tbody>
             <sc-for list="{{rows}}" as="r" hint-placeholder-count="9">
               <tr style="border-top: 1px solid #F0EEE9; background: {{r.rowBg}}">
                 <td style="padding: 12px 8px 12px 0"><input type="checkbox" checked="{{r.sel}}" aria-label="Select row" style="width: 18px; height: 18px; accent-color: #1C1B1F"></td>
-                <td style="padding: 12px 8px; font-size: 15px; font-weight: 600"><a href="TaskDetail.dc.html" style="text-decoration: none">{{r.title}}</a></td>
+                <td class="hf-ttitle" style="padding: 12px 8px; font-size: 15px; font-weight: 600"><a href="TaskDetail.dc.html" style="text-decoration: none">{{r.title}}</a></td>
                 <td style="padding: 12px 8px">{{r.owner}}</td>
                 <td style="padding: 12px 8px"><span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: {{r.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{r.dot}}"></span>{{r.status}}</span></td>
                 <td style="padding: 12px 8px; font-family: 'Geist Mono', monospace">{{r.due}}</td>
                 <td style="padding: 12px 8px">{{r.size}}</td>
-                <td style="padding: 12px 8px; color: #4A4950">{{r.del}}</td>
-                <td style="padding: 12px 8px; color: #4A4950">{{r.kind}}</td>
-                <td style="padding: 12px 8px; color: #4A4950">{{r.from}}</td>
+                <td class="hf-sm-hide" style="padding: 12px 8px; color: #4A4950">{{r.del}}</td>
+                <td class="hf-sm-hide" style="padding: 12px 8px; color: #4A4950">{{r.kind}}</td>
+                <td class="hf-sm-hide" style="padding: 12px 8px; color: #4A4950">{{r.from}}</td>
                 <td style="padding: 12px 0 12px 8px"><span style="padding: 4px 10px; border-radius: 999px; background: {{r.wkBg}}; color: {{r.wkFg}}; font-size: 12px; font-weight: 600">{{r.wk}}</span></td>
               </tr>
             </sc-for>
@@ -112,21 +120,24 @@ class Component extends DCLogic {
       review: { status: 'Review', fg: '#33454F', dot: '#33454F' }
     };
     const wk = {
-      planned: { wk: 'Planned', wkBg: '#F4F3EF', wkFg: '#1C1B1F' },
-      added: { wk: 'Added', wkBg: '#FCE3D3', wkFg: '#9A3412' }
+      planned: { wk: 'Week 42', wkBg: '#F4F3EF', wkFg: '#1C1B1F' },
+      added: { wk: 'Added wk 42', wkBg: '#FCE3D3', wkFg: '#9A3412' },
+      w43: { wk: 'Week 43', wkBg: '#F4F3EF', wkFg: '#1C1B1F' },
+      w44: { wk: 'Week 44', wkBg: '#F4F3EF', wkFg: '#1C1B1F' },
+      ready: { wk: 'Not planned', wkBg: '#FFFFFF', wkFg: '#4A4950' }
     };
     const row = (sel, title, owner, s, due, size, del, kind, from, w) => Object.assign({ sel, rowBg: sel ? '#FBFAF7' : 'transparent', title, owner, due, size, del, kind, from }, st[s], wk[w]);
     return {
       rows: [
-        row(true, 'Coupon breaks payment at checkout', 'Rithy Heng', 'doing', 'Fri 16', '5h', 'Launch In-App Ordering v1', 'Bug', 'Customer', 'added'),
-        row(true, 'Store sales export', 'Dara Sok', 'todo', 'Wed 21', 'S', 'Store sales dashboard v1', 'Feature', 'Manager', 'planned'),
-        row(true, 'Payment webhook retries', 'Rithy Heng', 'doing', 'Tue 20', 'M', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
-        row(true, 'Nightly backup alerts', 'Vannak Prum', 'todo', 'Thu 22', 'S', '—', 'Operations', 'System alert', 'added'),
-        row(true, 'Payroll export', 'Finance', 'todo', 'Fri 23', 'M', '—', 'Support', 'Manager', 'planned'),
-        row(false, 'Coupon rules screen', 'Dara Sok', 'review', 'Fri 16', 'M', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
-        row(false, 'Order tracking screen', 'Pisey Chea', 'todo', 'Fri 30', 'L', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
-        row(false, 'Fix receipt printer driver', 'Dara Sok', 'doing', 'Wed 21', '8h', '—', 'Bug', 'Shop team', 'added'),
-        row(false, 'Khmer search spike', '—', 'todo', '—', 'L', 'Menu search', 'Feature', 'Meeting', 'planned')
+        row(true, 'Coupon breaks payment at checkout', 'Rithy Heng', 'doing', 'Fri 16', 'Small · 5h', 'Launch In-App Ordering v1', 'Bug', 'Customer', 'added'),
+        row(true, 'Store sales export', 'Sophal Ouk', 'todo', 'Wed 21', 'Small', 'Store sales dashboard v1', 'Feature', 'Manager', 'w43'),
+        row(true, 'Payment webhook retries', 'Sophal Ouk', 'doing', 'Tue 20', 'Medium', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'w43'),
+        row(true, 'Nightly backup alerts', 'Vannak Prum', 'todo', 'Fri 16', 'Small · 1h', '—', 'Operations', 'System alert', 'added'),
+        row(true, 'Payroll export', 'Finance', 'todo', 'Fri 23', 'Medium', '—', 'Support', 'Manager', 'w43'),
+        row(false, 'Coupon rules screen', 'Dara Sok', 'review', 'Fri 16', 'Medium', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
+        row(false, 'Order tracking screen', 'Pisey Chea', 'todo', 'Fri 30', 'Large', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'w44'),
+        row(false, 'Fix receipt printer driver', 'Dara Sok', 'doing', 'Wed 21', 'Small · 8h', '—', 'Bug', 'Shop team', 'added'),
+        row(false, 'Khmer search spike', '—', 'todo', '—', 'Large', 'Menu search', 'Feature', 'Meeting', 'ready')
       ]
     };
   }

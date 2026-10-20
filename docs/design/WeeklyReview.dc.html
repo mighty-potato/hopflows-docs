@@ -21,8 +21,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .bento>*{grid-column:1 / -1 !important}
 }
 @media (max-width:1024px){
-.hf-masonry{flex-direction:column !important;align-items:stretch !important}
-.hf-masonry>.hf-col{display:contents}
+.hf-masonry{flex-direction:column !important;flex-wrap:nowrap !important;align-items:stretch !important}
+.hf-masonry>.hf-col{display:contents !important}
 }
 @media (max-width:760px){
 .hf-tiles{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
@@ -46,10 +46,14 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
     <div class="bento hf-masonry" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
       <div class="hf-col" style="flex: 4 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-      <section aria-label="Promises kept" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
-        <span style="font-size: 13px; font-weight: 600">Promises kept</span>
-        <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">17/20</span>
-        <span style="font-size: 15px; line-height: 22px; margin-top: auto">Locked tasks done by Friday. Cancelled and handed-over work isn't counted against anyone.</span>
+      <section aria-labelledby="wr-moved" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+        <h2 id="wr-moved" style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 600; letter-spacing: -0.035em; text-wrap: balance">3 locked tasks weren't done by Friday</h2>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 20px">
+          <li style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,0.55)"><strong style="font-weight: 600">Menu photo export</strong><span style="font-size: 13px">Moved to week 43 for the coupon bug</span></li>
+          <li style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,0.55)"><strong style="font-weight: 600">Menu sync job tests</strong><span style="font-size: 13px">Moved to week 43 for the receipt problem</span></li>
+          <li style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,0.55)"><strong style="font-weight: 600">Build the checkout API</strong><span style="font-size: 13px">Done, waiting on your review</span></li>
+        </ul>
+        <span style="font-size: 13px; line-height: 18px">The other 17 of 20 were done. Cancelled and covered work is never counted against anyone.</span>
       </section>
         <section aria-label="Flags to check" style="order: 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Flags to check</h2>
@@ -71,7 +75,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Planned</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">96h</span><span style="font-size: 12px; color: #6E6C73">Estimated</span></div>
         <div style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Surprise work</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">14h</span><span style="font-size: 12px; color: #6E6C73">13% of all work · 3 tasks</span></div>
         <div style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Carried over</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">3</span><span style="font-size: 12px; color: #6E6C73">tasks to week 43</span></div>
-        <div style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Reassigned</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">2</span><span style="font-size: 12px; color: #6E6C73">by handover, not missed</span></div>
+        <div style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Reassigned</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">2</span><span style="font-size: 12px; color: #6E6C73">covered, not missed</span></div>
         <div style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Routines on time</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">92%</span><span style="font-size: 12px; color: #6E6C73">team rate, never ranked</span></div>
         <div style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Time changes</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">−8h</span><span style="font-size: 12px; color: #6E6C73">sick leave after locking</span></div>
       </div>
@@ -101,9 +105,11 @@ class Component extends DCLogic {
     return {
       changes: [
         c('Added', 'added', 'Coupon breaks payment at checkout · 5h · Rithy', 'Urgent customer problem from the Toul Kork shop'),
-        c('Moved later', 'plain', 'Menu photo export → week 43 · Sreymom', 'Made room for the coupon bug'),
         c('Added', 'added', 'Fix receipt printer driver · 8h · Dara', 'Shop team request, reported 3 times'),
-        c('Reassigned', 'handed', '2 tasks from Sophal Ouk → Rithy Heng', 'Handover: Sophal is leaving on 23 Oct'),
+        c('Added', 'added', 'Nightly backup alerts · 1h · Vannak', 'System alert from the nightly backup'),
+        c('Moved later', 'plain', 'Menu photo export → week 43 · Sreymom', 'Made room for the coupon bug'),
+        c('Moved later', 'plain', 'Menu sync job tests → week 43 · Dara', 'Made room for the receipt printer problem'),
+        c('Reassigned', 'handed', '2 tasks from Pisey Chea → Dara Sok', 'Covered while Pisey was sick on Wednesday'),
         c('Cancelled', 'plain', 'Old banner A/B test · 3h', 'Priorities changed by leadership'),
         c('Time changed', 'plain', 'Pisey sick on Wednesday · −8h', 'Sick leave added after locking')
       ]

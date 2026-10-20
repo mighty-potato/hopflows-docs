@@ -24,7 +24,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
   <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
-    <dc-import name="Sidebar" persona="lead" current="workload" hint-size="232px,900px"></dc-import>
+    <dc-import name="Sidebar" persona="lead" current="handover" hint-size="232px,900px"></dc-import>
   </div>
   <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
     <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
@@ -49,8 +49,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="display: flex; flex-direction: column"><span style="font-size: 12px; color: #6E6C73">Starts</span><span style="font-size: 15px; font-weight: 600; font-family: 'Geist Mono', monospace">Fri 23 Oct</span></div>
         <div style="flex: 1 1 320px; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px">
           <label for="ho-all" style="font-size: 13px; font-weight: 600">Give everything to</label>
-          <select id="ho-all" style="height: 48px; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Dara Sok</option><option>Rithy Heng</option><option>Pisey Chea</option></select>
-          <span style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: #C9DDE8; color: #33454F; font-size: 13px; font-weight: 600">Balanced this week</span>
+          <select id="ho-all" style="height: 48px; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option selected="">Pisey Chea · Room</option><option>Rithy Heng · Using buffer</option><option>Dara Sok · leave asked Thu 22–Fri 23</option></select>
+          <span style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: #DCEFE2; color: #1F5E3A; font-size: 13px; font-weight: 600">Room in week 43</span>
         </div>
       </section>
 
@@ -92,18 +92,18 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <section aria-labelledby="ho-c-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
           <h2 id="ho-c-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">On Fri 23 Oct, Sophal's work moves to 5 people</h2>
           <dl style="margin: 0; display: grid; grid-template-columns: minmax(120px, 180px) 1fr; gap: 0 16px; font-size: 15px; line-height: 22px">
-            <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Dara Sok</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Store sales export · Data sync weekly (organizer)</dd>
+            <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Dara Sok</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Data sync weekly (organizer)</dd>
             <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Rithy Heng</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Payment webhook retries · <span style="color: #9A3412; font-weight: 600">33h of 32h in week 43</span></dd>
-            <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Pisey Chea</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Store sales dashboard v1 (Deliverable lead)</dd>
+            <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Pisey Chea</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Store sales export · Store sales dashboard v1 (Deliverable lead)</dd>
             <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Vannak Prum</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Nightly backup check (routine)</dd>
             <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Chenda Lim</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Release check-in (organizer)</dd>
             <dt style="padding: 10px 0; font-weight: 600">Cancelled</dt><dd style="margin: 0; padding: 10px 0; color: #4A4950">Old report clean-up</dd>
           </dl>
           <div style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
             <label for="ho-why" style="font-size: 13px; font-weight: 600">Rithy will have more work than time. Say why it's still right</label>
-            <input id="ho-why" type="text" value="Rithy drops the menu export to week 44" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F">
+            <input id="ho-why" type="text" value="Chenda takes Rithy's code reviews that week" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F">
           </div>
-          <p style="margin: 0; padding: 14px 16px; border-radius: 22px; background: #F4F3EF; font-size: 13px; line-height: 18px"><strong>Salary file check waits for you.</strong> Dara needs access to this confidential task first, so it stays with Sophal until you decide.</p>
+          <p style="margin: 0; padding: 14px 16px; border-radius: 22px; background: #F4F3EF; font-size: 13px; line-height: 18px"><strong>Salary file check waits for you.</strong> Pisey needs access to this confidential task first, so it stays with Sophal until you decide.</p>
         </section>
         <section aria-label="Confirm handover" style="background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
           <span style="flex: 1 1 360px; font-size: 13px; line-height: 18px; color: #4A4950">Everything moves at once. Locked plans keep Sophal as the original owner, so reports show this as reassigned, not missed. New owners get the status, blockers and recent comments, and Sophal is told.</span>
@@ -116,9 +116,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <section role="status" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 14px">
         <h2 style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em">Sophal's work is handed over</h2>
         <p style="margin: 0; max-width: 68ch; font-size: 15px; line-height: 22px; color: #4A4950">6 items now belong to Dara, Rithy, Pisey, Vannak and Chenda, from Fri 23 Oct. Each of them has the background, and Sophal has been told. Week 43's locked plan still shows Sophal as the original owner.</p>
-        <p style="margin: 0; padding: 14px 16px; border-radius: 22px; background: #FCE3D3; color: #9A3412; font-size: 15px; line-height: 22px"><strong>One item left before Sophal's account can be closed:</strong> Salary file check, waiting for access for Dara.</p>
+        <p style="margin: 0; padding: 14px 16px; border-radius: 22px; background: #FCE3D3; color: #9A3412; font-size: 15px; line-height: 22px"><strong>One item left before Sophal's account can be closed:</strong> Salary file check, waiting for access for Pisey.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
-          <button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Give Dara access</button>
+          <button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Give Pisey access</button>
+          <a href="Planner.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">See week 43's plan</a>
           <a href="LeadHome.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back to Needs you</a>
         </div>
       </section>
@@ -157,9 +158,9 @@ class Component extends DCLogic {
       toDone: () => this.setState({ step: 'done' }),
       groups: [
         { name: 'Open tasks · 4', items: [
-          item('Store sales export', 'To Do · due Wed 21 Oct · in week 43 plan', 'Dara Sok', 'balanced', 'move'),
+          item('Store sales export', 'To Do · due Wed 21 Oct · in week 43 plan', 'Pisey Chea', 'room', 'move'),
           item('Payment webhook retries', 'In progress · due Tue 20 Oct · blocked: provider keys', 'Rithy Heng', 'over', 'move', 'Rithy would have too much in week 43 (33h of 32h)'),
-          item('Salary file check', 'Confidential · due Thu 22 Oct', 'Dara Sok', 'balanced', 'move', 'Dara needs access first. Give access or decide later.'),
+          item('Salary file check', 'Confidential · due Thu 22 Oct', 'Pisey Chea', 'room', 'move', 'Pisey needs access first. Give access or decide later.'),
           item('Old report clean-up', 'To Do · no due date', '—', 'none', 'cancel')
         ]},
         { name: 'Deliverables Sophal leads · 1', items: [

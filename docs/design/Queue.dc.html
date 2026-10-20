@@ -120,9 +120,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
             <span id="q-size" style="font-size: 13px; font-weight: 600">Size</span>
             <div role="radiogroup" aria-labelledby="q-size" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 16px; height: 48px; box-sizing: border-box">
-              <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">S</button>
-              <button type="button" role="radio" aria-checked="true" style="flex: 1; border: 0; border-radius: 14px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">M</button>
-              <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">L</button>
+              <button type="button" role="radio" aria-checked="true" style="flex: 1; border: 0; border-radius: 14px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Small</button>
+              <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Medium</button>
+              <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Large</button>
             </div>
           </div>
           <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
@@ -162,7 +162,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
           <span style="font-size: 12px; line-height: 16px; color: #6E6C73; flex: 1 1 260px">Dara will be told in the app: “Your request is now a Task for Rithy.” Urgent alerts Rithy right away.</span>
-          <button type="button" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Make Task</button>
+          <button type="button" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Make a Task</button>
         </div>
       </section>
     </div>
@@ -187,9 +187,9 @@ class Component extends DCLogic {
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       requests: [
         Object.assign({ title: 'Coupon breaks payment at checkout', meta: 'Dara Sok · app · 12 min · 1 photo · possible duplicate', urgent: true }, sel),
-        Object.assign({ title: 'Receipt printer offline at Toul Kork', meta: 'Shop team · app · 1 h', urgent: false }, idle),
-        Object.assign({ title: 'Add Khmer search to the menu', meta: 'Dara Sok · from a meeting: Product sync · yesterday', urgent: false }, idle),
-        Object.assign({ title: 'Export sales by store', meta: 'Sokha Meng · app · 2 days', urgent: false }, idle)
+        Object.assign({ title: 'Receipt printer offline at Toul Kork', meta: 'Shop team · app · 1 h · same problem as “Fix receipt printer driver”', urgent: false }, idle),
+        Object.assign({ title: 'Add Khmer search to the menu', meta: 'Dara Sok · from a meeting: Product sync · yesterday · “Khmer search spike” is ready to plan', urgent: false }, idle),
+        Object.assign({ title: 'Export sales by store', meta: 'Sokha Meng · app · 2 days · already planned as “Store sales export”', urgent: false }, idle)
       ]
     };
   }
