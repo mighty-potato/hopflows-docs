@@ -49,9 +49,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <section aria-labelledby="wr-moved" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
         <h2 id="wr-moved" style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 600; letter-spacing: -0.035em; text-wrap: balance">3 locked tasks weren't done by Friday</h2>
         <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 20px">
-          <li style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,0.55)"><strong style="font-weight: 600">Menu photo export</strong><span style="font-size: 13px">Moved to week 43 for the coupon bug</span></li>
+          <li style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,0.55)"><strong style="font-weight: 600">Menu photo export</strong><span style="font-size: 13px">Moved to week 43 after Pisey's sick day</span></li>
           <li style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,0.55)"><strong style="font-weight: 600">Menu sync job tests</strong><span style="font-size: 13px">Moved to week 43 for the receipt problem</span></li>
-          <li style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,0.55)"><strong style="font-weight: 600">Build the checkout API</strong><span style="font-size: 13px">Done, waiting on your review</span></li>
+          <li style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,0.55)"><strong style="font-weight: 600">Build the checkout API</strong><span style="font-size: 13px">Sent Friday, waiting on your review</span></li>
         </ul>
         <span style="font-size: 13px; line-height: 18px">The other 17 of 20 were done. Cancelled and covered work is never counted against anyone.</span>
       </section>
@@ -104,10 +104,10 @@ class Component extends DCLogic {
     const c = (type, t, what, why) => Object.assign({ type, what, why }, tone[t]);
     return {
       changes: [
-        c('Added', 'added', 'Coupon breaks payment at checkout · 5h · Rithy', 'Urgent customer problem from the Toul Kork shop'),
+        c('Added', 'added', 'Coupon breaks payment at checkout · 5h · Rithy', 'Urgent problem from the Toul Kork shop on Wednesday'),
         c('Added', 'added', 'Fix receipt printer driver · 8h · Dara', 'Shop team request, reported 3 times'),
         c('Added', 'added', 'Nightly backup alerts · 1h · Vannak', 'System alert from the nightly backup'),
-        c('Moved later', 'plain', 'Menu photo export → week 43 · Sreymom', 'Made room for the coupon bug'),
+        c('Moved later', 'plain', 'Menu photo export → week 43 · Pisey', 'Pisey was sick on Wednesday'),
         c('Moved later', 'plain', 'Menu sync job tests → week 43 · Dara', 'Made room for the receipt printer problem'),
         c('Reassigned', 'handed', '2 tasks from Pisey Chea → Dara Sok', 'Covered while Pisey was sick on Wednesday'),
         c('Cancelled', 'plain', 'Old banner A/B test · 3h', 'Priorities changed by leadership'),

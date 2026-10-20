@@ -194,7 +194,7 @@ These rules apply everywhere in the app. The technical document (`HopFlows_Techn
 
 ## New requests
 
-- When a lead sorts a request, they choose one of: turn it into a Task, merge it with an existing Task, postpone it, or close it.
+- When a lead sorts a request, they choose one of: turn it into a Task, merge it with an existing Task, postpone it, or close it. If the request looks like an open Task, Merge is picked first, and turning it into a new Task is still one tap away. When it becomes a Task, the owner picker shows how busy each person would be after taking it, and people who are away can't be picked. (Proposed)
 - A request with no department goes to the sender's main department. If they have none, it goes to the company-wide queue.
 - A postponed request has a date and comes back to the queue on that date.
 - Several requests can point to the same Task, so the same problem reported twice doesn't create double work.
@@ -536,8 +536,8 @@ Figure 7. Flow C, weekly review.
 
 1. A lead starts a Handover for a team member and picks the reason (leaving, long leave, new role, or balancing work), the start date, and whether it is permanent or temporary.
 2. HopFlows lists everything the person still owns: open Tasks, Deliverables they lead, Goals they own, requests waiting to be sorted, departments they lead, products they own, meetings they organize, routines they do and team chats they added, with due dates and this week's plan.
-3. The lead picks one person to receive everything, or a person for each item. The Workload view shows how busy each possible receiver is (this week only at first; future weeks once that view is built) and warns if they would be too busy or are on leave when the work is due. The receiver must be another active team member.
-4. When the lead confirms, everything moves at once. The new owners get the background (status, blockers, recent comments) and the old owner is told.
+3. The lead picks one person to receive everything, or a person for each item. For each item, HopFlows shows how busy each possible receiver would be after the move (this week only at first; future weeks once the Workload view covers them), suggests whoever has the most room, and warns if they would be too busy or are on leave when the work is due. The receiver must be another active team member.
+4. When the lead confirms, everything moves at once. The new owners get the background (status, blockers, recent comments) and the old owner is told. For 10 minutes afterwards the lead can undo the handover: everything goes back to the old owner and everyone involved is told. (Proposed)
 5. Locked plans don't change. The move is recorded as a handover, so reports show the work as "reassigned", not "missed" or "pushed back".
 6. For a temporary handover (later stage), the department's current lead is reminded on the return date to give the work back, keep it with the new owner, or extend the date.
 7. When someone is leaving, their account can be deactivated only after everything they own has been handed over or cancelled.
@@ -1423,6 +1423,7 @@ When someone chooses "Create a company", HopFlows walks them through five short 
 - Other departments' work can be seen read-only, without workload or reports; admins can close a department (Proposed, 20 October).
 - Company setup (Proposed): whoever creates a company is walked through company details, departments, people and optional products, and invites are sent together at the end (20 October).
 - After the lead-flow review (Proposed): approving leave first shows its effect on the person's week and lets the approver give away or move the Tasks due then; locking a week warns about leave requests still waiting but allows the lock; Handover warns when a receiver is on leave (20 October).
+- After the second lead-flow review (Proposed): every place that moves work to someone shows how busy they would be after the move and suggests whoever has the most room; a request that looks like an open Task starts on Merge; a handover can be undone for 10 minutes (20 October).
 - Mascot renamed from Hop to Punh Punh (14 October).
 - App icon chosen: Punh Checklist, with usage rules in §11 (15 October).
 - First version split into "pilot core" and "soon after"; later-stage features (Workload view for future weeks, temporary Handover, suggested risk flags) marked in the flows and special cases.

@@ -117,7 +117,8 @@ class Component extends DCLogic {
     const st = {
       todo: { status: 'To Do', fg: '#4A4950', dot: '#6E6C73' },
       doing: { status: 'In Progress', fg: '#1C1B1F', dot: '#1C1B1F' },
-      review: { status: 'Review', fg: '#33454F', dot: '#33454F' }
+      review: { status: 'Review', fg: '#33454F', dot: '#33454F' },
+      blocked: { status: 'In Progress · Blocked', fg: '#9A3412', dot: '#C2410C' }
     };
     const wk = {
       planned: { wk: 'Week 42', wkBg: '#F4F3EF', wkFg: '#1C1B1F' },
@@ -130,13 +131,13 @@ class Component extends DCLogic {
     return {
       rows: [
         row(true, 'Coupon breaks payment at checkout', 'Rithy Heng', 'doing', 'Fri 16', 'Small · 5h', 'Launch In-App Ordering v1', 'Bug', 'Customer', 'added'),
-        row(true, 'Store sales export', 'Sophal Ouk', 'todo', 'Wed 21', 'Small', 'Store sales dashboard v1', 'Feature', 'Manager', 'w43'),
-        row(true, 'Payment webhook retries', 'Sophal Ouk', 'doing', 'Tue 20', 'Medium', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'w43'),
+        row(true, 'Store sales export', 'Sophal Ouk', 'todo', 'Wed 21', 'Small · 4h', 'Store sales dashboard v1', 'Feature', 'Manager', 'w43'),
+        row(true, 'Payment webhook retries', 'Sophal Ouk', 'blocked', 'Tue 20', 'Medium', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'w43'),
         row(true, 'Nightly backup alerts', 'Vannak Prum', 'todo', 'Fri 16', 'Small · 1h', '—', 'Operations', 'System alert', 'added'),
         row(true, 'Payroll export', 'Finance', 'todo', 'Fri 23', 'Medium', '—', 'Support', 'Manager', 'w43'),
-        row(false, 'Coupon rules screen', 'Dara Sok', 'review', 'Fri 16', 'Medium', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
+        row(false, 'Build the checkout API', 'Dara Sok', 'review', 'Fri 16', 'Medium', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
         row(false, 'Order tracking screen', 'Pisey Chea', 'todo', 'Fri 30', 'Large', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'w44'),
-        row(false, 'Fix receipt printer driver', 'Dara Sok', 'doing', 'Wed 21', 'Small · 8h', '—', 'Bug', 'Shop team', 'added'),
+        row(false, 'Fix receipt printer driver', 'Dara Sok', 'blocked', 'Wed 21', 'Small · 8h', '—', 'Bug', 'Shop team', 'added'),
         row(false, 'Khmer search spike', '—', 'todo', '—', 'Large', 'Menu search', 'Feature', 'Meeting', 'ready')
       ]
     };

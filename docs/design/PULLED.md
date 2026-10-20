@@ -3,7 +3,7 @@
 Local copy of the **HopFlows Web App** design canvas.
 
 - Source: https://claude.ai/artifact/KcFhzuaEqjfwAJoM3jnTSz
-- Pulled: 19 October 2026 (version 1792418324-b343); pushed and re-pulled 20 October 2026 (version 50, 1792437141-4c09); lead-flow fixes pushed and re-pulled 20 October 2026 (version 51, 1792505157-6aba)
+- Pulled: 19 October 2026 (version 1792418324-b343); pushed and re-pulled 20 October 2026 (version 50, 1792437141-4c09); lead-flow fixes pushed 20 October 2026 (version 51, 1792505157-6aba) and second pass (version 52, 1792514541-aa5a)
 - Design system it uses: `ds/hopflows/tokens.json` (same as `../design-system/tokens.json`)
 
 | Path | What |
