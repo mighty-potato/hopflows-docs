@@ -20,8 +20,8 @@ The Planner counts every open change for week 43 (Dara's asked leave, Sophal's o
 
 | Person | Available | Time to plan | Planned | Status | Note |
 |---|---|---|---|---|---|
-| Chenda Lim | 24h | 18h | 18h | Balanced | Lead; +4h from Sophal (Salary file check 3h, Nightly backup check 1h) |
-| Dara Sok | 16h | 12h | 23h | Too much | Leave asked for Thu 22 – Fri 23, counted; +1h from Sophal. Fits (13h, Using buffer) once Menu sync job tests (10h) moves to week 44 |
+| Chenda Lim | 24h | 18h | 19h | Using buffer | Lead; +5h from Sophal (Salary file check 3h, Nightly backup check 1h, Data sync weekly 1h) |
+| Dara Sok | 16h | 12h | 22h | Too much | Leave asked for Thu 22 – Fri 23, counted. Fits (12h of 12h, Balanced) once Menu sync job tests (10h) moves to week 44 |
 | Pisey Chea | 19h | 14h | 17h | Using buffer | +8h from Sophal (Store sales export 4h, Payment webhook retries 4h left) |
 | Rithy Heng | 32h | 24h | 29h | Using buffer | |
 | Sophal Ouk | 32h | 24h | 0h | Room | Leaving; last day Fri 23 Oct; all 13h handed over from Mon 19 Oct |
@@ -43,14 +43,14 @@ The lock check lists everything open: Vannak over, Dara's leave (counted), Sopha
 | Old report clean-up | — | Cancelled | |
 | Store sales dashboard v1 | Deliverable lead, no hours | Pisey | |
 | Nightly backup check | Routine, about 1h a week | Chenda | 18h of 18h · Balanced |
-| Data sync weekly | Meeting organizer, 1h | Dara | 23h of 12h · Too much until Menu sync job tests moves |
+| Data sync weekly | Meeting organizer, 1h | Chenda | 19h of 18h · Using buffer (24h available) |
 | Release check-in | Monthly meeting, next on 2 Nov | Chenda | Not in week 43 |
 
-7 items move to 3 people (Pisey, Chenda, Dara) and 1 is cancelled. The handover can be undone for 10 minutes.
+7 items move to 2 people (Pisey, Chenda) and 1 is cancelled. Each item can also go to "No owner", which puts it back in Ready to plan. The handover can be undone for 10 minutes.
 
 ## Dara's leave (Thu 22 – Fri 23 Oct)
 
-- Dara's week 43: time to plan 24h → 12h, planned 23h → 13h once Menu sync job tests (Medium · 10h, due Thu 22) moves.
+- Dara's week 43: time to plan 24h → 12h, planned 22h → 12h once Menu sync job tests (Medium · 10h, due Thu 22) moves.
 - Default: move it to week 44. Giving it to Pisey would make her 27h of 14h, Too much.
 
 ## Week 43 changes
@@ -60,7 +60,7 @@ The Planner lists every change to week 43 in one place. Open changes are counted
 | Change | State | Effect |
 |---|---|---|
 | Dara's leave, Thu 22 – Fri 23 | Waiting for Chenda, counted | Dara's time to plan 24h → 12h; Menu sync job tests has to move |
-| Sophal's handover | Step 2 of 3, counted | 13h moves: 8h to Pisey, 4h to Chenda, 1h to Dara |
+| Sophal's handover | Step 2 of 3, counted | 13h moves: 8h to Pisey, 5h to Chenda |
 | Vannak's work (only after "Move 10h") | Done | 10h off Vannak |
 
 ## Week 42 in review
@@ -92,6 +92,10 @@ The Planner lists every change to week 43 in one place. Open changes are counted
 | Faster menu pages | — | accepted 2 Oct | 11 of 11 tasks | Accepted |
 
 Only Launch In-App Ordering v1 has a detail page on the canvas.
+
+## Writing hours
+
+Always "Xh planned of Yh to plan". Add "Zh available" only when it explains Too much (planned past available).
 
 ## Names to use
 

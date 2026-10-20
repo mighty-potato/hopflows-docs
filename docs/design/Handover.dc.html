@@ -103,7 +103,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                 </div>
                 <div role="radiogroup" aria-label="What happens to {{it.title}}" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 999px">
                   <button type="button" role="radio" aria-checked="{{it.mv}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{it.mvBg}}; color: {{it.mvFg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Move</button>
-                  <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Keep</button>
+                  <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">No owner</button>
                   <button type="button" role="radio" aria-checked="{{it.cx}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{it.cxBg}}; color: {{it.cxFg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Cancel</button>
                 </div>
                 <div style="flex: 0 1 340px; min-width: 220px; display: flex; flex-direction: column; gap: 4px">
@@ -117,20 +117,19 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
 
       <section aria-label="Confirm" style="grid-column: span 12; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
-        <span style="flex: 1 1 360px; font-size: 13px; line-height: 18px; color: #4A4950">Locked plans keep Sophal as the original owner. This shows as reassigned, not missed. New owners get the status, blockers and recent comments. Sophal's account can be closed once nothing is left.</span>
+        <span style="flex: 1 1 360px; font-size: 13px; line-height: 18px; color: #4A4950">"No owner" puts an item back in Ready to plan, so nobody takes work they have no room for. Locked plans keep Sophal as the original owner. This shows as reassigned, not missed. New owners get the status, blockers and recent comments. Sophal's account can be closed once nothing is left.</span>
         <a href="LeadHome.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back</a>
-        <button type="button" onClick="{{toConfirm}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Review 8 items</button>
+        <button type="button" id="ho-review" onClick="{{toConfirm}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Review 8 items</button>
       </section>
     </div>
     </sc-if>
     <sc-if value="{{isConfirm}}" hint-placeholder-val="{{false}}">
       <div style="display: flex; flex-direction: column; gap: 12px">
         <section aria-labelledby="ho-c-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
-          <h2 id="ho-c-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">On Mon 19 Oct, Sophal's work moves to 3 people</h2>
+          <h2 id="ho-c-title" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">On Mon 19 Oct, Sophal's work moves to 2 people</h2>
           <dl style="margin: 0; display: grid; grid-template-columns: minmax(120px, 180px) 1fr; gap: 0 16px; font-size: 15px; line-height: 22px">
-            <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Dara Sok</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Data sync weekly (organizer) · <span style="color: #9A3412; font-weight: 600">23h of 12h until Menu sync job tests moves, because her leave is counted</span></dd>
             <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Pisey Chea</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Store sales export · Payment webhook retries · Store sales dashboard v1 (Deliverable lead) · <span style="color: #9A3412; font-weight: 600">17h of 14h in week 43, inside her 19h</span></dd>
-                        <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Chenda Lim</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Salary file check (confidential) · Nightly backup check (routine) · Release check-in (organizer) · <span style="color: #33454F; font-weight: 600">18h of 18h in week 43</span></dd>
+                        <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Chenda Lim</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Salary file check (confidential) · Nightly backup check (routine) · Data sync weekly and Release check-in (organizer) · <span style="color: #9A3412; font-weight: 600">19h of 18h in week 43, inside her 24h</span></dd>
             <dt style="padding: 10px 0; font-weight: 600">Cancelled</dt><dd style="margin: 0; padding: 10px 0; color: #4A4950">Old report clean-up</dd>
           </dl>
         </section>
@@ -143,8 +142,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isDone}}" hint-placeholder-val="{{false}}">
       <section role="status" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 14px">
-        <h2 style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em">Sophal's work is handed over</h2>
-        <p style="margin: 0; max-width: 68ch; font-size: 15px; line-height: 22px; color: #4A4950">7 items now belong to Dara, Pisey and Chenda, from Mon 19 Oct. Each of them has the background, and Sophal has been told. Week 43's locked plan still shows Sophal as the original owner. Nothing is left with Sophal, so his account can be closed after his last day, Fri 23 Oct.</p>
+        <h2 id="ho-done" tabindex="-1" style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em">Sophal's work is handed over</h2>
+        <p style="margin: 0; max-width: 68ch; font-size: 15px; line-height: 22px; color: #4A4950">7 items now belong to Pisey and Chenda, from Mon 19 Oct. Each of them has the background, and Sophal has been told. Week 43's locked plan still shows Sophal as the original owner. Nothing is left with Sophal, so his account can be closed after his last day, Fri 23 Oct.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
           <button type="button" onClick="{{toConfirm}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Undo · 9:52 left</button>
           <a href="Planner.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">See week 43's plan</a>
@@ -159,6 +158,15 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal", "loading", "empty", "error", "saveError"],"default":"normal"},"step":{"editor":"enum","options":["items","confirm","done"],"default":"items"},"$preview":{"width":1440,"height":1180}}'>
 class Component extends DCLogic {
+  // move keyboard focus to the part of the screen that just appeared
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() {
+    const s = this.state || {};
+    if (s.focusN && s.focusN !== this._focusN) {
+      this._focusN = s.focusN;
+      requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); });
+    }
+  }
   renderVals() {
     const cap = {
       room: { cap: 'Room', capBg: '#DCEFE2', capFg: '#1F5E3A' },
@@ -198,9 +206,9 @@ class Component extends DCLogic {
       s2: step === 'items' ? stepOn : stepOff,
       s3: step === 'items' ? stepOff : stepOn,
       stepText: step === 'items' ? 'Step 2 of 3 · choose who gets each item · loads shown for week 43, after the move' : step === 'confirm' ? 'Step 3 of 3 · check and confirm' : 'Done · Fri 16 Oct, 16:52 · you can undo for 10 minutes',
-      toItems: () => this.setState({ step: 'items' }),
-      toConfirm: () => this.setState({ step: 'confirm' }),
-      toDone: () => this.setState({ step: 'done' }),
+      toItems: () => this.focusTo('ho-review', { step: 'items' }),
+      toConfirm: () => this.focusTo('ho-c-title', { step: 'confirm' }),
+      toDone: () => this.focusTo('ho-done', { step: 'done' }),
       groups: [
         { name: 'Open tasks · 4', items: [
           item('Store sales export', 'To Do · Small · 4h · due Wed 21 Oct · in week 43 plan', 'Pisey Chea', 'balanced', 'move', '', '13h of 14h', 4),
@@ -215,7 +223,7 @@ class Component extends DCLogic {
           item('Nightly backup check', 'Working days · by 09:00 · about 1h a week', 'Chenda Lim', 'balanced', 'move', '', '18h of 18h', 1)
         ]},
         { name: 'Meetings · 2', items: [
-          item('Data sync weekly · organizer', 'Repeats Tuesdays 10:00 · 1h', 'Dara Sok', 'over', 'move', "Dara's leave Thu 22 – Fri 23 is counted. She is over until Menu sync job tests moves to week 44.", '23h of 12h', 1),
+          item('Data sync weekly · organizer', 'Repeats Tuesdays 10:00 · 1h', 'Chenda Lim', 'buffer', 'move', '', '19h of 18h', 1),
           item('Release check-in · organizer', 'Repeats monthly, first Monday · next on 2 Nov', 'Chenda Lim', 'later', 'move')
         ]}
       ]

@@ -51,7 +51,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
         <button type="button" style="height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">‹ Week 42 · locked</button>
         <sc-if value="{{planning}}" hint-placeholder-val="{{true}}">
-        <button type="button" onClick="{{askLock}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Lock week 43</button>
+        <button type="button" id="lock-btn" onClick="{{askLock}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Lock week 43</button>
         </sc-if>
         <sc-if value="{{locked}}" hint-placeholder-val="{{false}}">
           <span style="height: 48px; padding: 0 20px; border-radius: 999px; background: #DCEFE2; color: #1F5E3A; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Week 43 locked</span>
@@ -96,14 +96,14 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
     </sc-if>
     <sc-if value="{{confirming}}" hint-placeholder-val="{{false}}">
-      <section role="alertdialog" aria-labelledby="lock-title" aria-describedby="lock-what" style="background: #FFFFFF; border-radius: 28px; padding: 24px; box-shadow: inset 0 0 0 2px #1C1B1F; display: flex; flex-direction: column; gap: 16px">
+      <section role="alertdialog" aria-modal="true" aria-labelledby="lock-title" aria-describedby="lock-what" style="background: #FFFFFF; border-radius: 28px; padding: 24px; box-shadow: inset 0 0 0 2px #1C1B1F; display: flex; flex-direction: column; gap: 16px">
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <h2 id="lock-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">{{confirmTitle}}</h2>
+          <h2 id="lock-title" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">{{confirmTitle}}</h2>
           <p id="lock-what" style="margin: 0; max-width: 68ch; font-size: 15px; line-height: 22px; color: #4A4950">Locking saves this plan as the team's promise for the week. Anything that changes after this is recorded next to it, never written over it.</p>
         </div>
         <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
-          <sc-if value="{{vannakOver}}" hint-placeholder-val="{{true}}"><li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #FCE3D3; color: #9A3412; font-size: 15px"><strong style="font-weight: 600">Vannak Prum has more work than time.</strong><span>35h planned, 32h available.</span></li></sc-if>
-          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">Dara's leave for Thu 22 – Fri 23 isn't decided.</strong><span style="color: #4A4950">It's counted here, so Dara is 23h of 16h until Menu sync job tests moves.</span><a href="LeadHome.dc.html" style="margin-left: auto; font-size: 13px; font-weight: 600">Decide it first</a></li>
+          <sc-if value="{{vannakOver}}" hint-placeholder-val="{{true}}"><li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #FCE3D3; color: #9A3412; font-size: 15px"><strong style="font-weight: 600">Vannak Prum has more work than time.</strong><span>35h planned of 24h to plan, with 32h available.</span></li></sc-if>
+          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">Dara's leave for Thu 22 – Fri 23 isn't decided.</strong><span style="color: #4A4950">It's counted here, so Dara has 22h planned of 12h to plan (16h available) until Menu sync job tests moves.</span><a href="LeadHome.dc.html" style="margin-left: auto; font-size: 13px; font-weight: 600">Decide it first</a></li>
           <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">Sophal's handover is still open.</strong><span style="color: #4A4950">It's counted here too. With it, Pisey uses some buffer and nobody else is over.</span><a href="Handover.dc.html" style="margin-left: auto; font-size: 13px; font-weight: 600">Finish it first</a></li>
           <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">2 tasks have no estimate.</strong><span style="color: #4A4950">They're counted apart and won't show in anyone's hours.</span></li>
         </ul>
@@ -117,7 +117,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <sc-if value="{{locked}}" hint-placeholder-val="{{false}}">
       <section role="status" aria-label="Week locked" style="background: #1C1B1F; color: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px">
         <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 6px; min-width: 0">
-          <span style="font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Week 43 is locked. That's the promise.</span>
+          <span id="locked-title" tabindex="-1" style="font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Week 43 is locked. That's the promise.</span>
           <span style="font-size: 15px; line-height: 22px; color: #D9D7D2">Saved Fri 16 Oct at 16:40 with {{savedTotal}}h planned. Everyone sees their plan on Monday morning. Work added from now on counts as added, so the weekly review stays honest.</span>
         </div>
         <button type="button" onClick="{{cancelLock}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Undo · 9:52 left</button>
@@ -129,7 +129,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <h2 style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em; text-wrap: balance">{{heroTitle}}</h2>
         <span style="font-family: 'Geist Mono', monospace; font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums">{{plannedTotal}}h planned · 116h to plan · counts open changes</span>
         <span style="font-size: 15px; line-height: 22px; margin-top: auto">{{heroNext}}</span>
-        <sc-if value="{{showMoveBtn}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{openMove}}" style="align-self: flex-start; height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Move Vannak's work</button></sc-if>
+        <sc-if value="{{justMoved}}" hint-placeholder-val="{{false}}"><span id="moved-note" role="status" tabindex="-1" style="font-size: 13px; font-weight: 600">10h moved off Vannak's week.</span></sc-if>
+        <sc-if value="{{showMoveBtn}}" hint-placeholder-val="{{true}}"><button type="button" id="move-btn" onClick="{{openMove}}" style="align-self: flex-start; height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Move Vannak's work</button></sc-if>
       </section>
       <section aria-label="Time this week" class="hf-tiles" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 24px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
         <div style="display: flex; flex-direction: column; gap: 4px; padding: 16px; border-radius: 22px; background: #F4F3EF"><span style="font-size: 12px; color: #6E6C73">Available time</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">155h</span><span style="font-size: 12px; color: #6E6C73">after leave and meetings, Dara's asked leave counted</span></div>
@@ -171,8 +172,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <sc-if value="{{moving}}" hint-placeholder-val="{{false}}">
       <section aria-labelledby="mv-title" style="grid-column: span 12; background: #FFFFFF; border-radius: 28px; padding: 24px; box-shadow: inset 0 0 0 2px #1C1B1F; display: flex; flex-direction: column; gap: 14px">
         <div style="display: flex; flex-direction: column; gap: 4px">
-          <h2 id="mv-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Move Vannak's work</h2>
-          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">Vannak has 35h planned and 32h available. Moving these two to week 44 gets him back inside his time, without adding to anyone else's week.</p>
+          <h2 id="mv-title" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Move Vannak's work</h2>
+          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">Vannak has 35h planned of 24h to plan, with 32h available. Moving these two to week 44 gets him back inside his time, without adding to anyone else's week.</p>
         </div>
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF">
           <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">Shop tablet updates</span><span style="font-size: 12px; color: #6E6C73">Small · 6h · no due date</span></div>
@@ -183,7 +184,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <span style="font-size: 13px; font-weight: 600">Move to week 44 · due date moves to Thu 29 Oct</span>
         </div>
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
-          <span style="flex: 1 1 240px; font-size: 13px; line-height: 18px">Vannak after the move: <strong>25h of 24h · Using buffer</strong>, inside his 32h. He is told before Monday.{{moveNote}}</span>
+          <span style="flex: 1 1 240px; font-size: 13px; line-height: 18px">Vannak after the move: <strong>25h planned of 24h to plan · Using buffer</strong>, inside his 32h available. He is told before Monday.{{moveNote}}</span>
           <button type="button" onClick="{{cancelMove}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Not now</button>
           <button type="button" onClick="{{doMove}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Move 10h</button>
         </div>
@@ -225,6 +226,15 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal", "loading", "empty", "error", "saveError"],"default":"normal"},"lock":{"editor":"enum","options":["planning","confirm","locked"],"default":"planning"},"$preview":{"width":1440,"height":1160}}'>
 class Component extends DCLogic {
+  // move keyboard focus to the part of the screen that just appeared
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() {
+    const s = this.state || {};
+    if (s.focusN && s.focusN !== this._focusN) {
+      this._focusN = s.focusN;
+      requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); });
+    }
+  }
   renderVals() {
     const cap = {
       room: { word: 'Room', bg: '#DCEFE2', fg: '#1F5E3A', bar: '#2E7D4F' },
@@ -244,8 +254,8 @@ class Component extends DCLogic {
     const lock = s.lock || this.props.lock || 'planning';
     const moved = !!s.moved, moving = !!s.moving && !moved;
     const people = [
-      row('Chenda Lim', 'Lead · +4h from Sophal', 24, 18, 18),
-      row('Dara Sok', 'Leave asked Thu–Fri, counted · +1h from Sophal', 16, 12, 23),
+      row('Chenda Lim', 'Lead · +5h from Sophal', 24, 18, 19),
+      row('Dara Sok', 'Leave asked Thu–Fri, counted', 16, 12, 22),
       row('Pisey Chea', 'Technical 60% · +8h from Sophal', 19, 14, 17),
       row('Rithy Heng', '', 32, 24, 29),
       row('Sophal Ouk', 'Leaving 23 Oct · all 13h handed over · finish the handover', 32, 24, 0),
@@ -257,7 +267,7 @@ class Component extends DCLogic {
     const change = (kind, t, what, effect, action, href) => Object.assign({ kind, what, effect, action: action || '', href: href || '' }, tone[t]);
     const changes = [
       change('Leave', 'leave', "Dara asks for Thu 22 – Fri 23 Oct · waiting for you", "Counted: Dara's time to plan is 12h, not 24h. Menu sync job tests (10h, due Thu 22) still has to move.", 'Decide', 'LeadHome.dc.html'),
-      change('Handover', 'handover', "Sophal's work moves on Mon 19 Oct · step 2 of 3", 'Counted: 13h moves, 8h to Pisey, 4h to Chenda, 1h to Dara. Sophal keeps nothing.', 'Continue', 'Handover.dc.html')
+      change('Handover', 'handover', "Sophal's work moves on Mon 19 Oct · step 2 of 3", 'Counted: 13h moves, 8h to Pisey and 5h to Chenda. Sophal keeps nothing.', 'Continue', 'Handover.dc.html')
     ];
     if (moved) changes.push(change(s.movedLocked ? 'Changed' : 'Moved', 'moved', "10h moved off Vannak's week", 'Shop tablet updates and Printer setup guide → week 44.' + (s.movedLocked ? ' Made after locking, so the weekly review shows it as a change.' : '')));
     const pageState = this.props.state ?? 'normal';
@@ -266,22 +276,23 @@ class Component extends DCLogic {
       people, plannedTotal, changes, moving,
       savedTotal: s.lockedTotal || plannedTotal,
       vannakOver: !moved,
+      justMoved: moved,
       showMoveBtn: !moved && !moving,
       moveNote: lock === 'locked' ? ' The week is locked, so this shows as a change in the weekly review.' : '',
       toPlanTotal: 116,
       confirmTitle: moved ? 'Lock week 43 with 3 things open?' : 'Lock week 43 with 4 things open?',
-      openMove: () => this.setState({ lock: lock === 'confirm' ? 'planning' : lock, moving: true }),
-      cancelMove: () => this.setState({ moving: false }),
-      doMove: () => this.setState({ moved: true, moving: false, movedLocked: lock === 'locked' }),
+      openMove: () => this.focusTo('mv-title', { lock: lock === 'confirm' ? 'planning' : lock, moving: true }),
+      cancelMove: () => this.focusTo('move-btn', { moving: false }),
+      doMove: () => this.focusTo('moved-note', { moved: true, moving: false, movedLocked: lock === 'locked' }),
       planning: lock !== 'locked',
       confirming: lock === 'confirm',
       locked: lock === 'locked',
       weekState: lock === 'locked' ? 'locked Fri 16 Oct, 16:40' : 'not locked yet',
       heroTitle: moved ? (lock === 'locked' ? 'Locked, with Dara over' : 'One person is over') : (lock === 'locked' ? 'Locked, with two people over' : 'Two people are over'),
-      heroNext: moved ? "Dara is over because her leave is counted. Decide it and move Menu sync job tests, then she fits." : "Vannak has more work than time, and so does Dara once her leave is counted. Move Vannak's work here; Dara's is fixed when you decide her leave.",
-      askLock: () => this.setState({ lock: 'confirm' }),
-      doLock: () => this.setState({ lock: 'locked', lockedTotal: plannedTotal }),
-      cancelLock: () => this.setState({ lock: 'planning' }),
+      heroNext: moved ? "Dara is over because her leave is counted. Decide it and move Menu sync job tests, then she has 12h of 12h." : "Vannak has more work than time, and so does Dara once her leave is counted. Move Vannak's work here; Dara's is fixed when you decide her leave.",
+      askLock: () => this.focusTo('lock-title', { lock: 'confirm' }),
+      doLock: () => this.focusTo('locked-title', { lock: 'locked', lockedTotal: plannedTotal }),
+      cancelLock: () => this.focusTo('lock-btn', { lock: 'planning' }),
       hasLeaveLink: true,
     };
   }

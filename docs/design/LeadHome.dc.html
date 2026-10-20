@@ -78,7 +78,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <sc-if value="{{n.done}}" hint-placeholder-val="{{false}}">
           <div role="status" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 0; border-bottom: 1px solid #F0EEE9">
             <span style="flex: 0 0 auto; min-width: 104px; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; box-sizing: border-box; border-radius: 999px; background: #DCEFE2; color: #1F5E3A; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #2E7D4F"></span>Approved</span>
-            <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; line-height: 22px; font-weight: 600">Dara's leave is approved</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">Thu 22 – Fri 23 Oct show as Away. {{leaveDone}}</span></div>
+            <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column"><span id="lv-done" tabindex="-1" style="font-size: 15px; line-height: 22px; font-weight: 600">Dara's leave is approved</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">Thu 22 – Fri 23 Oct show as Away. {{leaveDone}}</span></div>
             <button type="button" onClick="{{n.undo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button>
           </div>
           </sc-if>
@@ -94,7 +94,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                 <a href="{{n.href}}" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">{{n.action}}</a>
               </sc-if>
               <sc-if value="{{n.inline}}" hint-placeholder-val="{{false}}">
-                <button type="button" onClick="{{n.approve}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{n.action}}</button>
+                <button type="button" id="lv-open" onClick="{{n.approve}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{n.action}}</button>
               </sc-if>
             </div>
           </div>
@@ -103,12 +103,12 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <div role="group" aria-labelledby="lv-title" style="padding: 14px 0; border-bottom: 1px solid #F0EEE9">
             <div style="display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 22px; background: #F4F3EF">
               <div style="display: flex; flex-direction: column; gap: 4px">
-                <h3 id="lv-title" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Approve Dara's leave, Thu 22 – Fri 23 Oct?</h3>
+                <h2 id="lv-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Approve Dara's leave, Thu 22 – Fri 23 Oct?</h2>
                 <p style="margin: 0; font-size: 13px; line-height: 18px; color: #4A4950">Annual leave in week 43, which isn't locked yet. Loads count everything still open for week 43, including Sophal's handover. <a href="Planner.dc.html#week-changes" style="font-weight: 600">See week 43 changes</a></p>
               </div>
               <dl style="margin: 0; display: flex; flex-wrap: wrap; gap: 8px">
                 <div style="flex: 1 1 160px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF"><dt style="font-size: 12px; color: #6E6C73">Dara's time to plan</dt><dd style="margin: 2px 0 0; font-family: 'Geist Mono', monospace; font-size: 18px; font-weight: 600">24h → 12h</dd></div>
-                <div style="flex: 1 1 160px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF"><dt style="font-size: 12px; color: #6E6C73">Planned for Dara</dt><dd style="margin: 2px 0 0; font-family: 'Geist Mono', monospace; font-size: 18px; font-weight: 600">23h → 13h <span style="font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 600; color: #1F5E3A">after the move</span></dd></div>
+                <div style="flex: 1 1 160px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF"><dt style="font-size: 12px; color: #6E6C73">Planned for Dara</dt><dd style="margin: 2px 0 0; font-family: 'Geist Mono', monospace; font-size: 18px; font-weight: 600">22h → 12h <span style="font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 600; color: #1F5E3A">after the move</span></dd></div>
               </dl>
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF">
                 <div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; line-height: 22px; font-weight: 600">Menu sync job tests</span><span style="font-size: 12px; line-height: 16px; color: #9A3412">Due Thu 22, Dara's first day off · Medium · 10h</span></div>
@@ -171,6 +171,15 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
+  // move keyboard focus to the part of the screen that just appeared
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() {
+    const s = this.state || {};
+    if (s.focusN && s.focusN !== this._focusN) {
+      this._focusN = s.focusN;
+      requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); });
+    }
+  }
   renderVals() {
     const k = {
       help: { kbg: '#FCE3D3', kfg: '#9A3412' },
@@ -183,10 +192,10 @@ class Component extends DCLogic {
       open: !approved && !sheet, done: approved, sheet,
       give: pick(!later), later: pick(later),
       pickGive: () => this.setState({ choice: 'give' }), pickLater: () => this.setState({ choice: 'later' }),
-      approve: () => this.setState({ sheet: true }),
-      confirm: () => this.setState({ approved: true, sheet: false }),
-      cancel: () => this.setState({ sheet: false }),
-      undo: () => this.setState({ approved: false })
+      approve: () => this.focusTo('lv-title', { sheet: true }),
+      confirm: () => this.focusTo('lv-done', { approved: true, sheet: false }),
+      cancel: () => this.focusTo('lv-open', { sheet: false }),
+      undo: () => this.focusTo('lv-open', { approved: false })
     };
     const need = (kind, tone, title, meta, action, href, second) => Object.assign({ kind, title, meta, action, href: href || '', inline: !href, second: second || '', open: true, done: false, sheet: false }, k[tone], href ? {} : leave);
     const waiting = approved ? 8 : 9;
