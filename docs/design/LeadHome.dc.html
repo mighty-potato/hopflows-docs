@@ -28,7 +28,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
   <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
-    <dc-import name="Sidebar" persona="lead" current="needs" hint-size="232px,900px"></dc-import>
+    <dc-import name="Sidebar" persona="lead" current="needs" needs="{{waiting}}" hint-size="232px,900px"></dc-import>
   </div>
   <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
     <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
@@ -84,10 +84,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 15px; font-weight: 600">Launch In-App Ordering v1</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #9A3412; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>At risk</span></span>
             <span style="font-size: 12px; color: #6E6C73">Waiting on others · 7 days · due 30 Nov</span>
           </a>
-          <a href="Deliverable.dc.html" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 0; text-decoration: none">
+          <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 0">
             <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 15px; font-weight: 600">School App sign-up flow</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #9B2C24; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C0352B"></span>Off track</span></span>
-            <span style="font-size: 12px; color: #6E6C73">Scope change · 3 days · due 6 Nov</span>
-          </a>
+            <span style="font-size: 12px; color: #6E6C73">Scope change · 3 days · due 6 Nov · its page isn't on the canvas yet</span>
+          </div>
         </section>
         <section aria-label="This week's plan" style="order: 5; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
           <span style="font-size: 12px">Week 42 · locked Mon 09:30</span>
@@ -130,16 +130,16 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <div style="display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 22px; background: #F4F3EF">
               <div style="display: flex; flex-direction: column; gap: 4px">
                 <h3 id="lv-title" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Approve Dara's leave, Thu 22 – Fri 23 Oct?</h3>
-                <p style="margin: 0; font-size: 13px; line-height: 18px; color: #4A4950">Annual leave in week 43, which isn't locked yet. Loads are the plan as it stands now; Sophal's handover is still open. <a href="Planner.dc.html#week-changes" style="font-weight: 600">See week 43 changes</a></p>
+                <p style="margin: 0; font-size: 13px; line-height: 18px; color: #4A4950">Annual leave in week 43, which isn't locked yet. Loads count everything still open for week 43, including Sophal's handover. <a href="Planner.dc.html#week-changes" style="font-weight: 600">See week 43 changes</a></p>
               </div>
               <dl style="margin: 0; display: flex; flex-wrap: wrap; gap: 8px">
                 <div style="flex: 1 1 160px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF"><dt style="font-size: 12px; color: #6E6C73">Dara's time to plan</dt><dd style="margin: 2px 0 0; font-family: 'Geist Mono', monospace; font-size: 18px; font-weight: 600">24h → 12h</dd></div>
-                <div style="flex: 1 1 160px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF"><dt style="font-size: 12px; color: #6E6C73">Planned for Dara</dt><dd style="margin: 2px 0 0; font-family: 'Geist Mono', monospace; font-size: 18px; font-weight: 600">22h → 12h <span style="font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 600; color: #1F5E3A">after the move</span></dd></div>
+                <div style="flex: 1 1 160px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF"><dt style="font-size: 12px; color: #6E6C73">Planned for Dara</dt><dd style="margin: 2px 0 0; font-family: 'Geist Mono', monospace; font-size: 18px; font-weight: 600">23h → 13h <span style="font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 600; color: #1F5E3A">after the move</span></dd></div>
               </dl>
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF">
                 <div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; line-height: 22px; font-weight: 600">Menu sync job tests</span><span style="font-size: 12px; line-height: 16px; color: #9A3412">Due Thu 22, Dara's first day off · Medium · 10h</span></div>
                 <div role="radiogroup" aria-label="What happens to Menu sync job tests" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 999px">
-                  <button type="button" role="radio" aria-checked="{{n.give.on}}" onClick="{{n.pickGive}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{n.give.bg}}; color: {{n.give.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Give to Pisey · 19h of 14h · Using buffer</button>
+                  <button type="button" role="radio" aria-checked="{{n.give.on}}" onClick="{{n.pickGive}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{n.give.bg}}; color: {{n.give.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Give to Pisey · 27h of 14h · Too much</button>
                   <button type="button" role="radio" aria-checked="{{n.later.on}}" onClick="{{n.pickLater}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{n.later.bg}}; color: {{n.later.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Move to week 44</button>
                 </div>
               </div>

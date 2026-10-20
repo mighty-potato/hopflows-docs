@@ -50,7 +50,7 @@ body{margin:0}
     <sc-if value="{{isLead}}" hint-placeholder-val="{{false}}">
       <div class="hf-hide-sm" style="padding: 14px 14px 6px; font-size: 12px; color: #6E6C73">Team · Technical</div>
       <a class="hf-lead-link" href="LeadHome.dc.html" aria-current="{{n.needs.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.needs.bg}}; color: {{n.needs.fg}}">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.5h.01"></path></svg><span style="flex: 1">Needs you</span><span style="min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center">9</span></a>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.5h.01"></path></svg><span style="flex: 1">Needs you</span><span style="min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{needsCount}}</span></a>
       <a class="hf-lead-link" href="Queue.dc.html" aria-current="{{n.queue.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.queue.bg}}; color: {{n.queue.fg}}">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="2"></rect><rect x="3" y="14" width="18" height="6" rx="2"></rect></svg><span style="flex: 1">Incoming Queue</span><span style="font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500">4</span></a>
       <a class="hf-lead-link" href="Planner.dc.html" aria-current="{{n.plan.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.plan.bg}}; color: {{n.plan.fg}}">
@@ -112,7 +112,7 @@ body{margin:0}
   </div>
 </nav>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"persona":{"editor":"enum","options":["employee","lead","leader","admin"],"default":"employee"},"current":{"editor":"text","default":"today"},"$preview":{"width":232,"height":1010}}'>
+<script type="text/x-dc" data-dc-script data-props='{"needs":{"editor":"text","default":"9"},"persona":{"editor":"enum","options":["employee","lead","leader","admin"],"default":"employee"},"current":{"editor":"text","default":"today"},"$preview":{"width":232,"height":1010}}'>
 class Component extends DCLogic {
   renderVals() {
     const persona = this.props.persona ?? 'employee';
@@ -140,6 +140,7 @@ class Component extends DCLogic {
       toggleMine: () => this.setState({ mineOpen: !(this.state && this.state.mineOpen) }),
       n,
       me: people[persona] || people.employee,
+      needsCount: this.props.needs ?? '9',
       isLead: persona === 'lead',
       isLeader: persona === 'leader',
       isAdmin: persona === 'admin',
