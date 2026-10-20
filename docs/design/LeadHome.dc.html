@@ -20,17 +20,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
-@media (max-width:1024px){
-.hf-masonry{flex-direction:column !important;flex-wrap:nowrap !important;align-items:stretch !important}
-.hf-masonry>.hf-col{display:contents !important}
-}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
   <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
     <dc-import name="Sidebar" persona="lead" current="needs" needs="{{waiting}}" hint-size="232px,900px"></dc-import>
   </div>
-  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+  <main id="main" class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
     <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
 
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
@@ -71,35 +67,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
     </sc-if>
     <sc-if value="{{ok}}" hint-placeholder-val="{{true}}">
-    <div class="bento hf-masonry" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
-      <div class="hf-col" style="flex: 4 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-      <section aria-label="Needs you count" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; min-height: 280px">
+    <div class="bento hf-lh-cols" style="columns: 2 360px; column-gap: 12px">
+      <section aria-label="Needs you count" style="break-inside: avoid; margin: 0 0 12px; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; min-height: 280px">
         <span style="font-size: 13px; font-weight: 600">Waiting on you</span>
         <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">{{waiting}}</span>
         <span style="font-size: 15px; line-height: 22px; margin-top: auto">{{waitingLine}}</span>
       </section>
-        <section aria-label="Deliverables at risk" style="order: 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
-          <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Deliverables at risk</h2>
-          <a href="Deliverable.dc.html" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none">
-            <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 15px; font-weight: 600">Launch In-App Ordering v1</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #9A3412; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>At risk</span></span>
-            <span style="font-size: 12px; color: #6E6C73">Waiting on others · 7 days · due 30 Nov</span>
-          </a>
-          <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 0">
-            <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 15px; font-weight: 600">School App sign-up flow</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #9B2C24; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C0352B"></span>Off track</span></span>
-            <span style="font-size: 12px; color: #6E6C73">Scope change · 3 days · due 6 Nov · its page isn't on the canvas yet</span>
-          </div>
-        </section>
-        <section aria-label="This week's plan" style="order: 5; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 12px">Week 42 · locked Mon 09:30</span>
-          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">3 tasks added since locking</span>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px">
-            <a href="Planner.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Plan week 43</a>
-            <a href="WeeklyReview.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; color: #1C1B1F; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Weekly review</a>
-          </div>
-        </section>
-      </div>
-      <div class="hf-col" style="flex: 8 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-      <section aria-label="Needs you list" style="order: 2; background: #FFFFFF; border-radius: 28px; padding: 12px 24px; display: flex; flex-direction: column; min-width: 0">
+      <section aria-label="Needs you list" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 12px 24px; display: flex; flex-direction: column; min-width: 0">
         <sc-for list="{{needs}}" as="n" hint-placeholder-count="5">
           <sc-if value="{{n.done}}" hint-placeholder-val="{{false}}">
           <div role="status" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 0; border-bottom: 1px solid #F0EEE9">
@@ -154,7 +128,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </sc-for>
         <button type="button" style="align-self: flex-start; height: 44px; margin: 6px 0; padding: 0; border: 0; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">See all {{waiting}}</button>
       </section>
-      <section aria-label="Team this week" style="order: 3; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+      <section aria-label="Team this week" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px">
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Team this week</h2>
           <a href="Workload.dc.html" style="font-size: 13px; font-weight: 600">Open Workload</a>
@@ -171,7 +145,25 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </sc-for>
         <span style="font-size: 12px; color: #6E6C73; margin-top: 4px">Sorted by name. Based on estimates. Hours on tap.</span>
       </section>
-      </div>
+      <section aria-label="Deliverables at risk" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px"><h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Deliverables at risk</h2><a href="DeliverableList.dc.html" style="font-size: 13px; font-weight: 600">All deliverables</a></div>
+          <a href="Deliverable.dc.html" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none">
+            <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 15px; font-weight: 600">Launch In-App Ordering v1</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #9A3412; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>At risk</span></span>
+            <span style="font-size: 12px; color: #6E6C73">Waiting on others · 7 days · due 30 Nov</span>
+          </a>
+          <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 0">
+            <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 15px; font-weight: 600">School App sign-up flow</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #9B2C24; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C0352B"></span>Off track</span></span>
+            <span style="font-size: 12px; color: #6E6C73">Scope change · 3 days · due 6 Nov · its page isn't on the canvas yet</span>
+          </div>
+        </section>
+      <section aria-label="This week's plan" style="break-inside: avoid; margin: 0 0 12px; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px">Week 42 · locked Mon 09:30</span>
+          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">3 tasks added since locking</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px">
+            <a href="Planner.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Plan week 43</a>
+            <a href="WeeklyReview.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; color: #1C1B1F; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Weekly review</a>
+          </div>
+        </section>
     </div>
     </sc-if>
   </main>

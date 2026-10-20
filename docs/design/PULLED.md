@@ -3,13 +3,13 @@
 Local copy of the **HopFlows Web App** design canvas.
 
 - Source: https://claude.ai/artifact/KcFhzuaEqjfwAJoM3jnTSz
-- Pulled: 19 October 2026 (version 1792418324-b343); pushed and re-pulled 20 October 2026 (version 50, 1792437141-4c09); lead-flow fixes pushed 20 October 2026 (version 51, 1792505157-6aba) second pass (version 52, 1792514541-aa5a) third pass (version 53, 1792516195-ebc2) and fourth pass (version 54, 1792517137-bcef)
+- Pulled: 19 October 2026 (version 1792418324-b343); pushed and re-pulled 20 October 2026 (version 50, 1792437141-4c09); lead-flow fixes pushed 20 October 2026 (version 51, 1792505157-6aba) second pass (version 52, 1792514541-aa5a) third pass (version 53, 1792516195-ebc2) fourth pass (version 54, 1792517137-bcef) and fifth pass (version 55, 1792521324-5439)
 - Design system it uses: `ds/hopflows/tokens.json` (same as `../design-system/tokens.json`)
 
 | Path | What |
 |---|---|
 | `canvas.json` | Canvas index: every artboard, its position and size |
-| `*.dc.html` | One file per screen (37): employee `Main` (Today), `SignIn`, `Setup` (first admin sets up the company), `Welcome`, `AddWork`, `TaskDetail`, `NeedHelp`, `MyTasks`, `MyRequests`, `Leave`, `MyReport`, `MyRoutines`, `OtherTeam` (another department's Deliverable, view only); lead `LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `WeeklyReview`, `Handover`, `Routines`, `TeamTable`; leader `Goals`, `GoalDetail`, `Summary`; everyone `Calendar`, `Event`, `Inbox`, `Search`, `Reports`, `Settings`; admin `People`, `Holidays`, `Org`; shared `Sidebar`, `Topbar`, `MobileNav` |
+| `*.dc.html` | One file per screen (38): employee `Main` (Today), `SignIn`, `Setup` (first admin sets up the company), `Welcome`, `AddWork`, `TaskDetail`, `NeedHelp`, `MyTasks`, `MyRequests`, `Leave`, `MyReport`, `MyRoutines`, `OtherTeam` (another department's Deliverable, view only); lead `LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `WeeklyReview`, `Handover`, `Routines`, `TeamTable`, `DeliverableList` (lead's list of Deliverables); leader `Goals`, `GoalDetail`, `Summary`; everyone `Calendar`, `Event`, `Inbox`, `Search`, `Reports`, `Settings`; admin `People`, `Holidays`, `Org`; shared `Sidebar`, `Topbar`, `MobileNav` |
 | `assets/` | Images the screens use |
 | `employee.css` | Employee responsive and accessibility rules, uploaded to the canvas as an asset |
 

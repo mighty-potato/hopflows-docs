@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Deliverables</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}a:hover{color:#4A4950}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+@media (max-width:760px){
+.hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
+.hf-nav-list{flex-direction:row !important;overflow-x:auto}
+.hf-hide-sm{display:none !important}
+.hf-main{padding:16px !important}
+.bento>*{grid-column:1 / -1 !important}
+.hf-wgrid{min-width:0 !important}
+.hf-wrow{grid-template-columns:112px repeat(var(--n),minmax(0,1fr)) !important}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
+    <dc-import name="Sidebar" persona="lead" current="deliverables" hint-size="232px,900px"></dc-import>
+  </div>
+  <main id="main" class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+    <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; color: #6E6C73">Technical · Deliverables your department is responsible for or helps with</span>
+        <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Deliverables</h1>
+      </div>
+      <div role="radiogroup" aria-label="Show" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
+        <sc-for list="{{filters}}" as="f" hint-placeholder-count="3"><button type="button" role="radio" aria-checked="{{f.on}}" onClick="{{f.pick}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{f.bg}}; color: {{f.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{f.name}}</button></sc-for>
+      </div>
+    </div>
+
+    <section aria-label="Deliverables" style="background: #FFFFFF; border-radius: 28px; padding: 8px 24px; display: flex; flex-direction: column">
+      <sc-for list="{{rows}}" as="d" hint-placeholder-count="4">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; padding: 16px 0; border-bottom: 1px solid #F0EEE9">
+          <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+            <sc-if value="{{d.href}}" hint-placeholder-val="{{true}}"><a href="{{d.href}}" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{d.name}}</a></sc-if>
+            <sc-if value="{{d.noHref}}" hint-placeholder-val="{{false}}"><span style="font-size: 15px; line-height: 22px; font-weight: 600">{{d.name}}</span></sc-if>
+            <span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{d.meta}}</span>
+          </div>
+          <span style="width: 120px; font-family: 'Geist Mono', monospace; font-size: 13px; color: #4A4950">{{d.progress}}</span>
+          <span style="min-width: 150px; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: {{d.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{d.dot}}"></span>{{d.flag}}</span>
+        </div>
+      </sc-for>
+      <p style="margin: 12px 0 8px; font-size: 12px; line-height: 16px; color: #6E6C73">Sorted by flag, then due date. A flag is the lead's judgment, shown next to the task numbers. Only In-App Ordering has a detail page on the canvas so far.</p>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const f = {
+      off: { flag: 'Off track · 3 days', fg: '#9B2C24', dot: '#C0352B' },
+      risk: { flag: 'At risk · 7 days', fg: '#9A3412', dot: '#C2410C' },
+      ok: { flag: 'On track', fg: '#1F5E3A', dot: '#2E7D4F' },
+      done: { flag: 'Accepted', fg: '#1F5E3A', dot: '#2E7D4F' }
+    };
+    const d = (name, meta, progress, k, href, active) => Object.assign({ name, meta, progress, href: href || '', noHref: !href, active }, f[k]);
+    const all = [
+      d('School App sign-up flow', 'Goal: Onboard 40 pilot schools · Lead Chenda Lim · due Fri 6 Nov · Scope change', '9 of 16 tasks', 'off', '', true),
+      d('Launch In-App Ordering v1', 'Goal: Increase in-app sales by 20% · Lead Chenda Lim · due Mon 30 Nov · Waiting on others', '14 of 22 tasks', 'risk', 'Deliverable.dc.html', true),
+      d('Store sales dashboard v1', 'Lead Sophal Ouk, then Pisey Chea from Mon 19 Oct · due Fri 13 Nov', '5 of 12 tasks', 'ok', '', true),
+      d('Faster menu pages', 'Goal: Increase in-app sales by 20% · accepted by Sokha Meng on 2 Oct', '11 of 11 tasks', 'done', '', false)
+    ];
+    const show = (this.state && this.state.show) || 'active';
+    const filters = [['active', 'Active · 3'], ['done', 'Accepted · 1'], ['all', 'All · 4']].map(([id, name]) => ({
+      name, on: show === id ? 'true' : 'false', bg: show === id ? '#1C1B1F' : 'transparent', fg: show === id ? '#FFFFFF' : '#4A4950',
+      pick: () => this.setState({ show: id })
+    }));
+    return { filters, rows: all.filter((r) => show === 'all' || (show === 'active' ? r.active : !r.active)) };
+  }
+}
+</script>
+</body>
+</html>

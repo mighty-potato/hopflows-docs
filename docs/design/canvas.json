@@ -331,6 +331,15 @@
       "w": 1440,
       "x": 5002,
       "y": 0
+    },
+    "DeliverableList.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "title": "13a · Deliverables",
+      "w": 1440,
+      "x": 13680,
+      "y": 2940
     }
   },
   "createdOnFiles": {
@@ -368,7 +377,7 @@
     },
     "t2": {
       "kind": "title1",
-      "maxW": 8000,
+      "maxW": 15120,
       "text": "Lead · Is my team OK, and what needs me?",
       "w": 240,
       "x": 0,
@@ -420,6 +429,7 @@
     "Queue.dc.html",
     "Planner.dc.html",
     "Workload.dc.html",
+    "DeliverableList.dc.html",
     "Deliverable.dc.html",
     "WeeklyReview.dc.html",
     "Handover.dc.html",

@@ -33,7 +33,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
   <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
     <dc-import name="Sidebar" persona="lead" current="team" hint-size="232px,900px"></dc-import>
   </div>
-  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 20px">
+  <main id="main" class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 20px">
     <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
 
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
@@ -60,10 +60,42 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px">Cancelled hidden</span>
     </div>
 
+    <sc-if value="{{stLoading}}" hint-placeholder-val="{{false}}">
+      <div role="status" aria-busy="true" style="display: flex; flex-direction: column; gap: 12px">
+        <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Loading team tasks…</span>
+        <div aria-hidden="true" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px">
+          <div style="grid-column: span 4; height: 220px; border-radius: 28px; background: #ECEAE4"></div>
+          <div style="grid-column: span 8; height: 220px; border-radius: 28px; background: #FFFFFF; display: flex; flex-direction: column; gap: 14px; padding: 28px; box-sizing: border-box"><span style="width: 40%; height: 14px; border-radius: 999px; background: #ECEAE4"></span><span style="width: 75%; height: 14px; border-radius: 999px; background: #F0EEE9"></span><span style="width: 60%; height: 14px; border-radius: 999px; background: #F0EEE9"></span></div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{stEmpty}}" hint-placeholder-val="{{false}}">
+      <section aria-label="No open tasks match these filters" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
+        <img src="/_blob/a431a6fdd4e19f548f54f9fd97283158" alt="Punh Punh waving" style="width: 144px; height: 144px; border-radius: 28px; object-fit: cover; flex-shrink: 0">
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">No open tasks match these filters</h2>
+          <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">Clear a filter to see more, or sort new requests in the Incoming Queue.</p>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><a href="Queue.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Open the Incoming Queue</a></div>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{stError}}" hint-placeholder-val="{{false}}">
+      <section role="alert" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; box-shadow: inset 0 0 0 2px #C2410C">
+        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load team tasks</h2>
+          <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{stOk}}" hint-placeholder-val="{{true}}">
+    <sc-if value="{{stPartial}}" hint-placeholder-val="{{false}}">
     <div role="status" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 20px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
       <span style="flex: 1 1 320px; font-size: 13px; line-height: 18px"><strong>Changed 4 of 5.</strong> Skipped “Payroll export”: it belongs to Finance, which you can't edit.</span>
       <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">OK</button>
     </div>
+    </sc-if>
 
     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 8px 8px 20px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF">
       <span style="flex: 1 1 140px; font-size: 13px; font-weight: 600">5 selected</span>
@@ -77,7 +109,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <table class="hf-ttable" style="width: 100%; min-width: 1000px; border-collapse: collapse; font-size: 13px">
           <thead>
             <tr style="text-align: left; color: #6E6C73; font-size: 12px">
-              <th scope="col" style="padding: 12px 8px 12px 0; width: 32px; font-weight: 400"><input type="checkbox" aria-label="Select all" style="width: 18px; height: 18px; accent-color: #1C1B1F"></th>
+              <th scope="col" style="padding: 12px 8px 12px 0; width: 32px; font-weight: 400"><input type="checkbox" aria-label="Select all tasks" style="width: 18px; height: 18px; accent-color: #1C1B1F"></th>
               <th scope="col" style="padding: 12px 8px; font-weight: 400">Title ↓</th>
               <th scope="col" style="padding: 12px 8px; font-weight: 400">Owner</th>
               <th scope="col" style="padding: 12px 8px; font-weight: 400">Status</th>
@@ -92,7 +124,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <tbody>
             <sc-for list="{{rows}}" as="r" hint-placeholder-count="9">
               <tr style="border-top: 1px solid #F0EEE9; background: {{r.rowBg}}">
-                <td style="padding: 12px 8px 12px 0"><input type="checkbox" checked="{{r.sel}}" aria-label="Select row" style="width: 18px; height: 18px; accent-color: #1C1B1F"></td>
+                <td style="padding: 12px 8px 12px 0"><input type="checkbox" checked="{{r.sel}}" aria-label="Select {{r.title}}" style="width: 18px; height: 18px; accent-color: #1C1B1F"></td>
                 <td class="hf-ttitle" style="padding: 12px 8px; font-size: 15px; font-weight: 600"><a href="TaskDetail.dc.html" style="text-decoration: none">{{r.title}}</a></td>
                 <td style="padding: 12px 8px">{{r.owner}}</td>
                 <td style="padding: 12px 8px"><span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: {{r.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{r.dot}}"></span>{{r.status}}</span></td>
@@ -108,10 +140,11 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </table>
       </div>
     </section>
+    </sc-if>
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal", "loading", "empty", "error", "partial"],"default":"normal"},"$preview":{"width":1440,"height":1000}}'>
 class Component extends DCLogic {
   renderVals() {
     const st = {
@@ -129,7 +162,9 @@ class Component extends DCLogic {
       ready: { wk: 'Not planned', wkBg: '#FFFFFF', wkFg: '#4A4950' }
     };
     const row = (sel, title, owner, s, due, size, del, kind, from, w) => Object.assign({ sel, rowBg: sel ? '#FBFAF7' : 'transparent', title, owner, due, size, del, kind, from }, st[s], wk[w]);
+    const pageState = this.props.state ?? 'normal';
     return {
+      stOk: ['normal', 'saveError', 'partial'].indexOf(pageState) >= 0, stLoading: pageState === 'loading', stEmpty: pageState === 'empty', stError: pageState === 'error', stSave: pageState === 'saveError', stPartial: pageState === 'partial',
       rows: [
         row(true, 'Coupon breaks payment at checkout', 'Rithy Heng', 'doing', 'Fri 16', 'Small · 5h', 'Launch In-App Ordering v1', 'Bug', 'Customer', 'added'),
         row(true, 'Store sales export', 'Sophal Ouk', 'todo', 'Wed 21', 'Small · 4h', 'Store sales dashboard v1', 'Feature', 'Manager', 'w43'),

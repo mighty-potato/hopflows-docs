@@ -40,7 +40,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
   <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
     <dc-import name="Sidebar" persona="lead" current="plan" hint-size="232px,900px"></dc-import>
   </div>
-  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+  <main id="main" class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
     <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
 
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
@@ -59,6 +59,42 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
     </div>
 
+    <sc-if value="{{stLoading}}" hint-placeholder-val="{{false}}">
+      <div role="status" aria-busy="true" style="display: flex; flex-direction: column; gap: 12px">
+        <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Loading week 43's plan…</span>
+        <div aria-hidden="true" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px">
+          <div style="grid-column: span 4; height: 220px; border-radius: 28px; background: #ECEAE4"></div>
+          <div style="grid-column: span 8; height: 220px; border-radius: 28px; background: #FFFFFF; display: flex; flex-direction: column; gap: 14px; padding: 28px; box-sizing: border-box"><span style="width: 40%; height: 14px; border-radius: 999px; background: #ECEAE4"></span><span style="width: 75%; height: 14px; border-radius: 999px; background: #F0EEE9"></span><span style="width: 60%; height: 14px; border-radius: 999px; background: #F0EEE9"></span></div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{stEmpty}}" hint-placeholder-val="{{false}}">
+      <section aria-label="Nothing planned for week 43 yet" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
+        <img src="/_blob/a431a6fdd4e19f548f54f9fd97283158" alt="Punh Punh waving" style="width: 144px; height: 144px; border-radius: 28px; object-fit: cover; flex-shrink: 0">
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Nothing planned for week 43 yet</h2>
+          <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">Add work from Ready to plan, or carry over what's left from week 42. You can lock the week once there's a plan.</p>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><a href="TeamTable.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">See team tasks</a></div>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{stError}}" hint-placeholder-val="{{false}}">
+      <section role="alert" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; box-shadow: inset 0 0 0 2px #C2410C">
+        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load week 43's plan</h2>
+          <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{stOk}}" hint-placeholder-val="{{true}}">
+    <sc-if value="{{stSave}}" hint-placeholder-val="{{false}}">
+      <div role="alert" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 20px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
+        <span style="flex: 1 1 320px; font-size: 15px; line-height: 22px"><strong>Couldn't lock week 43.</strong> Nothing was saved and the plan is unchanged. Check your connection, then try again.</span>
+        <button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Try again</button>
+      </div>
+    </sc-if>
     <sc-if value="{{confirming}}" hint-placeholder-val="{{false}}">
       <section role="alertdialog" aria-labelledby="lock-title" aria-describedby="lock-what" style="background: #FFFFFF; border-radius: 28px; padding: 24px; box-shadow: inset 0 0 0 2px #1C1B1F; display: flex; flex-direction: column; gap: 16px">
         <div style="display: flex; flex-direction: column; gap: 6px">
@@ -171,9 +207,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
       <section aria-label="Carried over" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Carried over from week 42 <span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #4A4950">· 3</span></h2>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">Fix receipt printer driver <span style="font-size: 12px; color: #6E6C73">· Dara · Small · 8h · blocked, waiting on the vendor</span></span><button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">Menu photo export <span style="font-size: 12px; color: #6E6C73">· Pisey · Medium · moved after Pisey's sick day</span></span><button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0"><span style="flex: 1 1 220px; font-size: 15px">Menu sync job tests <span style="font-size: 12px; color: #6E6C73">· Dara · Medium · moved for the receipt problem</span></span><button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">Fix receipt printer driver <span style="font-size: 12px; color: #6E6C73">· Dara · Small · 8h · blocked, waiting on the vendor</span></span><button type="button" aria-label="Remove Fix receipt printer driver from week 43" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">Menu photo export <span style="font-size: 12px; color: #6E6C73">· Pisey · Medium · moved after Pisey's sick day</span></span><button type="button" aria-label="Remove Menu photo export from week 43" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0"><span style="flex: 1 1 220px; font-size: 15px">Menu sync job tests <span style="font-size: 12px; color: #6E6C73">· Dara · Medium · moved for the receipt problem</span></span><button type="button" aria-label="Remove Menu sync job tests from week 43" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div>
       </section>
 
       <section aria-label="Ready to plan" style="grid-column: span 5; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
@@ -183,10 +219,11 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0"><span style="flex: 1; font-size: 15px">Order history page <span style="font-size: 12px; color: #6E6C73">· No estimate</span></span><button type="button" aria-label="Add Order history page to week 43" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
       </section>
     </div>
+    </sc-if>
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"lock":{"editor":"enum","options":["planning","confirm","locked"],"default":"planning"},"$preview":{"width":1440,"height":1160}}'>
+<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal", "loading", "empty", "error", "saveError"],"default":"normal"},"lock":{"editor":"enum","options":["planning","confirm","locked"],"default":"planning"},"$preview":{"width":1440,"height":1160}}'>
 class Component extends DCLogic {
   renderVals() {
     const cap = {
@@ -223,7 +260,9 @@ class Component extends DCLogic {
       change('Handover', 'handover', "Sophal's work moves on Mon 19 Oct · step 2 of 3", 'Counted: 13h moves, 8h to Pisey, 4h to Chenda, 1h to Dara. Sophal keeps nothing.', 'Continue', 'Handover.dc.html')
     ];
     if (moved) changes.push(change(s.movedLocked ? 'Changed' : 'Moved', 'moved', "10h moved off Vannak's week", 'Shop tablet updates and Printer setup guide → week 44.' + (s.movedLocked ? ' Made after locking, so the weekly review shows it as a change.' : '')));
+    const pageState = this.props.state ?? 'normal';
     return {
+      stOk: ['normal', 'saveError', 'partial'].indexOf(pageState) >= 0, stLoading: pageState === 'loading', stEmpty: pageState === 'empty', stError: pageState === 'error', stSave: pageState === 'saveError', stPartial: pageState === 'partial',
       people, plannedTotal, changes, moving,
       savedTotal: s.lockedTotal || plannedTotal,
       vannakOver: !moved,

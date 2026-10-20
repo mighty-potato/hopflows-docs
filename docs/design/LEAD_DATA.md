@@ -82,6 +82,17 @@ The Planner lists every change to week 43 in one place. Open changes are counted
 | Show prices in riel and dollars | Pisey, from Product sync, yesterday | New |
 | Export sales by store | Sokha Meng, 2 days | Store sales export |
 
+## Deliverables (DeliverableList)
+
+| Deliverable | Lead | Due | Progress | Flag |
+|---|---|---|---|---|
+| School App sign-up flow | Chenda Lim | Fri 6 Nov | 9 of 16 tasks | Off track · 3 days · Scope change |
+| Launch In-App Ordering v1 | Chenda Lim | Mon 30 Nov | 14 of 22 tasks | At risk · 7 days · Waiting on others |
+| Store sales dashboard v1 | Sophal Ouk, then Pisey Chea from Mon 19 Oct | Fri 13 Nov | 5 of 12 tasks | On track |
+| Faster menu pages | — | accepted 2 Oct | 11 of 11 tasks | Accepted |
+
+Only Launch In-App Ordering v1 has a detail page on the canvas.
+
 ## Names to use
 
 - Payment webhook retries (not "Payment webhook").

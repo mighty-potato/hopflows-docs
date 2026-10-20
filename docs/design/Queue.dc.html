@@ -26,7 +26,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
   <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
     <dc-import name="Sidebar" persona="lead" current="queue" hint-size="232px,900px"></dc-import>
   </div>
-  <main class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
+  <main id="main" class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
     <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
 
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
@@ -142,8 +142,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <div style="flex: 1 1 100%; min-width: 0; display: flex; flex-direction: column; gap: 6px">
             <label for="q-owner" style="font-size: 13px; font-weight: 600">Owner</label>
             <div style="display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 8px 0 16px; border-radius: 16px; background: #F4F3EF">
-              <select id="q-owner" style="flex: 1; min-width: 0; height: 44px; border: 0; background: transparent; font-family: inherit; font-size: 15px; color: #1C1B1F"><option selected="">Sophal Ouk · Room after this · leaves Fri 23</option><option>Vannak Prum · Room after this · says Full</option><option>Chenda Lim · Using buffer after this</option><option>Dara Sok · Using buffer after this</option><option>Pisey Chea · Using buffer after this</option><option>Rithy Heng · Too much after this</option><option disabled="">Sreymom Ly · Away all week</option></select>
-              <span style="padding: 4px 10px; border-radius: 10px; background: #DCEFE2; color: #1F5E3A; font-size: 12px; font-weight: 600; white-space: nowrap">After: 11h of 24h</span>
+              <select id="q-owner" style="flex: 1; min-width: 0; height: 44px; border: 0; background: transparent; font-family: inherit; font-size: 15px; color: #1C1B1F"><option selected="" disabled="" value="">Choose an owner</option><option>Vannak Prum · Room after this · says Full</option><option>Sophal Ouk · Room after this · leaves Fri 23</option><option>Chenda Lim · Using buffer after this</option><option>Dara Sok · Using buffer after this</option><option>Pisey Chea · Using buffer after this</option><option>Rithy Heng · Too much after this</option><option disabled="">Sreymom Ly · Away all week</option></select>
+              
             </div>
           </div>
           <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
@@ -155,10 +155,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             </div>
           </div>
           <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
-            <span id="q-urgency" style="font-size: 13px; font-weight: 600">How urgent? <span style="font-weight: 400; color: #6E6C73">· you decide</span></span>
+            <span id="q-urgency" style="font-size: 13px; font-weight: 600">How urgent? <span style="font-weight: 400; color: #6E6C73">· Dara marked it Seems urgent; you decide</span></span>
             <div role="radiogroup" aria-labelledby="q-urgency" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 16px; height: 48px; box-sizing: border-box">
-              <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Normal</button>
-              <button type="button" role="radio" aria-checked="true" style="flex: 1; border: 0; border-radius: 14px; background: #C2410C; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Urgent</button>
+              <button type="button" role="radio" aria-checked="true" style="flex: 1; border: 0; border-radius: 14px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Normal</button>
+              <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Urgent</button>
             </div>
           </div>
           <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-due" style="font-size: 13px; font-weight: 600">Due</label><input id="q-due" type="text" value="Today" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
@@ -185,12 +185,12 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
         <div style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
           <span style="font-size: 13px; font-weight: 600">Week 42 is locked. This counts as added work.</span>
-          <label for="q-why" style="font-size: 12px">Moving one of Sophal's own tasks to make room? Say why <span style="opacity: 0.8">· optional</span></label>
-          <input id="q-why" type="text" placeholder="Sophal has room this week, so nothing has to move" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 13px; color: #1C1B1F">
+          <label for="q-why" style="font-size: 12px">Moving one of the owner's own tasks to make room? Say which and why <span style="opacity: 0.8">· optional</span></label>
+          <input id="q-why" type="text" placeholder="Task name and reason" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 13px; color: #1C1B1F">
         </div>
 
         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
-          <span style="font-size: 12px; line-height: 16px; color: #6E6C73; flex: 1 1 260px">Dara will be told in the app: “Your request is now a Task for Sophal.” Urgent alerts Sophal right away.</span>
+          <span style="font-size: 12px; line-height: 16px; color: #6E6C73; flex: 1 1 260px">Dara is told in the app who owns it now. Only urgent tasks alert the owner right away.</span>
           <button type="button" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Make a Task</button>
         </div>
         </div>
