@@ -22,10 +22,10 @@ A task in progress shows the hours **left** when it moves (for example Payment w
 | Dara Sok | 32h | 24h | 22h | Balanced | Leave asked for Thu 22 – Fri 23, not decided. If approved: 16h / 12h |
 | Pisey Chea | 19h | 14h | 9h | Room | Technical 60%, Design 40% |
 | Rithy Heng | 32h | 24h | 29h | Using buffer | |
-| Sophal Ouk | 32h | 24h | 6h | Room | Leaving; last day Fri 23 Oct; handover starts Mon 19 Oct |
+| Sophal Ouk | 32h | 24h | 13h | Room | Leaving; last day Fri 23 Oct; handover starts Mon 19 Oct and moves all 13h |
 | Sreymom Ly | 0h | 0h | 0h | Away | Annual leave all week |
-| Vannak Prum | 32h | 24h | 35h | Too much | Says Full |
-| **Total** | **203h** | **128h** | **115h** | | Buffer 75h, routines 6h, 2 tasks with no estimate |
+| Vannak Prum | 32h | 24h | 35h | Too much | Says Full. "Move Vannak's work" moves 10h: Shop tablet updates (Small · 6h) to week 44, Printer setup guide (Small · 4h, due Thu 22) to Chenda. After: Vannak 25h · Using buffer, Chenda 18h of 18h · Balanced |
+| **Total** | **171h** | **128h** | **122h** | | Buffer 43h, routines 6h, 2 tasks with no estimate. 116h planned after Vannak's move |
 
 Status words: Room under 70% of time to plan, Balanced 70–100%, Using buffer past time to plan but within available time, Too much past available time, Away.
 
@@ -47,13 +47,25 @@ Status words: Room under 70% of time to plan, Balanced 70–100%, Using buffer p
 ## Dara's leave (Thu 22 – Fri 23 Oct)
 
 - Dara's week 43: time to plan 24h → 12h, planned 22h → 12h once Menu sync job tests (Medium · 10h, due Thu 22) moves.
-- Default: move it to week 44. Giving it to Pisey would make her 24h of 14h, Too much (after the handover).
+- Default: move it to week 44. Giving it to Pisey would make her 19h of 14h, Using buffer (the plan as it stands now, before the handover).
+
+## Week 43 changes
+
+The Planner lists every change to week 43 in one place, so the leave sheet and Handover don't have to assume what the other decided. Both use the plan as it stands now and link to this list.
+
+| Change | State | Effect |
+|---|---|---|
+| Dara's leave, Thu 22 – Fri 23 | Waiting for Chenda | Dara's time to plan 24h → 12h; Menu sync job tests has to move |
+| Sophal's handover | Step 2 of 3 | 13h moves: 5h to Pisey, 4h to Rithy, 3h to Chenda, 1h to Dara |
+| Vannak's work (only after "Move 10h") | Done | 10h off Vannak |
 
 ## Week 42 in review
 
 - Locked Mon 09:30. 20 locked tasks, 17 done. Not done: Menu photo export (Pisey, moved after her sick day), Menu sync job tests (Dara, moved for the receipt problem), Build the checkout API (Dara, sent for review Fri 15:10).
 - Added after locking: Coupon breaks payment at checkout (Rithy, Small · 5h, from the Toul Kork shop on Wednesday), Fix receipt printer driver (Dara, Small · 8h, blocked on the vendor), Nightly backup alerts (Vannak, Small · 1h). Total 14h, 13% of all work.
-- Carried over to week 43: Fix receipt printer driver, Menu photo export, Menu sync job tests.
+- Carried over to week 43: Fix receipt printer driver, Menu photo export, Menu sync job tests. This is a different list from "not done": it includes the receipt printer fix (added work) and leaves out Build the checkout API (in review).
+- Flags to check: Launch In-App Ordering v1 (At risk, 7 days), School App sign-up flow (Off track, 3 days).
+- Routines: Sreymom is away until 30 Oct. Pisey covers Close shop on weekdays; Saturdays have nobody.
 - Reassigned: 2 tasks from Pisey to Dara while Pisey was sick on Wednesday (−8h).
 - Coupon rules screen (Dara) was accepted on Friday.
 

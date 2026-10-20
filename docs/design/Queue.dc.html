@@ -118,7 +118,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </sc-if>
         <sc-if value="{{isPostpone}}" hint-placeholder-val="{{false}}">
           <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
-            <span style="flex: 1 1 260px; font-size: 15px; line-height: 22px">It moves to Postponed and comes back on the date you pick. Dara sees it waiting in Requests I sent.</span>
+            <div style="flex: 1 1 100%; display: flex; flex-direction: column; gap: 8px">
+              <span id="q-back" style="font-size: 13px; font-weight: 600">Comes back</span>
+              <div role="radiogroup" aria-labelledby="q-back" style="display: flex; flex-wrap: wrap; gap: 6px">
+                <sc-for list="{{backs}}" as="b" hint-placeholder-count="3"><button type="button" role="radio" aria-checked="{{b.on}}" onClick="{{b.pick}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{b.bg}}; color: {{b.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{b.name}}</button></sc-for>
+              </div>
+            </div>
+            <span style="flex: 1 1 260px; font-size: 15px; line-height: 22px">{{backText}} Dara sees it waiting in Requests I sent.</span>
             <button type="button" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Postpone</button>
           </div>
         </sc-if>
@@ -208,12 +214,18 @@ class Component extends DCLogic {
     const addStep = () => this.setState({ n: Math.min(n + 1, pool.length) });
     const st = this.props.state ?? 'normal';
     const dec = (this.state && this.state.decision) || 'merge';
+    const back = (this.state && this.state.back) || 'mon';
+    const backs = [['mon', 'Next Mon, 19 Oct'], ['w44', 'Week 44'], ['pick', 'Pick a date']].map(([id, name]) => ({
+      name, on: back === id ? 'true' : 'false', bg: back === id ? '#1C1B1F' : '#F4F3EF', fg: back === id ? '#FFFFFF' : '#1C1B1F',
+      pick: () => this.setState({ back: id })
+    }));
+    const backText = back === 'mon' ? 'It comes back to the queue on Mon 19 Oct.' : back === 'w44' ? 'It comes back to the queue on Mon 26 Oct, when week 44 starts.' : 'Pick the day it comes back.';
     const decisions = [['make', 'Make a Task'], ['merge', 'Merge'], ['postpone', 'Postpone'], ['close', 'Close']].map(([id, name]) => ({
       name, on: dec === id ? 'true' : 'false', bg: dec === id ? '#1C1B1F' : '#F4F3EF', fg: dec === id ? '#FFFFFF' : '#1C1B1F',
       pick: () => this.setState({ decision: id })
     }));
     return {
-      steps, addStep, decisions,
+      steps, addStep, decisions, backs, backText,
       isMake: dec === 'make', isMerge: dec === 'merge', isPostpone: dec === 'postpone', isClose: dec === 'close',
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       requests: [

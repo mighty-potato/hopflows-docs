@@ -125,6 +125,7 @@ class Component extends DCLogic {
       added: { wk: 'Added wk 42', wkBg: '#FCE3D3', wkFg: '#9A3412' },
       w43: { wk: 'Week 43', wkBg: '#F4F3EF', wkFg: '#1C1B1F' },
       w44: { wk: 'Week 44', wkBg: '#F4F3EF', wkFg: '#1C1B1F' },
+      carried: { wk: 'Carried to wk 43', wkBg: '#FCE3D3', wkFg: '#9A3412' },
       ready: { wk: 'Not planned', wkBg: '#FFFFFF', wkFg: '#4A4950' }
     };
     const row = (sel, title, owner, s, due, size, del, kind, from, w) => Object.assign({ sel, rowBg: sel ? '#FBFAF7' : 'transparent', title, owner, due, size, del, kind, from }, st[s], wk[w]);
@@ -137,7 +138,7 @@ class Component extends DCLogic {
         row(true, 'Payroll export', 'Finance', 'todo', 'Fri 23', 'Medium', '—', 'Support', 'Manager', 'w43'),
         row(false, 'Build the checkout API', 'Dara Sok', 'review', 'Fri 16', 'Medium', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'),
         row(false, 'Order tracking screen', 'Pisey Chea', 'todo', 'Fri 30', 'Large', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'w44'),
-        row(false, 'Fix receipt printer driver', 'Dara Sok', 'blocked', 'Wed 21', 'Small · 8h', '—', 'Bug', 'Shop team', 'added'),
+        row(false, 'Fix receipt printer driver', 'Dara Sok', 'blocked', 'Wed 21', 'Small · 8h', '—', 'Bug', 'Shop team', 'carried'),
         row(false, 'Khmer search spike', '—', 'todo', '—', 'Large', 'Menu search', 'Feature', 'Meeting', 'ready')
       ]
     };

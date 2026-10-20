@@ -130,7 +130,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <div style="display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 22px; background: #F4F3EF">
               <div style="display: flex; flex-direction: column; gap: 4px">
                 <h3 id="lv-title" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Approve Dara's leave, Thu 22 – Fri 23 Oct?</h3>
-                <p style="margin: 0; font-size: 13px; line-height: 18px; color: #4A4950">Annual leave in week 43, which isn't locked yet. Here's what it changes first.</p>
+                <p style="margin: 0; font-size: 13px; line-height: 18px; color: #4A4950">Annual leave in week 43, which isn't locked yet. Loads are the plan as it stands now; Sophal's handover is still open. <a href="Planner.dc.html#week-changes" style="font-weight: 600">See week 43 changes</a></p>
               </div>
               <dl style="margin: 0; display: flex; flex-wrap: wrap; gap: 8px">
                 <div style="flex: 1 1 160px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF"><dt style="font-size: 12px; color: #6E6C73">Dara's time to plan</dt><dd style="margin: 2px 0 0; font-family: 'Geist Mono', monospace; font-size: 18px; font-weight: 600">24h → 12h</dd></div>
@@ -139,7 +139,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF">
                 <div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; line-height: 22px; font-weight: 600">Menu sync job tests</span><span style="font-size: 12px; line-height: 16px; color: #9A3412">Due Thu 22, Dara's first day off · Medium · 10h</span></div>
                 <div role="radiogroup" aria-label="What happens to Menu sync job tests" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 999px">
-                  <button type="button" role="radio" aria-checked="{{n.give.on}}" onClick="{{n.pickGive}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{n.give.bg}}; color: {{n.give.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Give to Pisey · 24h of 14h · Too much</button>
+                  <button type="button" role="radio" aria-checked="{{n.give.on}}" onClick="{{n.pickGive}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{n.give.bg}}; color: {{n.give.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Give to Pisey · 19h of 14h · Using buffer</button>
                   <button type="button" role="radio" aria-checked="{{n.later.on}}" onClick="{{n.pickLater}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{n.later.bg}}; color: {{n.later.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Move to week 44</button>
                 </div>
               </div>
@@ -217,7 +217,7 @@ class Component extends DCLogic {
         need('New requests', 'plain', '4 waiting in the Incoming Queue', 'Oldest: 2 days · 3 match work you already have', 'Sort', 'Queue.dc.html'),
         need('Review', 'plain', 'Build the checkout API', 'Dara Sok · sent for review 15:10', 'Review', 'TaskDetail.dc.html'),
         need('Leave', 'plain', 'Dara asks for Thu 22 – Fri 23 Oct', 'Annual · week 43 · 1 task due on those days', 'Check and approve', '', 'Decline'),
-        need('Handover', 'plain', 'Sophal leaves Fri 23 Oct · finish the handover', 'Step 2 of 3 · 8 items · 1 needs access first', 'Continue', 'Handover.dc.html'),
+        need('Handover', 'plain', 'Sophal leaves Fri 23 Oct · finish the handover', 'Step 2 of 3 · 8 items · 13h of week 43 moves', 'Continue', 'Handover.dc.html'),
         need('Week status', 'plain', 'Vannak says this week is Full', 'Colour shows Room · note: “covering the shop till”', 'Look', 'Workload.dc.html')
       ],
       team: [

@@ -194,7 +194,7 @@ These rules apply everywhere in the app. The technical document (`HopFlows_Techn
 
 ## New requests
 
-- When a lead sorts a request, they choose one of: turn it into a Task, merge it with an existing Task, postpone it, or close it. If the request looks like an open Task, Merge is picked first, and turning it into a new Task is still one tap away. When it becomes a Task, the owner picker shows how busy each person would be after taking it, and people who are away can't be picked. (Proposed)
+- When a lead sorts a request, they choose one of: turn it into a Task, merge it with an existing Task, postpone it (to next Monday, next week, or a chosen date), or close it. If the request looks like an open Task, Merge is picked first, and turning it into a new Task is still one tap away. When it becomes a Task, the owner picker shows how busy each person would be after taking it, and people who are away can't be picked. (Proposed)
 - A request with no department goes to the sender's main department. If they have none, it goes to the company-wide queue.
 - A postponed request has a date and comes back to the queue on that date.
 - Several requests can point to the same Task, so the same problem reported twice doesn't create double work.
@@ -207,7 +207,8 @@ These rules apply everywhere in the app. The technical document (`HopFlows_Techn
 ## Planning and time
 
 - Each department plans one week at a time. A week can be locked once. After that, every change is recorded with its type (added, removed, moved, reassigned, handed over, cancelled or carried over) and a reason.
-- Before a lead locks a week, HopFlows lists anyone with more work than time, any Tasks with no estimate, and any leave request for that week that is still waiting, and asks the lead to confirm. The lead can decide the leave first or lock anyway; leave approved after locking shows as a change in the weekly review, never as a miss. For 10 minutes after locking, and only while nothing in the week has changed, the lead can undo the lock. (Proposed)
+- Before a lead locks a week, HopFlows lists anyone with more work than time, any Tasks with no estimate, and any leave request for that week that is still waiting, and asks the lead to confirm. The lead can decide the leave first or lock anyway; leave approved after locking shows as a change in the weekly review, never as a miss. If someone has more work than time, the lead can move their work right there, seeing everyone's load after the move, before locking. (Proposed)
+- The weekly plan keeps one list of changes to the week: leave asked or approved, handovers, and work moved or added. Leave approval and Handover link to it, so each shows the plan as it stands and nobody has to guess what the other decided. (Proposed) For 10 minutes after locking, and only while nothing in the week has changed, the lead can undo the lock. (Proposed)
 - The locked plan keeps the original work, estimates and owners. It is never edited.
 - Each person has a work schedule (working days and hours each day), a usual amount of meeting time each week, and a buffer. In short weeks, the meeting time shrinks to match.
 - Holidays, leave and accepted events marked "Blocks work time" reduce available time. Overlaps count once, and available time never goes below zero. If such an event is declined or cancelled after the week is locked, the time is worked out again and the change shows in the weekly review.
@@ -1423,6 +1424,7 @@ When someone chooses "Create a company", HopFlows walks them through five short 
 - Other departments' work can be seen read-only, without workload or reports; admins can close a department (Proposed, 20 October).
 - Company setup (Proposed): whoever creates a company is walked through company details, departments, people and optional products, and invites are sent together at the end (20 October).
 - After the lead-flow review (Proposed): approving leave first shows its effect on the person's week and lets the approver give away or move the Tasks due then; locking a week warns about leave requests still waiting but allows the lock; Handover warns when a receiver is on leave (20 October).
+- After the third lead-flow review (Proposed): the lock check lets the lead move an overloaded person's work in place; the weekly plan keeps one list of the week's changes; Handover receivers are picked per item with the load after the move; a postponed request gets a return date (20 October).
 - After the second lead-flow review (Proposed): every place that moves work to someone shows how busy they would be after the move and suggests whoever has the most room; a request that looks like an open Task starts on Merge; a handover can be undone for 10 minutes (20 October).
 - Mascot renamed from Hop to Punh Punh (14 October).
 - App icon chosen: Punh Checklist, with usage rules in §11 (15 October).
