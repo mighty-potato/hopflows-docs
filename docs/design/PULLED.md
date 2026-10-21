@@ -9,7 +9,7 @@ Local copy of the **HopFlows Web App** design canvas.
 | Path | What |
 |---|---|
 | `canvas.json` | Canvas index: every artboard, its position and size |
-| `*.dc.html` | One file per screen (38): employee `Main` (Today), `SignIn`, `Setup` (first admin sets up the company), `Welcome`, `AddWork`, `TaskDetail`, `NeedHelp`, `MyTasks`, `MyRequests`, `Leave`, `MyReport`, `MyRoutines`, `OtherTeam` (another department's Deliverable, view only); lead `LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `WeeklyReview`, `Handover`, `Routines`, `TeamTable`, `DeliverableList` (lead's list of Deliverables); leader `Goals`, `GoalDetail`, `Summary`; everyone `Calendar`, `Event`, `Inbox`, `Search`, `Reports`, `Settings`; admin `People`, `Holidays`, `Org`; shared `Sidebar`, `Topbar`, `MobileNav` |
+| `*.dc.html` | One file per screen (39): employee `Main` (Today), `SignIn`, `Setup` (first admin sets up the company), `Welcome`, `AddWork`, `TaskDetail`, `NeedHelp`, `MyTasks`, `MyRequests`, `Leave`, `MyReport`, `MyRoutines`, `OtherTeam` (another department's Deliverable, view only); lead `LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `WeeklyReview`, `Handover`, `Routines`, `TeamTable`, `DeliverableList` (lead's list of Deliverables); leader `Goals`, `GoalDetail`, `Summary`, `CompanyReports` (a leader's Reports); everyone `Calendar`, `Event`, `Inbox`, `Search`, `Reports`, `Settings`; admin `People`, `Holidays`, `Org`; shared `Sidebar`, `Topbar`, `MobileNav` |
 | `assets/` | Images the screens use |
 | `employee.css` | Employee responsive and accessibility rules, uploaded to the canvas as an asset |
 

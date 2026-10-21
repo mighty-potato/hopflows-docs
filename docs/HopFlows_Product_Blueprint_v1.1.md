@@ -1007,6 +1007,8 @@ Four reports come with the first version. Each opens on screen and downloads as 
 
 Employees get one personal report, **My week**, with their own planned, added and finished work.
 
+Leaders open Reports on the company view: Goal status first, then plan vs. reality by department. Leads open the same reports for their own department.
+
 ## Keeping it fair
 
 - An hour isn't always the same amount of difficulty or value. Offer simple Small / Medium / Large sizes, with hours optional.
@@ -1428,6 +1430,7 @@ When someone chooses "Create a company", HopFlows walks them through five short 
 - Other departments' work can be seen read-only, without workload or reports; admins can close a department (Proposed, 20 October).
 - Company setup (Proposed): whoever creates a company is walked through company details, departments, people and optional products, and invites are sent together at the end (20 October).
 - After the lead-flow review (Proposed): approving leave first shows its effect on the person's week and lets the approver give away or move the Tasks due then; locking a week warns about leave requests still waiting but allows the lock; Handover warns when a receiver is on leave (20 October).
+- After the third pass on the leader flow (Proposed): a leader's Reports opens the company view; on a Goal's page, Update result shows the new percentage before saving and Set flag uses the same reason types as Deliverables, both with Undo (21 October).
 - After the second pass on the leader flow (Proposed): Goals can be filtered by flag, product and department; the weekly summary keeps a list of earlier summaries, saves as PDF, and says when a holiday moves it to the next working day; on phones, decisions come right after the Goal count (21 October).
 - After the first leader-flow review (Proposed): decisions waiting open in place on the Goals page and from the weekly summary, with Approve or Send back for a Goal and a choice of date or scope for an off-track Deliverable; a Goal's page shows why it is flagged (reason, note, who set it and when, back-on-track date) with a way to ask for an update, and keeps whether the result is on pace apart from whether delivery is at risk (21 October).
 - After the fifth lead-flow review (Proposed): Handover can put an item back in Ready to plan with no owner; hours are always written as planned of time to plan (21 October).

@@ -340,6 +340,15 @@
       "w": 1440,
       "x": 13680,
       "y": 2940
+    },
+    "CompanyReports.dc.html": {
+      "expand": "fill",
+      "h": 1240,
+      "is_interactive": true,
+      "title": "20b · Company reports",
+      "w": 1440,
+      "x": 4560,
+      "y": 4580
     }
   },
   "createdOnFiles": {
@@ -385,7 +394,7 @@
     },
     "t3": {
       "kind": "title1",
-      "maxW": 4480,
+      "maxW": 6000,
       "text": "Leader · Are we on track with our Goals?",
       "w": 240,
       "x": 0,
@@ -438,6 +447,7 @@
     "Goals.dc.html",
     "GoalDetail.dc.html",
     "Summary.dc.html",
+    "CompanyReports.dc.html",
     "Calendar.dc.html",
     "Event.dc.html",
     "Inbox.dc.html",

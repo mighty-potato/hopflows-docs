@@ -38,12 +38,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600">Active</span>
             <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 13px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>At risk · delivery</span>
             <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #DCEFE2; color: #1F5E3A; font-size: 13px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #2E7D4F"></span>Result ahead of pace</span>
+            <sc-if value="{{fp.has}}" hint-placeholder-val="{{false}}"><span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: {{fp.bg}}; color: {{fp.fg}}; font-size: 13px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{fp.dot}}"></span>{{fp.pill}}</span></sc-if>
             <span style="font-size: 12px; color: #6E6C73">Owner: you · ends Thu 31 Dec</span>
           </div>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
-          <button type="button" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Set flag</button>
-          <button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Update result</button>
+          <button type="button" id="sf-btn" aria-expanded="{{fp.openAttr}}" aria-controls="sf-panel" onClick="{{fp.toggle}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Set flag</button>
+          <button type="button" id="ur-btn" aria-expanded="{{rp.openAttr}}" aria-controls="ur-panel" onClick="{{rp.toggle}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Update result</button>
         </div>
       </div>
     </div>
@@ -66,6 +67,60 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
     </sc-if>
     <sc-if value="{{ok}}" hint-placeholder-val="{{true}}">
+    <sc-if value="{{rp.open}}" hint-placeholder-val="{{false}}">
+      <section id="ur-panel" aria-labelledby="ur-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <h2 id="ur-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Update the result</h2>
+        <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Last update: {{rp.last}}. Change it if the number was wrong. Next week's number goes in after Fri 23 Oct.</p>
+        <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="ur-input" style="font-size: 13px; font-weight: 600">In-app sales a month, in dollars</label><input id="ur-input" inputmode="numeric" value="{{rp.value}}" onChange="{{rp.set}}" aria-describedby="ur-calc" style="box-sizing: border-box; height: 48px; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F; width: 220px; font-family: 'Geist Mono', monospace"></div>
+          <span id="ur-calc" style="padding-bottom: 14px; font-size: 13px; color: {{rp.calcColor}}">{{rp.calc}}</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <sc-if value="{{rp.valid}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{rp.save}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Save result</button></sc-if>
+          <sc-if value="{{rp.invalid}}" hint-placeholder-val="{{false}}"><button type="button" aria-disabled="true" aria-describedby="ur-calc" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Save result</button></sc-if>
+          <button type="button" onClick="{{rp.cancel}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Cancel</button>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{rp.done}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 20px; border-radius: 22px; background: #FFFFFF">
+        <span id="ur-done" tabindex="-1" role="status" style="flex: 1 1 260px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>Result saved: {{rp.savedText}}.</strong> The chart and the Goal card use the new number.</span>
+        <button type="button" onClick="{{rp.undo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{fp.open}}" hint-placeholder-val="{{false}}">
+      <section id="sf-panel" aria-labelledby="sf-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+        <h2 id="sf-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Set a flag on this Goal</h2>
+        <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Chenda's flag on Launch In-App Ordering v1 stays as it is. A flag you set on the Goal can only be cleared by a leader, with a short note.</p>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span id="sf-sev" style="font-size: 13px; font-weight: 600">How serious</span>
+          <div role="radiogroup" aria-labelledby="sf-sev" style="display: flex; flex-wrap: wrap; gap: 6px">
+            <sc-for list="{{fp.sevs}}" as="o" hint-placeholder-count="2"><button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: {{o.bg}}; color: {{o.fg}}">{{o.name}}</button></sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span id="sf-reason" style="font-size: 13px; font-weight: 600">Reason</span>
+          <div role="radiogroup" aria-labelledby="sf-reason" style="display: flex; flex-wrap: wrap; gap: 6px">
+            <sc-for list="{{fp.reasons}}" as="o" hint-placeholder-count="6"><button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: {{o.bg}}; color: {{o.fg}}">{{o.name}}</button></sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px">
+          <div style="flex: 2 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="sf-note" style="font-size: 13px; font-weight: 600">Note</label><input id="sf-note" type="text" value="{{fp.note}}" onChange="{{fp.setNote}}" style="box-sizing: border-box; height: 48px; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+          <div style="flex: 1 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="sf-date" style="font-size: 13px; font-weight: 600">Back on track by <span style="font-weight: 400; color: #6E6C73">· optional</span></label><input id="sf-date" type="text" value="{{fp.date}}" onChange="{{fp.setDate}}" style="box-sizing: border-box; height: 48px; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+          <sc-if value="{{fp.ready}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{fp.save}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Save flag</button></sc-if>
+          <sc-if value="{{fp.notReady}}" hint-placeholder-val="{{true}}"><button type="button" aria-disabled="true" aria-describedby="sf-hint" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Save flag</button><span id="sf-hint" style="font-size: 12px; color: #6E6C73">Pick a reason first</span></sc-if>
+          <button type="button" onClick="{{fp.cancel}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Cancel</button>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{fp.done}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 20px; border-radius: 22px; background: #FFFFFF">
+        <span id="sf-done" tabindex="-1" role="status" style="flex: 1 1 260px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>Flag saved: {{fp.short}}.</strong> It shows on the Goals page and in Monday's summary.</span>
+        <button type="button" onClick="{{fp.undo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button>
+      </div>
+    </sc-if>
     <section aria-labelledby="fl-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-wrap: wrap; gap: 16px 32px; box-shadow: inset 0 0 0 2px #FCE3D3">
       <div style="flex: 3 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
         <h2 id="fl-title" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Why it's at risk</h2>
@@ -94,8 +149,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <div class="bento hf-gd-cols" style="columns: 2 400px; column-gap: 12px">
       <section aria-label="Result" style="break-inside: avoid; margin: 0 0 12px; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
         <span style="font-size: 13px; font-weight: 600">Result so far · target +20%</span>
-        <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">+14%</span>
-        <span style="font-size: 15px; line-height: 22px; margin-top: auto">$54,950 a month in the app, up from $48,200. Updated by you for week 42, Mon 19 Oct.</span>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">{{rp.pctShort}}</span>
+        <span style="font-size: 15px; line-height: 22px; margin-top: auto">{{rp.money}} a month in the app, up from $48,200. Updated by you for week 42, Mon 19 Oct.</span>
       </section>
       <section aria-label="Result by week" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
@@ -155,7 +210,7 @@ class Component extends DCLogic {
   }
   renderVals() {
     const asked = !!(this.state && this.state.asked);
-    const scale = (v) => Math.round((v / 20) * 150) + 'px';
+    const scale = (v) => Math.max(0, Math.min(170, Math.round((v / 20) * 150))) + 'px';
     // pace: a straight line from +6% in week 39 to +20% in week 53 (31 Dec), one point a week
     const w = (label, n, pace, last) => ({ label, v: '+' + n + '%', h: scale(n), ph: scale(pace), bg: last ? '#1C1B1F' : '#C9DDE8' });
     const f = {
@@ -165,12 +220,58 @@ class Component extends DCLogic {
     };
     const d = (name, meta, state, k) => Object.assign({ name, meta, state }, f[k]);
     const st = this.props.state ?? 'normal';
+    const ui = this.state || {};
+    const START = 48200;
+    const money = (n) => '$' + n.toLocaleString('en-US');
+    const pctOf = (n) => (n - START) / START * 100;
+    // result panel: the typed number, and the number on the page (54,950 until saved)
+    const shown = ui.result || 54950;
+    const typed = ui.typed !== undefined ? ui.typed : String(shown);
+    const n = Number(String(typed).replace(/[$,\s]/g, ''));
+    const valid = String(typed).trim() !== '' && isFinite(n) && n > 0;
+    const sign = (x) => (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(1) + '%';
+    const rp = {
+      open: !!ui.rOpen, done: !!ui.rDone && !ui.rOpen, openAttr: ui.rOpen ? 'true' : 'false',
+      value: typed, valid, invalid: !valid,
+      calc: valid ? '= ' + sign(pctOf(n)) + ' from ' + money(START) : 'Type a number, like 55000',
+      calcColor: valid ? '#4A4950' : '#9A3412',
+      last: money(54950) + ' a month (+14%) for week 42, Mon 19 Oct',
+      money: money(shown), pctShort: (pctOf(shown) >= 0 ? '+' : '−') + Math.round(Math.abs(pctOf(shown))) + '%',
+      savedText: money(shown) + ' a month, ' + sign(pctOf(shown)),
+      set: (e) => this.setState({ typed: e.target.value }),
+      toggle: () => ui.rOpen ? this.focusTo('ur-btn', { rOpen: false }) : this.focusTo('ur-title', { rOpen: true, fOpen: false, typed: undefined }),
+      cancel: () => this.focusTo('ur-btn', { rOpen: false, typed: undefined }),
+      save: () => this.focusTo('ur-done', { rOpen: false, rDone: true, result: n, typed: undefined }),
+      undo: () => this.focusTo('ur-btn', { rDone: false, result: 54950 })
+    };
+    // flag panel
+    const pickStyle = (on) => on ? { on: 'true', bg: '#1C1B1F', fg: '#FFFFFF' } : { on: 'false', bg: '#F4F3EF', fg: '#1C1B1F' };
+    const sev = ui.sev || 'risk';
+    const sevs = { risk: { name: 'At risk', bg: '#FCE3D3', fg: '#9A3412', dot: '#C2410C' }, off: { name: 'Off track', bg: '#F2B8B2', fg: '#7A1F18', dot: '#C0352B' } };
+    const saved = ui.goalFlag;
+    const fp = {
+      open: !!ui.fOpen, done: !!saved && !ui.fOpen && !!ui.fDone, has: !!saved, openAttr: ui.fOpen ? 'true' : 'false',
+      pill: saved ? 'Your flag: ' + sevs[saved.sev].name + ' · ' + saved.reason : '',
+      short: saved ? sevs[saved.sev].name + ', ' + saved.reason : '',
+      bg: saved ? sevs[saved.sev].bg : '', fg: saved ? sevs[saved.sev].fg : '', dot: saved ? sevs[saved.sev].dot : '',
+      sevs: Object.keys(sevs).map((k) => Object.assign({ name: sevs[k].name, pick: () => this.setState({ sev: k }) }, pickStyle(sev === k))),
+      reasons: ['Time', 'Waiting on others', 'Scope change', 'Quality', 'Outside the company', 'Other'].map((r) => Object.assign({ name: r, pick: () => this.setState({ reason: r }) }, pickStyle(ui.reason === r))),
+      note: ui.note || '', date: ui.date || '',
+      setNote: (e) => this.setState({ note: e.target.value }), setDate: (e) => this.setState({ date: e.target.value }),
+      ready: !!ui.reason, notReady: !ui.reason,
+      toggle: () => ui.fOpen ? this.focusTo('sf-btn', { fOpen: false }) : this.focusTo('sf-title', { fOpen: true, rOpen: false }),
+      cancel: () => this.focusTo('sf-btn', { fOpen: false }),
+      save: () => this.focusTo('sf-done', { fOpen: false, fDone: true, goalFlag: { sev, reason: ui.reason } }),
+      undo: () => this.focusTo('sf-btn', { fDone: false, goalFlag: null, reason: null, note: '', date: '' })
+    };
+    const wk42 = Math.round(pctOf(shown));
     return {
+      rp, fp,
       ok: st === 'normal', isLoading: st === 'loading', isError: st === 'error',
       asked, notAsked: !asked,
       ask: () => this.focusTo('fl-asked', { asked: true }),
       unask: () => this.focusTo('fl-ask', { asked: false }),
-      weeks: [w('Wk 39', 6, 6), w('Wk 40', 9, 7), w('Wk 41', 11, 8), w('Wk 42', 14, 9, true)],
+      weeks: [w('Wk 39', 6, 6), w('Wk 40', 9, 7), w('Wk 41', 11, 8), w('Wk 42', wk42, 9, true)],
       dels: [
         d('Launch In-App Ordering v1', 'Technical · Chenda Lim · due 30 Nov', 'Active', 'risk'),
         d('Water Festival coupon campaign', 'Marketing · Kosal Nhem · due 20 Nov', 'Active', 'ok'),
