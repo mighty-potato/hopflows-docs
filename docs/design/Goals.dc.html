@@ -215,8 +215,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </div>
           <div style="display: flex; flex-direction: column; gap: 6px">
             <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">{{g.now}}</span><span style="font-size: 12px; color: #6E6C73">target {{g.target}}</span></div>
-            <div style="height: 10px; border-radius: 999px; background: #E7E5DF"><div style="height: 10px; border-radius: 999px; background: #1C1B1F; width: {{g.pct}}"></div></div>
-            <span style="font-size: 12px; color: #6E6C73">Result · started at {{g.start}}</span>
+            <div role="img" aria-label="{{g.paceLabel}}" style="position: relative; height: 10px; border-radius: 999px; background: #E7E5DF"><div style="height: 10px; border-radius: 999px; background: #1C1B1F; width: {{g.pct}}"></div><div aria-hidden="true" style="position: absolute; top: -4px; left: {{g.need}}; width: 3px; height: 18px; margin-left: -1px; border-radius: 2px; background: #4A4950; box-shadow: 0 0 0 1px #FFFFFF"></div></div>
+            <span style="font-size: 12px; color: #6E6C73">Started at {{g.start}} · <strong style="font-weight: 600; color: {{g.paceColor}}">{{g.paceWord}}</strong> · short line: needed by now</span>
           </div>
           <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{g.why}}</span>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px">
@@ -315,23 +315,27 @@ class Component extends DCLogic {
     };
     const asked = s.asked || {};
     // owner of the Goal, and who to ask about its flag (the person who set it)
+    // how far along each result should be by today (Mon 19 Oct) to reach its target on time
+    const needBy = { 'Increase in-app sales by 20%': 45, 'Onboard 40 pilot schools': 60, 'Cut new-hire setup to 2 days': 70, 'Cut support reply time to 4 hours': 70, 'Reach 25,000 monthly users': 50, 'Keep the app rating at 4.5 or higher': 100, 'Cut card fees in shops by 15%': 55, 'Sign 5 school partners': 60 };
     const g = (title, k, now, target, start, pct, why, del, products, depts, end, href, owner, askName) => {
+      const have = parseInt(pct, 10), need = needBy[title];
+      const pace = have > need ? { paceWord: 'ahead of pace', paceColor: '#1F5E3A' } : have < need ? { paceWord: 'behind pace', paceColor: '#9A3412' } : { paceWord: 'on pace', paceColor: '#1C1B1F' };
       const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       const done = !!asked[id];
-      return Object.assign({ title, k, now, target, start, pct, why, del, products: products.join(' · '), plist: products, depts, end, href: href || '', hasPage: !!href, noPage: !href,
+      return Object.assign({ need: need + '%', paceLabel: have + '% of the way to the target, ' + need + '% needed by now, ' + pace.paceWord }, pace, { title, k, now, target, start, pct, why, del, products: products.join(' · '), plist: products, depts, end, href: href || '', hasPage: !!href, noPage: !href,
         owner, askFirst: askName ? askName.split(' ')[0] : '', askLabel: askName ? 'Ask ' + askName + ' for an update on ' + title : '',
         canAsk: !!askName && !done, asked: !!askName && done, askId: 'ask-' + id, askedId: 'asked-' + id,
         ask: () => this.focusTo('asked-' + id, { asked: Object.assign({}, asked, { [id]: true }) }) }, f[k]);
     };
     const all = [
-      g('Increase in-app sales by 20%', 'risk', '+14%', '+20%', '$48,200 a month', '70%', 'From Launch In-App Ordering v1 · Waiting on others · 10 days', 'Deliverables 2/4 accepted', ['Retail App'], ['Technical', 'Marketing', 'Design'], '31 Dec', 'GoalDetail.dc.html', 'You', 'Chenda Lim'),
-      g('Onboard 40 pilot schools', 'off', '22', '40', '0 schools', '55%', 'From School App sign-up flow · Scope change · 6 days', 'Deliverables 1/3 accepted', ['School App'], ['Technical', 'Marketing'], '15 Dec', '', 'Kosal Nhem', 'Chenda Lim'),
-      g('Cut new-hire setup to 2 days', 'risk', '4 days', '2 days', '6 days', '50%', 'From Staff laptop setup guide · Time: not enough people · 3 weeks · now a decision', 'Deliverables 1/2 accepted', ['No product'], ['Operations'], '18 Dec', '', 'Bopha Meas', 'Bopha Meas'),
-      g('Cut support reply time to 4 hours', 'ok', '5.2h', '4h', '9h', '76%', 'Flag cleared Thu 15 Oct. Support reply templates finished last week.', 'Deliverables 3/4 accepted', ['Retail App', 'School App'], ['Operations'], '31 Dec', '', 'Bopha Meas', ''),
-      g('Reach 25,000 monthly users', 'ok', '21,400', '25,000', '17,000', '55%', 'No flags.', 'Deliverables 2/3 accepted', ['Retail App'], ['Marketing', 'Technical'], '31 Dec', '', 'Kosal Nhem', ''),
-      g('Keep the app rating at 4.5 or higher', 'ok', '4.6', '4.5', '4.4', '100%', 'No flags. Above target since week 38.', 'Deliverables 1/1 accepted', ['Retail App'], ['Design'], '31 Dec', '', 'Sreymom Kim', ''),
-      g('Cut card fees in shops by 15%', 'ok', '−9%', '−15%', '$1,900 a month', '60%', 'No flags.', 'Deliverables 1/2 accepted', ['No product'], ['Operations'], '31 Dec', '', 'Bopha Meas', ''),
-      g('Sign 5 school partners', 'ok', '3', '5', '0 partners', '60%', 'No flags.', 'Deliverables 1/2 accepted', ['School App'], ['Marketing'], '15 Dec', '', 'Kosal Nhem', '')
+      g('Increase in-app sales by 20%', 'risk', '+14%', '+20%', '$48,200 a month', '70%', 'From Launch In-App Ordering v1 · Waiting on others · 10 days', 'Deliverables 2 of 4 accepted', ['Retail App'], ['Technical', 'Marketing', 'Design'], '31 Dec', 'GoalDetail.dc.html', 'You', 'Chenda Lim'),
+      g('Onboard 40 pilot schools', 'off', '22', '40', '0 schools', '55%', 'From School App sign-up flow · Scope change · 6 days', 'Deliverables 1 of 3 accepted', ['School App'], ['Technical', 'Marketing'], '15 Dec', '', 'Kosal Nhem', 'Chenda Lim'),
+      g('Cut new-hire setup to 2 days', 'risk', '4 days', '2 days', '6 days', '50%', 'From Staff laptop setup guide · Time: not enough people · 3 weeks · now a decision', 'Deliverables 1 of 2 accepted', ['No product'], ['Operations'], '18 Dec', '', 'Bopha Meas', 'Bopha Meas'),
+      g('Cut support reply time to 4 hours', 'ok', '5.2h', '4h', '9h', '76%', 'Flag cleared Thu 15 Oct. Support reply templates finished last week.', 'Deliverables 3 of 4 accepted', ['Retail App', 'School App'], ['Operations'], '31 Dec', '', 'Bopha Meas', ''),
+      g('Reach 25,000 monthly users', 'ok', '21,400', '25,000', '17,000', '55%', 'No flags.', 'Deliverables 2 of 3 accepted', ['Retail App'], ['Marketing', 'Technical'], '31 Dec', '', 'Kosal Nhem', ''),
+      g('Keep the app rating at 4.5 or higher', 'ok', '4.6', '4.5', '4.4', '100%', 'No flags. Above target since week 38.', 'Deliverables 1 of 1 accepted', ['Retail App'], ['Design'], '31 Dec', '', 'Sreymom Kim', ''),
+      g('Cut card fees in shops by 15%', 'ok', '−9%', '−15%', '$1,900 a month', '60%', 'No flags.', 'Deliverables 1 of 2 accepted', ['No product'], ['Operations'], '31 Dec', '', 'Bopha Meas', ''),
+      g('Sign 5 school partners', 'ok', '3', '5', '0 partners', '60%', 'No flags.', 'Deliverables 1 of 2 accepted', ['School App'], ['Marketing'], '15 Dec', '', 'Kosal Nhem', '')
     ];
     const ui = this.state || {};
     const fv = { flag: ui.flag || 'Any', product: ui.product || 'All', dept: ui.dept || 'All' };
@@ -341,6 +345,8 @@ class Component extends DCLogic {
       product: opt('product', ['All', 'Retail App', 'School App', 'No product']),
       dept: opt('dept', ['All', 'Technical', 'Marketing', 'Operations', 'Design'])
     };
+    const rank = { off: 0, risk: 1, ok: 2 };
+    all.sort((x, y) => rank[x.k] - rank[y.k]);
     const goals = all.filter((x) => (fv.flag === 'Any' || x.flag === fv.flag) && (fv.product === 'All' || x.plist.includes(fv.product)) && (fv.dept === 'All' || x.depts.includes(fv.dept)));
     const filtered = fv.flag !== 'Any' || fv.product !== 'All' || fv.dept !== 'All';
     const st = this.props.state ?? 'normal';

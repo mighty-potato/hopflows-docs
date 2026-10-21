@@ -36,7 +36,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
         <sc-if value="{{pdfDone}}" hint-placeholder-val="{{false}}"><span id="pdf-done" tabindex="-1" role="status" style="font-size: 12px; color: #1F5E3A">Saved "Weekly summary week 42.pdf" · 2 pages</span></sc-if>
-        <button type="button" id="ew-btn" aria-expanded="{{ewOpen}}" aria-controls="ew-panel" onClick="{{toggleEarlier}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #1C1B1F">Earlier weeks</button>
+        <button type="button" id="ew-btn" aria-expanded="{{ewOpen}}" aria-controls="ew-panel" onClick="{{toggleEarlier}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #1C1B1F">Earlier summaries</button>
         <button type="button" onClick="{{savePdf}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; padding: 0 18px; background: #1C1B1F; color: #FFFFFF; display: inline-flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"></path></svg>Save as PDF</button>
       </div>
     </div>

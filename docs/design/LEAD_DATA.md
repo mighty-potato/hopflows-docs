@@ -110,6 +110,8 @@ The Leader screens are seen by Sokha Meng (Leadership) on **Monday 19 October**,
 | Cut card fees in shops by 15% | On track | −9% (from $1,900 a month) | 1 of 2 accepted | Operations, no product |
 | Sign 5 school partners | On track | 3 of 5 | 1 of 2 accepted | Marketing, School App, ends 15 Dec |
 
+Needed by now (Mon 19 Oct), as a share of the way from start to target: in-app sales 45% (has 70%), pilot schools 60% (55%), new-hire setup 70% (50%), support 70% (76%), monthly users 50% (55%), app rating 100% (100%), card fees 55% (60%), school partners 60% (60%). Goal cards show this as a short line on the bar and are sorted Off track, At risk, On track.
+
 All 8 Goals are drawn on the Goals page, with filters for flag, product and department. Only in-app sales has its own Goal page on the canvas. 5 of 8 Goals are on track. The count is the same as the week before: support came back on track and pilot schools went off track.
 
 In-app sales Deliverables: Launch In-App Ordering v1 (Technical, Chenda Lim, due 30 Nov, At risk), Water Festival coupon campaign (Marketing, Kosal Nhem, due 20 Nov, On track), Faster menu pages (Technical, Chenda Lim, accepted 2 Oct), New app store screenshots (Design, Sreymom Kim, accepted 9 Oct).
