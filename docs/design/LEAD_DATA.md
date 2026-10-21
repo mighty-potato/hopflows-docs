@@ -134,6 +134,8 @@ In-app sales Deliverables: Launch In-App Ordering v1 (Technical, Chenda Lim, due
 | 41 | 17, 13, 4, 27% | 19, 17, 1 not done, 1 cancelled, 8% | 12, 10, 2, 11% | 9, 9, 0, 4% |
 | 40 | 16, 12, 4, 24%, 1 reassigned | 20, 15, 5, 18% | 11, 10, 1, 7% | 10, 8, 2, 10% |
 
+Trend view (weeks 40–42): surprise work Operations 24% → 27% → 31% (+7 pts), Technical 18% → 8% → 13% (−5), Marketing 7% → 11% → 9% (+2), Design 10% → 4% → 6% (−4). Done in the week: Operations 75%, 76%, 72%; Technical 75%, 94%, 85%; Marketing 91%, 83%, 92%; Design 80%, 100%, 90%.
+
 Technical's rows match its own Reports (weeks 39–42: 65 of 75 locked tasks done in their week, 87%, cancelled and reassigned tasks left out). The Goal status table repeats the 8 Goals with done vs needed, owner and who to ask.
 
 ## Writing hours

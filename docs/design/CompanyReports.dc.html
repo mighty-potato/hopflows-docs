@@ -84,10 +84,34 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
     </section>
 
+    <section aria-labelledby="tr-h" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <h2 id="tr-h" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Trend · weeks 40–42</h2>
+        <span style="font-size: 12px; color: #6E6C73">Surprise work each week (bars on a 0–40% scale, orange at 25% or more) and the share of locked tasks done in their week. The latest week is darker.</span>
+      </div>
+      <div role="table" aria-labelledby="tr-h" style="display: flex; flex-direction: column">
+        <div role="row" class="hf-th-row" style="display: grid; grid-template-columns: minmax(110px, 1.2fr) repeat(3, minmax(120px, 1fr)) 90px; gap: 12px; padding: 8px 0"><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Department</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Week 40</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Week 41</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Week 42</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Surprise work since week 40</span></div>
+        <sc-for list="{{trend}}" as="t" hint-placeholder-count="4">
+          <div role="row" class="hf-tr" style="display: grid; grid-template-columns: minmax(110px, 1.2fr) repeat(3, minmax(120px, 1fr)) 90px; gap: 8px 12px; padding: 12px 0; border-top: 1px solid #F0EEE9">
+            <span role="rowheader" style="font-size: 13px; line-height: 18px; min-width: 0; font-weight: 600">{{t.name}}</span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; display: flex; flex-direction: column; gap: 4px"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Week 40</span><span style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="flex: 1; max-width: 120px; height: 8px; border-radius: 999px; background: #E7E5DF"><span style="display: block; height: 8px; border-radius: 999px; background: {{t.w40.bar}}; width: {{t.w40.w}}"></span></span><span style="font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; font-weight: {{t.w40.weight}}; color: {{t.w40.ink}}">{{t.w40.s}}</span></span><span style="font-size: 12px; color: #6E6C73">{{t.w40.done}} done</span></span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; display: flex; flex-direction: column; gap: 4px"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Week 41</span><span style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="flex: 1; max-width: 120px; height: 8px; border-radius: 999px; background: #E7E5DF"><span style="display: block; height: 8px; border-radius: 999px; background: {{t.w41.bar}}; width: {{t.w41.w}}"></span></span><span style="font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; font-weight: {{t.w41.weight}}; color: {{t.w41.ink}}">{{t.w41.s}}</span></span><span style="font-size: 12px; color: #6E6C73">{{t.w41.done}} done</span></span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; display: flex; flex-direction: column; gap: 4px"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Week 42</span><span style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="flex: 1; max-width: 120px; height: 8px; border-radius: 999px; background: #E7E5DF"><span style="display: block; height: 8px; border-radius: 999px; background: {{t.w42.bar}}; width: {{t.w42.w}}"></span></span><span style="font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; font-weight: {{t.w42.weight}}; color: {{t.w42.ink}}">{{t.w42.s}}</span></span><span style="font-size: 12px; color: #6E6C73">{{t.w42.done}} done</span></span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Since week 40 </span><span style="font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; font-weight: 600; color: {{t.changeColor}}">{{t.change}}</span></span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding-top: 4px">
+        <p style="flex: 1 1 320px; margin: 0; max-width: 70ch; font-size: 13px; line-height: 18px"><strong>Operations' surprise work has gone up three weeks running: 24% → 27% → 31%.</strong> Most of it is shop requests. Its buffer may be too small for next week's plan.</p>
+        <sc-if value="{{notAskedOps}}" hint-placeholder-val="{{true}}"><button type="button" id="ops-ask" onClick="{{askOps}}" aria-label="Ask Bopha Meas about Operations' buffer" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Ask Bopha about the buffer</button></sc-if>
+        <sc-if value="{{askedOps}}" hint-placeholder-val="{{false}}"><span id="ops-asked" tabindex="-1" role="status" style="font-size: 13px; color: #1F5E3A">Asked Bopha. Her answer comes to your Inbox.</span><button type="button" onClick="{{unaskOps}}" aria-label="Undo asking Bopha" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button></sc-if>
+      </div>
+    </section>
+
     <section aria-labelledby="pr-h" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
       <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px">
         <div style="display: flex; flex-direction: column; gap: 2px">
-          <h2 id="pr-h" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Plan vs. reality by department</h2>
+          <h2 id="pr-h" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Plan vs. reality by department · one week</h2>
           <span style="font-size: 12px; color: #6E6C73">Locked tasks: done + not done + cancelled. Surprise work is the share of hours added after the plan was locked, estimated. Never shows individual people.</span>
         </div>
         <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Week<select onChange="{{setWeek}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F"><sc-for list="{{weeks}}" as="w" hint-placeholder-count="3"><option value="{{w.v}}" selected="{{w.sel}}">{{w.label}}</option></sc-for></select></label>
@@ -141,6 +165,19 @@ class Component extends DCLogic {
       40: [d('Operations', 16, 12, 4, 0, 24, 1, 'New urgent work from shops'), d('Technical', 20, 15, 5, 0, 18, 0, 'Waiting on others'), d('Marketing', 11, 10, 1, 0, 7, 0, 'Wrong estimate'), d('Design', 10, 8, 2, 0, 10, 0, 'Priorities changed')]
     };
     const wk = (this.state && this.state.week) || '42';
+    // trend: surprise share and done-in-week share per department, weeks 40 to 42
+    const names = byWeek[42].map((x) => x.name);
+    const cellOf = (w, name, last) => {
+      const x = byWeek[w].find((y) => y.name === name);
+      const sp = parseInt(x.added, 10);
+      return { s: sp + '%', w: Math.min(100, Math.round(sp / 40 * 100)) + '%', bar: sp >= 25 ? '#C2410C' : '#1C1B1F', done: x.done.match(/\((\d+%)\)/)[1], weight: last ? 700 : 500, ink: last ? '#1C1B1F' : '#6E6C73' };
+    };
+    const trend = names.map((name) => {
+      const a = parseInt(byWeek[40].find((y) => y.name === name).added, 10), z = parseInt(byWeek[42].find((y) => y.name === name).added, 10);
+      const d = z - a;
+      return { name, w40: cellOf(40, name), w41: cellOf(41, name), w42: cellOf(42, name, true), change: (d > 0 ? '+' : d < 0 ? '−' : '') + Math.abs(d) + ' pts', changeColor: d > 0 ? '#9A3412' : '#1F5E3A' };
+    });
+    const askedOps = !!(this.state && this.state.askedOps);
     // done vs needed by now, owner and who to ask match the Goals page
     const meta = {
       'Increase in-app sales by 20%': ['70%', '45%', 'ahead', 'You', 'Ask Chenda Lim', true],
@@ -171,6 +208,9 @@ class Component extends DCLogic {
       weeks: ['42', '41', '40'].map((v) => ({ v, label: { 42: 'Week 42 (12–16 Oct)', 41: 'Week 41 (5–9 Oct)', 40: 'Week 40 (28 Sep–2 Oct)' }[v], sel: wk === v ? 'selected' : null })),
       setWeek: (e) => this.setState({ week: e.target.value }),
       depts: byWeek[wk],
+      trend, askedOps, notAskedOps: !askedOps,
+      askOps: () => this.focusTo('ops-asked', { askedOps: true }),
+      unaskOps: () => this.focusTo('ops-ask', { askedOps: false }),
       weekNote: { 42: 'Operations had the most surprise work again: shop requests. A lead can open the team view from their own Reports.', 41: 'Operations started getting more shop requests. Technical cancelled one task that was no longer needed.', 40: 'Technical moved 5 tasks when the payment provider changed its test system.' }[wk]
     };
   }
