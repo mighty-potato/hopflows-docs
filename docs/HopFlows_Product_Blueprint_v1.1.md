@@ -571,6 +571,7 @@ Figure 8. Flow D, handover.
 2. In a later stage, HopFlows may suggest a flag when it notices warning signs: a Task blocked for several days, an owner on leave, overdue work, or a Goal number going the wrong way. The lead decides whether to accept it.
 3. Each Goal shows the most serious flag from itself and its Deliverables. Leaders can filter Goals by flag, product and department, and see the reason and how long the flag has been there. On a Goal's page the flag shows its reason, note, who set it and when, and the back-on-track date, with a button to ask that person for an update. Whether the result is on pace for its target is shown separately from the flag, so a Goal can read "At risk · delivery" next to "Result ahead of pace".
 4. If a flag isn't looked at for a while (see §14), the lead is asked to confirm or clear it. Flagged items appear in the weekly review.
+   A flag on a Goal or its Deliverables that stays open for 3 weeks also goes to leaders as a decision, with choices such as lending people, moving the date or waiting. The answer goes to the owner, and the flag stays until they update the plan.
 5. Clearing a flag needs a short note. The person who set it, the item's owner, or leaders can clear it; a Goal owner can't clear a flag set by leaders. All past flags stay available to learn from.
 
 ```mermaid
@@ -705,7 +706,7 @@ Figure 13. Flow I, repeating daily work.
 1. Every Monday at the morning summary time, each leader gets one summary in the app, as a push alert, plus a PDF.
 2. The summary answers one question: are we on track with our Goals? It shows Goals by status (On track, At risk, Off track) and what changed since last week, new and cleared risk flags with reasons, Deliverables finished, updates to Goal results, how much work was unplanned in each department, and at most three decisions waiting for leaders.
 3. Each line opens the item in the app. The summary never shows individual Tasks or how busy individual people are.
-   Each decision opens where it can be made. Decisions waiting are also the first thing on the leader's Goals page:
+   Every flag line names who to ask. Each decision opens where it can be made. Decisions waiting are also the first thing on the leader's Goals page:
    - To approve a Goal, the leader sees its result, date, product, planned Deliverables and the proposer's note, then picks Approve or Send back with a note.
    - For a date-or-scope question, the leader sees both choices and what each one changes. The answer goes to the person who asked, and the risk flag stays until they update the plan.
    - Each decision can be undone straight after it is made.
@@ -1430,6 +1431,7 @@ When someone chooses "Create a company", HopFlows walks them through five short 
 - Other departments' work can be seen read-only, without workload or reports; admins can close a department (Proposed, 20 October).
 - Company setup (Proposed): whoever creates a company is walked through company details, departments, people and optional products, and invites are sent together at the end (20 October).
 - After the lead-flow review (Proposed): approving leave first shows its effect on the person's week and lets the approver give away or move the Tasks due then; locking a week warns about leave requests still waiting but allows the lock; Handover warns when a receiver is on leave (20 October).
+- After the second leader-flow review (Proposed): every Goal card and flag line names its owner and who to ask; a flag open 3 weeks becomes a leader decision; approving a Goal shows the department's current load; a Goal page shows one status pill for its most serious flag and works out pace from the latest result; a leader's own flag needs a note to set and to clear (21 October).
 - After the third pass on the leader flow (Proposed): a leader's Reports opens the company view; on a Goal's page, Update result shows the new percentage before saving and Set flag uses the same reason types as Deliverables, both with Undo (21 October).
 - After the second pass on the leader flow (Proposed): Goals can be filtered by flag, product and department; the weekly summary keeps a list of earlier summaries, saves as PDF, and says when a holiday moves it to the next working day; on phones, decisions come right after the Goal count (21 October).
 - After the first leader-flow review (Proposed): decisions waiting open in place on the Goals page and from the weekly summary, with Approve or Send back for a Goal and a choice of date or scope for an off-track Deliverable; a Goal's page shows why it is flagged (reason, note, who set it and when, back-on-track date) with a way to ask for an update, and keeps whether the result is on pace apart from whether delivery is at risk (21 October).

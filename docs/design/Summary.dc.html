@@ -96,16 +96,16 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <span style="font-size: 15px; line-height: 22px; margin-top: auto">Same count as last week: support reply time came back on track, pilot schools went Off track.</span>
       </section>
       <section aria-label="Decisions" style="break-inside: avoid; margin: 0 0 12px; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
-        <h2 style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Decisions waiting · 2</h2>
+        <h2 style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Decisions waiting · 3</h2>
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">Approve Goal: Cut stock-outs by 30%</span><a href="Goals.dc.html#decide-stockouts" aria-label="Approve or send back: Cut stock-outs by 30%" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Approve or send back</a></div>
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">School App sign-up flow: move the date or cut scope?</span><a href="Goals.dc.html#decide-schoolapp" aria-label="Decide date or scope: School App sign-up flow" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide: date or scope</a></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">Cut new-hire setup: a flag open 3 weeks. Lend a person, move the date, or wait?</span><a href="Goals.dc.html#decide-newhire" aria-label="Decide what to do: Cut new-hire setup" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide what to do</a></div>
       </section>
       <section aria-label="Risk flags" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Risk flags</h2>
-        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #9B2C24">New</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>School App sign-up flow</strong> · Off track · Scope change: schools asked for Khmer forms · since Tue 13 Oct</span></div>
-        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #4A4950">Still open</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Launch In-App Ordering v1</strong> · At risk · Waiting on others: payment provider keys late · since Fri 9 Oct</span></div>
-        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #4A4950">Still open</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Staff laptop setup guide</strong> · At risk · Time: not enough people · since Mon 21 Sep</span></div>
-        <div style="display: flex; gap: 12px; padding: 10px 0"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #1F5E3A">Cleared</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Support inbox rules</strong> · “Second person joined from Operations”</span></div>
+        <sc-for list="{{flags}}" as="r" hint-placeholder-count="4">
+          <a href="{{r.href}}" style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none; color: #1C1B1F"><span style="width: 72px; flex-shrink: 0; font-size: 12px; font-weight: 600; color: {{r.tagColor}}">{{r.tag}}</span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span><strong style="text-decoration: underline; text-underline-offset: 3px">{{r.item}}</strong> · {{r.text}}</span><span style="font-size: 12px; color: #6E6C73">{{r.who}}</span></span></a>
+        </sc-for>
       </section>
       <section aria-label="Goals by status" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Goals by status</h2>
@@ -118,8 +118,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
       <section aria-label="Finished and results" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Finished and updated</h2>
-        <div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Deliverable accepted · Support reply templates</span><span style="font-size: 12px; color: #6E6C73">Operations</span></div>
-                <div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0"><span style="font-size: 13px">Result · in-app sales +11% → +14%</span><span style="font-size: 12px; color: #6E6C73">Sokha</span></div>
+        <a href="Goals.dc.html" style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none; color: #1C1B1F"><span style="font-size: 13px">Deliverable accepted · <span style="text-decoration: underline; text-underline-offset: 3px">Support reply templates</span></span><span style="font-size: 12px; color: #6E6C73">Operations · Bopha Meas</span></a>
+        <a href="GoalDetail.dc.html" style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; text-decoration: none; color: #1C1B1F"><span style="font-size: 13px">Result · <span style="text-decoration: underline; text-underline-offset: 3px">in-app sales</span> +11% → +14%</span><span style="font-size: 12px; color: #6E6C73">You</span></a>
       </section>
       <section aria-label="Unplanned work by department" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <div style="display: flex; flex-direction: column; gap: 2px">
@@ -165,15 +165,25 @@ class Component extends DCLogic {
     // only in-app sales has its own page on the canvas; the rest open the Goals list
     const c = (goal, why, now, k) => Object.assign({ goal, why, now, href: goal === 'Increase in-app sales by 20%' ? 'GoalDetail.dc.html' : 'Goals.dc.html' }, s[k]);
     const d = (name, pct, k) => ({ name, v: pct + '%', w: Math.round(pct / 40 * 100) + '%', bg: k });
+    // risk flags: every row opens its item and says who to ask
+    const tag = { New: '#9B2C24', 'Still open': '#4A4950', Decision: '#9A3412', Cleared: '#1F5E3A' };
+    const fl = (t, item, text, who, href) => ({ tag: t, tagColor: tag[t], item, text, who, href });
+    const flags = [
+      fl('New', 'School App sign-up flow', 'Off track · Scope change: schools asked for Khmer forms · since Tue 13 Oct', 'Ask Chenda Lim, Technical · waiting for your decision', 'Goals.dc.html#decide-schoolapp'),
+      fl('Decision', 'Staff laptop setup guide', 'At risk · Time: not enough people · open 3 weeks, since Mon 28 Sep', 'Ask Bopha Meas, Operations · now a decision for you', 'Goals.dc.html#decide-newhire'),
+      fl('Still open', 'Launch In-App Ordering v1', 'At risk · Waiting on others: payment provider keys late · since Fri 9 Oct', 'Ask Chenda Lim, Technical · back on track by Fri 23 Oct', 'GoalDetail.dc.html'),
+      fl('Cleared', 'Support inbox rules', '“Second person joined from Operations”', 'Cleared by Bopha Meas, Operations', 'Goals.dc.html')
+    ];
     return {
+      flags,
       ok, isLoading: st === 'loading', isFirst: st === 'first', isHoliday: st === 'holiday', isError: st === 'error',
       dateLine: st === 'holiday' ? 'Week 42 (12–16 Oct) · comes Tue 20 Oct, after the holiday' : st === 'first' ? 'Comes every Monday at 8:00 · also sent by push' : 'Monday 19 October · covers week 42 (12–16 Oct) · also sent by push',
       ewOpen: ew ? 'true' : 'false', ewShow: ew && st !== 'first',
       toggleEarlier: () => ew ? this.focusTo('ew-btn', { earlier: false }) : this.focusTo('ew-title', { earlier: true }),
       earlier: [
         { when: 'Week 41 · Mon 12 Oct', text: '5 of 8 on track. In-app sales went At risk: payment provider keys late. 1 decision.' },
-        { when: 'Week 40 · Mon 5 Oct', text: '6 of 8 on track. Support reply time went At risk. Faster menu pages accepted.' },
-        { when: 'Week 39 · Mon 28 Sep', text: '7 of 8 on track. Q4 Goals approved. No decisions waiting.' }
+        { when: 'Week 40 · Mon 5 Oct', text: '6 of 8 on track. Support reply time and new-hire setup went At risk. Faster menu pages accepted.' },
+        { when: 'Week 39 · Mon 28 Sep', text: '8 of 8 on track. Q4 Goals approved. No decisions waiting.' }
       ],
       pdfDone: !!ui.pdf && ok,
       savePdf: () => this.focusTo('pdf-done', { pdf: true }),
@@ -181,7 +191,7 @@ class Component extends DCLogic {
         c('Cut support reply time to 4 hours', 'Was At risk · flag cleared Thursday', 'On track', 'ok'),
         c('Onboard 40 pilot schools', 'Was On track · new flag on School App sign-up flow', 'Off track', 'off'),
         c('Increase in-app sales by 20%', 'No change · At risk since Fri 9 Oct', 'At risk', 'risk'),
-        c('Cut new-hire setup to 2 days', 'No change · At risk since Mon 21 Sep', 'At risk', 'risk'),
+        c('Cut new-hire setup to 2 days', 'No change · At risk since Mon 28 Sep · now a decision', 'At risk', 'risk'),
         c('Reach 25,000 monthly users', 'No change', 'On track', 'ok'),
         c('3 more Goals', 'No change: app rating, card fees, school partners', 'On track', 'ok')
       ],

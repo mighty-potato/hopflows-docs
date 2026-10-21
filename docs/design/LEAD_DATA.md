@@ -105,7 +105,7 @@ The Leader screens are seen by Sokha Meng (Leadership) on **Monday 19 October**,
 | Onboard 40 pilot schools | Off track since Tue 13 Oct | 22 of 40 | 1 of 3 accepted | From School App sign-up flow, Scope change (schools asked for Khmer forms). Ends Tue 15 Dec |
 | Cut support reply time to 4 hours | On track; flag cleared Thu 15 Oct | 5.2h (from 9h) | 3 of 4 accepted | Support reply templates (Operations) accepted in week 42 |
 | Reach 25,000 monthly users | On track | 21,400 (from 17,000) | 2 of 3 accepted | Marketing, Technical |
-| Cut new-hire setup to 2 days | At risk since Mon 21 Sep (4 weeks) | 4 days (from 6) | 1 of 2 accepted | From Staff laptop setup guide, Time (not enough people). Operations, no product, ends 18 Dec |
+| Cut new-hire setup to 2 days | At risk since Mon 28 Sep (3 weeks, so it is now a leader decision) | 4 days (from 6) | 1 of 2 accepted | From Staff laptop setup guide, Time (not enough people). Operations, no product, ends 18 Dec |
 | Keep the app rating at 4.5 or higher | On track | 4.6 (from 4.4) | 1 of 1 accepted | Design, Retail App |
 | Cut card fees in shops by 15% | On track | −9% (from $1,900 a month) | 1 of 2 accepted | Operations, no product |
 | Sign 5 school partners | On track | 3 of 5 | 1 of 2 accepted | Marketing, School App, ends 15 Dec |
@@ -115,11 +115,12 @@ All 8 Goals are drawn on the Goals page, with filters for flag, product and depa
 In-app sales Deliverables: Launch In-App Ordering v1 (Technical, Chenda Lim, due 30 Nov, At risk), Water Festival coupon campaign (Marketing, Kosal Nhem, due 20 Nov, On track), Faster menu pages (Technical, Chenda Lim, accepted 2 Oct), New app store screenshots (Design, Sreymom Kim, accepted 9 Oct).
 
 **Weekly summary, Mon 19 Oct, covers week 42 (12–16 Oct):**
-- Flags: New, School App sign-up flow (since Tue 13 Oct). Still open, Launch In-App Ordering v1 (since Fri 9 Oct) and Staff laptop setup guide (since Mon 21 Sep). Cleared, Support inbox rules ("Second person joined from Operations").
+- Flags: New, School App sign-up flow (since Tue 13 Oct). Still open, Launch In-App Ordering v1 (since Fri 9 Oct) and Staff laptop setup guide (since Mon 28 Sep, open 3 weeks, so now a decision). Cleared, Support inbox rules ("Second person joined from Operations").
 - Finished: Support reply templates accepted (Operations). Result: in-app sales +11% → +14% (Sokha).
-- Earlier summaries: week 41 (Mon 12 Oct) 5 of 8, in-app sales went At risk; week 40 (Mon 5 Oct) 6 of 8, support reply time went At risk; week 39 (Mon 28 Sep) 7 of 8, Q4 Goals approved.
+- Earlier summaries: week 41 (Mon 12 Oct) 5 of 8, in-app sales went At risk; week 40 (Mon 5 Oct) 6 of 8, support reply time and new-hire setup went At risk; week 39 (Mon 28 Sep) 8 of 8, Q4 Goals approved.
 - Surprise work: Operations 31%, Technical 13% (matches week 42 in review), Marketing 9%, Design 6%.
-- Decisions: Approve Goal "Cut stock-outs by 30%" (Bopha Meas, Operations lead, proposed Tue 13 Oct: days a shop runs out of stock, 20 → 14 a month by Wed 31 Mar; Retail App; 2 Deliverables planned). School App sign-up flow: move the date to Fri 20 Nov, or keep Fri 6 Nov and add Khmer forms later (asked by Chenda Lim).
+- Decisions: Approve Goal "Cut stock-outs by 30%" (Bopha Meas, Operations lead, proposed Tue 13 Oct: days a shop runs out of stock, 20 → 14 a month by Wed 31 Mar; Retail App; 2 Deliverables planned). School App sign-up flow: move the date to Fri 20 Nov, or keep Fri 6 Nov and add Khmer forms later (asked by Chenda Lim). Cut new-hire setup (flag open 3 weeks, Bopha Meas): lend one person from Design until Fri 18 Dec, move the end date to Wed 31 Mar, or keep waiting and ask again Mon 2 Nov.
+- Owners: in-app sales, you (Sokha Meng); pilot schools, users and school partners, Kosal Nhem; new-hire setup, support and card fees, Bopha Meas; app rating, Sreymom Kim. Ask Chenda Lim about in-app sales and pilot schools, Bopha Meas about new-hire setup.
 
 **Company reports (the Leader's Reports), week 42 by department:** Operations 18 locked, 13 done, 4 carried, 31% surprise; Technical 20, 17, 3, 13% (matches week 42 in review); Marketing 12, 11, 1, 9%; Design 10, 9, 1, 6%. The Goal status table repeats the 8 Goals above.
 

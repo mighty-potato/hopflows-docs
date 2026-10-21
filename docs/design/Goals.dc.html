@@ -87,11 +87,12 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <div style="display: flex; flex-direction: column; gap: 12px; padding: 14px 0 18px">
               <h3 id="da-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Approve Goal: Cut stock-outs by 30%</h3>
               <div style="display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 6px 12px; font-size: 13px; line-height: 18px">
-                <span style="color: #6E6C73">Result</span><span>Days a shop runs out of stock, <strong>20 → 14 a month</strong> by Wed 31 Mar</span>
+                <span style="color: #6E6C73">Result</span><span>Days a shop runs out of stock, <strong>20 → 14 a month</strong> by Wed 31 Mar, next quarter</span>
                 <span style="color: #6E6C73">Proposed by</span><span>Bopha Meas, Operations lead · Tue 13 Oct</span>
                 <span style="color: #6E6C73">Product</span><span>Retail App</span>
                 <span style="color: #6E6C73">Deliverables</span><span>2 planned: Daily stock count in the app, Low-stock alerts</span>
                 <span style="color: #6E6C73">Bopha's note</span><span>"Shops ran out of milk tea cups on 20 days in September."</span>
+                <span style="color: #6E6C73">Operations now</span><span>31% of last week's work was surprise work, and Cut new-hire setup is At risk for lack of people (see below).</span>
               </div>
               <sc-if value="{{a.asking}}" hint-placeholder-val="{{false}}">
                 <div style="display: flex; flex-direction: column; gap: 6px">
@@ -150,6 +151,36 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             </div>
           </sc-if>
         </div>
+        <div style="border-top: 1px solid #F0EEE9">
+          <sc-if value="{{c.closed}}" hint-placeholder-val="{{true}}">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 0">
+              <span style="flex: 1 1 240px; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 15px; font-weight: 600">Cut new-hire setup: a flag open 3 weeks. What now?</span><span style="font-size: 12px; color: #6E6C73">At risk since Mon 28 Sep · Time: not enough people · Bopha Meas, Operations</span></span>
+              <button type="button" id="dn-open" aria-expanded="false" aria-label="Decide what to do: Cut new-hire setup" onClick="{{c.open}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Decide what to do</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{c.panel}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-direction: column; gap: 12px; padding: 14px 0 4px">
+              <h3 id="dn-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Cut new-hire setup: a flag open 3 weeks. What now?</h3>
+              <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Staff laptop setup guide has been At risk for 3 weeks because nobody in Operations is free to write it. Flags open 3 weeks come to you. The Goal ends Fri 18 Dec.</p>
+              <div role="radiogroup" aria-labelledby="dn-title" style="display: flex; flex-direction: column; gap: 8px">
+                <sc-for list="{{c.opts}}" as="o" hint-placeholder-count="3">
+                  <button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 16px; border: 0; border-radius: 16px; background: {{o.bg}}; color: {{o.fg}}; box-shadow: inset 0 0 0 {{o.ring}} #1C1B1F; font-family: inherit; text-align: left; cursor: pointer"><span style="font-size: 15px; font-weight: 600">{{o.name}}</span><span style="font-size: 12px; line-height: 16px; color: {{o.sub}}">{{o.why}}</span></button>
+                </sc-for>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+                <sc-if value="{{c.ready}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{c.send}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send to Bopha</button></sc-if>
+                <sc-if value="{{c.notReady}}" hint-placeholder-val="{{true}}"><button type="button" aria-disabled="true" aria-describedby="dn-hint" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Send to Bopha</button><span id="dn-hint" style="font-size: 12px; color: #6E6C73">Pick one first</span></sc-if>
+                <button type="button" onClick="{{c.close}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Not now</button>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{c.done}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 0">
+              <span id="dn-done" tabindex="-1" role="status" style="flex: 1 1 240px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>{{c.doneText}}</strong> The flag stays until Bopha updates the plan.</span>
+              <button type="button" onClick="{{c.undo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button>
+            </div>
+          </sc-if>
+        </div>
       </section>
 
       <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 12px; min-width: 0">
@@ -176,10 +207,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <p style="grid-column: 1 / -1; margin: 0; padding: 24px; border-radius: 28px; background: #FFFFFF; font-size: 15px; line-height: 22px; color: #4A4950">No Goals match these filters. Clear them to see all 8.</p>
       </sc-if>
       <sc-for list="{{goals}}" as="g" hint-placeholder-count="8">
-        <sc-if value="{{g.hasPage}}" hint-placeholder-val="{{true}}">
-        <a href="{{g.href}}" aria-label="{{g.label}}" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: #1C1B1F; min-width: 0">
+        <article style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px; color: #1C1B1F; min-width: 0">
           <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
-            <h3 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{g.title}}</h3>
+            <sc-if value="{{g.hasPage}}" hint-placeholder-val="{{true}}"><h3 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em"><a href="{{g.href}}" style="color: #1C1B1F; text-underline-offset: 3px">{{g.title}}</a></h3></sc-if>
+            <sc-if value="{{g.noPage}}" hint-placeholder-val="{{false}}"><h3 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{g.title}}</h3></sc-if>
             <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: {{g.bg}}; color: {{g.fg}}; font-size: 13px; font-weight: 600; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{g.dot}}"></span>{{g.flag}}</span>
           </div>
           <div style="display: flex; flex-direction: column; gap: 6px">
@@ -188,32 +219,17 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <span style="font-size: 12px; color: #6E6C73">Result · started at {{g.start}}</span>
           </div>
           <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{g.why}}</span>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto">
-            <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{g.del}}</span>
-            <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{g.products}}</span>
-            <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">Ends {{g.end}}</span>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px">
+            <span style="flex: 1 1 160px; font-size: 13px; color: #4A4950">Owner: <strong style="color: #1C1B1F">{{g.owner}}</strong></span>
+            <sc-if value="{{g.canAsk}}" hint-placeholder-val="{{false}}"><button type="button" id="{{g.askId}}" onClick="{{g.ask}}" aria-label="{{g.askLabel}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Ask {{g.askFirst}}</button></sc-if>
+            <sc-if value="{{g.asked}}" hint-placeholder-val="{{false}}"><span id="{{g.askedId}}" tabindex="-1" role="status" style="font-size: 13px; color: #1F5E3A">Asked {{g.askFirst}}. The answer comes to your Inbox.</span></sc-if>
           </div>
-        </a>
-        </sc-if>
-        <sc-if value="{{g.noPage}}" hint-placeholder-val="{{false}}">
-        <article aria-label="{{g.label}}" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: #1C1B1F; min-width: 0">
-          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
-            <h3 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{g.title}}</h3>
-            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: {{g.bg}}; color: {{g.fg}}; font-size: 13px; font-weight: 600; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{g.dot}}"></span>{{g.flag}}</span>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 6px">
-            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">{{g.now}}</span><span style="font-size: 12px; color: #6E6C73">target {{g.target}}</span></div>
-            <div style="height: 10px; border-radius: 999px; background: #E7E5DF"><div style="height: 10px; border-radius: 999px; background: #1C1B1F; width: {{g.pct}}"></div></div>
-            <span style="font-size: 12px; color: #6E6C73">Result · started at {{g.start}}</span>
-          </div>
-          <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{g.why}}</span>
           <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto">
             <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{g.del}}</span>
             <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{g.products}}</span>
             <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">Ends {{g.end}}</span>
           </div>
         </article>
-        </sc-if>
       </sc-for>
     </div>
     </sc-if>
@@ -238,11 +254,12 @@ class Component extends DCLogic {
     try { hash = window.location.hash; } catch (e) {}
     const aStep = s.aStep || (hash === '#decide-stockouts' ? 'choose' : 'closed');
     const bStep = s.bStep || (hash === '#decide-schoolapp' ? 'choose' : 'closed');
+    const cStep = s.cStep || (hash === '#decide-newhire' ? 'choose' : 'closed');
     const a = {
       closed: aStep === 'closed', panel: aStep === 'choose' || aStep === 'ask', choosing: aStep === 'choose', asking: aStep === 'ask',
       done: aStep === 'approved' || aStep === 'sent',
       doneText: aStep === 'sent' ? 'Sent back to Bopha.' : 'Approved: Cut stock-outs by 30%.',
-      doneNext: aStep === 'sent' ? 'It comes back here when she changes it.' : 'It is on the Goals list, and Bopha can plan its Deliverables.',
+      doneNext: aStep === 'sent' ? 'It comes back here when she changes it.' : 'It starts in Q1 2027, and Bopha can plan its Deliverables now.',
       open: () => this.focusTo('da-title', { aStep: 'choose' }),
       close: () => this.focusTo('da-open', { aStep: 'closed' }),
       approve: () => this.focusTo('da-done', { aStep: 'approved' }),
@@ -268,8 +285,27 @@ class Component extends DCLogic {
       send: () => this.focusTo('db-done', { bStep: 'sent' }),
       undo: () => this.focusTo('db-open', { bStep: 'closed' })
     };
-    const left = (a.done ? 0 : 1) + (b.done ? 0 : 1);
-    const dc = left === 2 ? { title: '2 decisions for you', sub: 'Only you can make these. Each one shows what it changes.' }
+    // a flag open 3 weeks or more becomes a leader decision
+    const cChoices = [
+      { key: 'lend', name: 'Lend one person from Design until Fri 18 Dec', why: 'Design had the least surprise work last week (6%). The setup guide could be done by Fri 13 Nov.', done: 'Sent to Bopha: Design lends one person until Fri 18 Dec.' },
+      { key: 'date', name: 'Move the end date to Wed 31 Mar', why: 'Operations keeps its people as they are. The Goal moves to next quarter.', done: 'Sent to Bopha: the Goal now ends Wed 31 Mar.' },
+      { key: 'wait', name: 'Keep waiting, ask again in 2 weeks', why: 'Nothing changes now. It comes back here on Mon 2 Nov.', done: 'Noted: ask again on Mon 2 Nov.' }
+    ];
+    const cPicked = cChoices.find((x) => x.key === s.cPick);
+    const c = {
+      closed: cStep === 'closed', panel: cStep === 'choose', done: cStep === 'sent',
+      ready: !!cPicked, notReady: !cPicked, doneText: cPicked ? cPicked.done : '',
+      opts: cChoices.map((x) => {
+        const on = s.cPick === x.key;
+        return { name: x.name, why: x.why, on: on ? 'true' : 'false', bg: on ? '#FFF6D6' : '#F4F3EF', fg: '#1C1B1F', sub: '#4A4950', ring: on ? '2px' : '0', pick: () => this.setState({ cPick: x.key }) };
+      }),
+      open: () => this.focusTo('dn-title', { cStep: 'choose' }),
+      close: () => this.focusTo('dn-open', { cStep: 'closed' }),
+      send: () => this.focusTo('dn-done', { cStep: 'sent' }),
+      undo: () => this.focusTo('dn-open', { cStep: 'closed' })
+    };
+    const left = (a.done ? 0 : 1) + (b.done ? 0 : 1) + (c.done ? 0 : 1);
+    const dc = left > 1 ? { title: left + ' decisions for you', sub: 'Only you can make these. Each one shows what it changes.' }
       : left === 1 ? { title: '1 decision for you', sub: 'Only you can make this one.' }
       : { title: 'No decisions waiting', sub: "You're up to date. New ones show here and in the weekly summary." };
     const f = {
@@ -277,16 +313,25 @@ class Component extends DCLogic {
       risk: { flag: 'At risk', bg: '#FCE3D3', fg: '#9A3412', dot: '#C2410C' },
       off: { flag: 'Off track', bg: '#F2B8B2', fg: '#7A1F18', dot: '#C0352B' }
     };
-    const g = (title, k, now, target, start, pct, why, del, products, depts, end, href) => Object.assign({ title, k, now, target, start, pct, why, del, products: products.join(' · '), plist: products, depts, end, href: href || '', hasPage: !!href, noPage: !href, label: title + ', ' + f[k].flag + ', ' + now + ' of ' + target }, f[k]);
+    const asked = s.asked || {};
+    // owner of the Goal, and who to ask about its flag (the person who set it)
+    const g = (title, k, now, target, start, pct, why, del, products, depts, end, href, owner, askName) => {
+      const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      const done = !!asked[id];
+      return Object.assign({ title, k, now, target, start, pct, why, del, products: products.join(' · '), plist: products, depts, end, href: href || '', hasPage: !!href, noPage: !href,
+        owner, askFirst: askName ? askName.split(' ')[0] : '', askLabel: askName ? 'Ask ' + askName + ' for an update on ' + title : '',
+        canAsk: !!askName && !done, asked: !!askName && done, askId: 'ask-' + id, askedId: 'asked-' + id,
+        ask: () => this.focusTo('asked-' + id, { asked: Object.assign({}, asked, { [id]: true }) }) }, f[k]);
+    };
     const all = [
-      g('Increase in-app sales by 20%', 'risk', '+14%', '+20%', '$48,200 a month', '70%', 'From Launch In-App Ordering v1 · Waiting on others · 10 days', 'Deliverables 2/4 accepted', ['Retail App'], ['Technical', 'Marketing', 'Design'], '31 Dec', 'GoalDetail.dc.html'),
-      g('Onboard 40 pilot schools', 'off', '22', '40', '0 schools', '55%', 'From School App sign-up flow · Scope change · 6 days', 'Deliverables 1/3 accepted', ['School App'], ['Technical', 'Marketing'], '15 Dec'),
-      g('Cut new-hire setup to 2 days', 'risk', '4 days', '2 days', '6 days', '50%', 'From Staff laptop setup guide · Time: not enough people · 4 weeks', 'Deliverables 1/2 accepted', ['No product'], ['Operations'], '18 Dec'),
-      g('Cut support reply time to 4 hours', 'ok', '5.2h', '4h', '9h', '76%', 'No flags. Support reply templates finished last week.', 'Deliverables 3/4 accepted', ['Retail App', 'School App'], ['Operations'], '31 Dec'),
-      g('Reach 25,000 monthly users', 'ok', '21,400', '25,000', '17,000', '55%', 'No flags.', 'Deliverables 2/3 accepted', ['Retail App'], ['Marketing', 'Technical'], '31 Dec'),
-      g('Keep the app rating at 4.5 or higher', 'ok', '4.6', '4.5', '4.4', '100%', 'No flags. Above target since week 38.', 'Deliverables 1/1 accepted', ['Retail App'], ['Design'], '31 Dec'),
-      g('Cut card fees in shops by 15%', 'ok', '−9%', '−15%', '$1,900 a month', '60%', 'No flags.', 'Deliverables 1/2 accepted', ['No product'], ['Operations'], '31 Dec'),
-      g('Sign 5 school partners', 'ok', '3', '5', '0 partners', '60%', 'No flags.', 'Deliverables 1/2 accepted', ['School App'], ['Marketing'], '15 Dec')
+      g('Increase in-app sales by 20%', 'risk', '+14%', '+20%', '$48,200 a month', '70%', 'From Launch In-App Ordering v1 · Waiting on others · 10 days', 'Deliverables 2/4 accepted', ['Retail App'], ['Technical', 'Marketing', 'Design'], '31 Dec', 'GoalDetail.dc.html', 'You', 'Chenda Lim'),
+      g('Onboard 40 pilot schools', 'off', '22', '40', '0 schools', '55%', 'From School App sign-up flow · Scope change · 6 days', 'Deliverables 1/3 accepted', ['School App'], ['Technical', 'Marketing'], '15 Dec', '', 'Kosal Nhem', 'Chenda Lim'),
+      g('Cut new-hire setup to 2 days', 'risk', '4 days', '2 days', '6 days', '50%', 'From Staff laptop setup guide · Time: not enough people · 3 weeks · now a decision', 'Deliverables 1/2 accepted', ['No product'], ['Operations'], '18 Dec', '', 'Bopha Meas', 'Bopha Meas'),
+      g('Cut support reply time to 4 hours', 'ok', '5.2h', '4h', '9h', '76%', 'Flag cleared Thu 15 Oct. Support reply templates finished last week.', 'Deliverables 3/4 accepted', ['Retail App', 'School App'], ['Operations'], '31 Dec', '', 'Bopha Meas', ''),
+      g('Reach 25,000 monthly users', 'ok', '21,400', '25,000', '17,000', '55%', 'No flags.', 'Deliverables 2/3 accepted', ['Retail App'], ['Marketing', 'Technical'], '31 Dec', '', 'Kosal Nhem', ''),
+      g('Keep the app rating at 4.5 or higher', 'ok', '4.6', '4.5', '4.4', '100%', 'No flags. Above target since week 38.', 'Deliverables 1/1 accepted', ['Retail App'], ['Design'], '31 Dec', '', 'Sreymom Kim', ''),
+      g('Cut card fees in shops by 15%', 'ok', '−9%', '−15%', '$1,900 a month', '60%', 'No flags.', 'Deliverables 1/2 accepted', ['No product'], ['Operations'], '31 Dec', '', 'Bopha Meas', ''),
+      g('Sign 5 school partners', 'ok', '3', '5', '0 partners', '60%', 'No flags.', 'Deliverables 1/2 accepted', ['School App'], ['Marketing'], '15 Dec', '', 'Kosal Nhem', '')
     ];
     const ui = this.state || {};
     const fv = { flag: ui.flag || 'Any', product: ui.product || 'All', dept: ui.dept || 'All' };
@@ -300,7 +345,7 @@ class Component extends DCLogic {
     const filtered = fv.flag !== 'Any' || fv.product !== 'All' || fv.dept !== 'All';
     const st = this.props.state ?? 'normal';
     return {
-      dc, a, b,
+      dc, a, b, c,
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       goals, filters, filtered, noMatch: goals.length === 0,
       listTitle: filtered ? goals.length + ' of 8 Goals' : 'All 8 Goals',
