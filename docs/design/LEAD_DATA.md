@@ -93,7 +93,7 @@ The Planner lists every change to week 43 in one place. Open changes are counted
 
 Only Launch In-App Ordering v1 has a detail page on the canvas.
 
-Reports (Technical, weeks 39–42): week 42 has 20 locked tasks, 17 done, as above. Over the four weeks 65 of 74 locked tasks were done in their week (88%); cancelled and reassigned tasks are left out.
+Reports (Technical, weeks 39–42): week 42 has 20 locked tasks, 17 done, as above. Over the four weeks 65 of 75 locked tasks were done in their week (87%); cancelled and reassigned tasks are left out.
 
 ## Leader screens (Goals, Goal, Weekly summary)
 
@@ -124,7 +124,15 @@ In-app sales Deliverables: Launch In-App Ordering v1 (Technical, Chenda Lim, due
 - Decisions: Approve Goal "Cut stock-outs by 30%" (Bopha Meas, Operations lead, proposed Tue 13 Oct: days a shop runs out of stock, 20 → 14 a month by Wed 31 Mar; Retail App; 2 Deliverables planned). School App sign-up flow: move the date to Fri 20 Nov, or keep Fri 6 Nov and add Khmer forms later (asked by Chenda Lim). Cut new-hire setup (flag open 3 weeks, Bopha Meas): lend one person from Design until Fri 18 Dec, move the end date to Wed 31 Mar, or keep waiting and ask again Mon 2 Nov.
 - Owners: in-app sales, you (Sokha Meng); pilot schools, users and school partners, Kosal Nhem; new-hire setup, support and card fees, Bopha Meas; app rating, Sreymom Kim. Ask Chenda Lim about in-app sales and pilot schools, Bopha Meas about new-hire setup.
 
-**Company reports (the Leader's Reports), week 42 by department:** Operations 18 locked, 13 done, 4 carried, 31% surprise; Technical 20, 17, 3, 13% (matches week 42 in review); Marketing 12, 11, 1, 9%; Design 10, 9, 1, 6%. The Goal status table repeats the 8 Goals above.
+**Company reports (the Leader's Reports), plan vs. reality by department.** Locked = done + not done + cancelled. Added = share of hours added after locking.
+
+| Week | Operations | Technical | Marketing | Design |
+|---|---|---|---|---|
+| 42 | 18 locked, 13 done, 5 not done, 31% added, 1 reassigned | 20, 17, 3, 13%, 2 reassigned | 12, 11, 1, 9% | 10, 9, 1, 6% |
+| 41 | 17, 13, 4, 27% | 19, 17, 1 not done, 1 cancelled, 8% | 12, 10, 2, 11% | 9, 9, 0, 4% |
+| 40 | 16, 12, 4, 24%, 1 reassigned | 20, 15, 5, 18% | 11, 10, 1, 7% | 10, 8, 2, 10% |
+
+Technical's rows match its own Reports (weeks 39–42: 65 of 75 locked tasks done in their week, 87%, cancelled and reassigned tasks left out). The Goal status table repeats the 8 Goals with done vs needed, owner and who to ask.
 
 ## Writing hours
 

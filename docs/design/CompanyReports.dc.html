@@ -20,6 +20,11 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:760px){
+.hf-th-row{display:none !important}
+.hf-tr{display:flex !important;flex-direction:column}
+.hf-lbl{display:inline !important}
+}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -31,7 +36,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <span style="font-size: 12px; color: #6E6C73">Riverline Co. · all departments · Q4 so far, weeks 40–42</span>
+        <span style="font-size: 12px; color: #6E6C73">Riverline Co. · all departments · Q4 2026</span>
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Company reports</h1>
       </div>
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
@@ -61,36 +66,48 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <section aria-labelledby="gs-h" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
       <div style="display: flex; flex-direction: column; gap: 2px">
         <h2 id="gs-h" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Goal status</h2>
-        <span style="font-size: 12px; color: #6E6C73">Each Goal's result, its flag and reason, and its Deliverables. 5 of 8 on track.</span>
+        <span style="font-size: 12px; color: #6E6C73">Each Goal's result, how far along it should be by now, its flag and who to ask. 5 of 8 on track.</span>
       </div>
-      <div style="overflow-x: auto">
-        <table style="width: 100%; min-width: 760px; border-collapse: collapse">
-          <thead><tr><th scope="col" style="text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #6E6C73; white-space: nowrap">Goal</th><th scope="col" style="text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #6E6C73; white-space: nowrap">Result</th><th scope="col" style="text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #6E6C73; white-space: nowrap">Target</th><th scope="col" style="text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #6E6C73; white-space: nowrap">Flag and reason</th><th scope="col" style="text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #6E6C73; white-space: nowrap">Deliverables</th><th scope="col" style="text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #6E6C73; white-space: nowrap">Ends</th></tr></thead>
-          <tbody>
-            <sc-for list="{{goals}}" as="g" hint-placeholder-count="8">
-              <tr><th scope="row" style="padding: 12px; font-size: 13px; line-height: 18px; border-top: 1px solid #F0EEE9; vertical-align: top; text-align: left; font-weight: 600">{{g.title}}</th><td style="padding: 12px; font-size: 13px; line-height: 18px; border-top: 1px solid #F0EEE9; vertical-align: top; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; white-space: nowrap">{{g.now}}</td><td style="padding: 12px; font-size: 13px; line-height: 18px; border-top: 1px solid #F0EEE9; vertical-align: top; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; white-space: nowrap; color: #4A4950">{{g.target}}</td><td style="padding: 12px; font-size: 13px; line-height: 18px; border-top: 1px solid #F0EEE9; vertical-align: top"><span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: {{g.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{g.dot}}"></span>{{g.flag}}</span><span style="display: block; color: #4A4950">{{g.why}}</span></td><td style="padding: 12px; font-size: 13px; line-height: 18px; border-top: 1px solid #F0EEE9; vertical-align: top">{{g.del}}</td><td style="padding: 12px; font-size: 13px; line-height: 18px; border-top: 1px solid #F0EEE9; vertical-align: top; white-space: nowrap">{{g.end}}</td></tr>
-            </sc-for>
-          </tbody>
-        </table>
+      <div role="table" aria-labelledby="gs-h" style="display: flex; flex-direction: column">
+        <div role="row" class="hf-th-row" style="display: grid; grid-template-columns: minmax(180px, 2fr) 90px 110px minmax(200px, 2.2fr) minmax(150px, 1.4fr) minmax(120px, 1.2fr) 64px; gap: 12px; padding: 8px 0"><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Goal</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Result</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Done vs needed</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Status and reason</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Owner · who to ask</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Deliverables</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Ends</span></div>
+        <sc-for list="{{goals}}" as="g" hint-placeholder-count="8">
+          <div role="row" class="hf-tr" style="display: grid; grid-template-columns: minmax(180px, 2fr) 90px 110px minmax(200px, 2.2fr) minmax(150px, 1.4fr) minmax(120px, 1.2fr) 64px; gap: 6px 12px; padding: 12px 0; border-top: 1px solid #F0EEE9">
+            <span role="rowheader" style="font-size: 13px; line-height: 18px; min-width: 0; font-weight: 600"><sc-if value="{{g.hasPage}}" hint-placeholder-val="{{false}}"><a href="GoalDetail.dc.html" style="color: #1C1B1F; text-underline-offset: 3px">{{g.title}}</a></sc-if><sc-if value="{{g.noPage}}" hint-placeholder-val="{{true}}">{{g.title}}</sc-if></span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Result </span>{{g.now}} <span style="color: #6E6C73">of {{g.target}}</span></span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Done vs needed </span><span style="font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums">{{g.have}} / {{g.need}}</span> <span style="color: #4A4950">{{g.paceWord}}</span></span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0"><span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: {{g.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{g.dot}}"></span>{{g.flag}}</span><span style="display: block; color: #4A4950">{{g.why}}</span></span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Owner </span>{{g.owner}}<span style="display: block; color: #4A4950">{{g.ask}}</span></span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0">{{g.del}}</span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; white-space: nowrap"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Ends </span>{{g.end}}</span>
+          </div>
+        </sc-for>
       </div>
     </section>
 
     <section aria-labelledby="pr-h" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
-      <div style="display: flex; flex-direction: column; gap: 2px">
-        <h2 id="pr-h" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Plan vs. reality by department · week 42</h2>
-        <span style="font-size: 12px; color: #6E6C73">Locked tasks only. Never shows individual people. Surprise work is estimated.</span>
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <h2 id="pr-h" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Plan vs. reality by department</h2>
+          <span style="font-size: 12px; color: #6E6C73">Locked tasks: done + not done + cancelled. Added work is the share of hours added after locking, estimated. Never shows individual people.</span>
+        </div>
+        <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Week<select onChange="{{setWeek}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F"><sc-for list="{{weeks}}" as="w" hint-placeholder-count="3"><option value="{{w.v}}" selected="{{w.sel}}">{{w.label}}</option></sc-for></select></label>
       </div>
-      <div style="overflow-x: auto">
-        <table style="width: 100%; min-width: 680px; border-collapse: collapse">
-          <thead><tr><th scope="col" style="text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #6E6C73; white-space: nowrap">Department</th><th scope="col" style="text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #6E6C73; white-space: nowrap">Locked</th><th scope="col" style="text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #6E6C73; white-space: nowrap">Done in the week</th><th scope="col" style="text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #6E6C73; white-space: nowrap">Carried over</th><th scope="col" style="text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #6E6C73; white-space: nowrap">Surprise work</th><th scope="col" style="text-align: left; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #6E6C73; white-space: nowrap">Main reason work moved</th></tr></thead>
-          <tbody>
-            <sc-for list="{{depts}}" as="d" hint-placeholder-count="4">
-              <tr><th scope="row" style="padding: 12px; font-size: 13px; line-height: 18px; border-top: 1px solid #F0EEE9; vertical-align: top; text-align: left; font-weight: 600">{{d.name}}</th><td style="padding: 12px; font-size: 13px; line-height: 18px; border-top: 1px solid #F0EEE9; vertical-align: top; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; white-space: nowrap">{{d.locked}}</td><td style="padding: 12px; font-size: 13px; line-height: 18px; border-top: 1px solid #F0EEE9; vertical-align: top; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; white-space: nowrap">{{d.done}}</td><td style="padding: 12px; font-size: 13px; line-height: 18px; border-top: 1px solid #F0EEE9; vertical-align: top; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; white-space: nowrap">{{d.carried}}</td><td style="padding: 12px; font-size: 13px; line-height: 18px; border-top: 1px solid #F0EEE9; vertical-align: top; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; white-space: nowrap">{{d.surprise}}</td><td style="padding: 12px; font-size: 13px; line-height: 18px; border-top: 1px solid #F0EEE9; vertical-align: top">{{d.why}}</td></tr>
-            </sc-for>
-          </tbody>
-        </table>
+      <div role="table" aria-labelledby="pr-h" style="display: flex; flex-direction: column">
+        <div role="row" class="hf-th-row" style="display: grid; grid-template-columns: minmax(110px, 1.2fr) 70px 110px 90px 90px 110px 100px minmax(160px, 2fr); gap: 12px; padding: 8px 0"><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Department</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Locked</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Done in the week</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Not done</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Cancelled</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Added after locking</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Reassigned</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Main reason work moved</span></div>
+        <sc-for list="{{depts}}" as="d" hint-placeholder-count="4">
+          <div role="row" class="hf-tr" style="display: grid; grid-template-columns: minmax(110px, 1.2fr) 70px 110px 90px 90px 110px 100px minmax(160px, 2fr); gap: 6px 12px; padding: 12px 0; border-top: 1px solid #F0EEE9">
+            <span role="rowheader" style="font-size: 13px; line-height: 18px; min-width: 0; font-weight: 600">{{d.name}}</span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Locked </span>{{d.locked}}</span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Done </span>{{d.done}}</span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Not done </span>{{d.notDone}}</span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Cancelled </span>{{d.cancelled}}</span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Added </span>{{d.added}}</span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Reassigned </span>{{d.reassigned}}</span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0">{{d.why}}</span>
+          </div>
+        </sc-for>
       </div>
-      <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Operations had the most surprise work again: shop requests. A lead can open the team view from their own Reports.</span>
+      <span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{weekNote}}</span>
     </section>
     </sc-if>
   </main>
@@ -115,29 +132,46 @@ class Component extends DCLogic {
       risk: { flag: 'At risk', fg: '#9A3412', dot: '#C2410C' },
       off: { flag: 'Off track', fg: '#7A1F18', dot: '#C0352B' }
     };
-    const g = (title, k, now, target, why, del, end) => Object.assign({ title, now, target, why, del, end }, f[k]);
-    const d = (name, locked, done, carried, surprise, why) => ({ name, locked, done: done + ' (' + Math.round(done / locked * 100) + '%)', carried, surprise: surprise + '%', why });
-    return {
-      ok: st === 'normal', isLoading: st === 'loading', isError: st === 'error',
-      saved: !!ui.saved && st === 'normal', savedText: ui.saved === 'xls' ? 'Saved "Company reports week 42.xlsx"' : 'Saved "Company reports week 42.pdf" · 3 pages',
-      saveXls: () => this.focusTo('cr-saved', { saved: 'xls' }),
-      savePdf: () => this.focusTo('cr-saved', { saved: 'pdf' }),
-      goals: [
+    const g = (title, k, now, target, why, del, end) => { const m = meta[title]; return Object.assign({ title, now, target, why, del, end, have: m[0], need: m[1], paceWord: m[2], owner: m[3], ask: m[4], hasPage: m[5], noPage: !m[5] }, f[k]); };
+    // locked = done + not done + cancelled; added is the share of the week's hours added after locking
+    const d = (name, locked, done, notDone, cancelled, added, reassigned, why) => ({ name, locked, done: done + ' (' + Math.round(done / (locked - cancelled) * 100) + '%)', notDone, cancelled, added: added + '%', reassigned, why });
+    const byWeek = {
+      42: [d('Operations', 18, 13, 5, 0, 31, 1, 'New urgent work from shops'), d('Technical', 20, 17, 3, 0, 13, 2, 'New urgent work; 2 tasks reassigned'), d('Marketing', 12, 11, 1, 0, 9, 0, 'Waiting on others'), d('Design', 10, 9, 1, 0, 6, 0, 'Priorities changed')],
+      41: [d('Operations', 17, 13, 4, 0, 27, 0, 'New urgent work from shops'), d('Technical', 19, 17, 1, 1, 8, 0, 'Waiting on others'), d('Marketing', 12, 10, 2, 0, 11, 0, 'Waiting on others'), d('Design', 9, 9, 0, 0, 4, 0, 'None')],
+      40: [d('Operations', 16, 12, 4, 0, 24, 1, 'New urgent work from shops'), d('Technical', 20, 15, 5, 0, 18, 0, 'Waiting on others'), d('Marketing', 11, 10, 1, 0, 7, 0, 'Wrong estimate'), d('Design', 10, 8, 2, 0, 10, 0, 'Priorities changed')]
+    };
+    const wk = (this.state && this.state.week) || '42';
+    // done vs needed by now, owner and who to ask match the Goals page
+    const meta = {
+      'Increase in-app sales by 20%': ['70%', '45%', 'ahead', 'You', 'Ask Chenda Lim', true],
+      'Onboard 40 pilot schools': ['55%', '60%', 'behind', 'Kosal Nhem', 'Ask Chenda Lim · your decision', false],
+      'Cut new-hire setup to 2 days': ['50%', '70%', 'behind', 'Bopha Meas', 'Ask Bopha Meas · your decision', false],
+      'Cut support reply time to 4 hours': ['76%', '70%', 'ahead', 'Bopha Meas', '', false],
+      'Reach 25,000 monthly users': ['55%', '50%', 'ahead', 'Kosal Nhem', '', false],
+      'Keep the app rating at 4.5 or higher': ['100%', '100%', 'on target', 'Sreymom Kim', '', false],
+      'Cut card fees in shops by 15%': ['60%', '55%', 'ahead', 'Bopha Meas', '', false],
+      'Sign 5 school partners': ['60%', '60%', 'on pace', 'Kosal Nhem', '', false]
+    };
+    const goals = [
         g('Increase in-app sales by 20%', 'risk', '+14%', '+20%', 'Waiting on others: payment provider keys late · since Fri 9 Oct', '2 of 4 accepted · next due Fri 20 Nov', '31 Dec'),
         g('Onboard 40 pilot schools', 'off', '22', '40', 'Scope change: schools asked for Khmer forms · since Tue 13 Oct', '1 of 3 accepted · next due Fri 6 Nov', '15 Dec'),
-        g('Cut new-hire setup to 2 days', 'risk', '4 days', '2 days', 'Time: not enough people · since Mon 28 Sep', '1 of 2 accepted', '18 Dec'),
+        g('Cut new-hire setup to 2 days', 'risk', '4 days', '2 days', 'Time: not enough people · since Mon 28 Sep · your decision', '1 of 2 accepted', '18 Dec'),
         g('Cut support reply time to 4 hours', 'ok', '5.2h', '4h', 'Flag cleared Thu 15 Oct', '3 of 4 accepted', '31 Dec'),
         g('Reach 25,000 monthly users', 'ok', '21,400', '25,000', 'No flags', '2 of 3 accepted', '31 Dec'),
         g('Keep the app rating at 4.5 or higher', 'ok', '4.6', '4.5', 'No flags', '1 of 1 accepted', '31 Dec'),
         g('Cut card fees in shops by 15%', 'ok', '−9%', '−15%', 'No flags', '1 of 2 accepted', '31 Dec'),
         g('Sign 5 school partners', 'ok', '3', '5', 'No flags', '1 of 2 accepted', '15 Dec')
-      ],
-      depts: [
-        d('Operations', 18, 13, 4, 31, 'New urgent work from shops'),
-        d('Technical', 20, 17, 3, 13, 'New urgent work from shops'),
-        d('Marketing', 12, 11, 1, 9, 'Waiting on others'),
-        d('Design', 10, 9, 1, 6, 'Priorities changed')
-      ]
+    ];
+    return {
+      ok: st === 'normal', isLoading: st === 'loading', isError: st === 'error',
+      saved: !!ui.saved && st === 'normal', savedText: ui.saved === 'xls' ? 'Saved "Company reports week 42.xlsx"' : 'Saved "Company reports week 42.pdf" · 3 pages',
+      saveXls: () => this.focusTo('cr-saved', { saved: 'xls' }),
+      savePdf: () => this.focusTo('cr-saved', { saved: 'pdf' }),
+      goals,
+      weeks: ['42', '41', '40'].map((v) => ({ v, label: { 42: 'Week 42 (12–16 Oct)', 41: 'Week 41 (5–9 Oct)', 40: 'Week 40 (28 Sep–2 Oct)' }[v], sel: wk === v ? 'selected' : null })),
+      setWeek: (e) => this.setState({ week: e.target.value }),
+      depts: byWeek[wk],
+      weekNote: { 42: 'Operations had the most surprise work again: shop requests. A lead can open the team view from their own Reports.', 41: 'Operations started getting more shop requests. Technical cancelled one task that was no longer needed.', 40: 'Technical moved 5 tasks when the payment provider changed its test system.' }[wk]
     };
   }
 }

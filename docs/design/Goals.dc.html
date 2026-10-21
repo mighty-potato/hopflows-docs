@@ -34,11 +34,6 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <span style="font-size: 12px; color: #6E6C73">Riverline Co. · Q4 2026 · today Mon 19 Oct</span>
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Goals</h1>
       </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 8px">
-        <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Status<select onChange="{{filters.flag.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.flag.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
-        <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Product<select onChange="{{filters.product.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.product.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
-        <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Department<select onChange="{{filters.dept.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.dept.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
-      </div>
     </div>
 
     <sc-if value="{{isLoading}}" hint-placeholder-val="{{false}}">
@@ -202,6 +197,11 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 8px 4px 0">
         <h2 id="gl-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{listTitle}}</h2>
         <sc-if value="{{filtered}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{clearFilters}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Clear filters</button></sc-if>
+        <div role="group" aria-label="Filter Goals" style="display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto">
+          <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Status<select onChange="{{filters.flag.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.flag.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
+          <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Product<select onChange="{{filters.product.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.product.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
+          <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Department<select onChange="{{filters.dept.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.dept.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
+        </div>
       </div>
       <sc-if value="{{noMatch}}" hint-placeholder-val="{{false}}">
         <p style="grid-column: 1 / -1; margin: 0; padding: 24px; border-radius: 28px; background: #FFFFFF; font-size: 15px; line-height: 22px; color: #4A4950">No Goals match these filters. Clear them to see all 8.</p>
