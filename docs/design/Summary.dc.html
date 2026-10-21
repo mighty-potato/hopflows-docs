@@ -20,10 +20,6 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
-@media (max-width:1024px){
-.hf-masonry{flex-direction:column !important;flex-wrap:nowrap !important;align-items:stretch !important}
-.hf-masonry>.hf-col{display:contents !important}
-}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -35,45 +31,97 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <span style="font-size: 12px; color: #6E6C73">Monday 19 October · covers week 42 (12–16 Oct) · also sent by push</span>
+        <span style="font-size: 12px; color: #6E6C73">{{dateLine}}</span>
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Weekly summary</h1>
       </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 8px">
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">‹ Earlier weeks</button>
-        <button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"></path></svg>PDF</button>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+        <sc-if value="{{pdfDone}}" hint-placeholder-val="{{false}}"><span id="pdf-done" tabindex="-1" role="status" style="font-size: 12px; color: #1F5E3A">Saved "Weekly summary week 42.pdf" · 2 pages</span></sc-if>
+        <button type="button" id="ew-btn" aria-expanded="{{ewOpen}}" aria-controls="ew-panel" onClick="{{toggleEarlier}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #1C1B1F">Earlier weeks</button>
+        <button type="button" onClick="{{savePdf}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; padding: 0 18px; background: #1C1B1F; color: #FFFFFF; display: inline-flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"></path></svg>Save as PDF</button>
       </div>
     </div>
 
-    <div class="bento hf-masonry" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
-      <div class="hf-col" style="flex: 5 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-      <section aria-label="Are we on track" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-height: 260px; box-sizing: border-box">
+    <sc-if value="{{ewShow}}" hint-placeholder-val="{{false}}">
+      <section id="ew-panel" aria-labelledby="ew-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
+        <h2 id="ew-title" tabindex="-1" style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Earlier summaries</h2>
+        <sc-for list="{{earlier}}" as="e" hint-placeholder-count="3">
+          <div style="display: flex; flex-wrap: wrap; gap: 4px 16px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 150px; font-size: 13px; font-weight: 600">{{e.when}}</span><span style="flex: 1 1 280px; font-size: 13px; line-height: 18px; color: #4A4950">{{e.text}}</span></div>
+        </sc-for>
+      </section>
+    </sc-if>
+    <sc-if value="{{isLoading}}" hint-placeholder-val="{{false}}">
+      <div role="status" aria-busy="true" style="display: flex; flex-direction: column; gap: 12px">
+        <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Loading the weekly summary…</span>
+        <div aria-hidden="true" style="columns: 2 400px; column-gap: 12px">
+          <div style="break-inside: avoid; margin: 0 0 12px; height: 260px; border-radius: 28px; background: #ECEAE4"></div>
+          <div style="break-inside: avoid; margin: 0 0 12px; height: 260px; border-radius: 28px; background: #FFFFFF"></div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{isFirst}}" hint-placeholder-val="{{false}}">
+      <section aria-labelledby="sm-first" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
+        <img src="/_blob/a431a6fdd4e19f548f54f9fd97283158" alt="Punh Punh waving" style="width: 144px; height: 144px; border-radius: 28px; object-fit: cover; flex-shrink: 0">
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <h2 id="sm-first" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Your first summary comes Monday at 8:00</h2>
+          <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">Every Monday it tells you which Goals are on track, which risk flags are new, and what is waiting for your decision. It also comes as a push alert.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px"><a href="Goals.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">See Goals now</a></div>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{isHoliday}}" hint-placeholder-val="{{false}}">
+      <section aria-labelledby="sm-hol" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
+        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <h2 id="sm-hol" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">This week's summary comes Tuesday</h2>
+          <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">Monday 19 Oct is a holiday on Riverline's calendar, so the week 42 summary comes on Tue 20 Oct at 8:00. Decisions waiting are already on the Goals page.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px"><a href="Goals.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Go to decisions</a></div>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{isError}}" hint-placeholder-val="{{false}}">
+      <section role="alert" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; box-shadow: inset 0 0 0 2px #C2410C">
+        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load the summary</h2>
+          <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. The push alert you got this morning has the same numbers.</p>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{ok}}" hint-placeholder-val="{{true}}">
+    <div class="bento hf-sum-cols" style="columns: 2 400px; column-gap: 12px">
+      <section aria-label="Are we on track" style="break-inside: avoid; margin: 0 0 12px; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-height: 260px; box-sizing: border-box">
         <span style="font-size: 13px; font-weight: 600">Goals on track</span>
         <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">5/8</span>
         <span style="font-size: 15px; line-height: 22px; margin-top: auto">Same count as last week: support reply time came back on track, pilot schools went Off track.</span>
       </section>
-      <section aria-label="Risk flags" style="order: 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
-        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Risk flags</h2>
-        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #9B2C24">New</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>School App sign-up flow</strong> · Off track · Scope change: schools asked for Khmer forms · since Tue 13 Oct</span></div>
-        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #4A4950">Still open</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Launch In-App Ordering v1</strong> · At risk · Waiting on others: payment provider keys late · since Fri 9 Oct</span></div>
-        <div style="display: flex; gap: 12px; padding: 10px 0"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #1F5E3A">Cleared</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Support inbox rules</strong> · “Second person joined from Operations”</span></div>
-      </section>
-      <section aria-label="Decisions" style="order: 6; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+      <section aria-label="Decisions" style="break-inside: avoid; margin: 0 0 12px; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
         <h2 style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Decisions waiting · 2</h2>
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">Approve Goal: Cut stock-outs by 30%</span><a href="Goals.dc.html#decide-stockouts" aria-label="Approve or send back: Cut stock-outs by 30%" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Approve or send back</a></div>
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">School App sign-up flow: move the date or cut scope?</span><a href="Goals.dc.html#decide-schoolapp" aria-label="Decide date or scope: School App sign-up flow" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide: date or scope</a></div>
       </section>
-      </div>
-      <div class="hf-col" style="flex: 7 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-      <section aria-label="Goals by status" style="order: 2; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; min-width: 0">
+      <section aria-label="Risk flags" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Risk flags</h2>
+        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #9B2C24">New</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>School App sign-up flow</strong> · Off track · Scope change: schools asked for Khmer forms · since Tue 13 Oct</span></div>
+        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #4A4950">Still open</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Launch In-App Ordering v1</strong> · At risk · Waiting on others: payment provider keys late · since Fri 9 Oct</span></div>
+        <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #4A4950">Still open</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Staff laptop setup guide</strong> · At risk · Not enough people · since Mon 21 Sep</span></div>
+        <div style="display: flex; gap: 12px; padding: 10px 0"><span style="width: 64px; font-size: 12px; font-weight: 600; color: #1F5E3A">Cleared</span><span style="flex: 1; font-size: 13px; line-height: 18px"><strong>Support inbox rules</strong> · “Second person joined from Operations”</span></div>
+      </section>
+      <section aria-label="Goals by status" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Goals by status</h2>
         <sc-for list="{{changes}}" as="c" hint-placeholder-count="4">
-          <a href="GoalDetail.dc.html" style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 12px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none">
+          <a href="{{c.href}}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 12px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none">
             <span style="flex: 1 1 240px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">{{c.goal}}</span><span style="font-size: 12px; color: #6E6C73">{{c.why}}</span></span>
             <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: {{c.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{c.dot}}"></span>{{c.now}}</span>
           </a>
         </sc-for>
       </section>
-      <section aria-label="Unplanned work by department" style="order: 3; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+      <section aria-label="Finished and results" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Finished and updated</h2>
+        <div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Deliverable accepted · Support reply templates</span><span style="font-size: 12px; color: #6E6C73">Operations</span></div>
+                <div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0"><span style="font-size: 13px">Result · in-app sales +11% → +14%</span><span style="font-size: 12px; color: #6E6C73">Sokha</span></div>
+      </section>
+      <section aria-label="Unplanned work by department" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <div style="display: flex; flex-direction: column; gap: 2px">
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Surprise work by department</h2>
           <span style="font-size: 12px; color: #6E6C73">Share of the week's work added after locking · estimated</span>
@@ -87,33 +135,55 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </sc-for>
         <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Operations keeps getting shop requests. Its buffer may be too small.</span>
       </section>
-      <section aria-label="Finished and results" style="order: 5; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
-        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Finished and updated</h2>
-        <div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 13px">Deliverable accepted · Support reply templates</span><span style="font-size: 12px; color: #6E6C73">Operations</span></div>
-                <div style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0"><span style="font-size: 13px">Result · in-app sales +11% → +14%</span><span style="font-size: 12px; color: #6E6C73">Sokha</span></div>
-      </section>
-      </div>
     </div>
     <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">This summary never lists individual tasks or how busy individual people are.</p>
+    </sc-if>
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","first","holiday","error"],"default":"normal"},"$preview":{"width":1440,"height":1240}}'>
 class Component extends DCLogic {
+  // move keyboard focus to the part of the screen that just appeared
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() {
+    const s = this.state || {};
+    if (s.focusN && s.focusN !== this._focusN) {
+      this._focusN = s.focusN;
+      requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); });
+    }
+  }
   renderVals() {
+    const st = this.props.state ?? 'normal';
+    const ui = this.state || {};
+    const ok = st === 'normal';
+    const ew = !!ui.earlier;
     const s = {
       ok: { fg: '#1F5E3A', dot: '#2E7D4F' },
       risk: { fg: '#9A3412', dot: '#C2410C' },
       off: { fg: '#9B2C24', dot: '#C0352B' }
     };
-    const c = (goal, why, now, k) => Object.assign({ goal, why, now }, s[k]);
+    // only in-app sales has its own page on the canvas; the rest open the Goals list
+    const c = (goal, why, now, k) => Object.assign({ goal, why, now, href: goal === 'Increase in-app sales by 20%' ? 'GoalDetail.dc.html' : 'Goals.dc.html' }, s[k]);
     const d = (name, pct, k) => ({ name, v: pct + '%', w: Math.round(pct / 40 * 100) + '%', bg: k });
     return {
+      ok, isLoading: st === 'loading', isFirst: st === 'first', isHoliday: st === 'holiday', isError: st === 'error',
+      dateLine: st === 'holiday' ? 'Week 42 (12–16 Oct) · comes Tue 20 Oct, after the holiday' : st === 'first' ? 'Comes every Monday at 8:00 · also sent by push' : 'Monday 19 October · covers week 42 (12–16 Oct) · also sent by push',
+      ewOpen: ew ? 'true' : 'false', ewShow: ew && st !== 'first',
+      toggleEarlier: () => ew ? this.focusTo('ew-btn', { earlier: false }) : this.focusTo('ew-title', { earlier: true }),
+      earlier: [
+        { when: 'Week 41 · Mon 12 Oct', text: '5 of 8 on track. In-app sales went At risk: payment provider keys late. 1 decision.' },
+        { when: 'Week 40 · Mon 5 Oct', text: '6 of 8 on track. Support reply time went At risk. Faster menu pages accepted.' },
+        { when: 'Week 39 · Mon 28 Sep', text: '7 of 8 on track. Q4 Goals approved. No decisions waiting.' }
+      ],
+      pdfDone: !!ui.pdf && ok,
+      savePdf: () => this.focusTo('pdf-done', { pdf: true }),
       changes: [
         c('Cut support reply time to 4 hours', 'Was At risk · flag cleared Thursday', 'On track', 'ok'),
         c('Onboard 40 pilot schools', 'Was On track · new flag on School App sign-up flow', 'Off track', 'off'),
         c('Increase in-app sales by 20%', 'No change · At risk since Fri 9 Oct', 'At risk', 'risk'),
-        c('Reach 25,000 monthly users', 'No change', 'On track', 'ok')
+        c('Cut new-hire setup to 2 days', 'No change · At risk since Mon 21 Sep', 'At risk', 'risk'),
+        c('Reach 25,000 monthly users', 'No change', 'On track', 'ok'),
+        c('3 more Goals', 'No change: app rating, card fees, school partners', 'On track', 'ok')
       ],
       depts: [
         d('Operations', 31, '#C2410C'),

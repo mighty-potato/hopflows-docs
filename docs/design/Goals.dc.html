@@ -35,9 +35,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Goals</h1>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Flag: any</button>
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Product: all</button>
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Department: all</button>
+        <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Flag<select onChange="{{filters.flag.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.flag.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
+        <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Product<select onChange="{{filters.product.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.product.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
+        <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Department<select onChange="{{filters.dept.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.dept.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
       </div>
     </div>
 
@@ -168,10 +168,18 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </section>
       </div>
 
-      <sc-for list="{{goals}}" as="g" hint-placeholder-count="4">
-        <a href="GoalDetail.dc.html" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: #1C1B1F; min-width: 0">
+      <div style="grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 8px 4px 0">
+        <h2 id="gl-title" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{listTitle}}</h2>
+        <sc-if value="{{filtered}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{clearFilters}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Clear filters</button></sc-if>
+      </div>
+      <sc-if value="{{noMatch}}" hint-placeholder-val="{{false}}">
+        <p style="grid-column: 1 / -1; margin: 0; padding: 24px; border-radius: 28px; background: #FFFFFF; font-size: 15px; line-height: 22px; color: #4A4950">No Goals match these filters. Clear them to see all 8.</p>
+      </sc-if>
+      <sc-for list="{{goals}}" as="g" hint-placeholder-count="8">
+        <sc-if value="{{g.hasPage}}" hint-placeholder-val="{{true}}">
+        <a href="{{g.href}}" aria-label="{{g.label}}" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: #1C1B1F; min-width: 0">
           <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
-            <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{g.title}}</span>
+            <h3 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{g.title}}</h3>
             <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: {{g.bg}}; color: {{g.fg}}; font-size: 13px; font-weight: 600; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{g.dot}}"></span>{{g.flag}}</span>
           </div>
           <div style="display: flex; flex-direction: column; gap: 6px">
@@ -186,9 +194,28 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">Ends {{g.end}}</span>
           </div>
         </a>
+        </sc-if>
+        <sc-if value="{{g.noPage}}" hint-placeholder-val="{{false}}">
+        <article aria-label="{{g.label}}" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: #1C1B1F; min-width: 0">
+          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+            <h3 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{g.title}}</h3>
+            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: {{g.bg}}; color: {{g.fg}}; font-size: 13px; font-weight: 600; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{g.dot}}"></span>{{g.flag}}</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">{{g.now}}</span><span style="font-size: 12px; color: #6E6C73">target {{g.target}}</span></div>
+            <div style="height: 10px; border-radius: 999px; background: #E7E5DF"><div style="height: 10px; border-radius: 999px; background: #1C1B1F; width: {{g.pct}}"></div></div>
+            <span style="font-size: 12px; color: #6E6C73">Result · started at {{g.start}}</span>
+          </div>
+          <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{g.why}}</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto">
+            <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{g.del}}</span>
+            <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{g.products}}</span>
+            <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">Ends {{g.end}}</span>
+          </div>
+        </article>
+        </sc-if>
       </sc-for>
     </div>
-    <a href="Goals.dc.html" style="align-self: flex-start; font-size: 13px; font-weight: 600">See all 8 Goals</a>
     </sc-if>
   </main>
 </div>
@@ -250,17 +277,34 @@ class Component extends DCLogic {
       risk: { flag: 'At risk', bg: '#FCE3D3', fg: '#9A3412', dot: '#C2410C' },
       off: { flag: 'Off track', bg: '#F2B8B2', fg: '#7A1F18', dot: '#C0352B' }
     };
-    const g = (title, k, now, target, start, pct, why, del, products, end) => Object.assign({ title, now, target, start, pct, why, del, products, end }, f[k]);
+    const g = (title, k, now, target, start, pct, why, del, products, depts, end, href) => Object.assign({ title, k, now, target, start, pct, why, del, products: products.join(' · '), plist: products, depts, end, href: href || '', hasPage: !!href, noPage: !href, label: title + ', ' + f[k].flag + ', ' + now + ' of ' + target }, f[k]);
+    const all = [
+      g('Increase in-app sales by 20%', 'risk', '+14%', '+20%', '$48,200 a month', '70%', 'From Launch In-App Ordering v1 · Waiting on others · 10 days', 'Deliverables 2/4 accepted', ['Retail App'], ['Technical', 'Marketing', 'Design'], '31 Dec', 'GoalDetail.dc.html'),
+      g('Onboard 40 pilot schools', 'off', '22', '40', '0 schools', '55%', 'From School App sign-up flow · Scope change · 6 days', 'Deliverables 1/3 accepted', ['School App'], ['Technical', 'Marketing'], '15 Dec'),
+      g('Cut new-hire setup to 2 days', 'risk', '4 days', '2 days', '6 days', '50%', 'From Staff laptop setup guide · Not enough people · 4 weeks', 'Deliverables 1/2 accepted', ['No product'], ['Operations'], '18 Dec'),
+      g('Cut support reply time to 4 hours', 'ok', '5.2h', '4h', '9h', '76%', 'No flags. Support reply templates finished last week.', 'Deliverables 3/4 accepted', ['Retail App', 'School App'], ['Operations'], '31 Dec'),
+      g('Reach 25,000 monthly users', 'ok', '21,400', '25,000', '17,000', '55%', 'No flags.', 'Deliverables 2/3 accepted', ['Retail App'], ['Marketing', 'Technical'], '31 Dec'),
+      g('Keep the app rating at 4.5 or higher', 'ok', '4.6', '4.5', '4.4', '100%', 'No flags. Above target since week 38.', 'Deliverables 1/1 accepted', ['Retail App'], ['Design'], '31 Dec'),
+      g('Cut card fees in shops by 15%', 'ok', '−9%', '−15%', '$1,900 a month', '60%', 'No flags.', 'Deliverables 1/2 accepted', ['No product'], ['Operations'], '31 Dec'),
+      g('Sign 5 school partners', 'ok', '3', '5', '0 partners', '60%', 'No flags.', 'Deliverables 1/2 accepted', ['School App'], ['Marketing'], '15 Dec')
+    ];
+    const ui = this.state || {};
+    const fv = { flag: ui.flag || 'Any', product: ui.product || 'All', dept: ui.dept || 'All' };
+    const opt = (key, list) => ({ opts: list.map((v) => ({ v, sel: fv[key] === v ? 'selected' : null })), set: (e) => this.setState({ [key]: e.target.value }) });
+    const filters = {
+      flag: opt('flag', ['Any', 'On track', 'At risk', 'Off track']),
+      product: opt('product', ['All', 'Retail App', 'School App', 'No product']),
+      dept: opt('dept', ['All', 'Technical', 'Marketing', 'Operations', 'Design'])
+    };
+    const goals = all.filter((x) => (fv.flag === 'Any' || x.flag === fv.flag) && (fv.product === 'All' || x.plist.includes(fv.product)) && (fv.dept === 'All' || x.depts.includes(fv.dept)));
+    const filtered = fv.flag !== 'Any' || fv.product !== 'All' || fv.dept !== 'All';
     const st = this.props.state ?? 'normal';
     return {
       dc, a, b,
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
-      goals: [
-        g('Increase in-app sales by 20%', 'risk', '+14%', '+20%', '$48,200 a month', '70%', 'From Launch In-App Ordering v1 · Waiting on others · 10 days', 'Deliverables 2/4 accepted', 'Retail App', '31 Dec'),
-        g('Onboard 40 pilot schools', 'off', '22', '40', '0 schools', '55%', 'From School App sign-up flow · Scope change · 6 days', 'Deliverables 1/3 accepted', 'School App', '15 Dec'),
-        g('Cut support reply time to 4 hours', 'ok', '5.2h', '4h', '9h', '76%', 'No flags. Support reply templates finished last week.', 'Deliverables 3/4 accepted', 'Retail App · School App', '31 Dec'),
-        g('Reach 25,000 monthly users', 'ok', '21,400', '25,000', '17,000', '55%', 'No flags.', 'Deliverables 2/3 accepted', 'Retail App', '31 Dec')
-      ]
+      goals, filters, filtered, noMatch: goals.length === 0,
+      listTitle: filtered ? goals.length + ' of 8 Goals' : 'All 8 Goals',
+      clearFilters: () => this.setState({ flag: 'Any', product: 'All', dept: 'All' }),
     };
   }
 }
