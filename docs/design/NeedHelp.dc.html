@@ -44,25 +44,22 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
   <dc-import name="MobileNav" current="tasks" hint-size="390px,80px"></dc-import>
 
   <div class="hf-dialog-overlay" style="position: absolute; inset: 0; background: rgba(28,27,31,0.48); display: flex; align-items: flex-start; justify-content: center; padding: 72px 16px; box-sizing: border-box">
-    <section role="dialog" aria-modal="true" aria-labelledby="nh-title" class="hf-dialog" style="width: 100%; max-width: 600px; background: #FFFFFF; border-radius: 28px; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+    <section role="dialog" aria-modal="true" aria-labelledby="nh-title" onKeyDown="{{dialogKey}}" class="hf-dialog" style="width: 100%; max-width: 600px; background: #FFFFFF; border-radius: 28px; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
       <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
         <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
-          <h1 id="nh-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Need help</h1>
+          <h1 id="nh-title" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Need help</h1>
           <span style="font-size: 13px; line-height: 18px; color: #6E6C73">Build the checkout API · due today 17:00</span>
         </div>
         <a href="TaskDetail.dc.html" aria-label="Close" style="width: 44px; height: 44px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
       </div>
 
       <sc-if value="{{asking}}" hint-placeholder-val="{{true}}">
-        <div role="radiogroup" aria-label="What's in the way?" style="display: flex; flex-direction: column; gap: 8px">
-          <span style="font-size: 13px; line-height: 18px; font-weight: 600">What's in the way?</span>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px">
-            <button type="button" role="radio" aria-checked="true" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Waiting on someone</button>
-            <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Missing access or info</button>
-            <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Not sure how</button>
-            <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Too much on my plate</button>
-            <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Other</button>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span id="nh-reason" style="font-size: 13px; line-height: 18px; font-weight: 600">What's in the way?</span>
+          <div role="radiogroup" aria-labelledby="nh-reason" style="display: flex; flex-wrap: wrap; gap: 8px">
+            <sc-for list="{{reasons}}" as="o" hint-placeholder-count="5"><button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" onKeyDown="{{o.key}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for>
           </div>
+          <sc-if value="{{notSure}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; line-height: 16px; color: #4A4950">That's a normal question. Chenda can point you to a teammate who has done this before.</span></sc-if>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 6px">
@@ -93,7 +90,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </sc-if>
 
       <sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
-        <div role="status" style="display: flex; flex-direction: column; gap: 14px">
+        <div id="nh-sent" tabindex="-1" role="status" style="display: flex; flex-direction: column; gap: 14px">
           <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 13px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>Blocked · waiting on payment provider</span>
           <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Chenda knows. You'll hear back in your Inbox.</span>
           <span style="font-size: 15px; line-height: 22px; color: #4A4950">Keep going with your next task in the meantime. When it's sorted, tap Unblock on the task.</span>
@@ -109,13 +106,54 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"sendFailed":{"editor":"boolean","default":false},"sent":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":960}}'>
 class Component extends DCLogic {
+  // move keyboard focus to the part of the screen that just appeared
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() {
+    const s = this.state || {};
+    if (s.focusN && s.focusN !== this._focusN) {
+      this._focusN = s.focusN;
+      requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); });
+    }
+  }
+  // one Tab stop per choice group; arrow keys move and pick, like native radio buttons
+  radioGroup(group, list, current, setKey) {
+    return list.map((x, i) => {
+      const on = current === x.key;
+      const move = (d) => { const n = list[(i + d + list.length) % list.length]; this.focusTo(group + '-' + n.key, { [setKey]: n.key }); };
+      return Object.assign({}, x, {
+        id: group + '-' + x.key, on: on ? 'true' : 'false', tab: (current ? on : i === 0) ? '0' : '-1', sel: on,
+        pick: () => this.setState({ [setKey]: x.key }),
+        key: (e) => {
+          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); move(1); }
+          else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); move(-1); }
+        }
+      });
+    });
+  }
+  // dialog: focus starts on the title, Tab stays inside, Escape closes
+  componentDidMount() { setTimeout(() => { const el = document.getElementById(this.dialogTitle); if (el) el.focus(); }, 200); }
+  dialogKey(e) {
+    if (e.key === 'Escape') { e.preventDefault(); try { window.location.href = this.closeHref; } catch (x) {} return; }
+    if (e.key !== 'Tab') return;
+    const f = Array.from(e.currentTarget.querySelectorAll('a[href], button, input, select, textarea, [tabindex="0"]')).filter((el) => el.offsetParent !== null && el.getAttribute('aria-hidden') !== 'true');
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1], at = document.activeElement;
+    if (e.shiftKey && (at === first || !e.currentTarget.contains(at))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && at === last) { e.preventDefault(); first.focus(); }
+  }
   renderVals() {
+    this.dialogTitle = 'nh-title'; this.closeHref = 'TaskDetail.dc.html';
+    const ui = this.state || {};
+    const reason = ui.reason || 'waiting';
+    const reasons = this.radioGroup('nr', [{ key: 'waiting', name: 'Waiting on someone' }, { key: 'access', name: 'Missing access or info' }, { key: 'how', name: 'Not sure how' }, { key: 'much', name: 'Too much on my plate' }, { key: 'other', name: 'Other' }], reason, 'reason')
+      .map((o) => Object.assign(o, { bg: o.sel ? '#1C1B1F' : '#F4F3EF', fg: o.sel ? '#FFFFFF' : '#1C1B1F' }));
     const sent = (this.state && this.state.sent) || (this.props.sent ?? false);
     return {
       sent,
       sendFailed: this.props.sendFailed ?? false,
       asking: !sent,
-      send: () => this.setState({ sent: true })
+      reasons, notSure: reason === 'how', dialogKey: (e) => this.dialogKey(e),
+      send: () => this.focusTo('nh-sent', { sent: true })
     };
   }
 }

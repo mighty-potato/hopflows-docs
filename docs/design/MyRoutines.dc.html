@@ -65,26 +65,28 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
       <section aria-labelledby="rt-new" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px; min-width: 0">
         <h2 id="rt-new" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">New personal routine</h2>
-        <div style="display: flex; flex-direction: column; gap: 6px"><label for="rt-title" style="font-size: 13px; line-height: 18px; font-weight: 600">What do you do each time?</label><input id="rt-title" type="text" value="Clear my review queue" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="rt-title" style="font-size: 13px; line-height: 18px; font-weight: 600">What do you do each time?</label><input id="rt-title" type="text" value="{{newTitle}}" onChange="{{setTitle}}" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
         <div style="display: flex; flex-direction: column; gap: 6px">
           <span id="rt-rep" style="font-size: 13px; line-height: 18px; font-weight: 600">Repeats</span>
           <div role="radiogroup" aria-labelledby="rt-rep" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
-            <sc-for list="{{repeats}}" as="o" hint-placeholder-count="4"><button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="height: 44px; border: 0; border-radius: 14px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for>
+            <sc-for list="{{repeats}}" as="o" hint-placeholder-count="4"><button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" onKeyDown="{{o.key}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="height: 44px; border: 0; border-radius: 14px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for>
           </div>
         </div>
         <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
-          <div style="display: flex; flex-direction: column; gap: 6px"><label for="rt-by" style="font-size: 13px; line-height: 18px; font-weight: 600">Done by</label><input id="rt-by" type="time" value="16:00" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="rt-by" style="font-size: 13px; line-height: 18px; font-weight: 600">Done by</label><select id="rt-by" onChange="{{setBy}}" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><sc-for list="{{times}}" as="t" hint-placeholder-count="6"><option value="{{t.v}}" selected="{{t.sel}}">{{t.v}}</option></sc-for></select></div>
           <div style="display: flex; flex-direction: column; gap: 6px"><label for="rt-est" style="font-size: 13px; line-height: 18px; font-weight: 600">About how long?</label><select id="rt-est" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>15 min</option><option selected>30 min</option><option>1 hour</option></select></div>
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
           <span style="font-size: 13px; line-height: 18px; font-weight: 600">Checklist <span style="font-weight: 400; color: #6E6C73">· optional</span></span>
-          <label class="hf-check-row" style="padding: 0 12px; border-radius: 14px; background: #F4F3EF"><input type="checkbox" disabled><span>Open my reviews</span></label>
-          <label class="hf-check-row" style="padding: 0 12px; border-radius: 14px; background: #F4F3EF"><input type="checkbox" disabled><span>Reply or pass each one on</span></label>
-          <button type="button" style="align-self: flex-start; height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add a step</button>
+          <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px">
+            <sc-for list="{{steps}}" as="st" hint-placeholder-count="2"><li style="display: flex; align-items: center; gap: 10px; padding: 0 0 0 14px; min-height: 44px; border-radius: 14px; background: #F4F3EF"><span aria-hidden="true" style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 5px; border: 2px solid #6E6C73"></span><span style="flex: 1; font-size: 15px">{{st.text}}</span><button type="button" aria-label="Remove step: {{st.text}}" onClick="{{st.remove}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950">Remove</button></li></sc-for>
+          </ul>
+          <div style="display: flex; gap: 8px"><label for="rt-step" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">New step</label><input id="rt-step" type="text" value="{{newStep}}" onChange="{{setStep}}" onKeyDown="{{stepKey}}" placeholder="Add a step, then press Enter" style="flex: 1; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 14px; border: 2px dashed #E7E5DF; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F"><button type="button" onClick="{{addStep}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Add a step</button></div>
         </div>
         <label class="hf-check-row"><input type="checkbox"><span>Runs on holidays too</span></label>
-        <p style="margin: 0; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 13px; line-height: 18px">If it isn't done by 16:00 it closes as missed and starts fresh the next day. Missed ones never pile up.</p>
-        <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Create routine</button></div>
+        <p style="margin: 0; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 13px; line-height: 18px">If it isn't done by {{by}} it closes as missed and starts fresh the next day. Missed ones never pile up.</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer" onClick="{{create}}">Create routine</button></div>
+        <sc-if value="{{created}}" hint-placeholder-val="{{false}}"><p id="rt-done" tabindex="-1" role="status" style="margin: 0; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>Added to Just for me.</strong> It starts on your next working day.</p></sc-if>
       </section>
     </div>
   </main>
@@ -93,15 +95,39 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
+  // move keyboard focus to the part of the screen that just appeared
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() {
+    const s = this.state || {};
+    if (s.focusN && s.focusN !== this._focusN) {
+      this._focusN = s.focusN;
+      requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); });
+    }
+  }
   renderVals() {
     const s = this.state || {};
     const rep = s.rep || 'work';
-    const repeats = [['daily', 'Every day'], ['work', 'Working days'], ['days', 'Chosen days'], ['month', 'Monthly']].map(([id, name]) => ({
-      name, on: rep === id ? 'true' : 'false', bg: rep === id ? '#1C1B1F' : '#F4F3EF', fg: rep === id ? '#FFFFFF' : '#1C1B1F', pick: () => this.setState({ rep: id })
-    }));
+    const opts = [['daily', 'Every day'], ['work', 'Working days'], ['days', 'Chosen days'], ['month', 'Monthly']];
+    const repeats = opts.map(([id, name], i) => {
+      const on = rep === id;
+      const move = (d) => { const n = opts[(i + d + opts.length) % opts.length][0]; this.focusTo('rr-' + n, { rep: n }); };
+      return { id: 'rr-' + id, tab: on ? '0' : '-1', name, on: on ? 'true' : 'false', bg: on ? '#1C1B1F' : '#F4F3EF', fg: on ? '#FFFFFF' : '#1C1B1F', pick: () => this.setState({ rep: id }),
+        key: (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); move(1); } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); move(-1); } } };
+    });
+    const by = s.by || '16:00';
+    const times = ['08:00', '09:00', '10:00', '12:00', '14:00', '16:00', '17:00', '18:00'].map((v) => ({ v, sel: v === by ? 'selected' : null }));
+    const list = s.steps || ['Open my reviews', 'Reply or pass each one on'];
+    const newStep = s.newStep || '';
+    const addStep = () => { const t = newStep.trim(); if (!t) return; this.focusTo('rt-step', { steps: list.concat([t]), newStep: '' }); };
+    const newTitle = s.title != null ? s.title : 'Clear my review queue';
+    const extra = s.created ? [{ title: s.created, when: { daily: 'Every day', work: 'Working days', days: 'Chosen days', month: 'Monthly' }[rep] + ' by ' + by + ' · ' + list.length + ' steps', state: 'On', bg: '#DCEFE2', fg: '#1F5E3A', action: 'Remove', toggle: () => this.setState({ created: null }) }] : [];
     const paused = !!s.paused;
     return {
-      repeats,
+      repeats, times, by, setBy: (e) => this.setState({ by: e.target.value }),
+      steps: list.map((text, i) => ({ text, remove: () => this.setState({ steps: list.filter((x, j) => j !== i) }) })),
+      newStep, setStep: (e) => this.setState({ newStep: e.target.value }), stepKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); addStep(); } }, addStep,
+      newTitle, setTitle: (e) => this.setState({ title: e.target.value }),
+      created: !!s.created, create: () => this.focusTo('rt-done', { created: newTitle.trim() || 'New routine' }),
       team: [
         { title: 'Open shop checklist', when: 'Every day by 09:00 · takes turns · your turn Tue and Thu' },
         { title: 'Daily wrap-up notes', when: 'Working days by 18:00 · you' }
@@ -110,7 +136,7 @@ class Component extends DCLogic {
         { title: 'Check overnight error emails', when: 'Working days by 09:30 · 3 steps',
           state: paused ? 'Paused' : 'On', bg: paused ? '#F4F3EF' : '#DCEFE2', fg: paused ? '#4A4950' : '#1F5E3A',
           action: paused ? 'Turn back on' : 'Pause', toggle: () => this.setState({ paused: !paused }) }
-      ]
+      ].concat(extra)
     };
   }
 }

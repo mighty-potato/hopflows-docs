@@ -78,7 +78,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                 </div>
                 <sc-if value="{{card.isBlocked}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; padding: 6px 12px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 13px">Blocked · {{card.blockerNote}}</span></sc-if>
                 <sc-if value="{{card.isBlocked}}" hint-placeholder-val="{{false}}"><details class="hf-disclosure"><summary>Update blocker</summary><div class="hf-disclosure-content">
-<label for="blocker-{{card.id}}" style="font-size: 13px">What are you waiting on?</label><textarea id="blocker-{{card.id}}" rows="2" onChange="{{card.editBlocker}}" style="width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #6E6C73; border-radius: 12px; font: inherit">{{card.blockerNote}}</textarea>
+<label for="blocker-{{card.id}}" style="font-size: 13px">What are you waiting on?</label><textarea value="{{card.blockerNote}}" id="blocker-{{card.id}}" rows="2" onChange="{{card.editBlocker}}" style="width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #6E6C73; border-radius: 12px; font: inherit"></textarea>
 <button type="button" onClick="{{card.saveBlocker}}" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font: inherit; cursor: pointer">Save update for Chenda</button>
 </div></details></sc-if>
               </article>
@@ -105,7 +105,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 <sc-if value="{{card.canReopen}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{card.start}}">Back to In progress</button></sc-if>
 <sc-if value="{{card.isBlocked}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{card.unblock}}">Unblock</button></sc-if>
 </div></details><sc-if value="{{card.isBlocked}}" hint-placeholder-val="{{false}}"><details class="hf-disclosure"><summary>Update blocker</summary><div class="hf-disclosure-content">
-<label for="blocker-{{card.id}}" style="font-size: 13px">What are you waiting on?</label><textarea id="blocker-{{card.id}}" rows="2" onChange="{{card.editBlocker}}" style="width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #6E6C73; border-radius: 12px; font: inherit">{{card.blockerNote}}</textarea>
+<label for="blocker-{{card.id}}" style="font-size: 13px">What are you waiting on?</label><textarea value="{{card.blockerNote}}" id="blocker-{{card.id}}" rows="2" onChange="{{card.editBlocker}}" style="width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #6E6C73; border-radius: 12px; font: inherit"></textarea>
 <button type="button" onClick="{{card.saveBlocker}}" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font: inherit; cursor: pointer">Save update for Chenda</button>
 </div></details></sc-if>
                 </article>
@@ -140,14 +140,14 @@ class Component extends DCLogic {
     const view = local.view || this.props.view || 'list';
     const views = [['list', 'List'], ['board', 'Board'], ['table', 'Table']].map(([id, name]) => ({name, on: view === id ? 'true' : 'false', bg: view === id ? '#1C1B1F' : 'transparent', fg: view === id ? '#FFFFFF' : '#4A4950', pick: () => this.setState({view: id})}));
     const seed = [
-      {id: 'photos', title: 'Check menu photos with Design', where: 'Menu refresh', due: 'Today', size: 'Small', status: 'To do'},
-      {id: 'notes', title: 'Write release notes', where: 'Launch In-App Ordering v1', due: 'Mon 19', size: 'Small', status: 'To do'},
-      {id: 'tests', title: 'Menu sync job tests', where: 'Menu sync', due: 'Tue 20', size: 'Medium', status: 'To do'},
-      {id: 'contract', title: 'Contract renewal check', where: 'Standalone task', due: 'Thu 22', size: 'Small', status: 'To do', confidential: true},
+      {id: 'photos', title: 'Check menu photos with Design', where: 'Menu refresh · from Pisey on Wed', due: 'Today', size: 'Small', status: 'To do', week: 'From Pisey'},
+      {id: 'notes', title: 'Write release notes', where: 'Launch In-App Ordering v1', due: 'Tue 10 Nov', size: 'Small', status: 'To do'},
+      {id: 'tests', title: 'Menu sync job tests', where: 'Menu sync · moving to week 44 for your leave', due: 'Thu 22', size: 'Medium', status: 'To do'},
+      {id: 'contract', title: 'Contract renewal check', where: 'Standalone task · due during your leave', due: 'Thu 22', size: 'Small', status: 'To do', confidential: true},
       {id: 'checkout', title: 'Build the checkout API', where: 'Launch In-App Ordering v1 · Chenda checks it', due: 'Today', size: 'Medium', status: 'In progress', needsReview: true},
       {id: 'printer', title: 'Fix receipt printer driver', where: 'Standalone · added this week', due: 'Wed 21', size: '8h', status: 'In progress', blocked: true, blockerNote: 'waiting on vendor', week: 'Added'},
       {id: 'coupon', title: 'Coupon rules screen', where: 'Launch In-App Ordering v1 · Chenda checks it', due: 'Fri 16', size: 'Medium', status: 'Review', needsReview: true},
-      {id: 'rounding', title: 'Fix receipt rounding on the POS', where: 'Standalone', due: 'Today', size: 'Small', status: 'Done', week: 'Added'},
+      {id: 'footer', title: 'Update receipt footer text', where: 'Standalone · from Pisey on Wed', due: 'Today', size: 'Small', status: 'Done', week: 'From Pisey'},
       {id: 'banner', title: 'Coupon banner text', where: 'Launch In-App Ordering v1', due: 'Thu 15', size: 'Small', status: 'Done'}
     ];
     const update = (id, patch, notice) => this.setState({changes: Object.assign({}, local.changes, {[id]: Object.assign({}, (local.changes || {})[id], patch)}), notice, undoChanges: local.changes || {}, canUndo: true});

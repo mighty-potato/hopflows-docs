@@ -60,7 +60,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </section>
 
     <section aria-labelledby="rq-waiting" style="background: #FFFFFF; border-radius: 28px; padding: 20px 24px 8px; display: flex; flex-direction: column">
-      <h2 id="rq-waiting" style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Waiting for Chenda <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">1</span></h2>
+      <h2 id="rq-waiting" style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Waiting for Chenda <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">2</span></h2>
       <sc-for list="{{waiting}}" as="r" hint-placeholder-count="1">
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 0; border-top: 1px solid #F0EEE9">
           <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
@@ -73,7 +73,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </section>
 
     <section aria-labelledby="rq-answered" style="background: #FFFFFF; border-radius: 28px; padding: 20px 24px 8px; display: flex; flex-direction: column">
-      <h2 id="rq-answered" style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Answered <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">6</span></h2>
+      <h2 id="rq-answered" style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Answered <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">5</span></h2>
       <sc-for list="{{answered}}" as="r" hint-placeholder-count="6">
         <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px 16px; padding: 16px 0; border-top: 1px solid #F0EEE9">
           <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
@@ -103,19 +103,19 @@ class Component extends DCLogic {
     const st = {
       task: { status: 'Became a task', bg: '#C9DDE8', fg: '#33454F', dot: '#33454F' },
       joined: { status: 'Joined the same report', bg: '#F4F3EF', fg: '#1C1B1F', dot: '#1C1B1F' },
-      later: { status: 'Back on Tue 3 Nov', bg: '#FCE3D3', fg: '#9A3412', dot: '#C2410C' },
+      later: { status: 'Back on Tue 3 Nov', bg: '#C9DDE8', fg: '#33454F', dot: '#33454F' },
       closed: { status: 'Closed', bg: '#F4F3EF', fg: '#4A4950', dot: '#6E6C73' },
       done: { status: 'Done', bg: '#DCEFE2', fg: '#1F5E3A', dot: '#2E7D4F' }
     };
     const a = (title, meta, who, said, s, href, link) => Object.assign({ title, meta, who, said, href: href || '', link: link || '' }, st[s]);
     return {
       waiting: [
+        { title: 'Checkout fails with the 10% coupon', meta: 'Sent today 13:58 · marked Seems urgent' },
         { title: 'Add Khmer search to the menu', meta: 'Sent yesterday from a meeting' }
       ],
       answered: [
-        a('Coupon breaks payment at checkout', 'Sent today 13:02 · answered 13:06', 'Chenda', 'This is now a task for Rithy. Thanks for the screenshot.', 'task', 'TaskDetail.dc.html', 'Follow the task'),
         a('Confidential request', 'Sent Wed 14 Oct', 'Chenda', 'This became a confidential task. You will see when it is done, but not the details.', 'task'),
-        a('Receipt printer offline at Toul Kork', 'Sent Tue 13 Oct', 'Chenda', 'Someone reported this already, so your report joined theirs. You will hear when it is fixed.', 'joined'),
+        a('Receipt prints the wrong shop address', 'Sent Tue 13 Oct', 'Chenda', 'Someone reported this already, so your report joined theirs. You will hear when it is fixed.', 'joined'),
         a('Khmer font in menu PDFs', 'Sent Mon 12 Oct', 'Chenda', 'Not this month. I will look at it again on Tue 3 November.', 'later'),
         a('Change the office Wi-Fi password', 'Sent Fri 9 Oct', 'Chenda', 'Closed: Operations already changed it on Friday.', 'closed'),
         a('Resize menu photos for the app', 'Sent Thu 8 Oct', 'HopFlows', 'Sreymom finished this on Wed 14 Oct.', 'done')

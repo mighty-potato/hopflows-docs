@@ -141,6 +141,18 @@ Trend view (weeks 40–42): surprise work Operations 24% → 27% → 31% (+7 pts
 
 Technical's rows match its own Reports (weeks 39–42: 65 of 75 locked tasks done in their week, 87%, cancelled and reassigned tasks left out). The Goal status table repeats the 8 Goals with done vs needed, owner and who to ask.
 
+## Dara's week (employee screens)
+
+Today on the employee screens is **Friday 16 October, 14:10** (before Build the checkout API goes to review at 15:10). Dara Sok, Technical, lead Chenda Lim.
+
+- Top 3 today: Build the checkout API (Medium, 12h estimate, in progress, due 17:00), Check menu photos with Design (Small, due today, from Pisey on Wednesday), Update receipt footer text (Small, from Pisey on Wednesday, done 10:24).
+- Beyond the Top 3: Fix receipt printer driver (added Tue, 8h, blocked on the vendor, due Wed 21), Coupon rules screen (with Chenda since Thu; accepted later on Friday), Write release notes (due Tue 10 Nov), Menu sync job tests (Medium, 10h, due Thu 22, moving to week 44), Contract renewal check (confidential, due Thu 22, during the leave).
+- Week 42 so far: 4 planned (1 done, 1 with Chenda, 1 due today, 1 moved), 3 came in (the printer driver, and 2 tasks from Pisey), 2 move to week 43. Routines 10 of 11 on time; Daily wrap-up notes missed on Wednesday.
+- Routines: Check overnight error emails (working days by 09:30, done 09:12 today), Daily wrap-up notes (working days by 18:00), Open shop checklist (Tue and Thu by 09:00).
+- Week 43 as Chenda plans it: 22h planned of 12h to plan with the leave counted; Menu sync job tests moves to week 44, then 12h of 12h. Without the leave: 22h of 24h.
+- Leave: Annual Thu 22 – Fri 23 Oct, waiting for Chenda. Sample new request: Annual Mon 9 – Tue 10 Nov (Menu sync job release Mon 9 Nov, Write release notes Tue 10 Nov). Backup approver: Sokha Meng.
+- Requests I sent: Checkout fails with the 10% coupon (sent 13:58 today, waiting; matches Rithy's open task in the Queue), Add Khmer search to the menu (waiting), Receipt prints the wrong shop address (joined), Khmer font in menu PDFs (back on Tue 3 Nov), and two older ones.
+
 ## Writing hours
 
 Always "Xh planned of Yh to plan". Add "Zh available" only when it explains Too much (planned past available).
