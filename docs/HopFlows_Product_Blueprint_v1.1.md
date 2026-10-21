@@ -705,6 +705,10 @@ Figure 13. Flow I, repeating daily work.
 1. Every Monday at the morning summary time, each leader gets one summary in the app, as a push alert, plus a PDF.
 2. The summary answers one question: are we on track with our Goals? It shows Goals by status (On track, At risk, Off track) and what changed since last week, new and cleared risk flags with reasons, Deliverables finished, updates to Goal results, how much work was unplanned in each department, and at most three decisions waiting for leaders.
 3. Each line opens the item in the app. The summary never shows individual Tasks or how busy individual people are.
+   Each decision opens where it can be made. Decisions waiting are also the first thing on the leader's Goals page:
+   - To approve a Goal, the leader sees its result, date, product, planned Deliverables and the proposer's note, then picks Approve or Send back with a note.
+   - For a date-or-scope question, the leader sees both choices and what each one changes. The answer goes to the person who asked, and the risk flag stays until they update the plan.
+   - Each decision can be undone straight after it is made.
 4. If Monday is a holiday, the summary comes on the next working day.
 
 ```mermaid
@@ -1424,6 +1428,7 @@ When someone chooses "Create a company", HopFlows walks them through five short 
 - Other departments' work can be seen read-only, without workload or reports; admins can close a department (Proposed, 20 October).
 - Company setup (Proposed): whoever creates a company is walked through company details, departments, people and optional products, and invites are sent together at the end (20 October).
 - After the lead-flow review (Proposed): approving leave first shows its effect on the person's week and lets the approver give away or move the Tasks due then; locking a week warns about leave requests still waiting but allows the lock; Handover warns when a receiver is on leave (20 October).
+- After the first leader-flow review (Proposed): decisions waiting open in place on the Goals page and from the weekly summary, with Approve or Send back for a Goal and a choice of date or scope for an off-track Deliverable (21 October).
 - After the fifth lead-flow review (Proposed): Handover can put an item back in Ready to plan with no owner; hours are always written as planned of time to plan (21 October).
 - After the fourth lead-flow review (Proposed): the locked plan counts waiting leave and open handovers, so every screen shows week 43 as it will really look; work can still be moved after locking and is recorded as a change (21 October).
 - After the third lead-flow review (Proposed): the lock check lets the lead move an overloaded person's work in place; the weekly plan keeps one list of the week's changes; Handover receivers are picked per item with the load after the move; a postponed request gets a return date (20 October).

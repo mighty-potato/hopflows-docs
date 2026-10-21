@@ -72,24 +72,101 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{ok}}" hint-placeholder-val="{{true}}">
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: stretch">
-      <section aria-label="Goals on track" style="grid-column: span 4; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
-        <h2 style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em; text-wrap: balance">Mostly on track</h2>
-        <span style="font-family: 'Geist Mono', monospace; font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums">5 of 8 Goals on track this quarter</span>
-        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto">
-          <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #9A3412"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>2 at risk</span>
-          <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #7A1F18"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C0352B"></span>1 off track</span>
+      <section aria-labelledby="dc-title" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+        <h2 id="dc-title" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">{{dc.title}}</h2>
+        <span style="font-size: 13px; line-height: 18px; color: #6E6C73">{{dc.sub}}</span>
+
+        <div style="border-bottom: 1px solid #F0EEE9">
+          <sc-if value="{{a.closed}}" hint-placeholder-val="{{true}}">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 0">
+              <span style="flex: 1 1 240px; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 15px; font-weight: 600">Approve Goal: Cut stock-outs by 30%</span><span style="font-size: 12px; color: #6E6C73">Proposed by Bopha Meas, Operations · Tue 13 Oct</span></span>
+              <button type="button" id="da-open" aria-expanded="false" aria-label="Approve or send back: Cut stock-outs by 30%" onClick="{{a.open}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Approve or send back</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{a.panel}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-direction: column; gap: 12px; padding: 14px 0 18px">
+              <h3 id="da-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Approve Goal: Cut stock-outs by 30%</h3>
+              <div style="display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 6px 12px; font-size: 13px; line-height: 18px">
+                <span style="color: #6E6C73">Result</span><span>Days a shop runs out of stock, <strong>20 → 14 a month</strong> by Wed 31 Mar</span>
+                <span style="color: #6E6C73">Proposed by</span><span>Bopha Meas, Operations lead · Tue 13 Oct</span>
+                <span style="color: #6E6C73">Product</span><span>Retail App</span>
+                <span style="color: #6E6C73">Deliverables</span><span>2 planned: Daily stock count in the app, Low-stock alerts</span>
+                <span style="color: #6E6C73">Bopha's note</span><span>"Shops ran out of milk tea cups on 20 days in September."</span>
+              </div>
+              <sc-if value="{{a.asking}}" hint-placeholder-val="{{false}}">
+                <div style="display: flex; flex-direction: column; gap: 6px">
+                  <label for="da-note" style="font-size: 13px; font-weight: 600">What should Bopha change?</label>
+                  <textarea id="da-note" rows="2" style="box-sizing: border-box; padding: 12px 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; line-height: 22px; color: #1C1B1F; resize: vertical">Make the date Wed 30 Jun. Shops need the new count first.</textarea>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                  <button type="button" onClick="{{a.send}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send back to Bopha</button>
+                  <button type="button" id="da-back" onClick="{{a.unask}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Cancel</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{a.choosing}}" hint-placeholder-val="{{true}}">
+                <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                  <button type="button" onClick="{{a.approve}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Approve Goal</button>
+                  <button type="button" onClick="{{a.ask}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Send back with a note</button>
+                  <button type="button" onClick="{{a.close}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Not now</button>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+          <sc-if value="{{a.done}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 0">
+              <span id="da-done" tabindex="-1" role="status" style="flex: 1 1 240px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>{{a.doneText}}</strong> {{a.doneNext}}</span>
+              <button type="button" onClick="{{a.undo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button>
+            </div>
+          </sc-if>
+        </div>
+
+        <div>
+          <sc-if value="{{b.closed}}" hint-placeholder-val="{{true}}">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 0">
+              <span style="flex: 1 1 240px; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 15px; font-weight: 600">School App sign-up flow: move the date or cut scope?</span><span style="font-size: 12px; color: #6E6C73">Off track · 3 days · asked by Chenda Lim</span></span>
+              <button type="button" id="db-open" aria-expanded="false" aria-label="Decide date or scope: School App sign-up flow" onClick="{{b.open}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Decide: date or scope</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{b.panel}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-direction: column; gap: 12px; padding: 14px 0 4px">
+              <h3 id="db-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">School App sign-up flow: move the date or cut scope?</h3>
+              <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Schools asked for Khmer forms. Chenda says that adds about 2 weeks to the sign-up flow, due Fri 6 Nov. Its Goal, Onboard 40 pilot schools, ends Tue 15 Dec.</p>
+              <div role="radiogroup" aria-labelledby="db-title" style="display: flex; flex-direction: column; gap: 8px">
+                <sc-for list="{{b.opts}}" as="o" hint-placeholder-count="2">
+                  <button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 16px; border: 0; border-radius: 16px; background: {{o.bg}}; color: {{o.fg}}; box-shadow: inset 0 0 0 {{o.ring}} #1C1B1F; font-family: inherit; text-align: left; cursor: pointer"><span style="font-size: 15px; font-weight: 600">{{o.name}}</span><span style="font-size: 12px; line-height: 16px; color: {{o.sub}}">{{o.why}}</span></button>
+                </sc-for>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+                <sc-if value="{{b.ready}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{b.send}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send to Chenda</button></sc-if>
+                <sc-if value="{{b.notReady}}" hint-placeholder-val="{{true}}"><button type="button" aria-disabled="true" aria-describedby="db-hint" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Send to Chenda</button><span id="db-hint" style="font-size: 12px; color: #6E6C73">Pick one first</span></sc-if>
+                <button type="button" onClick="{{b.close}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Not now</button>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{b.done}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 0">
+              <span id="db-done" tabindex="-1" role="status" style="flex: 1 1 240px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>{{b.doneText}}</strong> The flag stays until Chenda updates the plan.</span>
+              <button type="button" onClick="{{b.undo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button>
+            </div>
+          </sc-if>
         </div>
       </section>
-      <section aria-label="Latest weekly summary" style="grid-column: span 4; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
-        <span style="font-size: 12px">Weekly summary · Mon 12 Oct</span>
-        <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">One new flag, two Deliverables finished, sales up 3 points.</span>
-        <a href="Summary.dc.html" style="margin-top: auto; align-self: flex-start; height: 44px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Read summary</a>
-      </section>
-      <section aria-label="Decisions waiting" style="grid-column: span 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 6px">
-        <span style="font-size: 12px; color: #6E6C73">Waiting for you · 2</span>
-        <div style="display: flex; flex-direction: column; gap: 2px; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 15px; font-weight: 600">Approve Goal: Cut stock-outs by 30%</span><span style="font-size: 12px; color: #6E6C73">Proposed by Operations</span></div>
-        <div style="display: flex; flex-direction: column; gap: 2px; padding: 8px 0"><span style="font-size: 15px; font-weight: 600">School App: move date or scope?</span><span style="font-size: 12px; color: #6E6C73">Off track · asked by Kosal Nhem</span></div>
-      </section>
+
+      <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <section aria-labelledby="gs-title" style="background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+          <h2 id="gs-title" style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em; font-variant-numeric: tabular-nums">5 of 8 on track</h2>
+          <span style="font-size: 15px; line-height: 22px">3 Goals need attention this quarter.</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px">
+            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #9A3412"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>2 at risk</span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #7A1F18"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C0352B"></span>1 off track</span>
+          </div>
+        </section>
+        <section aria-label="Latest weekly summary" style="background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 12px">Weekly summary · Mon 12 Oct</span>
+          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">One new flag, two Deliverables finished, sales up 3 points.</span>
+          <a href="Summary.dc.html" style="margin-top: 4px; align-self: flex-start; height: 44px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Read summary</a>
+        </section>
+      </div>
 
       <sc-for list="{{goals}}" as="g" hint-placeholder-count="4">
         <a href="GoalDetail.dc.html" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: #1C1B1F; min-width: 0">
@@ -118,7 +195,56 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
+  // move keyboard focus to the part of the screen that just appeared
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() {
+    const s = this.state || {};
+    if (s.focusN && s.focusN !== this._focusN) {
+      this._focusN = s.focusN;
+      requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); });
+    }
+  }
   renderVals() {
+    const s = this.state || {};
+    // the weekly summary links here with #decide-stockouts or #decide-schoolapp to open that decision
+    let hash = '';
+    try { hash = window.location.hash; } catch (e) {}
+    const aStep = s.aStep || (hash === '#decide-stockouts' ? 'choose' : 'closed');
+    const bStep = s.bStep || (hash === '#decide-schoolapp' ? 'choose' : 'closed');
+    const a = {
+      closed: aStep === 'closed', panel: aStep === 'choose' || aStep === 'ask', choosing: aStep === 'choose', asking: aStep === 'ask',
+      done: aStep === 'approved' || aStep === 'sent',
+      doneText: aStep === 'sent' ? 'Sent back to Bopha.' : 'Approved: Cut stock-outs by 30%.',
+      doneNext: aStep === 'sent' ? 'It comes back here when she changes it.' : 'It is on the Goals list, and Bopha can plan its Deliverables.',
+      open: () => this.focusTo('da-title', { aStep: 'choose' }),
+      close: () => this.focusTo('da-open', { aStep: 'closed' }),
+      approve: () => this.focusTo('da-done', { aStep: 'approved' }),
+      ask: () => this.focusTo('da-note', { aStep: 'ask' }),
+      unask: () => this.focusTo('da-title', { aStep: 'choose' }),
+      send: () => this.focusTo('da-done', { aStep: 'sent' }),
+      undo: () => this.focusTo('da-open', { aStep: 'closed' })
+    };
+    const choices = [
+      { key: 'date', name: 'Move the date to Fri 20 Nov', why: 'Khmer forms are in the first release. The Goal still has 3 weeks after it.', done: 'Sent to Chenda: move the date to Fri 20 Nov.' },
+      { key: 'scope', name: 'Keep Fri 6 Nov, add Khmer forms later', why: 'Schools start in English. Khmer forms become a second Deliverable.', done: 'Sent to Chenda: keep Fri 6 Nov, Khmer forms later.' }
+    ];
+    const picked = choices.find((c) => c.key === s.bPick);
+    const b = {
+      closed: bStep === 'closed', panel: bStep === 'choose', done: bStep === 'sent',
+      ready: !!picked, notReady: !picked, doneText: picked ? picked.done : '',
+      opts: choices.map((c) => {
+        const on = s.bPick === c.key;
+        return { name: c.name, why: c.why, on: on ? 'true' : 'false', bg: on ? '#FFF6D6' : '#F4F3EF', fg: '#1C1B1F', sub: '#4A4950', ring: on ? '2px' : '0', pick: () => this.setState({ bPick: c.key }) };
+      }),
+      open: () => this.focusTo('db-title', { bStep: 'choose' }),
+      close: () => this.focusTo('db-open', { bStep: 'closed' }),
+      send: () => this.focusTo('db-done', { bStep: 'sent' }),
+      undo: () => this.focusTo('db-open', { bStep: 'closed' })
+    };
+    const left = (a.done ? 0 : 1) + (b.done ? 0 : 1);
+    const dc = left === 2 ? { title: '2 decisions for you', sub: 'Only you can make these. Each one shows what it changes.' }
+      : left === 1 ? { title: '1 decision for you', sub: 'Only you can make this one.' }
+      : { title: 'No decisions waiting', sub: "You're up to date. New ones show here and in the weekly summary." };
     const f = {
       ok: { flag: 'On track', bg: '#DCEFE2', fg: '#1F5E3A', dot: '#2E7D4F' },
       risk: { flag: 'At risk', bg: '#FCE3D3', fg: '#9A3412', dot: '#C2410C' },
@@ -127,6 +253,7 @@ class Component extends DCLogic {
     const g = (title, k, now, target, start, pct, why, del, products, end) => Object.assign({ title, now, target, start, pct, why, del, products, end }, f[k]);
     const st = this.props.state ?? 'normal';
     return {
+      dc, a, b,
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       goals: [
         g('Increase in-app sales by 20%', 'risk', '+14%', '+20%', '$48,200 a month', '70%', 'From Launch In-App Ordering v1 · Waiting on others · 7 days', 'Deliverables 2/4 accepted', 'Retail App', '31 Dec'),
