@@ -197,6 +197,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 8px 4px 0">
         <h2 id="gl-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{listTitle}}</h2>
         <sc-if value="{{filtered}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{clearFilters}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Clear filters</button></sc-if>
+        <span style="flex-basis: 100%; order: 3; display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #4A4950"><span aria-hidden="true" style="width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #1C1B1F"></span>Marks where each result needs to be today to reach its target on time.</span>
         <div role="group" aria-label="Filter Goals" style="display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto">
           <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Status<select onChange="{{filters.flag.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.flag.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
           <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Product<select onChange="{{filters.product.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.product.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
@@ -215,8 +216,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </div>
           <div style="display: flex; flex-direction: column; gap: 6px">
             <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">{{g.now}}</span><span style="font-size: 12px; color: #6E6C73">target {{g.target}}</span></div>
-            <div role="img" aria-label="{{g.paceLabel}}" style="position: relative; height: 10px; border-radius: 999px; background: #E7E5DF"><div style="height: 10px; border-radius: 999px; background: #1C1B1F; width: {{g.pct}}"></div><div aria-hidden="true" style="position: absolute; top: -4px; left: {{g.need}}; width: 3px; height: 18px; margin-left: -1px; border-radius: 2px; background: #4A4950; box-shadow: 0 0 0 1px #FFFFFF"></div></div>
-            <span style="font-size: 12px; color: #6E6C73">Started at {{g.start}} · short line: needed by now</span>
+            <div role="img" aria-label="{{g.paceLabel}}" style="position: relative; margin-top: 8px; height: 10px; border-radius: 999px; background: #E7E5DF"><div style="height: 10px; border-radius: 999px; background: #1C1B1F; width: {{g.pct}}"></div><div aria-hidden="true" style="position: absolute; top: -9px; left: {{g.need}}; transform: translateX(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #1C1B1F"></div><div aria-hidden="true" style="position: absolute; top: 0; left: {{g.need}}; width: 2px; height: 10px; margin-left: -1px; background: #FFFFFF"></div></div>
+            <span style="font-size: 12px; color: #6E6C73">Started at {{g.start}}</span>
           </div>
           <p style="margin: 0; font-size: 13px; line-height: 18px; color: #1C1B1F"><strong>{{g.verdictHead}}</strong> {{g.verdictRest}}</p>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px">
@@ -224,11 +225,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <sc-if value="{{g.canAsk}}" hint-placeholder-val="{{false}}"><button type="button" id="{{g.askId}}" onClick="{{g.ask}}" aria-label="{{g.askLabel}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Ask {{g.askFirst}}</button></sc-if>
             <sc-if value="{{g.asked}}" hint-placeholder-val="{{false}}"><span id="{{g.askedId}}" tabindex="-1" role="status" style="font-size: 13px; color: #1F5E3A">Asked {{g.askFirst}}. The answer comes to your Inbox.</span><button type="button" onClick="{{g.unask}}" aria-label="Undo asking {{g.askFirst}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button></sc-if>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto">
-            <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{g.del}}</span>
-            <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{g.products}}</span>
-            <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">Ends {{g.end}}</span>
-          </div>
+          <span style="margin-top: auto; font-size: 12px; line-height: 16px; color: #6E6C73">{{g.del}} · {{g.products}} · Ends {{g.end}}</span>
         </article>
       </sc-for>
     </div>
