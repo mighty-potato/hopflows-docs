@@ -101,7 +101,7 @@ The Leader screens are seen by Sokha Meng (Leadership) on **Monday 19 October**,
 
 | Goal | Status | Result | Deliverables | Note |
 |---|---|---|---|---|
-| Increase in-app sales by 20% | At risk since Fri 9 Oct | +14% (from $48,200 to $54,950 a month); weeks 39–42: +6, +9, +11, +14 | 2 of 4 accepted | From Launch In-App Ordering v1, Waiting on others (payment provider keys late). Owner Sokha Meng, ends Thu 31 Dec |
+| Increase in-app sales by 20% | At risk since Fri 9 Oct | +14% (from $48,200 to $54,950 a month); weeks 39–42: +6, +9, +11, +14 | 2 of 4 accepted | From Launch In-App Ordering v1, Waiting on others ("Payment provider still hasn't sent live keys. Sandbox works."), set by Chenda Lim Fri 9 Oct, back on track by Fri 23 Oct. Result ahead of pace (needed +9 by week 42, one point a week from +6 in week 39 to +20 in week 53). Owner Sokha Meng, ends Thu 31 Dec |
 | Onboard 40 pilot schools | Off track since Tue 13 Oct | 22 of 40 | 1 of 3 accepted | From School App sign-up flow, Scope change (schools asked for Khmer forms). Ends Tue 15 Dec |
 | Cut support reply time to 4 hours | On track; flag cleared Thu 15 Oct | 5.2h (from 9h) | 3 of 4 accepted | Support reply templates (Operations) accepted in week 42 |
 | Reach 25,000 monthly users | On track | 21,400 (from 17,000) | 2 of 3 accepted | |

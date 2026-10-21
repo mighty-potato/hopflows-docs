@@ -40,8 +40,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <h1 style="margin: 0; font-size: 40px; line-height: 44px; font-weight: 600; letter-spacing: -0.04em">Increase in-app sales by 20%</h1>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
             <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600">Active</span>
-            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 13px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>At risk · from 1 Deliverable</span>
-            <span style="font-size: 12px; color: #6E6C73">Owner: Sokha Meng · ends Thu 31 Dec</span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 13px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>At risk · delivery</span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #DCEFE2; color: #1F5E3A; font-size: 13px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #2E7D4F"></span>Result ahead of pace</span>
+            <span style="font-size: 12px; color: #6E6C73">Owner: you · ends Thu 31 Dec</span>
           </div>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
@@ -51,12 +52,37 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
     </div>
 
+    <section aria-labelledby="fl-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-wrap: wrap; gap: 16px 32px; box-shadow: inset 0 0 0 2px #FCE3D3">
+      <div style="flex: 3 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+        <h2 id="fl-title" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Why it's at risk</h2>
+        <p style="margin: 0; max-width: 62ch; font-size: 15px; line-height: 22px"><strong>Launch In-App Ordering v1</strong> is waiting on others: "Payment provider still hasn't sent live keys. Sandbox works."</p>
+        <div style="display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 6px 12px; font-size: 13px; line-height: 18px">
+          <span style="color: #6E6C73">Set by</span><span>Chenda Lim · Fri 9 Oct · 10 days ago</span>
+          <span style="color: #6E6C73">Back on track by</span><span>Fri 23 Oct, Chenda's estimate</span>
+          <span style="color: #6E6C73">Deliverable due</span><span>Mon 30 Nov</span>
+        </div>
+        <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">The result is ahead of pace: it needs 6 more points in 11 weeks and has been adding about 3 a week. The risk is the date: most of the remaining growth is planned to come from ordering in the app, due Mon 30 Nov.</p>
+      </div>
+      <div style="flex: 1 1 220px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px">
+        <sc-if value="{{notAsked}}" hint-placeholder-val="{{true}}">
+          <button type="button" id="fl-ask" onClick="{{ask}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Ask Chenda for an update</button>
+        </sc-if>
+        <sc-if value="{{asked}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+            <span id="fl-asked" tabindex="-1" role="status" style="flex: 1 1 160px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>Asked Chenda.</strong> Her answer comes to your Inbox.</span>
+            <button type="button" onClick="{{unask}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button>
+          </div>
+        </sc-if>
+        <a href="Deliverable.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">Open the Deliverable</a>
+      </div>
+    </section>
+
     <div class="bento hf-masonry" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
       <div class="hf-col" style="flex: 5 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
       <section aria-label="Result" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
         <span style="font-size: 13px; font-weight: 600">Result so far · target +20%</span>
         <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">+14%</span>
-        <span style="font-size: 15px; line-height: 22px; margin-top: auto">$54,950 a month in the app, up from $48,200. Updated by Sokha for week 42, Mon 19 Oct.</span>
+        <span style="font-size: 15px; line-height: 22px; margin-top: auto">$54,950 a month in the app, up from $48,200. Updated by you for week 42, Mon 19 Oct.</span>
       </section>
         <section aria-label="Work done" style="order: 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 6px">
           <span style="font-size: 12px; color: #6E6C73">Work done, shown apart from the result</span>
@@ -67,19 +93,20 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <span style="font-size: 12px; color: #6E6C73">Products and departments</span>
           <div style="display: flex; flex-wrap: wrap; gap: 6px"><span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px; font-weight: 600">Retail App</span><span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">Technical</span><span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">Marketing</span><span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">Design</span></div>
           <span style="font-size: 12px; color: #6E6C73; margin-top: 8px">Flag history</span>
-          <span style="font-size: 13px; line-height: 18px; color: #4A4950">At risk since Fri 9 Oct, from Launch In-App Ordering v1. On track before that.</span>
+          <span style="font-size: 13px; line-height: 18px; color: #4A4950">None before this one. This is the Goal's first flag.</span>
         </section>
       </div>
       <div class="hf-col" style="flex: 7 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
       <section aria-label="Result by week" style="order: 2; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Result by week</h2>
-          <span style="font-size: 12px; color: #6E6C73">Dashed line: target</span>
+          <span style="font-size: 12px; color: #6E6C73">Dashed line: +20% target · Short red line: where the result needs to be</span>
         </div>
-        <div role="img" aria-label="Sales growth by week: week 39 plus 6 percent, week 40 plus 9, week 41 plus 11, week 42 plus 14, against a target of plus 20" style="position: relative; flex: 1; min-height: 200px; display: flex; align-items: flex-end; gap: 16px; padding: 24px 0 0; border-bottom: 1px solid #E7E5DF">
-          <div style="position: absolute; left: 0; right: 0; bottom: 150px; border-top: 2px dashed #6E6C73"></div>
+        <div role="img" aria-label="Sales growth by week: week 39 plus 6 percent, week 40 plus 9, week 41 plus 11, week 42 plus 14, against a target of plus 20 by 31 December. To reach it the result needed plus 6, 7, 8 and 9, so it is ahead of pace." style="position: relative; flex: 1; min-height: 200px; display: flex; align-items: flex-end; gap: 16px; padding: 24px 0 0; border-bottom: 1px solid #E7E5DF">
+          <div style="position: absolute; left: 0; right: 0; bottom: 150px; border-top: 2px dashed #6E6C73"><span style="position: absolute; right: 0; bottom: 4px; font-size: 12px; font-weight: 600; color: #4A4950">+20% by 31 Dec</span></div>
           <sc-for list="{{weeks}}" as="w" hint-placeholder-count="4">
-            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; justify-content: flex-end; height: 176px">
+            <div style="position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; justify-content: flex-end; height: 176px">
+              <div aria-hidden="true" style="position: absolute; left: 50%; transform: translateX(-50%); bottom: {{w.ph}}; width: 100%; max-width: 80px; height: 3px; border-radius: 2px; background: #C2410C"></div>
               <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500">{{w.v}}</span>
               <div style="width: 100%; max-width: 64px; border-radius: 12px 12px 4px 4px; background: {{w.bg}}; height: {{w.h}}"></div>
             </div>
@@ -106,9 +133,20 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1180}}'>
 class Component extends DCLogic {
+  // move keyboard focus to the part of the screen that just appeared
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() {
+    const s = this.state || {};
+    if (s.focusN && s.focusN !== this._focusN) {
+      this._focusN = s.focusN;
+      requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); });
+    }
+  }
   renderVals() {
+    const asked = !!(this.state && this.state.asked);
     const scale = (v) => Math.round((v / 20) * 150) + 'px';
-    const w = (label, n, last) => ({ label, v: '+' + n + '%', h: scale(n), bg: last ? '#1C1B1F' : '#C9DDE8' });
+    // pace: a straight line from +6% in week 39 to +20% in week 53 (31 Dec), one point a week
+    const w = (label, n, pace, last) => ({ label, v: '+' + n + '%', h: scale(n), ph: scale(pace), bg: last ? '#1C1B1F' : '#C9DDE8' });
     const f = {
       ok: { flag: 'On track', fg: '#1F5E3A', dot: '#2E7D4F' },
       risk: { flag: 'At risk', fg: '#9A3412', dot: '#C2410C' },
@@ -116,7 +154,10 @@ class Component extends DCLogic {
     };
     const d = (name, meta, state, k) => Object.assign({ name, meta, state }, f[k]);
     return {
-      weeks: [w('Wk 39', 6), w('Wk 40', 9), w('Wk 41', 11), w('Wk 42', 14, true)],
+      asked, notAsked: !asked,
+      ask: () => this.focusTo('fl-asked', { asked: true }),
+      unask: () => this.focusTo('fl-ask', { asked: false }),
+      weeks: [w('Wk 39', 6, 6), w('Wk 40', 9, 7), w('Wk 41', 11, 8), w('Wk 42', 14, 9, true)],
       dels: [
         d('Launch In-App Ordering v1', 'Technical · Chenda Lim · due 30 Nov', 'Active', 'risk'),
         d('Water Festival coupon campaign', 'Marketing · Kosal Nhem · due 20 Nov', 'Active', 'ok'),
