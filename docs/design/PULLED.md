@@ -3,7 +3,7 @@
 Local copy of the **HopFlows Web App** design canvas.
 
 - Source: https://claude.ai/artifact/KcFhzuaEqjfwAJoM3jnTSz
-- Pulled: 19 October 2026 (version 1792418324-b343); pushed and re-pulled 20 October 2026 (version 50, 1792437141-4c09); lead-flow fixes pushed 20 October 2026 (version 51, 1792505157-6aba) second pass (version 52, 1792514541-aa5a) third pass (version 53, 1792516195-ebc2) fourth pass (version 54, 1792517137-bcef) fifth pass (version 55, 1792521324-5439) and sixth pass (version 56, 1792522891-67b7); leader-flow fixes pushed 21 October 2026 (version 57, 1792558207-08f3) and second pass (version 58, 1792569845-cf0b) and third pass, adding Company reports (version 59, 1792570159-9fdb)
+- Pulled: 19 October 2026 (version 1792418324-b343); pushed and re-pulled 20 October 2026 (version 50, 1792437141-4c09); lead-flow fixes pushed 20 October 2026 (version 51, 1792505157-6aba) second pass (version 52, 1792514541-aa5a) third pass (version 53, 1792516195-ebc2) fourth pass (version 54, 1792517137-bcef) fifth pass (version 55, 1792521324-5439) and sixth pass (version 56, 1792522891-67b7); leader-flow fixes pushed 21 October 2026 (version 57, 1792558207-08f3) and second pass (version 58, 1792569845-cf0b) and third pass, adding Company reports (version 59, 1792570159-9fdb); second leader-flow review fixes (version 60, 1792578210-9437)
 - Design system it uses: `ds/hopflows/tokens.json` (same as `../design-system/tokens.json`)
 
 | Path | What |
