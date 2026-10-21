@@ -79,7 +79,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             </div>
           </sc-if>
           <sc-if value="{{a.panel}}" hint-placeholder-val="{{false}}">
-            <div style="display: flex; flex-direction: column; gap: 12px; padding: 14px 0 18px">
+            <div onKeyDown="{{a.esc}}" style="display: flex; flex-direction: column; gap: 12px; padding: 14px 0 18px">
               <h3 id="da-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Approve Goal: Cut stock-outs by 30%</h3>
               <div style="display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 6px 12px; font-size: 13px; line-height: 18px">
                 <span style="color: #6E6C73">Result</span><span>Days a shop runs out of stock, <strong>20 → 14 a month</strong> by Wed 31 Mar, next quarter</span>
@@ -124,12 +124,12 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             </div>
           </sc-if>
           <sc-if value="{{b.panel}}" hint-placeholder-val="{{false}}">
-            <div style="display: flex; flex-direction: column; gap: 12px; padding: 14px 0 4px">
+            <div onKeyDown="{{b.esc}}" style="display: flex; flex-direction: column; gap: 12px; padding: 14px 0 4px">
               <h3 id="db-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">School App sign-up flow: move the date or cut scope?</h3>
               <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Schools asked for Khmer forms. Chenda says that adds about 2 weeks to the sign-up flow, due Fri 6 Nov. Its Goal, Onboard 40 pilot schools, ends Tue 15 Dec.</p>
               <div role="radiogroup" aria-labelledby="db-title" style="display: flex; flex-direction: column; gap: 8px">
                 <sc-for list="{{b.opts}}" as="o" hint-placeholder-count="2">
-                  <button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 16px; border: 0; border-radius: 16px; background: {{o.bg}}; color: {{o.fg}}; box-shadow: inset 0 0 0 {{o.ring}} #1C1B1F; font-family: inherit; text-align: left; cursor: pointer"><span style="font-size: 15px; font-weight: 600">{{o.name}}</span><span style="font-size: 12px; line-height: 16px; color: {{o.sub}}">{{o.why}}</span></button>
+                  <button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" onKeyDown="{{o.key}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 16px; border: 0; border-radius: 16px; background: {{o.bg}}; color: {{o.fg}}; box-shadow: inset 0 0 0 {{o.ring}} #1C1B1F; font-family: inherit; text-align: left; cursor: pointer"><span style="font-size: 15px; font-weight: 600">{{o.name}}</span><span style="font-size: 12px; line-height: 16px; color: {{o.sub}}">{{o.why}}</span><span style="font-size: 12px; line-height: 16px; color: #1C1B1F"><strong>Effect on the Goal:</strong> {{o.effect}}</span></button>
                 </sc-for>
               </div>
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
@@ -154,12 +154,12 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             </div>
           </sc-if>
           <sc-if value="{{c.panel}}" hint-placeholder-val="{{false}}">
-            <div style="display: flex; flex-direction: column; gap: 12px; padding: 14px 0 4px">
+            <div onKeyDown="{{c.esc}}" style="display: flex; flex-direction: column; gap: 12px; padding: 14px 0 4px">
               <h3 id="dn-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Cut new-hire setup: a flag open 3 weeks. What now?</h3>
               <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Staff laptop setup guide has been At risk for 3 weeks because nobody in Operations is free to write it. Flags open 3 weeks come to you. The Goal ends Fri 18 Dec.</p>
               <div role="radiogroup" aria-labelledby="dn-title" style="display: flex; flex-direction: column; gap: 8px">
                 <sc-for list="{{c.opts}}" as="o" hint-placeholder-count="3">
-                  <button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 16px; border: 0; border-radius: 16px; background: {{o.bg}}; color: {{o.fg}}; box-shadow: inset 0 0 0 {{o.ring}} #1C1B1F; font-family: inherit; text-align: left; cursor: pointer"><span style="font-size: 15px; font-weight: 600">{{o.name}}</span><span style="font-size: 12px; line-height: 16px; color: {{o.sub}}">{{o.why}}</span></button>
+                  <button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" onKeyDown="{{o.key}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 16px; border: 0; border-radius: 16px; background: {{o.bg}}; color: {{o.fg}}; box-shadow: inset 0 0 0 {{o.ring}} #1C1B1F; font-family: inherit; text-align: left; cursor: pointer"><span style="font-size: 15px; font-weight: 600">{{o.name}}</span><span style="font-size: 12px; line-height: 16px; color: {{o.sub}}">{{o.why}}</span><span style="font-size: 12px; line-height: 16px; color: #1C1B1F"><strong>Effect on the Goal:</strong> {{o.effect}}</span></button>
                 </sc-for>
               </div>
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
@@ -197,7 +197,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 8px 4px 0">
         <h2 id="gl-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{listTitle}}</h2>
         <sc-if value="{{filtered}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{clearFilters}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Clear filters</button></sc-if>
-        <span style="flex-basis: 100%; order: 3; display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #4A4950"><span aria-hidden="true" style="width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #1C1B1F"></span>Marks where each result needs to be today to reach its target on time.</span>
+        <span style="flex-basis: 100%; order: 3; display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #4A4950"><span aria-hidden="true" style="width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #1C1B1F"></span>Marks where each result needs to be this week (week 42) to reach its target on time.</span>
         <div role="group" aria-label="Filter Goals" style="display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto">
           <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Status<select onChange="{{filters.flag.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.flag.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
           <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Product<select onChange="{{filters.product.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.product.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
@@ -220,6 +220,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <span style="font-size: 12px; color: #6E6C73">Started at {{g.start}}</span>
           </div>
           <p style="margin: 0; font-size: 13px; line-height: 18px; color: #1C1B1F"><strong>{{g.verdictHead}}</strong> {{g.verdictRest}}</p>
+          <sc-if value="{{g.hasFlag}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; line-height: 16px; color: #4A4950">{{g.flagLine}}</span></sc-if>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px">
             <span style="flex: 1 1 160px; font-size: 13px; color: #4A4950">Owner: <strong style="color: #1C1B1F">{{g.owner}}</strong></span>
             <sc-if value="{{g.canAsk}}" hint-placeholder-val="{{false}}"><button type="button" id="{{g.askId}}" onClick="{{g.ask}}" aria-label="{{g.askLabel}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Ask {{g.askFirst}}</button></sc-if>
@@ -237,6 +238,21 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 class Component extends DCLogic {
   // move keyboard focus to the part of the screen that just appeared
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  // one Tab stop per choice group; arrow keys move and pick, like native radio buttons
+  radioGroup(group, list, current, setKey) {
+    return list.map((x, i) => {
+      const on = current === x.key;
+      const move = (d) => { const n = list[(i + d + list.length) % list.length]; this.focusTo(group + '-' + n.key, { [setKey]: n.key }); };
+      return Object.assign({}, x, {
+        id: group + '-' + x.key, on: on ? 'true' : 'false', tab: (current ? on : i === 0) ? '0' : '-1', sel: on,
+        pick: () => this.setState({ [setKey]: x.key }),
+        key: (e) => {
+          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); move(1); }
+          else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); move(-1); }
+        }
+      });
+    });
+  }
   componentDidMount() {
     // arriving from the weekly summary: focus the decision that the link opened
     let hash = '';
@@ -270,20 +286,19 @@ class Component extends DCLogic {
       ask: () => this.focusTo('da-note', { aStep: 'ask' }),
       unask: () => this.focusTo('da-title', { aStep: 'choose' }),
       send: () => this.focusTo('da-done', { aStep: 'sent' }),
-      undo: () => this.focusTo('da-open', { aStep: 'closed' })
+      undo: () => this.focusTo('da-open', { aStep: 'closed' }),
+      esc: (e) => { if (e.key === 'Escape') this.focusTo('da-open', { aStep: 'closed' }); }
     };
     const choices = [
-      { key: 'date', name: 'Move the date to Fri 20 Nov', why: 'Khmer forms are in the first release. The Goal still has 3 weeks after it.', done: 'Sent to Chenda: move the date to Fri 20 Nov.' },
-      { key: 'scope', name: 'Keep Fri 6 Nov, add Khmer forms later', why: 'Schools start in English. Khmer forms become a second Deliverable.', done: 'Sent to Chenda: keep Fri 6 Nov, Khmer forms later.' }
+      { key: 'date', name: 'Move the date to Fri 20 Nov', why: 'Khmer forms are in the first release. The Goal still has 3 weeks after it.', effect: 'about 30 of 40 pilot schools by Tue 15 Dec, all with Khmer forms.', done: 'Sent to Chenda: move the date to Fri 20 Nov.' },
+      { key: 'scope', name: 'Keep Fri 6 Nov, add Khmer forms later', why: 'Schools start in English. Khmer forms become a second Deliverable.', effect: 'about 34 of 40 by Tue 15 Dec; schools that need Khmer forms wait until January.', done: 'Sent to Chenda: keep Fri 6 Nov, Khmer forms later.' }
     ];
     const picked = choices.find((c) => c.key === s.bPick);
     const b = {
       closed: bStep === 'closed', panel: bStep === 'choose', done: bStep === 'sent',
       ready: !!picked, notReady: !picked, doneText: picked ? picked.done : '',
-      opts: choices.map((c) => {
-        const on = s.bPick === c.key;
-        return { name: c.name, why: c.why, on: on ? 'true' : 'false', bg: on ? '#FFF6D6' : '#F4F3EF', fg: '#1C1B1F', sub: '#4A4950', ring: on ? '2px' : '0', pick: () => this.setState({ bPick: c.key }) };
-      }),
+      opts: this.radioGroup('ob', choices, s.bPick, 'bPick').map((o) => Object.assign(o, { bg: o.sel ? '#FFF6D6' : '#F4F3EF', fg: '#1C1B1F', sub: '#4A4950', ring: o.sel ? '2px' : '0' })),
+      esc: (e) => { if (e.key === 'Escape') this.focusTo('db-open', { bStep: 'closed' }); },
       open: () => this.focusTo('db-title', { bStep: 'choose' }),
       close: () => this.focusTo('db-open', { bStep: 'closed' }),
       send: () => this.focusTo('db-done', { bStep: 'sent' }),
@@ -291,18 +306,16 @@ class Component extends DCLogic {
     };
     // a flag open 3 weeks or more becomes a leader decision
     const cChoices = [
-      { key: 'lend', name: 'Lend one person from Design until Fri 18 Dec', why: 'Design had the least surprise work last week (6%). The setup guide could be done by Fri 13 Nov.', done: 'Sent to Bopha: Design lends one person until Fri 18 Dec.' },
-      { key: 'date', name: 'Move the end date to Wed 31 Mar', why: 'Operations keeps its people as they are. The Goal moves to next quarter.', done: 'Sent to Bopha: the Goal now ends Wed 31 Mar.' },
-      { key: 'wait', name: 'Keep waiting, ask again in 2 weeks', why: 'Nothing changes now. It comes back here on Mon 2 Nov.', done: 'Noted: ask again on Mon 2 Nov.' }
+      { key: 'lend', name: 'Lend one person from Design until Fri 18 Dec', why: 'Design planned 52h of its 64h available last week, so about 12h a week is free. The setup guide could be done by Fri 13 Nov.', effect: 'setup down to 2 days by Fri 18 Dec, as planned.', done: 'Sent to Bopha: Design lends one person until Fri 18 Dec.' },
+      { key: 'date', name: 'Move the end date to Wed 31 Mar', why: 'Operations keeps its people as they are. The Goal moves to next quarter.', effect: 'still 2 days, but by Wed 31 Mar; Q4 shows it as moved.', done: 'Sent to Bopha: the Goal now ends Wed 31 Mar.' },
+      { key: 'wait', name: 'Keep waiting, ask again in 2 weeks', why: 'Nothing changes now. It comes back here on Mon 2 Nov.', effect: 'likely 3 days by Fri 18 Dec, not 2.', done: 'Noted: ask again on Mon 2 Nov.' }
     ];
     const cPicked = cChoices.find((x) => x.key === s.cPick);
     const c = {
       closed: cStep === 'closed', panel: cStep === 'choose', done: cStep === 'sent',
       ready: !!cPicked, notReady: !cPicked, doneText: cPicked ? cPicked.done : '',
-      opts: cChoices.map((x) => {
-        const on = s.cPick === x.key;
-        return { name: x.name, why: x.why, on: on ? 'true' : 'false', bg: on ? '#FFF6D6' : '#F4F3EF', fg: '#1C1B1F', sub: '#4A4950', ring: on ? '2px' : '0', pick: () => this.setState({ cPick: x.key }) };
-      }),
+      opts: this.radioGroup('oc', cChoices, s.cPick, 'cPick').map((o) => Object.assign(o, { bg: o.sel ? '#FFF6D6' : '#F4F3EF', fg: '#1C1B1F', sub: '#4A4950', ring: o.sel ? '2px' : '0' })),
+      esc: (e) => { if (e.key === 'Escape') this.focusTo('dn-open', { cStep: 'closed' }); },
       open: () => this.focusTo('dn-title', { cStep: 'choose' }),
       close: () => this.focusTo('dn-open', { cStep: 'closed' }),
       send: () => this.focusTo('dn-done', { cStep: 'sent' }),
@@ -331,6 +344,12 @@ class Component extends DCLogic {
       'Cut card fees in shops by 15%': ['Ahead of pace.', 'No flags.'],
       'Sign 5 school partners': ['On pace.', 'No flags.']
     };
+    // who set each open flag, how long ago, and when it should be back on track (Flow E)
+    const flagLines = {
+      'Increase in-app sales by 20%': 'Flag set by Chenda Lim, Fri 9 Oct · 10 days · back on track by Fri 23 Oct',
+      'Onboard 40 pilot schools': 'Flag set by Chenda Lim, Tue 13 Oct · 6 days · no back-on-track date yet',
+      'Cut new-hire setup to 2 days': 'Flag set by Bopha Meas, Mon 28 Sep · 3 weeks · no back-on-track date yet'
+    };
     const needBy = { 'Increase in-app sales by 20%': 45, 'Onboard 40 pilot schools': 60, 'Cut new-hire setup to 2 days': 70, 'Cut support reply time to 4 hours': 70, 'Reach 25,000 monthly users': 50, 'Keep the app rating at 4.5 or higher': 100, 'Cut card fees in shops by 15%': 55, 'Sign 5 school partners': 60 };
     const g = (title, k, now, target, start, pct, why, del, products, depts, end, href, owner, askName) => {
       const have = parseInt(pct, 10), need = needBy[title];
@@ -342,7 +361,7 @@ class Component extends DCLogic {
         canAsk: !!askName && !done, asked: !!askName && done, askId: 'ask-' + id, askedId: 'asked-' + id,
         ask: () => this.focusTo('asked-' + id, { asked: Object.assign({}, asked, { [id]: true }) }),
         unask: () => this.focusTo('ask-' + id, { asked: Object.assign({}, asked, { [id]: false }) }),
-        verdictHead: verdicts[title][0], verdictRest: verdicts[title][1] }, f[k]);
+        verdictHead: verdicts[title][0], verdictRest: verdicts[title][1], hasFlag: !!flagLines[title], flagLine: flagLines[title] || '' }, f[k]);
     };
     const all = [
       g('Increase in-app sales by 20%', 'risk', '+14%', '+20%', '$48,200 a month', '70%', 'From Launch In-App Ordering v1 · Waiting on others · 10 days', 'Deliverables 2 of 4 accepted', ['Retail App'], ['Technical', 'Marketing', 'Design'], '31 Dec', 'GoalDetail.dc.html', 'You', 'Chenda Lim'),

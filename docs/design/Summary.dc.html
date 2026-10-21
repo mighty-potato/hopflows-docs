@@ -104,7 +104,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <section aria-label="Risk flags" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Risk flags</h2>
         <sc-for list="{{flags}}" as="r" hint-placeholder-count="4">
-          <a href="{{r.href}}" style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none; color: #1C1B1F"><span style="width: 72px; flex-shrink: 0; font-size: 12px; font-weight: 600; color: {{r.tagColor}}">{{r.tag}}</span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span><strong style="text-decoration: underline; text-underline-offset: 3px">{{r.item}}</strong> · {{r.text}}</span><span style="font-size: 12px; color: #6E6C73">{{r.who}}</span></span></a>
+          <a href="{{r.href}}" style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none; color: #1C1B1F"><span style="width: 72px; flex-shrink: 0; font-size: 12px; font-weight: 600; color: {{r.tagColor}}">{{r.tag}}<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">: </span></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span><strong style="text-decoration: underline; text-underline-offset: 3px">{{r.item}}</strong> · {{r.text}}</span><span style="font-size: 12px; color: #6E6C73">{{r.who}}</span></span></a>
         </sc-for>
       </section>
       <section aria-label="Goals by status" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; min-width: 0">
@@ -121,10 +121,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <a href="Goals.dc.html" style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none; color: #1C1B1F"><span style="font-size: 13px">Deliverable accepted · <span style="text-decoration: underline; text-underline-offset: 3px">Support reply templates</span></span><span style="font-size: 12px; color: #6E6C73">Operations · Bopha Meas</span></a>
         <a href="GoalDetail.dc.html" style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; text-decoration: none; color: #1C1B1F"><span style="font-size: 13px">Result · <span style="text-decoration: underline; text-underline-offset: 3px">in-app sales</span> +11% → +14%</span><span style="font-size: 12px; color: #6E6C73">You</span></a>
       </section>
-      <section aria-label="Unplanned work by department" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+      <section aria-label="Surprise work by department" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <div style="display: flex; flex-direction: column; gap: 2px">
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Surprise work by department</h2>
-          <span style="font-size: 12px; color: #6E6C73">Share of the week's work added after locking · estimated</span>
+          <span style="font-size: 12px; color: #6E6C73">Surprise work: hours added after the plan was locked · estimated</span>
         </div>
         <sc-for list="{{depts}}" as="d" hint-placeholder-count="4">
           <div style="display: grid; grid-template-columns: 110px 1fr 44px; align-items: center; gap: 12px">

@@ -708,7 +708,7 @@ Figure 13. Flow I, repeating daily work.
 3. Each line opens the item in the app. The summary never shows individual Tasks or how busy individual people are.
    Every flag line names who to ask. Each decision opens where it can be made. Decisions waiting are also the first thing on the leader's Goals page:
    - To approve a Goal, the leader sees its result, date, product, planned Deliverables and the proposer's note, then picks Approve or Send back with a note.
-   - For a date-or-scope question, the leader sees both choices and what each one changes. The answer goes to the person who asked, and the risk flag stays until they update the plan.
+   - For a date-or-scope question, the leader sees both choices and what each one changes, for the Deliverable and for its Goal (for example how many pilot schools by the Goal's end date). A choice that moves people says how much free time the lending department has. The answer goes to the person who asked, and the risk flag stays until they update the plan.
    - Each decision can be undone straight after it is made.
 4. If Monday is a holiday, the summary comes on the next working day.
 
@@ -1431,6 +1431,7 @@ When someone chooses "Create a company", HopFlows walks them through five short 
 - Other departments' work can be seen read-only, without workload or reports; admins can close a department (Proposed, 20 October).
 - Company setup (Proposed): whoever creates a company is walked through company details, departments, people and optional products, and invites are sent together at the end (20 October).
 - After the lead-flow review (Proposed): approving leave first shows its effect on the person's week and lets the approver give away or move the Tasks due then; locking a week warns about leave requests still waiting but allows the lock; Handover warns when a receiver is on leave (20 October).
+- After the fourth leader-flow review (Proposed): each decision option shows its effect on the Goal; Goal cards show who set a flag, how long it has been open and its back-on-track date; one term, surprise work, is used everywhere; choice groups work with arrow keys and Escape closes decision panels (21 October).
 - Leader-flow P2 pass (Proposed): Company reports picks a week and shows locked, done, not done, cancelled, added and reassigned work by department, and the Goal table shows done vs needed, owner and who to ask; on phones, report rows stack as cards, and Goal filters sit with the Goal list so decisions come first (21 October).
 - After the third leader-flow review (Proposed): each Goal gets one verdict sentence instead of two coloured pills; a Goal page lists all open flags, including the leader's own, with their notes; Escape closes panels, and clearing a flag or asking for an update can be undone (21 October).
 - After the second leader-flow review (Proposed): every Goal card and flag line names its owner and who to ask; a flag open 3 weeks becomes a leader decision; approving a Goal shows the department's current load; a Goal page shows one status pill for its most serious flag and works out pace from the latest result; a leader's own flag needs a note to set and to clear; each Goal card marks where its result needs to be by now and cards are sorted most serious first (21 October).
