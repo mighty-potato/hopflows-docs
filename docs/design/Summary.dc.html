@@ -42,7 +42,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </div>
 
     <sc-if value="{{ewShow}}" hint-placeholder-val="{{false}}">
-      <section id="ew-panel" aria-labelledby="ew-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
+      <section id="ew-panel" aria-labelledby="ew-title" onKeyDown="{{ewKey}}" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
         <h2 id="ew-title" tabindex="-1" style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Earlier summaries</h2>
         <sc-for list="{{earlier}}" as="e" hint-placeholder-count="3">
           <div style="display: flex; flex-wrap: wrap; gap: 4px 16px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 150px; font-size: 13px; font-weight: 600">{{e.when}}</span><span style="flex: 1 1 280px; font-size: 13px; line-height: 18px; color: #4A4950">{{e.text}}</span></div>
@@ -97,9 +97,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
       <section aria-label="Decisions" style="break-inside: avoid; margin: 0 0 12px; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
         <h2 style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Decisions waiting · 3</h2>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">Approve Goal: Cut stock-outs by 30%</span><a href="Goals.dc.html#decide-stockouts" aria-label="Approve or send back: Cut stock-outs by 30%" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Approve or send back</a></div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">School App sign-up flow: move the date or cut scope?</span><a href="Goals.dc.html#decide-schoolapp" aria-label="Decide date or scope: School App sign-up flow" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide: date or scope</a></div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px">Cut new-hire setup: a flag open 3 weeks. Lend a person, move the date, or wait?</span><a href="Goals.dc.html#decide-newhire" aria-label="Decide what to do: Cut new-hire setup" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide what to do</a></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">Approve Goal: Cut stock-outs by 30%</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Adds about 6h a week to Operations from January. Suggested: send it back for now.</span></span><a href="Goals.dc.html#decide-stockouts" aria-label="Approve or send back: Cut stock-outs by 30%" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Approve or send back</a></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">School App sign-up flow: move the date or cut scope?</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Move the date: about 30 of 40 schools by 15 Dec. Keep the date: about 34. Or lower the target to 34.</span></span><a href="Goals.dc.html#decide-schoolapp" aria-label="Decide date or scope: School App sign-up flow" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide: date or scope</a></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">Cut new-hire setup: a flag open 3 weeks. What now?</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Lend about 12h a week from Design: 2 days by 18 Dec. Wait: likely 3 days.</span></span><a href="Goals.dc.html#decide-newhire" aria-label="Decide what to do: Cut new-hire setup" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide what to do</a></div>
       </section>
       <section aria-label="Risk flags" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Risk flags</h2>
@@ -169,9 +169,9 @@ class Component extends DCLogic {
     const tag = { New: '#9B2C24', 'Still open': '#4A4950', Decision: '#9A3412', Cleared: '#1F5E3A' };
     const fl = (t, item, text, who, href) => ({ tag: t, tagColor: tag[t], item, text, who, href });
     const flags = [
-      fl('New', 'School App sign-up flow', 'Off track · Scope change: schools asked for Khmer forms · since Tue 13 Oct', 'Ask Chenda Lim, Technical · waiting for your decision', 'Goals.dc.html#decide-schoolapp'),
-      fl('Decision', 'Staff laptop setup guide', 'At risk · Time: not enough people · open 3 weeks, since Mon 28 Sep', 'Ask Bopha Meas, Operations · now a decision for you', 'Goals.dc.html#decide-newhire'),
-      fl('Still open', 'Launch In-App Ordering v1', 'At risk · Waiting on others: payment provider keys late · since Fri 9 Oct', 'Ask Chenda Lim, Technical · back on track by Fri 23 Oct', 'GoalDetail.dc.html'),
+      fl('New', 'School App sign-up flow', 'Off track · Scope change: schools asked for Khmer forms · since Tue 13 Oct', 'Who to ask: Chenda Lim, Technical · waiting for your decision', 'Goals.dc.html#decide-schoolapp'),
+      fl('Decision', 'Staff laptop setup guide', 'At risk · Time: not enough people · open 3 weeks, since Mon 28 Sep', 'Who to ask: Bopha Meas, Operations · now a decision for you', 'Goals.dc.html#decide-newhire'),
+      fl('Still open', 'Launch In-App Ordering v1', 'At risk · Waiting on others: payment provider keys late · since Fri 9 Oct', 'Who to ask: Chenda Lim, Technical · back on track by Fri 23 Oct', 'GoalDetail.dc.html'),
       fl('Cleared', 'Support inbox rules', '“Second person joined from Operations”', 'Cleared by Bopha Meas, Operations', 'Goals.dc.html')
     ];
     return {
@@ -179,21 +179,22 @@ class Component extends DCLogic {
       ok, isLoading: st === 'loading', isFirst: st === 'first', isHoliday: st === 'holiday', isError: st === 'error',
       dateLine: st === 'holiday' ? 'Week 42 (12–16 Oct) · comes Tue 20 Oct, after the holiday' : st === 'first' ? 'Comes every Monday at 8:00 · also sent by push' : 'Monday 19 October · covers week 42 (12–16 Oct) · also sent by push',
       ewOpen: ew ? 'true' : 'false', ewShow: ew && st !== 'first',
+      ewKey: (e) => { if (e.key === 'Escape') this.focusTo('ew-btn', { earlier: false }); },
       toggleEarlier: () => ew ? this.focusTo('ew-btn', { earlier: false }) : this.focusTo('ew-title', { earlier: true }),
       earlier: [
-        { when: 'Week 41 · Mon 12 Oct', text: '5 of 8 on track. In-app sales went At risk: payment provider keys late. 1 decision.' },
+        { when: 'Week 41 · Mon 12 Oct', text: '5 of 8 on track. In-app sales went At risk: payment provider keys late. New app store screenshots accepted. No decisions waiting.' },
         { when: 'Week 40 · Mon 5 Oct', text: '6 of 8 on track. Support reply time and new-hire setup went At risk. Faster menu pages accepted.' },
         { when: 'Week 39 · Mon 28 Sep', text: '8 of 8 on track. Q4 Goals approved. No decisions waiting.' }
       ],
       pdfDone: !!ui.pdf && ok,
       savePdf: () => this.focusTo('pdf-done', { pdf: true }),
       changes: [
-        c('Cut support reply time to 4 hours', 'Was At risk · flag cleared Thursday', 'On track', 'ok'),
-        c('Onboard 40 pilot schools', 'Was On track · new flag on School App sign-up flow', 'Off track', 'off'),
-        c('Increase in-app sales by 20%', 'No change · At risk since Fri 9 Oct', 'At risk', 'risk'),
-        c('Cut new-hire setup to 2 days', 'No change · At risk since Mon 28 Sep · now a decision', 'At risk', 'risk'),
-        c('Reach 25,000 monthly users', 'No change', 'On track', 'ok'),
-        c('3 more Goals', 'No change: app rating, card fees, school partners', 'On track', 'ok')
+        c('Cut support reply time to 4 hours', 'Ahead of pace. Was At risk; flag cleared Thursday.', 'On track', 'ok'),
+        c('Onboard 40 pilot schools', 'Result behind pace; sign-up flow went off track (new flag). Waiting for your decision.', 'Off track', 'off'),
+        c('Increase in-app sales by 20%', 'Result ahead of pace; launch date at risk since Fri 9 Oct (payment keys late).', 'At risk', 'risk'),
+        c('Cut new-hire setup to 2 days', 'Result behind pace; flag open 3 weeks, now a decision for you.', 'At risk', 'risk'),
+        c('Reach 25,000 monthly users', 'Ahead of pace. No change.', 'On track', 'ok'),
+        c('3 more Goals', 'On pace or ahead, no change: app rating, card fees, school partners', 'On track', 'ok')
       ],
       depts: [
         d('Operations', 31, '#C2410C'),

@@ -87,7 +87,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                 <span style="color: #6E6C73">Product</span><span>Retail App</span>
                 <span style="color: #6E6C73">Deliverables</span><span>2 planned: Daily stock count in the app, Low-stock alerts</span>
                 <span style="color: #6E6C73">Bopha's note</span><span>"Shops ran out of milk tea cups on 20 days in September."</span>
-                <span style="color: #6E6C73">Operations now</span><span>31% of last week's work was surprise work, and Cut new-hire setup is At risk for lack of people (see below).</span>
+                <span style="color: #6E6C73">Effect on Operations</span><span>about 6h a week of shop stock counts from January, on top of 31% surprise work last week and a setup guide nobody is free to write (see below).</span>
               </div>
               <sc-if value="{{a.asking}}" hint-placeholder-val="{{false}}">
                 <div style="display: flex; flex-direction: column; gap: 6px">
@@ -100,9 +100,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                 </div>
               </sc-if>
               <sc-if value="{{a.choosing}}" hint-placeholder-val="{{true}}">
+                <p style="margin: 0; font-size: 13px; line-height: 18px; color: #1C1B1F"><strong>Suggested: send it back</strong> while Operations is over its buffer. Ask Bopha to start it once the setup guide is done.</p>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px">
-                  <button type="button" onClick="{{a.approve}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Approve Goal</button>
-                  <button type="button" onClick="{{a.ask}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Send back with a note</button>
+                  <button type="button" onClick="{{a.ask}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send back with a note</button>
+                  <button type="button" onClick="{{a.approve}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Approve Goal</button>
                   <button type="button" onClick="{{a.close}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Not now</button>
                 </div>
               </sc-if>
@@ -133,15 +134,15 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                 </sc-for>
               </div>
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
-                <sc-if value="{{b.ready}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{b.send}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send to Chenda</button></sc-if>
-                <sc-if value="{{b.notReady}}" hint-placeholder-val="{{true}}"><button type="button" aria-disabled="true" aria-describedby="db-hint" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Send to Chenda</button><span id="db-hint" style="font-size: 12px; color: #6E6C73">Pick one first</span></sc-if>
+                <sc-if value="{{b.ready}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{b.send}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send to {{b.to}}</button></sc-if>
+                <sc-if value="{{b.notReady}}" hint-placeholder-val="{{true}}"><button type="button" aria-disabled="true" aria-describedby="db-hint" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Send to {{b.to}}</button><span id="db-hint" style="font-size: 12px; color: #6E6C73">Pick one first</span></sc-if>
                 <button type="button" onClick="{{b.close}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Not now</button>
               </div>
             </div>
           </sc-if>
           <sc-if value="{{b.done}}" hint-placeholder-val="{{false}}">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 0">
-              <span id="db-done" tabindex="-1" role="status" style="flex: 1 1 240px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>{{b.doneText}}</strong> The flag stays until Chenda updates the plan.</span>
+              <span id="db-done" tabindex="-1" role="status" style="flex: 1 1 240px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>{{b.doneText}}</strong> {{b.after}}</span>
               <button type="button" onClick="{{b.undo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button>
             </div>
           </sc-if>
@@ -163,8 +164,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                 </sc-for>
               </div>
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
-                <sc-if value="{{c.ready}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{c.send}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send to Bopha</button></sc-if>
-                <sc-if value="{{c.notReady}}" hint-placeholder-val="{{true}}"><button type="button" aria-disabled="true" aria-describedby="dn-hint" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Send to Bopha</button><span id="dn-hint" style="font-size: 12px; color: #6E6C73">Pick one first</span></sc-if>
+                <sc-if value="{{c.ready}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{c.send}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send to {{c.to}}</button></sc-if>
+                <sc-if value="{{c.notReady}}" hint-placeholder-val="{{true}}"><button type="button" aria-disabled="true" aria-describedby="dn-hint" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Send to {{c.to}}</button><span id="dn-hint" style="font-size: 12px; color: #6E6C73">Pick one first</span></sc-if>
                 <button type="button" onClick="{{c.close}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Not now</button>
               </div>
             </div>
@@ -197,7 +198,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 8px 4px 0">
         <h2 id="gl-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{listTitle}}</h2>
         <sc-if value="{{filtered}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{clearFilters}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Clear filters</button></sc-if>
-        <span style="flex-basis: 100%; order: 3; display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #4A4950"><span aria-hidden="true" style="width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #1C1B1F"></span>Marks where each result needs to be this week (week 42) to reach its target on time.</span>
+        <span style="flex-basis: 100%; order: 3; display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #4A4950"><span aria-hidden="true" style="width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #1C1B1F"></span>Marks where each result needs to be by now (Mon 19 Oct) to reach its target on time.</span>
         <div role="group" aria-label="Filter Goals" style="display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto">
           <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Status<select onChange="{{filters.flag.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.flag.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
           <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Product<select onChange="{{filters.product.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.product.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
@@ -290,13 +291,16 @@ class Component extends DCLogic {
       esc: (e) => { if (e.key === 'Escape') this.focusTo('da-open', { aStep: 'closed' }); }
     };
     const choices = [
-      { key: 'date', name: 'Move the date to Fri 20 Nov', why: 'Khmer forms are in the first release. The Goal still has 3 weeks after it.', effect: 'about 30 of 40 pilot schools by Tue 15 Dec, all with Khmer forms.', done: 'Sent to Chenda: move the date to Fri 20 Nov.' },
-      { key: 'scope', name: 'Keep Fri 6 Nov, add Khmer forms later', why: 'Schools start in English. Khmer forms become a second Deliverable.', effect: 'about 34 of 40 by Tue 15 Dec; schools that need Khmer forms wait until January.', done: 'Sent to Chenda: keep Fri 6 Nov, Khmer forms later.' }
+      { key: 'date', name: 'Move the date to Fri 20 Nov', why: 'Khmer forms are in the first release. The Goal still has 3 weeks after it.', effect: 'about 30 of 40 pilot schools by Tue 15 Dec, all with Khmer forms.', done: 'Sent to Chenda and Kosal: move the date to Fri 20 Nov.' },
+      { key: 'scope', name: 'Keep Fri 6 Nov, add Khmer forms later', why: 'Schools start in English. Khmer forms become a second Deliverable.', effect: 'about 34 of 40 by Tue 15 Dec; schools that need Khmer forms wait until January.', done: 'Sent to Chenda and Kosal: keep Fri 6 Nov, Khmer forms later.' },
+      { key: 'target', name: 'Lower the target to 34 schools', why: 'Keep Fri 6 Nov and add Khmer forms later, and make the Goal match what is likely.', effect: '34 of 34 by Tue 15 Dec. Kosal Nhem owns this Goal, so he must agree first.', done: 'Sent to Kosal and Chenda: lower the target to 34 schools.' }
     ];
     const picked = choices.find((c) => c.key === s.bPick);
     const b = {
       closed: bStep === 'closed', panel: bStep === 'choose', done: bStep === 'sent',
       ready: !!picked, notReady: !picked, doneText: picked ? picked.done : '',
+      to: 'Chenda and Kosal',
+      after: picked && picked.key === 'target' ? 'The Goal changes when Kosal agrees.' : 'The flag stays until Chenda updates the plan.',
       opts: this.radioGroup('ob', choices, s.bPick, 'bPick').map((o) => Object.assign(o, { bg: o.sel ? '#FFF6D6' : '#F4F3EF', fg: '#1C1B1F', sub: '#4A4950', ring: o.sel ? '2px' : '0' })),
       esc: (e) => { if (e.key === 'Escape') this.focusTo('db-open', { bStep: 'closed' }); },
       open: () => this.focusTo('db-title', { bStep: 'choose' }),
@@ -306,7 +310,7 @@ class Component extends DCLogic {
     };
     // a flag open 3 weeks or more becomes a leader decision
     const cChoices = [
-      { key: 'lend', name: 'Lend one person from Design until Fri 18 Dec', why: 'Design planned 52h of its 64h available last week, so about 12h a week is free. The setup guide could be done by Fri 13 Nov.', effect: 'setup down to 2 days by Fri 18 Dec, as planned.', done: 'Sent to Bopha: Design lends one person until Fri 18 Dec.' },
+      { key: 'lend', name: 'Lend about 12h a week from Design until Fri 18 Dec', why: 'Design (Sreymom Kim\'s team) planned 52h of its 64h available last week, so about 12h a week is free. The setup guide could be done by Fri 13 Nov.', effect: 'setup down to 2 days by Fri 18 Dec, as planned.', done: 'Sent to Bopha and Sreymom: Design lends about 12h a week until Fri 18 Dec.' },
       { key: 'date', name: 'Move the end date to Wed 31 Mar', why: 'Operations keeps its people as they are. The Goal moves to next quarter.', effect: 'still 2 days, but by Wed 31 Mar; Q4 shows it as moved.', done: 'Sent to Bopha: the Goal now ends Wed 31 Mar.' },
       { key: 'wait', name: 'Keep waiting, ask again in 2 weeks', why: 'Nothing changes now. It comes back here on Mon 2 Nov.', effect: 'likely 3 days by Fri 18 Dec, not 2.', done: 'Noted: ask again on Mon 2 Nov.' }
     ];
@@ -314,6 +318,7 @@ class Component extends DCLogic {
     const c = {
       closed: cStep === 'closed', panel: cStep === 'choose', done: cStep === 'sent',
       ready: !!cPicked, notReady: !cPicked, doneText: cPicked ? cPicked.done : '',
+      to: cPicked && cPicked.key === 'lend' ? 'Bopha and Sreymom' : 'Bopha',
       opts: this.radioGroup('oc', cChoices, s.cPick, 'cPick').map((o) => Object.assign(o, { bg: o.sel ? '#FFF6D6' : '#F4F3EF', fg: '#1C1B1F', sub: '#4A4950', ring: o.sel ? '2px' : '0' })),
       esc: (e) => { if (e.key === 'Escape') this.focusTo('dn-open', { cStep: 'closed' }); },
       open: () => this.focusTo('dn-title', { cStep: 'choose' }),
@@ -340,7 +345,7 @@ class Component extends DCLogic {
       'Cut new-hire setup to 2 days': ['Result behind pace;', 'setup guide has nobody free to write it for 3 weeks. Waiting for your decision.'],
       'Cut support reply time to 4 hours': ['Ahead of pace.', 'Flag cleared Thu 15 Oct; support reply templates finished last week.'],
       'Reach 25,000 monthly users': ['Ahead of pace.', 'No flags.'],
-      'Keep the app rating at 4.5 or higher': ['On target.', 'No flags. Above 4.5 since week 38.'],
+      'Keep the app rating at 4.5 or higher': ['On target.', 'No flags. Up from 4.4 when the Goal started; above 4.5 since week 40.'],
       'Cut card fees in shops by 15%': ['Ahead of pace.', 'No flags.'],
       'Sign 5 school partners': ['On pace.', 'No flags.']
     };
@@ -357,7 +362,7 @@ class Component extends DCLogic {
       const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       const done = !!asked[id];
       return Object.assign({ need: need + '%', paceLabel: have + '% of the way to the target, ' + need + '% needed by now, ' + pace.paceWord }, pace, { title, k, now, target, start, pct, why, del, products: products.join(' · '), plist: products, depts, end, href: href || '', hasPage: !!href, noPage: !href,
-        owner, askFirst: askName ? askName.split(' ')[0] : '', askLabel: askName ? 'Ask ' + askName + ' for an update on ' + title : '',
+        owner, askFirst: askName ? askName.split(' ')[0] : '', askLabel: askName ? 'Ask ' + askName + ', who set the flag, for an update on ' + title : '',
         canAsk: !!askName && !done, asked: !!askName && done, askId: 'ask-' + id, askedId: 'asked-' + id,
         ask: () => this.focusTo('asked-' + id, { asked: Object.assign({}, asked, { [id]: true }) }),
         unask: () => this.focusTo('ask-' + id, { asked: Object.assign({}, asked, { [id]: false }) }),
