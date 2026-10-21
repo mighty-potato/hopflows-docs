@@ -35,12 +35,11 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="display: flex; flex-direction: column; gap: 10px">
           <h1 style="margin: 0; font-size: 40px; line-height: 44px; font-weight: 600; letter-spacing: -0.04em">Increase in-app sales by 20%</h1>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
-            <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600">Active</span>
             <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; font-size: 13px; font-weight: 600; background: {{top.bg}}; color: {{top.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{top.dot}}"></span>{{top.label}}</span>
-            <sc-if value="{{top.more}}" hint-placeholder-val="{{false}}"><a href="#fl-title" style="font-size: 12px; font-weight: 600; color: #4A4950">+1 more flag</a></sc-if>
-            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; font-size: 13px; font-weight: 600; background: {{pace.bg}}; color: {{pace.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{pace.dot}}"></span>{{pace.label}}</span>
+            <sc-if value="{{top.more}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{toFlags}}" style="height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: transparent; font-family: inherit; font-size: 12px; font-weight: 600; color: #4A4950; text-decoration: underline; text-underline-offset: 3px; cursor: pointer">+1 more flag</button></sc-if>
             <span style="font-size: 12px; color: #6E6C73">Owner: you · ends Thu 31 Dec</span>
           </div>
+          <p id="verdict" style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 22px">{{verdict}}</p>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
           <button type="button" id="sf-btn" aria-expanded="{{fp.openAttr}}" aria-controls="sf-panel" onClick="{{fp.toggle}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Set flag</button>
@@ -68,7 +67,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{ok}}" hint-placeholder-val="{{true}}">
     <sc-if value="{{rp.open}}" hint-placeholder-val="{{false}}">
-      <section id="ur-panel" aria-labelledby="ur-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+      <section id="ur-panel" aria-labelledby="ur-title" onKeyDown="{{rp.key}}" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
         <h2 id="ur-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Update the result</h2>
         <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Last update: {{rp.last}}. Change it if the number was wrong. Next week's number goes in after Fri 23 Oct.</p>
         <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px">
@@ -89,7 +88,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
     </sc-if>
     <sc-if value="{{fp.open}}" hint-placeholder-val="{{false}}">
-      <section id="sf-panel" aria-labelledby="sf-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+      <section id="sf-panel" aria-labelledby="sf-title" onKeyDown="{{fp.key}}" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
         <h2 id="sf-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Set a flag on this Goal</h2>
         <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Chenda's flag on Launch In-App Ordering v1 stays as it is. A flag you set on the Goal can only be cleared by a leader, with a short note.</p>
         <div style="display: flex; flex-direction: column; gap: 6px">
@@ -121,36 +120,49 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <button type="button" onClick="{{fp.undo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button>
       </div>
     </sc-if>
-    <section aria-labelledby="fl-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-wrap: wrap; gap: 16px 32px; box-shadow: inset 0 0 0 2px #FCE3D3">
-      <div style="flex: 3 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
-        <h2 id="fl-title" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Why it's at risk</h2>
-        <p style="margin: 0; max-width: 62ch; font-size: 15px; line-height: 22px"><strong>Launch In-App Ordering v1</strong> is waiting on others: "Payment provider still hasn't sent live keys. Sandbox works."</p>
-        <div style="display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 6px 12px; font-size: 13px; line-height: 18px">
-          <span style="color: #6E6C73">Set by</span><span>Chenda Lim · Fri 9 Oct · 10 days ago</span>
-          <span style="color: #6E6C73">Back on track by</span><span>Fri 23 Oct, Chenda's estimate</span>
-          <span style="color: #6E6C73">Deliverable due</span><span>Mon 30 Nov</span>
-        </div>
-        <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">{{pace.text}}</p>
-      </div>
-      <div style="flex: 1 1 220px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px">
-        <sc-if value="{{notAsked}}" hint-placeholder-val="{{true}}">
-          <button type="button" id="fl-ask" onClick="{{ask}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Ask Chenda for an update</button>
-        </sc-if>
-        <sc-if value="{{asked}}" hint-placeholder-val="{{false}}">
-          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
-            <span id="fl-asked" tabindex="-1" role="status" style="flex: 1 1 160px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>Asked Chenda.</strong> Her answer comes to your Inbox.</span>
-            <button type="button" onClick="{{unask}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button>
+    <section aria-labelledby="fl-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; box-shadow: inset 0 0 0 2px {{flagRing}}">
+      <h2 id="fl-title" tabindex="-1" style="margin: 0 0 6px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{flagTitle}}</h2>
+      <sc-if value="{{fp.clearedNow}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 0 0 10px"><span id="cl-done" tabindex="-1" role="status" style="flex: 1 1 260px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>Your flag is cleared.</strong> Note: "{{fp.clearedNote}}"</span><button type="button" onClick="{{fp.undoClear}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button></div>
+      </sc-if>
+      <sc-for list="{{openFlags}}" as="f" hint-placeholder-count="1">
+          <div style="display: flex; flex-wrap: wrap; gap: 12px 24px; padding: 14px 0; border-top: 1px solid #F0EEE9">
+            <div style="flex: 3 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+              <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: {{f.bg}}; color: {{f.fg}}; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{f.dot}}"></span>{{f.sevName}} · {{f.reason}}</span>
+              <p style="margin: 0; max-width: 62ch; font-size: 15px; line-height: 22px"><strong>{{f.item}}</strong>: "{{f.note}}"</p>
+              <div style="display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 6px 12px; font-size: 13px; line-height: 18px">
+                <span style="color: #6E6C73">Set by</span><span>{{f.setBy}}</span>
+                <span style="color: #6E6C73">Back on track by</span><span>{{f.back}}</span>
+              </div>
+            </div>
+            <div style="flex: 1 1 220px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px">
+              <sc-if value="{{f.isChenda}}" hint-placeholder-val="{{true}}">
+                <sc-if value="{{notAsked}}" hint-placeholder-val="{{true}}"><button type="button" id="fl-ask" onClick="{{ask}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Ask Chenda for an update</button></sc-if>
+                <sc-if value="{{asked}}" hint-placeholder-val="{{false}}"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px"><span id="fl-asked" tabindex="-1" role="status" style="flex: 1 1 160px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>Asked Chenda.</strong> Her answer comes to your Inbox.</span><button type="button" onClick="{{unask}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button></div></sc-if>
+                <a href="Deliverable.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">Open the Deliverable</a>
+              </sc-if>
+              <sc-if value="{{f.isMine}}" hint-placeholder-val="{{false}}">
+                <sc-if value="{{fp.canClear}}" hint-placeholder-val="{{true}}"><button type="button" id="cl-btn" onClick="{{fp.startClear}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Clear your flag</button></sc-if>
+                <sc-if value="{{fp.clearing}}" hint-placeholder-val="{{false}}">
+                  <div style="display: flex; flex-direction: column; gap: 6px"><label for="cl-note" style="font-size: 13px; font-weight: 600">Why is it clear now?</label><input id="cl-note" type="text" value="{{fp.clearNote}}" onChange="{{fp.setClearNote}}" onKeyDown="{{fp.clearKey}}" style="box-sizing: border-box; height: 44px; padding: 0 14px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+                  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+                    <sc-if value="{{fp.clearReady}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{fp.doClear}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Clear flag</button></sc-if>
+                    <sc-if value="{{fp.clearNotReady}}" hint-placeholder-val="{{true}}"><button type="button" aria-disabled="true" aria-describedby="cl-hint" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Clear flag</button><span id="cl-hint" style="font-size: 12px; color: #6E6C73">A short note is needed</span></sc-if>
+                    <button type="button" onClick="{{fp.cancelClear}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Cancel</button>
+                  </div>
+                </sc-if>
+              </sc-if>
+            </div>
           </div>
-        </sc-if>
-        <a href="Deliverable.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">Open the Deliverable</a>
-      </div>
+      </sc-for>
+      <p style="margin: 6px 0 0; max-width: 70ch; font-size: 13px; line-height: 18px; color: #4A4950">{{pace.text}}</p>
     </section>
 
     <div class="bento hf-gd-cols" style="columns: 2 400px; column-gap: 12px">
       <section aria-label="Result" style="break-inside: avoid; margin: 0 0 12px; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
         <span style="font-size: 13px; font-weight: 600">Result so far · target +20%</span>
         <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">{{rp.pctShort}}</span>
-        <span style="font-size: 15px; line-height: 22px; margin-top: auto">{{rp.money}} a month in the app, up from $48,200. Updated by you for week 42, Mon 19 Oct.</span>
+        <span style="font-size: 15px; line-height: 22px; margin-top: auto">{{rp.money}} a month in the app, up from $48,200. {{rp.updated}}</span>
       </section>
       <section aria-label="Result by week" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
@@ -191,15 +203,6 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <div style="display: flex; flex-wrap: wrap; gap: 6px"><span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px; font-weight: 600">Retail App</span><span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">Technical</span><span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">Marketing</span><span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">Design</span></div>
           <span style="font-size: 12px; color: #6E6C73; margin-top: 8px">Flag history</span>
           <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{fp.history}}</span>
-          <sc-if value="{{fp.canClear}}" hint-placeholder-val="{{false}}"><button type="button" id="cl-btn" onClick="{{fp.startClear}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; align-self: flex-start; background: #F4F3EF; color: #1C1B1F">Clear your flag</button></sc-if>
-          <sc-if value="{{fp.clearing}}" hint-placeholder-val="{{false}}">
-            <div style="display: flex; flex-direction: column; gap: 6px"><label for="cl-note" style="font-size: 13px; font-weight: 600">Why is it clear now?</label><input id="cl-note" type="text" value="{{fp.clearNote}}" onChange="{{fp.setClearNote}}" style="box-sizing: border-box; height: 44px; padding: 0 14px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
-            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
-              <sc-if value="{{fp.clearReady}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{fp.doClear}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Clear flag</button></sc-if>
-              <sc-if value="{{fp.clearNotReady}}" hint-placeholder-val="{{true}}"><button type="button" aria-disabled="true" aria-describedby="cl-hint" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Clear flag</button><span id="cl-hint" style="font-size: 12px; color: #6E6C73">A short note is needed</span></sc-if>
-              <button type="button" onClick="{{fp.cancelClear}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Cancel</button>
-            </div>
-          </sc-if>
         </section>
     </div>
     </sc-if>
@@ -251,7 +254,9 @@ class Component extends DCLogic {
       toggle: () => ui.rOpen ? this.focusTo('ur-btn', { rOpen: false }) : this.focusTo('ur-title', { rOpen: true, fOpen: false, typed: undefined }),
       cancel: () => this.focusTo('ur-btn', { rOpen: false, typed: undefined }),
       save: () => this.focusTo('ur-done', { rOpen: false, rDone: true, result: n, typed: undefined }),
-      undo: () => this.focusTo('ur-btn', { rDone: false, result: 54950 })
+      undo: () => this.focusTo('ur-btn', { rDone: false, result: 54950 }),
+      updated: ui.result && ui.result !== 54950 ? 'Corrected by you today, Mon 19 Oct (was $54,950 for week 42).' : 'Updated by you for week 42, Mon 19 Oct.',
+      key: (e) => { if (e.key === 'Escape') this.focusTo('ur-btn', { rOpen: false, typed: undefined }); }
     };
     // flag panel
     const pickStyle = (on) => on ? { on: 'true', bg: '#1C1B1F', fg: '#FFFFFF' } : { on: 'false', bg: '#F4F3EF', fg: '#1C1B1F' };
@@ -272,16 +277,20 @@ class Component extends DCLogic {
       hint: !ui.reason ? 'Pick a reason and write a short note' : 'Write a short note',
       toggle: () => ui.fOpen ? this.focusTo('sf-btn', { fOpen: false }) : this.focusTo('sf-title', { fOpen: true, rOpen: false }),
       cancel: () => this.focusTo('sf-btn', { fOpen: false }),
-      save: () => this.focusTo('sf-done', { fOpen: false, fDone: true, goalFlag: { sev, reason: ui.reason } }),
+      save: () => this.focusTo('sf-done', { fOpen: false, fDone: true, goalFlag: { sev, reason: ui.reason, note: (ui.note || '').trim(), date: (ui.date || '').trim() } }),
+      key: (e) => { if (e.key === 'Escape') this.focusTo('sf-btn', { fOpen: false }); },
       undo: () => this.focusTo('sf-btn', { fDone: false, goalFlag: null, reason: null, note: '', date: '' }),
-      history: saved ? (saved.cleared ? 'Your flag (' + sevs[saved.sev].name + ', ' + saved.reason + ') was cleared today: "' + saved.cleared + '". Before that: no flags.' : 'Your flag: ' + sevs[saved.sev].name + ', ' + saved.reason + ', set today, Mon 19 Oct. Before that: no flags.') : 'No earlier flags on this Goal.',
+      history: saved ? (saved.cleared ? 'Your flag (' + sevs[saved.sev].name + ', ' + saved.reason + ': "' + saved.note + '") was set and cleared today: "' + saved.cleared + '". Before that: no flags.' : 'Your flag: ' + sevs[saved.sev].name + ', ' + saved.reason + ', "' + saved.note + '", set today, Mon 19 Oct. Before that: no flags.') : 'No earlier flags on this Goal.',
       canClear: !!saved && !saved.cleared && !ui.clearing && !ui.fOpen,
       clearing: !!ui.clearing, clearNote: ui.clearNote || '',
       clearReady: !!(ui.clearNote || '').trim(), clearNotReady: !(ui.clearNote || '').trim(),
       setClearNote: (e) => this.setState({ clearNote: e.target.value }),
       startClear: () => this.focusTo('cl-note', { clearing: true, fDone: false }),
       cancelClear: () => this.focusTo('cl-btn', { clearing: false, clearNote: '' }),
-      doClear: () => this.focusTo('sf-btn', { clearing: false, goalFlag: Object.assign({}, saved, { cleared: (ui.clearNote || '').trim() }), clearNote: '' })
+      doClear: () => this.focusTo('cl-done', { clearing: false, clearedNow: true, goalFlag: Object.assign({}, saved, { cleared: (ui.clearNote || '').trim() }), clearNote: '' }),
+      clearKey: (e) => { if (e.key === 'Escape') this.focusTo('cl-btn', { clearing: false, clearNote: '' }); },
+      clearedNow: !!ui.clearedNow && !!saved && !!saved.cleared, clearedNote: saved && saved.cleared ? saved.cleared : '',
+      undoClear: () => this.focusTo('cl-btn', { clearedNow: false, goalFlag: Object.assign({}, saved, { cleared: null }) })
     };
     const wk42 = Math.round(pctOf(shown));
     // one status pill: the most serious flag; a tie keeps Chenda's flag on the Deliverable, which came first
@@ -295,15 +304,23 @@ class Component extends DCLogic {
     const r1 = (x) => Math.round(x * 10) / 10;
     const pace = left <= 0
       ? { label: 'Target reached', bg: '#DCEFE2', fg: '#1F5E3A', dot: '#2E7D4F', showTarget: false,
-          text: 'The result has reached the +20% target, 10 weeks early. The flag is only about the date: ordering in the app is due Mon 30 Nov.' }
+          text: 'The result has reached the +20% target, 11 weeks early. The flag is only about the date: ordering in the app is due Mon 30 Nov.' }
       : rate >= need
       ? { label: 'Result ahead of pace', bg: '#DCEFE2', fg: '#1F5E3A', dot: '#2E7D4F', showTarget: true,
           text: 'The result is ahead of pace: it needs ' + r1(left) + ' more points in 11 weeks and has been adding about ' + r1(rate) + ' a week. ' + due }
       : { label: 'Result behind pace', bg: '#FCE3D3', fg: '#9A3412', dot: '#C2410C', showTarget: true,
-          text: 'The result is behind pace: it needs ' + r1(left) + ' more points in 11 weeks, about ' + r1(need) + ' a week, ' + (rate > 0 ? 'and has been adding about ' + r1(rate) + ' a week. ' : 'and has not grown since week 39. ') + due };
+          text: 'The result is behind pace: it needs ' + r1(left) + ' more points in 11 weeks, about ' + r1(need) + ' a week, ' + (rate > 0 ? 'and has been adding about ' + r1(rate) + ' a week. ' : 'and has fallen since week 41 (+11%). ') + 'The date is at risk too: ordering in the app, where most of the remaining growth should come from, is due Mon 30 Nov.' };
+    // open flags, most serious first; Chenda's flag on the Deliverable is always open in this sample
+    const chenda = Object.assign({ isChenda: true, isMine: false, sevName: 'At risk', reason: 'Waiting on others', item: 'Launch In-App Ordering v1', note: "Payment provider still hasn't sent live keys. Sandbox works.", setBy: 'Chenda Lim · Fri 9 Oct · 10 days ago', back: "Fri 23 Oct, Chenda's estimate", s: 1 }, sevs.risk);
+    const own = live ? Object.assign({ isChenda: false, isMine: true, sevName: sevs[live.sev].name, reason: live.reason, item: 'This Goal', note: live.note, setBy: 'You · today, Mon 19 Oct', back: live.date || 'Not set', s: live.sev === 'off' ? 2 : 0 }, sevs[live.sev]) : null;
+    const openFlags = [chenda].concat(own ? [own] : []).sort((x, y) => y.s - x.s);
+    const worstOff = openFlags[0].sevName === 'Off track';
+    const paceWord = left <= 0 ? 'Target reached' : rate >= need ? 'Result ahead of pace' : 'Result behind pace';
+    const verdict = paceWord + '; ' + (own && own.s === 2 ? 'you flagged it Off track (' + own.reason.toLowerCase() + ': ' + own.note + ')' : 'launch date at risk (keys late, back by Fri 23 Oct)') + (openFlags.length > 1 ? '. 2 flags open.' : '.');
     pace.chart = 'Sales growth by week: week 39 plus 6 percent, week 40 plus 9, week 41 plus 11, week 42 plus ' + wk42 + ', against a target of plus 20 by 31 December. ' + pace.label + '.';
     return {
-      rp, fp, top, pace,
+      rp, fp, top, pace, openFlags, verdict, flagTitle: worstOff ? "Why it's off track" : "Why it's at risk", flagRing: worstOff ? '#F2B8B2' : '#FCE3D3',
+      toFlags: () => this.focusTo('fl-title', {}),
       ok: st === 'normal', isLoading: st === 'loading', isError: st === 'error',
       asked, notAsked: !asked,
       ask: () => this.focusTo('fl-asked', { asked: true }),

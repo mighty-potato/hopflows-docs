@@ -35,7 +35,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Goals</h1>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
-        <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Flag<select onChange="{{filters.flag.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.flag.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
+        <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Status<select onChange="{{filters.flag.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.flag.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
         <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Product<select onChange="{{filters.product.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.product.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
         <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Department<select onChange="{{filters.dept.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.dept.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
       </div>
@@ -200,7 +200,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
 
       <div style="grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 8px 4px 0">
-        <h2 id="gl-title" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{listTitle}}</h2>
+        <h2 id="gl-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{listTitle}}</h2>
         <sc-if value="{{filtered}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{clearFilters}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Clear filters</button></sc-if>
       </div>
       <sc-if value="{{noMatch}}" hint-placeholder-val="{{false}}">
@@ -216,13 +216,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <div style="display: flex; flex-direction: column; gap: 6px">
             <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">{{g.now}}</span><span style="font-size: 12px; color: #6E6C73">target {{g.target}}</span></div>
             <div role="img" aria-label="{{g.paceLabel}}" style="position: relative; height: 10px; border-radius: 999px; background: #E7E5DF"><div style="height: 10px; border-radius: 999px; background: #1C1B1F; width: {{g.pct}}"></div><div aria-hidden="true" style="position: absolute; top: -4px; left: {{g.need}}; width: 3px; height: 18px; margin-left: -1px; border-radius: 2px; background: #4A4950; box-shadow: 0 0 0 1px #FFFFFF"></div></div>
-            <span style="font-size: 12px; color: #6E6C73">Started at {{g.start}} · <strong style="font-weight: 600; color: {{g.paceColor}}">{{g.paceWord}}</strong> · short line: needed by now</span>
+            <span style="font-size: 12px; color: #6E6C73">Started at {{g.start}} · short line: needed by now</span>
           </div>
-          <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{g.why}}</span>
+          <p style="margin: 0; font-size: 13px; line-height: 18px; color: #1C1B1F"><strong>{{g.verdictHead}}</strong> {{g.verdictRest}}</p>
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px">
             <span style="flex: 1 1 160px; font-size: 13px; color: #4A4950">Owner: <strong style="color: #1C1B1F">{{g.owner}}</strong></span>
             <sc-if value="{{g.canAsk}}" hint-placeholder-val="{{false}}"><button type="button" id="{{g.askId}}" onClick="{{g.ask}}" aria-label="{{g.askLabel}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Ask {{g.askFirst}}</button></sc-if>
-            <sc-if value="{{g.asked}}" hint-placeholder-val="{{false}}"><span id="{{g.askedId}}" tabindex="-1" role="status" style="font-size: 13px; color: #1F5E3A">Asked {{g.askFirst}}. The answer comes to your Inbox.</span></sc-if>
+            <sc-if value="{{g.asked}}" hint-placeholder-val="{{false}}"><span id="{{g.askedId}}" tabindex="-1" role="status" style="font-size: 13px; color: #1F5E3A">Asked {{g.askFirst}}. The answer comes to your Inbox.</span><button type="button" onClick="{{g.unask}}" aria-label="Undo asking {{g.askFirst}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button></sc-if>
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto">
             <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{g.del}}</span>
@@ -240,6 +240,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 class Component extends DCLogic {
   // move keyboard focus to the part of the screen that just appeared
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidMount() {
+    // arriving from the weekly summary: focus the decision that the link opened
+    let hash = '';
+    try { hash = window.location.hash; } catch (e) {}
+    const id = { '#decide-stockouts': 'da-title', '#decide-schoolapp': 'db-title', '#decide-newhire': 'dn-title' }[hash];
+    if (id) setTimeout(() => { const el = document.getElementById(id); if (el) { el.focus(); el.scrollIntoView({ block: 'center' }); } }, 300);
+  }
   componentDidUpdate() {
     const s = this.state || {};
     if (s.focusN && s.focusN !== this._focusN) {
@@ -316,6 +323,17 @@ class Component extends DCLogic {
     const asked = s.asked || {};
     // owner of the Goal, and who to ask about its flag (the person who set it)
     // how far along each result should be by today (Mon 19 Oct) to reach its target on time
+    // one plain verdict per Goal: how the result is doing, then what the flag is about
+    const verdicts = {
+      'Increase in-app sales by 20%': ['Result ahead of pace;', 'launch date at risk (payment keys late, back by Fri 23 Oct).'],
+      'Onboard 40 pilot schools': ['Result behind pace;', 'sign-up flow off track (schools asked for Khmer forms). Waiting for your decision.'],
+      'Cut new-hire setup to 2 days': ['Result behind pace;', 'setup guide has nobody free to write it for 3 weeks. Waiting for your decision.'],
+      'Cut support reply time to 4 hours': ['Ahead of pace.', 'Flag cleared Thu 15 Oct; support reply templates finished last week.'],
+      'Reach 25,000 monthly users': ['Ahead of pace.', 'No flags.'],
+      'Keep the app rating at 4.5 or higher': ['On target.', 'No flags. Above 4.5 since week 38.'],
+      'Cut card fees in shops by 15%': ['Ahead of pace.', 'No flags.'],
+      'Sign 5 school partners': ['On pace.', 'No flags.']
+    };
     const needBy = { 'Increase in-app sales by 20%': 45, 'Onboard 40 pilot schools': 60, 'Cut new-hire setup to 2 days': 70, 'Cut support reply time to 4 hours': 70, 'Reach 25,000 monthly users': 50, 'Keep the app rating at 4.5 or higher': 100, 'Cut card fees in shops by 15%': 55, 'Sign 5 school partners': 60 };
     const g = (title, k, now, target, start, pct, why, del, products, depts, end, href, owner, askName) => {
       const have = parseInt(pct, 10), need = needBy[title];
@@ -325,7 +343,9 @@ class Component extends DCLogic {
       return Object.assign({ need: need + '%', paceLabel: have + '% of the way to the target, ' + need + '% needed by now, ' + pace.paceWord }, pace, { title, k, now, target, start, pct, why, del, products: products.join(' · '), plist: products, depts, end, href: href || '', hasPage: !!href, noPage: !href,
         owner, askFirst: askName ? askName.split(' ')[0] : '', askLabel: askName ? 'Ask ' + askName + ' for an update on ' + title : '',
         canAsk: !!askName && !done, asked: !!askName && done, askId: 'ask-' + id, askedId: 'asked-' + id,
-        ask: () => this.focusTo('asked-' + id, { asked: Object.assign({}, asked, { [id]: true }) }) }, f[k]);
+        ask: () => this.focusTo('asked-' + id, { asked: Object.assign({}, asked, { [id]: true }) }),
+        unask: () => this.focusTo('ask-' + id, { asked: Object.assign({}, asked, { [id]: false }) }),
+        verdictHead: verdicts[title][0], verdictRest: verdicts[title][1] }, f[k]);
     };
     const all = [
       g('Increase in-app sales by 20%', 'risk', '+14%', '+20%', '$48,200 a month', '70%', 'From Launch In-App Ordering v1 · Waiting on others · 10 days', 'Deliverables 2 of 4 accepted', ['Retail App'], ['Technical', 'Marketing', 'Design'], '31 Dec', 'GoalDetail.dc.html', 'You', 'Chenda Lim'),
@@ -338,24 +358,24 @@ class Component extends DCLogic {
       g('Sign 5 school partners', 'ok', '3', '5', '0 partners', '60%', 'No flags.', 'Deliverables 1 of 2 accepted', ['School App'], ['Marketing'], '15 Dec', '', 'Kosal Nhem', '')
     ];
     const ui = this.state || {};
-    const fv = { flag: ui.flag || 'Any', product: ui.product || 'All', dept: ui.dept || 'All' };
+    const fv = { flag: ui.flag || 'All', product: ui.product || 'All', dept: ui.dept || 'All' };
     const opt = (key, list) => ({ opts: list.map((v) => ({ v, sel: fv[key] === v ? 'selected' : null })), set: (e) => this.setState({ [key]: e.target.value }) });
     const filters = {
-      flag: opt('flag', ['Any', 'On track', 'At risk', 'Off track']),
+      flag: opt('flag', ['All', 'On track', 'At risk', 'Off track']),
       product: opt('product', ['All', 'Retail App', 'School App', 'No product']),
       dept: opt('dept', ['All', 'Technical', 'Marketing', 'Operations', 'Design'])
     };
     const rank = { off: 0, risk: 1, ok: 2 };
     all.sort((x, y) => rank[x.k] - rank[y.k]);
-    const goals = all.filter((x) => (fv.flag === 'Any' || x.flag === fv.flag) && (fv.product === 'All' || x.plist.includes(fv.product)) && (fv.dept === 'All' || x.depts.includes(fv.dept)));
-    const filtered = fv.flag !== 'Any' || fv.product !== 'All' || fv.dept !== 'All';
+    const goals = all.filter((x) => (fv.flag === 'All' || x.flag === fv.flag) && (fv.product === 'All' || x.plist.includes(fv.product)) && (fv.dept === 'All' || x.depts.includes(fv.dept)));
+    const filtered = fv.flag !== 'All' || fv.product !== 'All' || fv.dept !== 'All';
     const st = this.props.state ?? 'normal';
     return {
       dc, a, b, c,
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       goals, filters, filtered, noMatch: goals.length === 0,
       listTitle: filtered ? goals.length + ' of 8 Goals' : 'All 8 Goals',
-      clearFilters: () => this.setState({ flag: 'Any', product: 'All', dept: 'All' }),
+      clearFilters: () => this.focusTo('gl-title', { flag: 'All', product: 'All', dept: 'All' }),
     };
   }
 }
