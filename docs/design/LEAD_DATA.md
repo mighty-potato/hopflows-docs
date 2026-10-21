@@ -1,4 +1,4 @@
-# Lead flow sample data
+# Lead and Leader sample data
 
 The Lead screens on the design canvas (`LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `WeeklyReview`, `Handover`, `Routines`, `TeamTable`) all tell the story of the same two weeks at Riverline Co.'s Technical department. Claude Design screens can't load a shared data file, so each screen keeps its own copy of the data. This page is the agreed version: when a screen changes, check it against this page so the numbers stay honest.
 
@@ -89,9 +89,32 @@ The Planner lists every change to week 43 in one place. Open changes are counted
 | School App sign-up flow | Chenda Lim | Fri 6 Nov | 9 of 16 tasks | Off track · 3 days · Scope change |
 | Launch In-App Ordering v1 | Chenda Lim | Mon 30 Nov | 14 of 22 tasks | At risk · 7 days · Waiting on others |
 | Store sales dashboard v1 | Sophal Ouk, then Pisey Chea from Mon 19 Oct | Fri 13 Nov | 5 of 12 tasks | On track |
-| Faster menu pages | — | accepted 2 Oct | 11 of 11 tasks | Accepted |
+| Faster menu pages | Chenda Lim | accepted 2 Oct | 11 of 11 tasks | Accepted |
 
 Only Launch In-App Ordering v1 has a detail page on the canvas.
+
+Reports (Technical, weeks 39–42): week 42 has 20 locked tasks, 17 done, as above. Over the four weeks 65 of 74 locked tasks were done in their week (88%); cancelled and reassigned tasks are left out.
+
+## Leader screens (Goals, Goal, Weekly summary)
+
+The Leader screens are seen by Sokha Meng (Leadership) on **Monday 19 October**, the morning the week 42 summary arrives. Flags are 3 days older than on the Lead screens: School App sign-up flow is Off track for 6 days, Launch In-App Ordering v1 is At risk for 10 days.
+
+| Goal | Status | Result | Deliverables | Note |
+|---|---|---|---|---|
+| Increase in-app sales by 20% | At risk since Fri 9 Oct | +14% (from $48,200 to $54,950 a month); weeks 39–42: +6, +9, +11, +14 | 2 of 4 accepted | From Launch In-App Ordering v1, Waiting on others (payment provider keys late). Owner Sokha Meng, ends Thu 31 Dec |
+| Onboard 40 pilot schools | Off track since Tue 13 Oct | 22 of 40 | 1 of 3 accepted | From School App sign-up flow, Scope change (schools asked for Khmer forms). Ends Tue 15 Dec |
+| Cut support reply time to 4 hours | On track; flag cleared Thu 15 Oct | 5.2h (from 9h) | 3 of 4 accepted | Support reply templates (Operations) accepted in week 42 |
+| Reach 25,000 monthly users | On track | 21,400 (from 17,000) | 2 of 3 accepted | |
+
+5 of 8 Goals are on track; the other 4 on-track Goals are not drawn. The count is the same as the week before: support came back on track and pilot schools went off track.
+
+In-app sales Deliverables: Launch In-App Ordering v1 (Technical, Chenda Lim, due 30 Nov, At risk), Water Festival coupon campaign (Marketing, Kosal Nhem, due 20 Nov, On track), Faster menu pages (Technical, Chenda Lim, accepted 2 Oct), New app store screenshots (Design, Sreymom Kim, accepted 9 Oct).
+
+**Weekly summary, Mon 19 Oct, covers week 42 (12–16 Oct):**
+- Flags: New, School App sign-up flow (since Tue 13 Oct). Still open, Launch In-App Ordering v1 (since Fri 9 Oct). Cleared, Support inbox rules ("Second person joined from Operations").
+- Finished: Support reply templates accepted (Operations). Result: in-app sales +11% → +14% (Sokha).
+- Surprise work: Operations 31%, Technical 13% (matches week 42 in review), Marketing 9%, Design 6%.
+- Decisions: Approve Goal "Cut stock-outs by 30%" (Bopha Meas, Operations lead, proposed Tue 13 Oct: days a shop runs out of stock, 20 → 14 a month by Wed 31 Mar; Retail App; 2 Deliverables planned). School App sign-up flow: move the date to Fri 20 Nov, or keep Fri 6 Nov and add Khmer forms later (asked by Chenda Lim).
 
 ## Writing hours
 
