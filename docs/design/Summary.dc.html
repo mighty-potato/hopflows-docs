@@ -96,10 +96,11 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <span style="font-size: 15px; line-height: 22px; margin-top: auto">Same count as last week: support reply time came back on track, pilot schools went Off track.</span>
       </section>
       <section aria-label="Decisions" style="break-inside: avoid; margin: 0 0 12px; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
-        <h2 style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Decisions waiting · 3</h2>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">Approve Goal: Cut stock-outs by 30%</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Adds about 6h a week to Operations from January. Suggested: send it back for now.</span></span><a href="Goals.dc.html#decide-stockouts" aria-label="Approve or send back: Cut stock-outs by 30%" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Approve or send back</a></div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">School App sign-up flow: move the date or cut scope?</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Move the date: about 30 of 40 schools by 15 Dec. Keep the date: about 34. Or lower the target to 34.</span></span><a href="Goals.dc.html#decide-schoolapp" aria-label="Decide date or scope: School App sign-up flow" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide: date or scope</a></div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">Cut new-hire setup: a flag open 3 weeks. What now?</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Lend about 12h a week from Design: 2 days by 18 Dec. Wait: likely 3 days. Or move the end date to Wed 31 Mar.</span></span><a href="Goals.dc.html#decide-newhire" aria-label="Decide what to do: Cut new-hire setup" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide what to do</a></div>
+        <h2 style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">{{decTitle}}</h2>
+        <sc-if value="{{someDecided}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; line-height: 18px">{{decidedLine}}</span></sc-if>
+        <sc-if value="{{openA}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">Approve Goal: Cut stock-outs by 30%</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Adds about 6h a week to Operations from January. Suggested: send it back for now.</span></span><a href="Goals.dc.html#decide-stockouts" aria-label="Approve or send back: Cut stock-outs by 30%" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Approve or send back</a></div></sc-if>
+        <sc-if value="{{openB}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">School App sign-up flow: move the date or cut scope?</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Move the date: about 30 of 40 schools by 15 Dec. Keep the date: about 34. Or lower the target to 34.</span></span><a href="Goals.dc.html#decide-schoolapp" aria-label="Decide date or scope: School App sign-up flow" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide: date or scope</a></div></sc-if>
+        <sc-if value="{{openC}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">Cut new-hire setup: a flag open 3 weeks. What now?</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Lend about 12h a week from Design: 2 days by 18 Dec. Move the end date to Wed 31 Mar. Or wait: likely 3 days.</span></span><a href="Goals.dc.html#decide-newhire" aria-label="Decide what to do: Cut new-hire setup" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide what to do</a></div></sc-if>
       </section>
       <section aria-label="Risk flags" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Risk flags</h2>
@@ -118,7 +119,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
       <section aria-label="Finished and results" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Finished and updated</h2>
-        <a href="Goals.dc.html" style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none; color: #1C1B1F"><span style="font-size: 13px">Deliverable accepted · <span style="text-decoration: underline; text-underline-offset: 3px">Support reply templates</span></span><span style="font-size: 12px; color: #6E6C73">Operations · Bopha Meas</span></a>
+        <a href="Goals.dc.html#goal-cut-support-reply-time-to-4-hours" style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid #F0EEE9; text-decoration: none; color: #1C1B1F"><span style="font-size: 13px">Deliverable accepted · <span style="text-decoration: underline; text-underline-offset: 3px">Support reply templates</span></span><span style="font-size: 12px; color: #6E6C73">Operations · Bopha Meas</span></a>
         <a href="GoalDetail.dc.html" style="display: flex; justify-content: space-between; gap: 8px; padding: 10px 0; text-decoration: none; color: #1C1B1F"><span style="font-size: 13px">Result · <span style="text-decoration: underline; text-underline-offset: 3px">in-app sales</span> +11% → +14%</span><span style="font-size: 12px; color: #6E6C73">You</span></a>
       </section>
       <section aria-label="Surprise work by department" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
@@ -143,6 +144,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","first","holiday","error"],"default":"normal"},"$preview":{"width":1440,"height":1240}}'>
 class Component extends DCLogic {
+  componentDidMount() { try { const d = JSON.parse(window.localStorage.getItem('hf-leader-decided') || '{}'); if (d && (d.a || d.b || d.c)) this.setState({ decided: d }); } catch (e) {} }
   // move keyboard focus to the part of the screen that just appeared
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() {
@@ -163,7 +165,7 @@ class Component extends DCLogic {
       off: { fg: '#7A1F18', dot: '#C0352B' }
     };
     // only in-app sales has its own page on the canvas; the rest open the Goals list
-    const c = (goal, why, now, k) => Object.assign({ goal, why, now, href: goal === 'Increase in-app sales by 20%' ? 'GoalDetail.dc.html' : 'Goals.dc.html' }, s[k]);
+    const c = (goal, why, now, k) => Object.assign({ goal, why, now, k, href: goal === 'Increase in-app sales by 20%' ? 'GoalDetail.dc.html' : 'Goals.dc.html#goal-' + goal.toLowerCase().replace(/[^a-z0-9]+/g, '-') }, s[k]);
     const d = (name, pct, k) => ({ name, v: pct + '%', w: Math.round(pct / 40 * 100) + '%', bg: k });
     // risk flags: every row opens its item and says who to ask
     const tag = { New: '#1C1B1F', 'Still open': '#4A4950', Decision: '#33454F', Cleared: '#1F5E3A' };
@@ -172,9 +174,14 @@ class Component extends DCLogic {
       fl('New', 'School App sign-up flow', 'Off track · Scope change: schools asked for Khmer forms · since Tue 13 Oct', 'Who to ask: Chenda Lim, Technical · waiting for your decision', 'Goals.dc.html#decide-schoolapp'),
       fl('Decision', 'Staff laptop setup guide', 'At risk · Time: not enough people · open 3 weeks, since Mon 28 Sep', 'Who to ask: Bopha Meas, Operations · now a decision for you', 'Goals.dc.html#decide-newhire'),
       fl('Still open', 'Launch In-App Ordering v1', 'At risk · Waiting on others: payment provider keys late · since Fri 9 Oct', 'Who to ask: Chenda Lim, Technical · back on track by Fri 23 Oct', 'GoalDetail.dc.html'),
-      fl('Cleared', 'Support inbox rules', '“Second person joined from Operations”', 'Cleared by Bopha Meas, Operations', 'Goals.dc.html')
+      fl('Cleared', 'Support inbox rules', '“Second person joined from Operations”', 'Cleared by Bopha Meas, Operations', 'Goals.dc.html#goal-cut-support-reply-time-to-4-hours')
     ];
+    const dec = ui.decided || {};
+    const nLeft = ['a', 'b', 'c'].filter((k) => !dec[k]).length;
     return {
+      openA: !dec.a, openB: !dec.b, openC: !dec.c, someDecided: nLeft < 3,
+      decTitle: nLeft ? 'Decisions waiting · ' + nLeft : 'No decisions waiting',
+      decidedLine: (3 - nLeft) + ' decided on the Goals page today.' + (nLeft ? '' : ' You\'re up to date.'),
       flags,
       ok, isLoading: st === 'loading', isFirst: st === 'first', isHoliday: st === 'holiday', isError: st === 'error',
       dateLine: st === 'holiday' ? 'Week 42 (12–16 Oct) · comes Tue 20 Oct, after the holiday' : st === 'first' ? 'Comes every Monday at 8:00 · also sent by push' : 'Monday 19 October · covers week 42 (12–16 Oct) · also sent by push',
@@ -195,9 +202,9 @@ class Component extends DCLogic {
         c('Cut new-hire setup to 2 days', 'Result behind pace; flag open 3 weeks, now a decision for you.', 'At risk', 'risk'),
         c('Reach 25,000 monthly users', 'Ahead of pace. No change.', 'On track', 'ok'),
         c('3 more Goals', 'On pace or ahead, no change: app rating, card fees, school partners', 'On track', 'ok')
-      ],
+      ].sort((x, y) => ({ off: 0, risk: 1, ok: 2 })[x.k] - ({ off: 0, risk: 1, ok: 2 })[y.k]),
       depts: [
-        d('Operations', 31, '#C2410C'),
+        d('Operations · over buffer', 31, 'repeating-linear-gradient(45deg, #1C1B1F 0 4px, #6E6C73 4px 8px)'),
         d('Technical', 13, '#1C1B1F'),
         d('Marketing', 9, '#1C1B1F'),
         d('Design', 6, '#1C1B1F')

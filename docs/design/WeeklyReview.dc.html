@@ -97,7 +97,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </section>
         <section aria-labelledby="wr-close" style="order: 6; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
           <h2 id="wr-close" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Close the week</h2>
-          <span style="font-size: 13px; line-height: 18px">Surprises used about a third of the buffer (14h, 13% of all work).</span>
+          <span style="font-size: 13px; line-height: 18px">Surprise work used 14h of the buffer, about a quarter of it (13% of all work).</span>
           <sc-if value="{{open}}" hint-placeholder-val="{{true}}">
             <span id="wr-buf" style="font-size: 13px; font-weight: 600; color: #1C1B1F">Buffer for week 43</span>
             <div role="radiogroup" aria-labelledby="wr-buf" style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{bufs}}" as="o" hint-placeholder-count="2"><button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" onKeyDown="{{o.key}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for></div>
@@ -139,7 +139,7 @@ class Component extends DCLogic {
   renderVals() {
     const ui = this.state || {};
     const buf = ui.buf || 'keep';
-    const BUF = [['keep', 'Keep 8h a person'], ['up', 'Raise to 10h a person']];
+    const BUF = [['keep', 'Keep each person\'s buffer'], ['up', 'Add 2h to each buffer']];
     const bufs = BUF.map(([key, name], i) => { const on = buf === key; const move = () => { const n = BUF[(i + 1) % 2][0]; this.focusTo('wr-b-' + n, { buf: n }); };
       return { id: 'wr-b-' + key, name, on: on ? 'true' : 'false', tab: on ? '0' : '-1', bg: on ? '#1C1B1F' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1C1B1F', pick: () => this.setState({ buf: key }), key: (e) => { if (['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].indexOf(e.key) >= 0) { e.preventDefault(); move(); } } }; });
     const tone = {
@@ -151,7 +151,7 @@ class Component extends DCLogic {
     const pageState = this.props.state ?? 'normal';
     return {
       bufs, note: ui.note || '', setNote: (e) => this.setState({ note: e.target.value }), open: !ui.closed, closed: !!ui.closed,
-      closedText: 'Week 42 is closed. ' + (buf === 'up' ? 'Week 43 plans with 10h of buffer a person, so time to plan drops by 2h each.' : 'Buffer stays 8h a person.') + ((ui.note || '').trim() ? ' The team sees your line: “' + ui.note.trim() + '”.' : '') + ' Leaders get the summary on Monday.',
+      closedText: 'Week 42 is closed. ' + (buf === 'up' ? 'Week 43 keeps 2h more buffer for each person, so time to plan drops by 2h each.' : 'Each person\'s buffer stays as it is.') + ((ui.note || '').trim() ? ' The team sees your line: “' + ui.note.trim() + '”.' : '') + ' Leaders get the summary on Monday.',
       closeWeek: () => this.focusTo('wr-done', { closed: true }), reopen: () => this.focusTo('wr-close', { closed: false }),
       stOk: ['normal', 'saveError', 'partial'].indexOf(pageState) >= 0, stLoading: pageState === 'loading', stEmpty: pageState === 'empty', stError: pageState === 'error', stSave: pageState === 'saveError', stPartial: pageState === 'partial',
       changes: [

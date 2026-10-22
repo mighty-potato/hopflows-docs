@@ -66,7 +66,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load the handover</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
-          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><a href="Handover.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Try again</a></div>
         </div>
       </section>
     </sc-if>
@@ -74,7 +74,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <sc-if value="{{stSave}}" hint-placeholder-val="{{false}}">
       <div role="alert" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 20px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
         <span style="flex: 1 1 320px; font-size: 15px; line-height: 22px"><strong>Couldn't hand over Sophal's work.</strong> Nothing moved and nobody was told. Check your connection, then try again.</span>
-        <button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Try again</button>
+        <a href="Handover.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Try again</a>
       </div>
     </sc-if>
     <sc-if value="{{isItems}}" hint-placeholder-val="{{true}}">
@@ -85,9 +85,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="display: flex; flex-direction: column"><span style="font-size: 12px; color: #6E6C73">Kind</span><span style="font-size: 15px; font-weight: 600">Permanent</span></div>
         <div style="display: flex; flex-direction: column"><span style="font-size: 12px; color: #6E6C73">Starts</span><span style="font-size: 15px; font-weight: 600; font-family: 'Geist Mono', monospace">Mon 19 Oct</span></div>
         <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px">
-          <label for="ho-all" style="font-size: 13px; font-weight: 600">Give everything to</label>
-          <select id="ho-all" onChange="{{giveAll}}" style="max-width: 100%; height: 48px; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option value="" selected="">Choose for each item</option><sc-for list="{{allOpts}}" as="o" hint-placeholder-count="5"><option value="{{o.v}}">{{o.t}}</option></sc-for></select>
-          <span style="font-size: 12px; line-height: 16px; color: #4A4950; max-width: 240px">Nobody has room for all of it in week 43, so each item goes to whoever has the most. <a href="Planner.dc.html#week-changes" style="font-weight: 600">See week 43 changes</a></span>
+          <div role="list" aria-label="Week 43 after the handover" style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{totals}}" as="t" hint-placeholder-count="2"><span role="listitem" style="padding: 6px 12px; border-radius: 999px; background: {{t.bg}}; color: {{t.fg}}; font-size: 13px; font-weight: 600">{{t.label}}</span></sc-for></div>
+          <sc-if value="{{changed}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{useSuggested}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Use suggested owners</button></sc-if>
+          <span style="font-size: 12px; line-height: 16px; color: #4A4950; max-width: 240px">Suggested: each item goes to whoever has the most room in week 43. <a href="Planner.dc.html#week-changes" style="display: inline-flex; align-items: center; min-height: 44px; font-weight: 600">See week 43 changes</a></span>
         </div>
       </section>
 
@@ -106,7 +106,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                   <sc-for list="{{it.acts}}" as="a" hint-placeholder-count="3"><button type="button" role="radio" id="{{a.id}}" tabindex="{{a.tab}}" aria-checked="{{a.on}}" onClick="{{a.pick}}" onKeyDown="{{a.key}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{a.bg}}; color: {{a.fg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">{{a.name}}</button></sc-for>
                 </div>
                 <div style="flex: 1 1 260px; max-width: 360px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
-                  <sc-if value="{{it.pick}}" hint-placeholder-val="{{true}}"><select aria-label="Who gets {{it.title}}" onChange="{{it.setTo}}" style="width: 100%; max-width: 100%; box-sizing: border-box; height: 44px; padding: 0 10px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 13px; font-weight: 600; color: #1C1B1F"><sc-for list="{{it.opts}}" as="o" hint-placeholder-count="5"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for></select><span style="align-self: flex-start; padding: 3px 10px; border-radius: 10px; background: {{it.capBg}}; color: {{it.capFg}}; font-size: 12px; font-weight: 600">{{it.capText}}</span></sc-if><sc-if value="{{it.noPick}}" hint-placeholder-val="{{false}}"><span style="height: 44px; padding: 0 14px; border-radius: 14px; background: #F4F3EF; font-size: 13px; font-weight: 600; display: flex; align-items: center">{{it.to}}</span></sc-if>
+                  <sc-if value="{{it.pick}}" hint-placeholder-val="{{true}}"><sc-if value="{{it.editing}}" hint-placeholder-val="{{false}}"><select aria-label="Who gets {{it.title}}" onChange="{{it.setTo}}" style="width: 100%; max-width: 100%; box-sizing: border-box; height: 44px; padding: 0 10px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 13px; font-weight: 600; color: #1C1B1F"><sc-for list="{{it.opts}}" as="o" hint-placeholder-count="5"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for></select></sc-if><sc-if value="{{it.notEditing}}" hint-placeholder-val="{{true}}"><span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px"><span style="font-size: 15px; font-weight: 600">→ {{it.toName}}</span><button type="button" aria-label="Change who gets {{it.title}}" onClick="{{it.edit}}" style="height: 44px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">Change</button></span></sc-if><span style="align-self: flex-start; padding: 3px 10px; border-radius: 10px; background: {{it.capBg}}; color: {{it.capFg}}; font-size: 12px; font-weight: 600">{{it.capText}}</span></sc-if><sc-if value="{{it.noPick}}" hint-placeholder-val="{{false}}"><span style="height: 44px; padding: 0 14px; border-radius: 14px; background: #F4F3EF; font-size: 13px; font-weight: 600; display: flex; align-items: center">{{it.to}}</span></sc-if>
                   <sc-if value="{{it.noPick}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; padding: 3px 10px; border-radius: 10px; background: {{it.capBg}}; color: {{it.capFg}}; font-size: 12px; font-weight: 600">{{it.capText}}</span></sc-if>
                 </div>
               </div>
@@ -206,6 +206,7 @@ class Component extends DCLogic {
       return Object.assign({ title: it.title, meta: it.meta, warn: '', acts: actsUI, pick: moving, noPick: !moving, to: it.act === 'cancel' ? 'Cancelled' : 'Back to Ready to plan',
         opts: Object.keys(base).map((n) => { const [, tp2, av2] = base[n]; const a2 = run[n] + (n === it.to ? 0 : it.h); return { v: n, sel: n === it.to, label: n + ' · ' + a2 + 'h of ' + tp2 + 'h · ' + cap[word(a2, tp2, av2)].cap + (n === 'Dara Sok' ? ' · leave asked' : '') }; }),
         setTo: (e) => this.setState({ tos: Object.assign({}, tos, { [it.title]: e.target.value }) }),
+        toName: it.to, editing: !!(ui.editing || {})[it.title], notEditing: !(ui.editing || {})[it.title], edit: () => this.setState({ editing: Object.assign({}, ui.editing, { [it.title]: true }) }),
         capText: it.h ? 'After: ' + after + 'h of ' + tp + 'h · ' + c.cap : 'Adds no hours', capBg: it.h ? c.capBg : '#F4F3EF', capFg: it.h ? c.capFg : '#4A4950' }, moving ? {} : cap.none, moving ? {} : { capText: it.act === 'cancel' ? 'Cancelled' : 'Ready to plan' });
     });
     const GN = ['Open tasks', 'Deliverables Sophal leads', 'Routines', 'Meetings'];
@@ -227,11 +228,12 @@ class Component extends DCLogic {
       isItems: step === 'items', isConfirm: step === 'confirm', isDone: step === 'done',
       s2: step === 'items' ? stepOn : stepOff,
       s3: step === 'items' ? stepOff : stepOn,
-      stepText: step === 'items' ? 'Step 2 of 3 · choose who gets each item · loads shown for week 43, after the move' : step === 'confirm' ? 'Step 3 of 3 · check and confirm' : 'Done · Fri 16 Oct, 16:52 · you can undo until anyone starts on the work',
+      stepText: step === 'items' ? 'Step 2 of 3 · choose who gets each item · loads shown for week 43 as planned now' : step === 'confirm' ? 'Step 3 of 3 · check and confirm' : 'Done · Fri 16 Oct, 16:52 · you can undo for 10 minutes',
       toItems: () => this.focusTo('ho-review', { step: 'items' }),
       toConfirm: () => this.focusTo('ho-c-title', { step: 'confirm', undone: false }),
       toDone: () => this.focusTo('ho-done', { step: 'done' }),
-      groups, allOpts, giveAll, summary, nAll: items.length, nMove: moving.length,
+      groups, summary, changed: Object.keys(tos).length > 0, useSuggested: () => this.setState({ tos: {}, editing: {} }),
+      totals: owners.map((n) => { const [, tp, av] = base[n]; const c2 = cap[word(run[n], tp, av)]; return { label: name1(n) + ' · ' + run[n] + 'h of ' + tp + 'h · ' + c2.cap, bg: c2.capBg, fg: c2.capFg }; }), nAll: items.length, nMove: moving.length,
       confirmTitle: 'On Mon 19 Oct, Sophal\'s work moves to ' + (owners.length === 1 ? ownerNames[0] : owners.length + ' people'),
       doneText: moving.length + ' items now belong to ' + ownerNames.join(' and ') + ', from Mon 19 Oct. Each of them has the background, and Sophal has been told. When week 43 is locked, it keeps Sophal as the original owner. ' + (items.some((it) => it.act === 'none') ? 'Items with no owner wait in Ready to plan.' : 'Nothing is left with Sophal, so his account can be closed after his last day, Fri 23 Oct.'),
       undone: !!ui.undone && step === 'items',

@@ -14,6 +14,8 @@ body{margin:0}
 a{color:#1C1B1F}a:hover{color:#4A4950}
 :focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
 @media (max-width:760px){
+.hf-ok-collapse{display:none !important}
+.hf-ok-more{display:inline-flex !important}
 .hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
 .hf-nav-list{flex-direction:row !important;overflow-x:auto}
 .hf-hide-sm{display:none !important}
@@ -92,7 +94,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <sc-if value="{{a.asking}}" hint-placeholder-val="{{false}}">
                 <div style="display: flex; flex-direction: column; gap: 6px">
                   <label for="da-note" style="font-size: 13px; font-weight: 600">What should Bopha change?</label>
-                  <textarea id="da-note" rows="2" value="{{a.note}}" onChange="{{a.setNote}}" aria-invalid="{{a.noteBad}}" style="box-sizing: border-box; padding: 12px 16px; border: {{a.noteBorder}}; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; line-height: 22px; color: #1C1B1F; resize: vertical"></textarea><sc-if value="{{a.noteError}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 13px; color: #9A3412">Say what Bopha should change.</span></sc-if>
+                  <button type="button" onClick="{{a.useSuggestion}}" style="align-self: flex-start; height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFF6D6; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Use: start it after the setup guide is done</button><textarea id="da-note" rows="2" value="{{a.note}}" onChange="{{a.setNote}}" aria-invalid="{{a.noteBad}}" placeholder="What should Bopha change?" style="box-sizing: border-box; padding: 12px 16px; border: {{a.noteBorder}}; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; line-height: 22px; color: #1C1B1F; resize: vertical"></textarea><sc-if value="{{a.noteError}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 13px; color: #9A3412">Say what Bopha should change.</span></sc-if>
                 </div>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px">
                   <button type="button" onClick="{{a.send}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send back to Bopha</button>
@@ -204,12 +206,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Product<select onChange="{{filters.product.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.product.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
           <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A4950">Department<select onChange="{{filters.dept.set}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><sc-for list="{{filters.dept.opts}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.v}}</option></sc-for></select></label>
         </div>
+        <sc-if value="{{showOkBtn}}" hint-placeholder-val="{{true}}"><button type="button" class="hf-ok-more" onClick="{{okToggle}}" style="display: none; align-self: flex-start; height: 44px; margin-top: 12px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; align-items: center; cursor: pointer">Show the on-track Goals</button></sc-if>
       </div>
       <sc-if value="{{noMatch}}" hint-placeholder-val="{{false}}">
         <p style="grid-column: 1 / -1; margin: 0; padding: 24px; border-radius: 28px; background: #FFFFFF; font-size: 15px; line-height: 22px; color: #4A4950">No Goals match these filters. Clear them to see all 8.</p>
       </sc-if>
       <sc-for list="{{goals}}" as="g" hint-placeholder-count="8">
-        <article style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px; color: #1C1B1F; min-width: 0">
+        <article id="goal-{{g.id}}" tabindex="-1" class="{{g.cardClass}}" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px; color: #1C1B1F; min-width: 0">
           <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
             <sc-if value="{{g.hasPage}}" hint-placeholder-val="{{true}}"><h3 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em"><a href="{{g.href}}" style="color: #1C1B1F; text-underline-offset: 3px">{{g.title}}</a></h3></sc-if>
             <sc-if value="{{g.noPage}}" hint-placeholder-val="{{false}}"><h3 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{g.title}}</h3></sc-if>
@@ -258,7 +261,8 @@ class Component extends DCLogic {
     // arriving from the weekly summary: focus the decision that the link opened
     let hash = '';
     try { hash = window.location.hash; } catch (e) {}
-    const id = { '#decide-stockouts': 'da-title', '#decide-schoolapp': 'db-title', '#decide-newhire': 'dn-title' }[hash];
+    const id = { '#decide-stockouts': 'da-title', '#decide-schoolapp': 'db-title', '#decide-newhire': 'dn-title' }[hash] || (/^#goal-/.test(hash) ? hash.slice(1) : '');
+    if (/^#goal-/.test(hash)) this.setState({ showOk: true });
     if (id) setTimeout(() => { const el = document.getElementById(id); if (el) { el.focus(); el.scrollIntoView({ block: 'center' }); } }, 300);
   }
   componentDidUpdate() {
@@ -286,9 +290,9 @@ class Component extends DCLogic {
       approve: () => this.focusTo('da-done', { aStep: 'approved' }),
       ask: () => this.focusTo('da-note', { aStep: 'ask' }),
       unask: () => this.focusTo('da-title', { aStep: 'choose' }),
-      note: s.aNote != null ? s.aNote : 'Make the date Wed 30 Jun. Shops need the new count first.', setNote: (e) => this.setState({ aNote: e.target.value, aNoteError: false }),
+      note: s.aNote || '', useSuggestion: () => this.focusTo('da-note', { aNote: 'Please start it once the staff laptop setup guide is done, so Operations isn\'t running both at once.', aNoteError: false }), setNote: (e) => this.setState({ aNote: e.target.value, aNoteError: false }),
       noteError: !!s.aNoteError, noteBad: s.aNoteError ? 'true' : 'false', noteBorder: s.aNoteError ? '2px solid #9A3412' : '0',
-      send: () => (s.aNote != null ? s.aNote : 'x').trim() ? this.focusTo('da-done', { aStep: 'sent', aNoteError: false }) : this.focusTo('da-note', { aNoteError: true }),
+      send: () => (s.aNote || '').trim() ? this.focusTo('da-done', { aStep: 'sent', aNoteError: false }) : this.focusTo('da-note', { aNoteError: true }),
       undo: () => this.focusTo('da-open', { aStep: 'closed' }),
       esc: (e) => { if (e.key === 'Escape') this.focusTo('da-open', { aStep: 'closed' }); }
     };
@@ -330,6 +334,7 @@ class Component extends DCLogic {
       undo: () => this.focusTo('dn-open', { cStep: 'closed' })
     };
     const left = (a.done ? 0 : 1) + (b.done ? 0 : 1) + (c.done ? 0 : 1);
+    try { window.localStorage.setItem('hf-leader-decided', JSON.stringify({ a: a.done, b: b.done, c: c.done })); } catch (e) {}
     const dc = left > 1 ? { title: left + ' decisions for you', sub: 'Only you can make these. Each one shows what it changes.' }
       : left === 1 ? { title: '1 decision for you', sub: 'Only you can make this one.' }
       : { title: 'No decisions waiting', sub: "You're up to date. New ones show here and in the weekly summary." };
@@ -369,6 +374,7 @@ class Component extends DCLogic {
         canAsk: !!askName && !done, asked: !!askName && done, askId: 'ask-' + id, askedId: 'asked-' + id,
         ask: () => this.focusTo('asked-' + id, { asked: Object.assign({}, asked, { [id]: true }) }),
         unask: () => this.focusTo('ask-' + id, { asked: Object.assign({}, asked, { [id]: false }) }),
+        id, cardClass: k === 'ok' && !(this.state || {}).showOk ? 'hf-ok-collapse' : '',
         verdictHead: verdicts[title][0], verdictRest: verdicts[title][1], hasFlag: !!flagLines[title], flagLine: flagLines[title] || '' }, f[k]);
     };
     const all = [
@@ -399,6 +405,7 @@ class Component extends DCLogic {
       heroLine: '3 Goals need attention this quarter.' + (3 - left > 0 ? ' ' + (3 - left) + ' of your 3 decisions made today.' : ''),
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       goals, filters, filtered, noMatch: goals.length === 0,
+      showOkBtn: !s.showOk, okToggle: () => this.setState({ showOk: true }),
       listTitle: filtered ? goals.length + ' of 8 Goals' : 'All 8 Goals',
       clearFilters: () => this.focusTo('gl-title', { flag: 'All', product: 'All', dept: 'All' }),
     };

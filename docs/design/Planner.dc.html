@@ -84,7 +84,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load week 43's plan</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
-          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><a href="Planner.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Try again</a></div>
         </div>
       </section>
     </sc-if>
@@ -92,7 +92,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <sc-if value="{{stSave}}" hint-placeholder-val="{{false}}">
       <div role="alert" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 20px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
         <span style="flex: 1 1 320px; font-size: 15px; line-height: 22px"><strong>Couldn't lock week 43.</strong> Nothing was saved and the plan is unchanged. Check your connection, then try again.</span>
-        <button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Try again</button>
+        <a href="Planner.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Try again</a>
       </div>
     </sc-if>
     <sc-if value="{{confirming}}" hint-placeholder-val="{{false}}">
@@ -265,7 +265,7 @@ class Component extends DCLogic {
     const tone = { leave: { bg: '#F4F3EF', fg: '#1C1B1F' }, handover: { bg: '#C9DDE8', fg: '#33454F' }, moved: { bg: '#DCEFE2', fg: '#1F5E3A' } };
     const change = (kind, t, what, effect, action, href) => Object.assign({ kind, what, effect, action: action || '', href: href || '' }, tone[t]);
     const changes = [
-      change('Leave', 'leave', "Dara asks for Thu 22 – Fri 23 Oct · waiting for you", "Counted: Dara's time to plan is 12h, not 24h. Menu sync job tests (10h, due Thu 22) still has to move.", 'Decide', 'LeadHome.dc.html'),
+      change('Leave', 'leave', "Dara asks for Thu 22 – Fri 23 Oct · waiting for you", "Counted: Dara's time to plan is 12h, not 24h. Menu sync job tests (10h, due Thu 22) still has to move.", 'Decide', 'LeadHome.dc.html#leave'),
       change('Handover', 'handover', "Sophal's work moves on Mon 19 Oct · step 2 of 3", 'Counted: 13h moves, 8h to Pisey and 5h to Chenda. Sophal keeps nothing.', 'Continue', 'Handover.dc.html')
     ];
     if (moved) changes.push(change(s.movedLocked ? 'Changed' : 'Moved', 'moved', "10h moved off Vannak's week", 'Shop tablet updates and Printer setup guide → week 44.' + (s.movedLocked ? ' Made after locking, so the weekly review shows it as a change.' : '')));

@@ -151,7 +151,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <div style="flex: 1 1 100%; min-width: 0; display: flex; flex-direction: column; gap: 6px">
             <label for="q-owner" style="font-size: 13px; font-weight: 600">Owner</label>
             <select id="q-owner" onChange="{{setOwner}}" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option value="" selected="{{noOwner}}">Choose an owner</option><sc-for list="{{owners}}" as="w" hint-placeholder-count="6"><option value="{{w.id}}" disabled="{{w.off}}" selected="{{w.sel}}">{{w.label}}</option></sc-for></select>
-            <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Week 43 loads with Dara's leave and Sophal's handover counted. Sophal leaves Fri 23 and can't take new work.</span>
+            <span style="font-size: 12px; line-height: 16px; color: #6E6C73">The task lands in week 43. Loads count Dara's leave and Sophal's handover. Nobody has room, so pick who can best use their buffer.</span>
           </div>
           <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
             <span id="q-size" style="font-size: 13px; font-weight: 600">Size</span>
@@ -165,8 +165,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <sc-for list="{{urgencies}}" as="o" hint-placeholder-count="3"><button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" onKeyDown="{{o.key}}" style="flex: 1; border: 0; border-radius: 14px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for>
             </div>
           </div>
-          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-due" style="font-size: 13px; font-weight: 600">Due</label><select id="q-due" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Today, Fri 16 Oct</option><option>Mon 19 Oct</option><option selected>Wed 21 Oct</option><option>Fri 23 Oct</option><option>No due date</option></select></div>
-          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-del" style="font-size: 13px; font-weight: 600">Deliverable <span style="font-weight: 400; color: #6E6C73">· optional</span></label><select id="q-del" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Launch In-App Ordering v1</option><option>Store sales dashboard v1</option><option>None (standalone)</option></select></div>
+          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-due" style="font-size: 13px; font-weight: 600">Due</label><select id="q-due" onChange="{{setDue}}" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Today, Fri 16 Oct</option><option>Mon 19 Oct</option><option selected>Wed 21 Oct</option><option>Fri 23 Oct</option><option>No due date</option></select></div>
+          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-del" style="font-size: 13px; font-weight: 600">Deliverable <span style="font-weight: 400; color: #6E6C73">· optional</span></label><select id="q-del" onChange="{{setDel}}" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Launch In-App Ordering v1</option><option>Store sales dashboard v1</option><option>None (standalone)</option></select></div>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 8px">
@@ -275,7 +275,7 @@ class Component extends DCLogic {
     const stepList = ui.steps || cur.steps;
     const steps = stepList.map((text, i) => ({ text, remove: () => this.setState({ steps: stepList.filter((x, k) => k !== i) }) }));
     const addStep = () => { const t = (ui.newStep || '').trim(); if (!t) return this.focusTo('q-new', {}); this.focusTo('q-new', { steps: stepList.concat([t]), newStep: '' }); };
-    const OWN = [['vannak', 'Vannak Prum', 'Room after this · says Full'], ['chenda', 'Chenda Lim', 'Using buffer after this'], ['dara', 'Dara Sok', 'Too much in week 43 · on leave Thu 22–Fri 23'], ['pisey', 'Pisey Chea', 'Using buffer after this'], ['rithy', 'Rithy Heng', 'Too much after this'], ['sophal', 'Sophal Ouk', 'Leaving Fri 23 · can\'t take new work'], ['sreymom', 'Sreymom Ly', 'Away all week']];
+    const OWN = [['chenda', 'Chenda Lim', 'week 43 now 19h of 18h · Using buffer'], ['pisey', 'Pisey Chea', 'week 43 now 17h of 14h · Using buffer'], ['rithy', 'Rithy Heng', 'week 43 now 29h of 24h · Using buffer'], ['dara', 'Dara Sok', 'week 43 now 22h of 12h · Too much · leave asked'], ['vannak', 'Vannak Prum', 'week 43 now 35h of 24h · Too much · says Full'], ['sophal', 'Sophal Ouk', 'leaving Fri 23 · no new work'], ['sreymom', 'Sreymom Ly', 'away all week']];
     const owner = ui.owner || '';
     const owners = OWN.map(([id, n, w]) => ({ id, label: n + ' · ' + w, off: id === 'sophal' || id === 'sreymom', sel: owner === id }));
     const ownerName = (OWN.find((o) => o[0] === owner) || [0, ''])[1];
@@ -298,7 +298,8 @@ class Component extends DCLogic {
       closeWhy: ui.closeWhy || '', setCloseWhy: (e) => this.setState({ closeWhy: e.target.value, closeError: false }), closeError: !!ui.closeError, closeBad: ui.closeError ? 'true' : 'false', closeBorder: ui.closeError ? '2px solid #9A3412' : '0',
       doClose: () => (ui.closeWhy || '').trim() ? finish('close', 'Closed. ' + cur.fromFirst.charAt(0).toUpperCase() + cur.fromFirst.slice(1) + ' is told: “' + ui.closeWhy.trim() + '”') : this.focusTo('q-close', { closeError: true }),
       owners, noOwner: !owner, setOwner: (e) => this.setState({ owner: e.target.value, ownerError: false }), ownerError: !!ui.ownerError,
-      doMake: () => owner ? finish('make', 'Made a Task for ' + ownerName + ': ' + cur.title + '.') : this.focusTo('q-owner', { ownerError: true }),
+      setDue: (e) => this.setState({ due: e.target.value }), setDel: (e) => this.setState({ del: e.target.value }),
+      doMake: () => owner ? finish('make', 'Made a Task for ' + ownerName + ': ' + cur.title + ' · due ' + (ui.due || 'Wed 21 Oct') + ' · ' + (ui.del || 'Launch In-App Ordering v1') + '.') : this.focusTo('q-owner', { ownerError: true }),
       sizes, urgencies, steps, addStep, newStep: ui.newStep || '', setNewStep: (e) => this.setState({ newStep: e.target.value }),
       stepKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); const t = e.target.value.trim(); if (t) this.focusTo('q-new', { steps: stepList.concat([t]), newStep: '' }); } },
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: empty, isError: st === 'error'

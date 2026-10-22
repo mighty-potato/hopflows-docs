@@ -42,7 +42,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <p id="verdict" style="margin: 0; max-width: 70ch; font-size: 15px; line-height: 22px">{{verdict}}</p>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
-          <button type="button" id="sf-btn" aria-expanded="{{fp.openAttr}}" aria-controls="sf-panel" onClick="{{fp.toggle}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Set flag</button>
+          <button type="button" id="sf-btn" aria-expanded="{{fp.openAttr}}" aria-controls="sf-panel" onClick="{{fp.toggle}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">{{fp.btnLabel}}</button>
           <button type="button" id="ur-btn" aria-expanded="{{rp.openAttr}}" aria-controls="ur-panel" onClick="{{rp.toggle}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Update result</button>
         </div>
       </div>
@@ -89,8 +89,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{fp.open}}" hint-placeholder-val="{{false}}">
       <section id="sf-panel" aria-labelledby="sf-title" onKeyDown="{{fp.key}}" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
-        <h2 id="sf-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Set a flag on this Goal</h2>
-        <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Chenda's flag on Launch In-App Ordering v1 stays as it is. You, the Goal owner or another leader can clear a flag you set here, with a short note. The most serious open flag leads the Goal's status.</p>
+        <h2 id="sf-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{fp.title}}</h2>
+        <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Chenda's flag on Launch In-App Ordering v1 stays as it is. You or another leader can clear this flag, with a short note. The most serious open flag leads the Goal's status.</p>
         <div style="display: flex; flex-direction: column; gap: 6px">
           <span id="sf-sev" style="font-size: 13px; font-weight: 600">How serious</span>
           <div role="radiogroup" aria-labelledby="sf-sev" style="display: flex; flex-wrap: wrap; gap: 6px">
@@ -173,7 +173,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <div style="position: absolute; left: 0; right: 0; bottom: 150px; border-top: 2px dashed #6E6C73"><sc-if value="{{pace.showTarget}}" hint-placeholder-val="{{true}}"><span style="position: absolute; right: 0; bottom: 4px; font-size: 12px; font-weight: 600; color: #4A4950">+20% by 31 Dec</span></sc-if></div>
           <sc-for list="{{weeks}}" as="w" hint-placeholder-count="4">
             <div style="position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; justify-content: flex-end; height: 176px">
-              <div aria-hidden="true" style="position: absolute; left: calc(50% + 38px); bottom: {{w.ph}}; width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-right: 9px solid #1C1B1F; transform: translateY(6px)"></div>
+              <div aria-hidden="true" style="position: absolute; left: 50%; bottom: {{w.ph}}; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #1C1B1F; transform: translate(-50%, -2px); filter: drop-shadow(0 0 1px #FFFFFF)"></div>
               <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500">{{w.v}}</span>
               <div style="width: 100%; max-width: 64px; border-radius: 12px 12px 4px 4px; background: {{w.bg}}; height: {{w.h}}"></div>
             </div>
@@ -257,11 +257,11 @@ class Component extends DCLogic {
     const n = Number(String(typed).replace(/[$,\s]/g, ''));
     const valid = String(typed).trim() !== '' && isFinite(n) && n > 0;
     const sign = (x) => (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(1) + '%';
-    const jump = valid ? (n - 54950) / 54950 : 0, big = Math.abs(jump) > 0.25;
+    const jump = valid ? (n - shown) / shown : 0, big = Math.abs(jump) > 0.25;
     const rp = {
       open: !!ui.rOpen, done: !!ui.rDone && !ui.rOpen, openAttr: ui.rOpen ? 'true' : 'false',
       value: typed, valid, invalid: !valid,
-      calc: !valid ? 'Type a number, like 55000' : big ? 'That\'s ' + Math.round(Math.abs(jump) * 100) + '% ' + (jump < 0 ? 'lower' : 'higher') + ' than last week (' + money(54950) + '). Check for a missing or extra digit.' : '= ' + sign(pctOf(n)) + ' from ' + money(START),
+      calc: !valid ? 'Type a number, like 55000' : big ? 'That\'s ' + Math.round(Math.abs(jump) * 100) + '% ' + (jump < 0 ? 'lower' : 'higher') + ' than the number on the page (' + money(shown) + '). Check for a missing or extra digit.' : '= ' + sign(pctOf(n)) + ' from ' + money(START),
       calcColor: !valid ? '#9A3412' : big ? '#9A3412' : '#4A4950', calcWeight: big ? '600' : '400', saveLabel: big ? 'Save ' + money(n) + ' anyway' : 'Save result',
       last: money(54950) + ' a month (+14%) for week 42, Mon 19 Oct',
       money: money(shown), dir: shown >= START ? 'up' : 'down', pctShort: (pctOf(shown) >= 0 ? '+' : '−') + Math.round(Math.abs(pctOf(shown))) + '%',
@@ -294,10 +294,11 @@ class Component extends DCLogic {
       hint: !(ui.reasonKey ? REASONS[ui.reasonKey] : null) ? 'Pick a reason and write a short note' : 'Write a short note',
       toggle: () => ui.fOpen ? this.focusTo('sf-btn', { fOpen: false }) : this.focusTo('sf-title', { fOpen: true, rOpen: false }),
       cancel: () => this.focusTo('sf-btn', { fOpen: false }),
-      save: () => this.focusTo('sf-done', { fOpen: false, fDone: true, goalFlag: { sev, reason: (ui.reasonKey ? REASONS[ui.reasonKey] : null), note: (ui.note || '').trim(), date: (ui.date || '').trim() } }),
+      btnLabel: live ? 'Change your flag' : 'Set flag', title: live ? 'Change your flag on this Goal' : 'Set a flag on this Goal',
+      save: () => this.focusTo('sf-done', { fOpen: false, fDone: true, prevFlag: live || null, goalFlag: { sev, reason: (ui.reasonKey ? REASONS[ui.reasonKey] : null), note: (ui.note || '').trim(), date: (ui.date || '').trim(), was: live ? sevs[live.sev].name + ', ' + live.reason + ': "' + live.note + '"' : '' } }),
       key: (e) => { if (e.key === 'Escape') this.focusTo('sf-btn', { fOpen: false }); },
-      undo: () => this.focusTo('sf-btn', { fDone: false, goalFlag: null, reasonKey: null, note: '', date: '' }),
-      history: saved ? (saved.cleared ? 'Your flag (' + sevs[saved.sev].name + ', ' + saved.reason + ': "' + saved.note + '") was set and cleared today: "' + saved.cleared + '". Before that: no flags.' : 'Your flag: ' + sevs[saved.sev].name + ', ' + saved.reason + ', "' + saved.note + '", set today, Mon 19 Oct. Before that: no flags.') : "Chenda's flag on Launch In-App Ordering v1 (At risk since Fri 9 Oct) is what makes this Goal At risk. No earlier flags.",
+      undo: () => this.focusTo('sf-btn', { fDone: false, goalFlag: ui.prevFlag || null, prevFlag: null, reasonKey: null, note: '', date: '' }),
+      history: (saved && saved.was ? 'Changed today from ' + saved.was + '. ' : '') + (saved ? (saved.cleared ? 'Your flag (' + sevs[saved.sev].name + ', ' + saved.reason + ': "' + saved.note + '") was set and cleared today: "' + saved.cleared + '". Before that: no flags.' : 'Your flag: ' + sevs[saved.sev].name + ', ' + saved.reason + ', "' + saved.note + '", set today, Mon 19 Oct. Before that: no flags.') : "Chenda's flag on Launch In-App Ordering v1 (At risk since Fri 9 Oct) is what makes this Goal At risk. No earlier flags."),
       canClear: !!saved && !saved.cleared && !ui.clearing && !ui.fOpen,
       clearing: !!ui.clearing, clearNote: ui.clearNote || '',
       clearReady: !!(ui.clearNote || '').trim(), clearNotReady: !(ui.clearNote || '').trim(),
