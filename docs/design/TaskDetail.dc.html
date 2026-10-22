@@ -58,22 +58,34 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
             <button type="button" id="td-send" onClick="{{sendReview}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg>Send to review</button>
           </sc-if>
           <sc-if value="{{isHelper}}" hint-placeholder-val="{{false}}">
-            <button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>Ask Dara to finish</button>
+            <button type="button" onClick="{{askDara}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>Ask Dara to finish</button>
           </sc-if>
-          <button type="button" aria-label="More actions" style="width: 48px; height: 48px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"></path></svg></button>
+          <button type="button" id="td-more" aria-label="More actions" aria-haspopup="menu" aria-expanded="{{moreOpen}}" onClick="{{toggleMore}}" onKeyDown="{{moreKey}}" style="width: 48px; height: 48px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"></path></svg></button>
         </div>
       </div>
     </div>
 
+    <sc-if value="{{showMore}}" hint-placeholder-val="{{false}}">
+      <div role="menu" aria-label="More actions" onKeyDown="{{moreKey}}" style="align-self: flex-end; display: flex; flex-direction: column; min-width: 260px; padding: 8px; border-radius: 22px; background: #FFFFFF; border: 1px solid #E7E5DF">
+        <sc-for list="{{moreItems}}" as="m" hint-placeholder-count="3"><button type="button" role="menuitem" id="{{m.id}}" onClick="{{m.go}}" style="min-height: 44px; padding: 0 14px; border: 0; border-radius: 14px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 15px; text-align: left; cursor: pointer">{{m.label}}</button></sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{hasNote}}" hint-placeholder-val="{{false}}"><p id="td-note" tabindex="-1" role="status" style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 12px 12px 20px; border-radius: 22px; background: #FFFFFF; font-size: 15px; line-height: 22px">{{note}}<sc-if value="{{noteUndo}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{undoNote}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button></sc-if></p></sc-if>
     <sc-if value="{{isBlocked}}" hint-placeholder-val="{{false}}">
       <section aria-label="Blocked" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 16px 20px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
         <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 4px">
           <strong style="font-size: 15px; line-height: 22px; font-weight: 600; color: #1C1B1F">Blocked · waiting on the payment provider</strong>
-          <span style="font-size: 13px; line-height: 18px">Since Fri 16 Oct 11:40 · "The sandbox returns an error when a coupon makes the total zero." Chenda knows.</span>
+          <span style="font-size: 13px; line-height: 18px">Since Fri 16 Oct 12:05 · "Live keys still haven't come from the payment provider, so I can't test real payments. Sandbox works." Chenda knows.</span>
         </div>
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Update note</button>
+        <button type="button" onClick="{{editBlock}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #1C1B1F">Update note</button>
         <button type="button" onClick="{{unblock}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Unblock</button>
       </section>
+    </sc-if>
+    <sc-if value="{{blockEditing}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 12px; padding: 16px 20px; border-radius: 22px; background: #FFFFFF">
+        <label style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">What's new on the blocker?<input id="td-block-in" type="text" value="{{blockDraft}}" onChange="{{setBlockDraft}}" placeholder="For example: provider says keys come Monday" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 1px solid #6E6C73; border-radius: 12px; font-family: inherit; font-size: 15px; font-weight: 400"></label>
+        <button type="button" onClick="{{saveBlock}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send to Chenda</button>
+      </div>
     </sc-if>
     <sc-if value="{{justUnblocked}}" hint-placeholder-val="{{false}}"><p role="status" style="margin: 0; padding: 16px 20px; border-radius: 22px; background: #DCEFE2; color: #1F5E3A; font-size: 15px; line-height: 22px">Unblocked. Chenda has been told, and the task is back to normal In progress.</p></sc-if>
     <sc-if value="{{confirmSend}}" hint-placeholder-val="{{false}}">
@@ -89,12 +101,16 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
         <section aria-label="Checklist" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px">
             <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Checklist</h2>
-            <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">{{doneN}}/3</span>
+            <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">{{doneN}}/{{stepCount}}</span>
           </div>
           <sc-for list="{{steps}}" as="st">
             <label style="display: flex; align-items: center; gap: 12px; min-height: 48px; border-bottom: {{st.line}}; font-size: 15px; color: {{st.fg}}"><input id="{{st.id}}" type="checkbox" checked="{{st.done}}" onChange="{{st.toggle}}" style="width: 22px; height: 22px; accent-color: #1C1B1F"><span style="text-decoration: {{st.deco}}">{{st.t}}</span></label>
           </sc-for>
-          <button type="button" style="align-self: flex-start; margin-top: 4px; height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Add a step</button>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px">
+            <label for="td-step-new" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">New step</label>
+            <input id="td-step-new" type="text" value="{{stepDraft}}" onChange="{{setStepDraft}}" onKeyDown="{{stepEnter}}" placeholder="Add a step" style="flex: 1 1 200px; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F">
+            <button type="button" onClick="{{addStep}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Add</button>
+          </div>
         </section>
 
         <section aria-label="Notes" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
@@ -107,17 +123,18 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
           <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9">
             <span style="width: 32px; height: 32px; border-radius: 999px; background: #F9D3DE; color: #6E4850; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0">RH</span>
             <div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; font-weight: 600">Rithy Heng <span style="font-weight: 400; color: #6E6C73">· helper · 11:40</span></span><span style="font-size: 15px; line-height: 22px">Sandbox keys work now. Coupon totals match the provider's.</span>
-              <button type="button" style="align-self: flex-start; height: 32px; padding: 0 12px; border: 0; border-radius: 999px; background: #F9D3DE; color: #6E4850; font-family: inherit; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg>Give kudos</button>
+              <button type="button" onClick="{{kudos}}" aria-pressed="{{kudosOn}}" style="align-self: flex-start; height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F9D3DE; color: #6E4850; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg>{{kudosLabel}}</button>
             </div>
           </div>
           <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-size: 13px; line-height: 18px; color: #4A4950"><span style="width: 32px; display: flex; justify-content: center; flex-shrink: 0; color: #6E6C73">•</span><span><strong style="color: #1C1B1F">Dara</strong> ticked “Add checks for coupon and total” · 11:02</span></div>
           <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-size: 13px; line-height: 18px; color: #4A4950"><span style="width: 32px; display: flex; justify-content: center; flex-shrink: 0; color: #6E6C73">•</span><span><strong style="color: #1C1B1F">Chenda</strong> moved the due date to Fri 16 Oct · reason: waiting on the payment provider · Wed</span></div>
           <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-size: 13px; line-height: 18px; color: #4A4950"><span style="width: 32px; display: flex; justify-content: center; flex-shrink: 0; color: #6E6C73">•</span><span><strong style="color: #1C1B1F">Dara</strong> started this · Mon 09:12</span></div>
           <div style="display: flex; gap: 12px; padding: 10px 0; font-size: 13px; line-height: 18px; color: #4A4950"><span style="width: 32px; display: flex; justify-content: center; flex-shrink: 0; color: #6E6C73">•</span><span>In week 42's locked plan · owner Dara · Medium</span></div>
+          <sc-for list="{{comments}}" as="cm" hint-placeholder-count="0"><div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="width: 32px; height: 32px; border-radius: 999px; background: #C9DDE8; color: #33454F; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0">DS</span><div style="flex: 1; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; font-weight: 600">Dara Sok <span style="font-weight: 400; color: #6E6C73">· 14:10</span></span><span style="font-size: 15px; line-height: 22px">{{cm}}</span></div></div></sc-for>
           <div style="display: flex; gap: 8px; margin-top: 8px">
             <label for="td-comment" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Write a comment</label>
-            <input id="td-comment" type="text" placeholder="Write a comment…" style="flex: 1; min-width: 0; height: 48px; box-sizing: border-box; padding: 0 18px; border: 0; border-radius: 999px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F">
-            <button type="button" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Send</button>
+            <input id="td-comment" type="text" value="{{commentDraft}}" onChange="{{setComment}}" placeholder="Write a comment…" style="flex: 1; min-width: 0; height: 48px; box-sizing: border-box; padding: 0 18px; border: 0; border-radius: 999px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F">
+            <button type="button" onClick="{{sendComment}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Send</button>
           </div>
         </section>
       </div>
@@ -129,8 +146,8 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
             <dt style="color: #6E6C73; padding: 9px 0; border-bottom: 1px solid #F0EEE9">Owner</dt><dd style="margin: 0; padding: 9px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600; text-align: right">Dara Sok</dd>
             <dt style="color: #6E6C73; padding: 9px 0; border-bottom: 1px solid #F0EEE9">Helping</dt><dd style="margin: 0; padding: 9px 0; border-bottom: 1px solid #F0EEE9; text-align: right">Rithy Heng</dd>
             <dt style="color: #6E6C73; padding: 9px 0; border-bottom: 1px solid #F0EEE9">Reviewer</dt><dd style="margin: 0; padding: 9px 0; border-bottom: 1px solid #F0EEE9; text-align: right">Chenda Lim</dd>
-            <dt style="color: #6E6C73; padding: 9px 0; border-bottom: 1px solid #F0EEE9">Due</dt><dd style="margin: 0; padding: 9px 0; border-bottom: 1px solid #F0EEE9; text-align: right; font-family: 'Geist Mono', monospace; font-weight: 500">Fri 16 Oct · 17:00</dd>
-            <dt style="color: #6E6C73; padding: 9px 0; border-bottom: 1px solid #F0EEE9">Size</dt><dd style="margin: 0; padding: 9px 0; border-bottom: 1px solid #F0EEE9; text-align: right">Medium</dd>
+            <dt style="color: #6E6C73; padding: 9px 0; border-bottom: 1px solid #F0EEE9">Due</dt><dd style="margin: 0; padding: 9px 0; border-bottom: 1px solid #F0EEE9; text-align: right; font-weight: 600">Fri 16 Oct · 17:00</dd>
+            <dt style="color: #6E6C73; padding: 9px 0; border-bottom: 1px solid #F0EEE9">Size</dt><dd style="margin: 0; padding: 9px 0; border-bottom: 1px solid #F0EEE9; text-align: right">Medium (12h)</dd>
             <dt style="color: #6E6C73; padding: 9px 0; border-bottom: 1px solid #F0EEE9">Product</dt><dd style="margin: 0; padding: 9px 0; border-bottom: 1px solid #F0EEE9; text-align: right">Retail App · Ordering</dd>
             <dt style="color: #6E6C73; padding: 9px 0; border-bottom: 1px solid #F0EEE9">Kind of work</dt><dd style="margin: 0; padding: 9px 0; border-bottom: 1px solid #F0EEE9; text-align: right">Feature</dd>
             <dt style="color: #6E6C73; padding: 9px 0; border-bottom: 1px solid #F0EEE9">Came from</dt><dd style="margin: 0; padding: 9px 0; border-bottom: 1px solid #F0EEE9; text-align: right">Planned work</dd>
@@ -142,8 +159,8 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; border-radius: 16px; background: #F4F3EF"><span style="font-size: 15px">Get payment sandbox keys</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #1F5E3A"><span style="width: 8px; height: 8px; border-radius: 999px; background: #2E7D4F"></span>Done</span></div>
         </section>
         <section aria-label="Time" style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
-          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; line-height: 16px; color: #6E6C73">Time logged · optional</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">3h</span><span style="font-size: 12px; color: #6E6C73">Estimate: Medium (12h)</span></div>
-          <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Log time</button>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; line-height: 16px; color: #6E6C73">Time logged · optional</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">{{hours}}h</span><span style="font-size: 12px; color: #6E6C73">Estimate: Medium (12h)</span></div>
+          <button type="button" onClick="{{logHour}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Log 1h</button>
         </section>
       </div>
     </div>
@@ -161,13 +178,28 @@ class Component extends DCLogic {
     const reviewSent = !!local.reviewSent;
     const unblocked = !!local.unblocked;
     const blocked = (this.props.blocked ?? false) && !unblocked;
+    const names = local.names || ['Design the endpoint', 'Add checks for coupon and total', 'Write tests'];
     const ticks = local.ticks || [true, true, false];
-    const names = ['Design the endpoint', 'Add checks for coupon and total', 'Write tests'];
-    const steps = names.map((t, i) => ({ t, id: 'td-step-' + i, done: ticks[i], fg: ticks[i] ? '#6E6C73' : '#1C1B1F', deco: ticks[i] ? 'line-through' : 'none', line: i < names.length - 1 ? '1px solid #F0EEE9' : '0', toggle: () => { const n = ticks.slice(); n[i] = !n[i]; this.setState({ ticks: n, confirmSend: false }); } }));
+    const steps = names.map((t, i) => ({ t, id: 'td-step-' + i, done: ticks[i], fg: ticks[i] ? '#6E6C73' : '#1C1B1F', deco: ticks[i] ? 'line-through' : 'none', line: '1px solid #F0EEE9', toggle: () => { const n = ticks.slice(); n[i] = !n[i]; this.setState({ ticks: n, confirmSend: false }); } }));
+    const addStep = (v) => { const t = (v ?? local.stepDraft ?? '').trim(); if (!t) return; this.focusTo('td-step-new', {names: names.concat([t]), ticks: ticks.concat([false]), stepDraft: ''}); };
     const open = names.filter((t, i) => !ticks[i]);
     const firstOpen = ticks.indexOf(false);
     return {isOwner: viewer === 'owner', isHelper: viewer === 'helper', canSendReview: viewer === 'owner' && !reviewSent, reviewSent, statusLabel: reviewSent ? 'Awaiting review' : (blocked ? 'In progress · Blocked' : 'In progress'), isBlocked: blocked, justUnblocked: (this.props.blocked ?? false) && unblocked, unblock: () => this.setState({unblocked: true}), reviewLabel: reviewSent ? 'Chenda checks it' : 'Review required',
-      steps, doneN: ticks.filter(Boolean).length,
+      steps, doneN: ticks.filter(Boolean).length, stepCount: names.length,
+      stepDraft: local.stepDraft || '', setStepDraft: e => this.setState({stepDraft: e.target.value}),
+      addStep: () => addStep(), stepEnter: e => { if (e.key === 'Enter') { e.preventDefault(); addStep(e.target.value); } },
+      moreOpen: local.more ? 'true' : 'false', showMore: !!local.more, toggleMore: () => this.focusTo(local.more ? 'td-more' : 'mi-0', {more: !local.more}),
+      moreKey: e => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('td-more', {more: false}); } },
+      moreItems: [['Ask Chenda to move the due date', 'Asked Chenda to move the due date. She sees it in her Needs you list.'], ['Ask Chenda to give it to someone else', 'Asked Chenda to give this task to someone else. It stays yours until she does.'], ['Copy link to this task', 'Link copied.']].map(([label, msg], i) => ({ id: 'mi-' + i, label, go: () => this.focusTo('td-note', {more: false, note: msg, noteUndo: i < 2}) })),
+      hasNote: !!local.note, note: local.note || '', noteUndo: !!local.noteUndo, undoNote: () => this.focusTo('td-more', {note: '', noteUndo: false}),
+      askDara: () => this.focusTo('td-note', {note: 'Asked Dara to finish it. She gets it in her Inbox.', noteUndo: true}),
+      blockEditing: !!local.blockEdit && blocked, blockDraft: local.blockDraft || '', setBlockDraft: e => this.setState({blockDraft: e.target.value}),
+      editBlock: () => this.focusTo('td-block-in', {blockEdit: true}),
+      saveBlock: () => (local.blockDraft || '').trim() ? this.focusTo('td-note', {blockEdit: false, note: 'Blocker note updated. Chenda sees: "' + local.blockDraft.trim() + '"', noteUndo: false}) : this.focusTo('td-block-in', {}),
+      kudosOn: local.kudos ? 'true' : 'false', kudosLabel: local.kudos ? 'Kudos sent to Rithy' : 'Give kudos', kudos: () => this.setState({kudos: !local.kudos}),
+      comments: local.comments || [], commentDraft: local.commentDraft || '', setComment: e => this.setState({commentDraft: e.target.value}),
+      sendComment: () => { const t = (local.commentDraft || '').trim(); if (t) this.setState({comments: (local.comments || []).concat([t]), commentDraft: ''}); else this.focusTo('td-comment', {}); },
+      hours: 3 + (local.logged || 0), logHour: () => this.setState({logged: (local.logged || 0) + 1, note: 'Logged 1h. ' + (4 + (local.logged || 0)) + 'h so far of about 12h.', noteUndo: false}),
       sendReview: () => open.length ? this.focusTo('td-keep', {confirmSend: true}) : this.focusTo('td-sent', {reviewSent: true}),
       confirmSend: !!local.confirmSend && !reviewSent, openStep: open.join('” and “'),
       keepWorking: () => this.focusTo('td-step-' + Math.max(firstOpen, 0), {confirmSend: false}),

@@ -142,6 +142,7 @@ class Component extends DCLogic {
       {id: 'photos', title: 'Check menu photos with Design', where: 'Menu refresh · from Pisey on Wed', due: 'Today', size: 'Small', status: 'To do', week: 'From Pisey'},
       {id: 'notes', title: 'Write release notes', where: 'Launch In-App Ordering v1', due: 'Tue 10 Nov', size: 'Small', status: 'To do'},
       {id: 'tests', title: 'Menu sync job tests', where: 'Menu sync · moving to week 44 for your leave', due: 'Thu 22', size: 'Medium', status: 'To do'},
+      {id: 'release', title: 'Menu sync job release', where: 'Menu sync · after the tests in week 44', due: 'Mon 9 Nov', size: 'Small', status: 'To do'},
       {id: 'contract', title: 'Contract renewal check', where: 'Standalone task · due during your leave', due: 'Thu 22', size: 'Small', status: 'To do', confidential: true},
       {id: 'checkout', title: 'Build the checkout API', where: 'Launch In-App Ordering v1 · Chenda checks it', due: 'Today', size: 'Medium', status: 'In progress', needsReview: true},
       {id: 'printer', title: 'Fix receipt printer driver', where: 'Standalone · added this week', due: 'Wed 21', size: '8h', status: 'In progress', blocked: true, blockerNote: 'waiting on vendor', week: 'Added'},
@@ -157,7 +158,7 @@ class Component extends DCLogic {
       const finish = () => update(c.id, {status: c.needsReview ? 'Review' : 'Done'}, c.needsReview ? c.title + ' is awaiting Chenda’s review. Your part is done.' : c.title + ' is done.');
       const unblock = () => update(c.id, {blocked: false}, c.title + ' is unblocked and stays In progress.');
       return Object.assign(c, {
-        topThree: ['photos', 'checkout', 'rounding'].includes(c.id), isBlocked: c.blocked, statusLabel: c.status + (c.blocked ? ' · Blocked' : ''),
+        topThree: ['photos', 'checkout', 'footer'].includes(c.id), isBlocked: c.blocked, statusLabel: c.status + (c.blocked ? ' · Blocked' : ''),
         canStart: c.status === 'To do', canFinish: c.status === 'In progress' && !c.blocked,
         canReopen: c.status === 'Review' || c.status === 'Done',
         hasAction: c.status === 'To do' || c.status === 'In progress',
@@ -172,10 +173,10 @@ class Component extends DCLogic {
     const scope = local.scope || 'all';
     const matchesScope = (c, id) => id === 'top' ? c.topThree : id === 'blocked' ? c.blocked : id === 'review' ? c.status === 'Review' : true;
     const filtered = cards.filter(c => matchesScope(c, scope) && (c.title + ' ' + c.where).toLowerCase().includes(query.trim().toLowerCase()));
-    const filters = [['all', 'All tasks'], ['top', 'Top 3'], ['blocked', 'Needs help'], ['review', 'Awaiting review']].map(([id, label]) => ({label, count: cards.filter(c => matchesScope(c, id)).length, selected: scope === id ? 'true' : 'false', pick: () => this.setState({scope: id})}));
+    const filters = [['all', 'All tasks'], ['top', 'Top 3'], ['blocked', 'Blocked'], ['review', 'Awaiting review']].map(([id, label]) => ({label, count: cards.filter(c => matchesScope(c, id)).length, selected: scope === id ? 'true' : 'false', pick: () => this.setState({scope: id})}));
     const group = (name, matches) => {const list = filtered.filter(matches); return {name, count: list.length, cards: list, isDone: name === 'Done', expanded: name !== 'Done' || !!local.showDone || !!query.trim()};};
-    const listColumns = [group('In progress', c => c.status === 'In progress' && !c.blocked), group('Needs help', c => c.blocked), group('To do', c => c.status === 'To do'), group('Awaiting review', c => c.status === 'Review'), group('Done', c => c.status === 'Done')].filter(c => c.count);
-    return {query, filters, openCount: cards.filter(c => c.status !== 'Done').length, doneCount: cards.filter(c => c.status === 'Done').length, toggleDone: () => this.setState({showDone: !local.showDone, query: ''}), doneToggleLabel: local.showDone || query.trim() ? 'Hide completed tasks' : 'Show completed tasks', hasNotice: !!local.notice, canUndo: !!local.canUndo, undo: () => this.setState({changes: local.undoChanges || {}, canUndo: false, notice: 'Last task update undone.'}), totalCount: cards.length, visibleCount: filtered.length, noResults: !filtered.length, setQuery: e => this.setState({query: e.target.value}), resetFilters: () => this.setState({query: '', scope: 'all'}), views, listColumns, columns: ['To do','In progress','Review','Done'].map(name => group(name, c => c.status === name)), rows: listColumns.flatMap(c => c.cards), notice: local.notice || 'Active work first. Blocked tasks stay In progress and appear under Needs help.', isList: view === 'list', isBoard: view === 'board', isTable: view === 'table', notList: view !== 'list'};
+    const listColumns = [group('In progress', c => c.status === 'In progress' && !c.blocked), group('Blocked', c => c.blocked), group('To do', c => c.status === 'To do'), group('Awaiting review', c => c.status === 'Review'), group('Done', c => c.status === 'Done')].filter(c => c.count);
+    return {query, filters, openCount: cards.filter(c => c.status !== 'Done').length, doneCount: cards.filter(c => c.status === 'Done').length, toggleDone: () => this.setState({showDone: !local.showDone, query: ''}), doneToggleLabel: local.showDone || query.trim() ? 'Hide completed tasks' : 'Show completed tasks', hasNotice: !!local.notice, canUndo: !!local.canUndo, undo: () => this.setState({changes: local.undoChanges || {}, canUndo: false, notice: 'Last task update undone.'}), totalCount: cards.length, visibleCount: filtered.length, noResults: !filtered.length, setQuery: e => this.setState({query: e.target.value}), resetFilters: () => this.setState({query: '', scope: 'all'}), views, listColumns, columns: ['To do','In progress','Review','Done'].map(name => group(name, c => c.status === name)), rows: listColumns.flatMap(c => c.cards), notice: local.notice || 'Active work first. Blocked tasks stay In progress and appear under Blocked.', isList: view === 'list', isBoard: view === 'board', isTable: view === 'table', notList: view !== 'list'};
   }
 }
 </script>

@@ -24,11 +24,17 @@ body{margin:0}
     <img src="/_blob/637eea0f0cb0fc9affcb69602a64aeba" alt="" style="width: 36px; height: 36px; display: block">
     <span style="font-size: 19px; font-weight: 600; letter-spacing: -0.03em">HopFlows</span>
   </a>
-  <button type="button" class="hf-hide-sm" aria-label="Switch company, current: Riverline Co." style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px; border: 0; border-radius: 16px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; text-align: left">
+  <button type="button" id="co-btn" class="hf-hide-sm" aria-label="Switch company, current: Riverline Co." aria-haspopup="true" aria-expanded="{{coOpen}}" onClick="{{toggleCo}}" onKeyDown="{{coKey}}" style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px; border: 0; border-radius: 16px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; text-align: left">
     <span style="width: 26px; height: 26px; border-radius: 8px; background: #C9DDE8; color: #33454F; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600">RC</span>
     <span style="flex: 1">Riverline Co.</span>
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
   </button>
+  <sc-if value="{{showCo}}" hint-placeholder-val="{{false}}">
+    <div id="co-menu" tabindex="-1" onKeyDown="{{coKey}}" class="hf-hide-sm" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E7E5DF; font-size: 13px; line-height: 18px">
+      <span style="font-weight: 600">Riverline Co. <span style="font-weight: 400; color: #4A4950">· your company</span></span>
+      <span style="color: #4A4950">You belong to one company. If you work for another one too, an admin there can invite you, and it shows up here.</span>
+    </div>
+  </sc-if>
 
   <div class="hf-nav-list" style="display: flex; flex-direction: column; gap: 2px">
     <!-- phones: the role links come first in the page, so Tab order matches the screen -->
@@ -146,6 +152,8 @@ body{margin:0}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"needs":{"editor":"text","default":"9"},"persona":{"editor":"enum","options":["employee","lead","leader","admin"],"default":"employee"},"current":{"editor":"text","default":"today"},"$preview":{"width":232,"height":1010}}'>
 class Component extends DCLogic {
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
   renderVals() {
     const persona = this.props.persona ?? 'employee';
     const current = this.props.current ?? 'today';
@@ -177,6 +185,9 @@ class Component extends DCLogic {
       isLeader: persona === 'leader',
       isAdmin: persona === 'admin',
       showReports: persona !== 'admin',
+      coOpen: (this.state || {}).co ? 'true' : 'false', showCo: !!(this.state || {}).co,
+      toggleCo: () => this.focusTo((this.state || {}).co ? 'co-btn' : 'co-menu', { co: !(this.state || {}).co }),
+      coKey: (e) => { if (e.key === 'Escape' && (this.state || {}).co) { e.preventDefault(); this.focusTo('co-btn', { co: false }); } },
       reportsHref: persona === 'employee' ? 'MyReport.dc.html' : persona === 'leader' ? 'CompanyReports.dc.html' : 'Reports.dc.html'
     };
   }

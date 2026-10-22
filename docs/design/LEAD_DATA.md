@@ -151,6 +151,9 @@ Today on the employee screens is **Friday 16 October, 14:10** (before Build the 
 - Routines: Check overnight error emails (working days by 09:30, done 09:12 today), Daily wrap-up notes (working days by 18:00), Open shop checklist (Tue and Thu by 09:00).
 - Week 43 as Chenda plans it: 22h planned of 12h to plan with the leave counted; Menu sync job tests moves to week 44, then 12h of 12h. Without the leave: 22h of 24h.
 - Leave: Annual Thu 22 – Fri 23 Oct, waiting for Chenda. Sample new request: Annual Mon 9 – Tue 10 Nov (Menu sync job release Mon 9 Nov, Write release notes Tue 10 Nov). Backup approver: Sokha Meng.
+- Week 41 (My week report, final): 3 of 3 planned done (Payment webhook retries, Order history endpoint, Coupon banner tests), 1 came in (Shop tablet login times out, fixed Mon), nothing moved, routines 10 of 10.
+- Need help (blocked state): Build the checkout API waits on the payment provider's live keys ("Sandbox works"), since Fri 16 Oct 12:05; same wording as the Goal flag.
+- Today header: "This week you said Balanced"; next week as "12h planned of 12h to plan, once Menu sync job tests moves to week 44".
 - Requests I sent: Checkout fails with the 10% coupon (sent 13:58 today, waiting; matches Rithy's open task in the Queue), Add Khmer search to the menu (waiting), Receipt prints the wrong shop address (joined), Khmer font in menu PDFs (back on Tue 3 Nov), and two older ones.
 
 ## Writing hours

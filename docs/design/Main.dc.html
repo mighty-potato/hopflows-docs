@@ -52,11 +52,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <p style="margin: 4px 0 0; font-size: 15px; line-height: 22px; color: #4A4950">Good morning, Dara.</p>
         </sc-if>
       </div>
-      <a href="Leave.dc.html" style="height: 44px; display: inline-flex; align-items: center; gap: 10px; padding: 0 18px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600">
-        <span style="color: #6E6C73; font-weight: 400">This week you said</span>
-        <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 999px; background: #C9DDE8; color: #33454F">Balanced</span>
-        <span style="color: #6E6C73; font-weight: 400">· Next week: 22h of 12h with your leave, Chenda is moving 10h</span>
-      </a>
+      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px">
+        <a href="Leave.dc.html" style="min-height: 44px; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; padding: 0 8px 0 18px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600">
+          <span style="color: #4A4950; font-weight: 400">This week you said</span>
+          <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 999px; background: #C9DDE8; color: #33454F">Balanced</span>
+        </a>
+        <a href="Leave.dc.html" style="min-height: 32px; display: inline-flex; align-items: center; font-size: 13px; line-height: 18px; color: #4A4950">Next week: 12h planned of 12h to plan, once Menu sync job tests moves to week 44</a>
+      </div>
     </div>
 
     <sc-if value="{{celebrate}}" hint-placeholder-val="{{false}}">
@@ -71,7 +73,16 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <section aria-label="Overdue" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 16px 14px 20px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
         <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 2px"><strong style="font-size: 15px; line-height: 22px; font-weight: 600; color: #1C1B1F">Payment error copy is overdue</strong><span style="font-size: 13px; line-height: 18px">It was due Tue 13 Oct. Finish it now, or pick a new date and say why.</span></div>
         <a href="TaskDetail.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Open it</a>
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">New date</button>
+        <sc-if value="{{odIdle}}" hint-placeholder-val="{{true}}"><button type="button" id="od-new" onClick="{{odPick}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">New date</button></sc-if>
+        <sc-if value="{{odPicking}}" hint-placeholder-val="{{false}}">
+          <div style="flex: 1 1 100%; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 12px; color: #1C1B1F">
+            <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600">New date<select id="od-date" onChange="{{odSetDate}}" style="height: 44px; padding: 0 12px; border: 1px solid #6E6C73; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px"><option value="Mon 19 Oct">Mon 19 Oct</option><option value="Tue 20 Oct">Tue 20 Oct</option><option value="Wed 21 Oct">Wed 21 Oct</option></select></label>
+            <label style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600">Why it moved<input type="text" value="{{odWhy}}" onChange="{{odSetWhy}}" placeholder="For example: waiting on the error list from Rithy" style="height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #6E6C73; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px"></label>
+            <button type="button" onClick="{{odSave}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Save new date</button>
+            <sc-if value="{{odError}}" hint-placeholder-val="{{false}}"><p role="alert" style="flex: 1 1 100%; margin: 0; font-size: 13px; color: #9A3412">Say why it moved. Chenda sees the reason next to the new date.</p></sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{odMoved}}" hint-placeholder-val="{{false}}"><p id="od-done" tabindex="-1" role="status" style="flex: 1 1 100%; margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 13px; color: #1C1B1F">Moved to {{odDate}}. Chenda sees the new date and your reason.<button type="button" onClick="{{odUndo}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button></p></sc-if>
       </section>
     </sc-if>
     <sc-if value="{{hasWork}}" hint-placeholder-val="{{true}}">
@@ -82,7 +93,14 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Your Top 3</h2>
         </div>
 
-        <p style="margin: 0 0 8px; font-size: 13px; line-height: 18px; color: #4A4950">Start here. Everything else waits below.</p>
+        <sc-if value="{{notAllClear}}" hint-placeholder-val="{{true}}"><p style="margin: 0 0 8px; font-size: 13px; line-height: 18px; color: #4A4950">Start here. Everything else waits below.</p></sc-if>
+        <sc-if value="{{allClear}}" hint-placeholder-val="{{false}}">
+          <div role="status" class="hf-celebrate" style="position: relative; overflow: hidden; margin: 4px 0 8px; padding: 22px 150px 22px 22px; min-height: 132px; box-sizing: border-box; border-radius: 22px; background: #DCEFE2; color: #1F5E3A; display: flex; flex-direction: column; justify-content: center; gap: 6px">
+            <span style="font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em; color: #1C1B1F">All three done.</span>
+            <span style="font-size: 15px; line-height: 22px">Chenda accepted the checkout API. Your streak is now 13 days.</span>
+            <img src="/_blob/af734ff66eba4c9a8304432b5f21b934" alt="Punh Punh holding a ticked note" style="position: absolute; right: 4px; bottom: -16px; width: 132px; height: 132px; object-fit: cover">
+          </div>
+        </sc-if>
 
 
         <sc-if value="{{checkoutActive}}" hint-placeholder-val="{{true}}">
@@ -108,7 +126,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             </sc-if>
             <div role="group" aria-label="Task checklist">
               <label class="hf-check-row"><input type="checkbox" checked="{{stepOne}}" onChange="{{toggleOne}}"><span>Design the endpoint</span></label>
-              <label class="hf-check-row"><input type="checkbox" checked="{{stepTwo}}" onChange="{{toggleTwo}}"><span>Add checks</span></label>
+              <label class="hf-check-row"><input type="checkbox" checked="{{stepTwo}}" onChange="{{toggleTwo}}"><span>Add checks for coupon and total</span></label>
               <label class="hf-check-row"><input id="step-three" type="checkbox" checked="{{stepThree}}" onChange="{{toggleThree}}"><span>Write tests</span></label>
             </div>
           </div>
@@ -131,14 +149,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             </sc-if>
           </div>
         </sc-if>
-        <sc-if value="{{allClear}}" hint-placeholder-val="{{false}}"><p style="font-size: 15px; color: #4A4950">Build the checkout API · Done · accepted by Chenda</p></sc-if>
-        <sc-if value="{{menuDone}}" hint-placeholder-val="{{false}}">
-          <p role="status" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 15px; color: #6E6C73">Check menu photos with Design · Done<sc-if value="{{menuUndo}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{undoMenu}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button></sc-if></p>
-        </sc-if>
-        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F0EEE9">
-          <span aria-hidden="true" style="width: 24px; height: 24px; border-radius: 999px; background: #1C1B1F; color: #F7C83A; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg></span>
-          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; line-height: 22px; color: #6E6C73; text-decoration: line-through">Update receipt footer text</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">Done 10:24</span></div>
-        </div>
+        <sc-for list="{{doneRows}}" as="d" hint-placeholder-count="1">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F0EEE9">
+            <span aria-hidden="true" style="width: 24px; height: 24px; border-radius: 999px; background: #1C1B1F; color: #F7C83A; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg></span>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; line-height: 22px; color: #6E6C73; text-decoration: line-through">{{d.t}}</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{d.meta}}</span></div>
+            <sc-if value="{{d.canUndo}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{d.undo}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button></sc-if>
+          </div>
+        </sc-for>
 
         <sc-if value="{{workResolved}}" hint-placeholder-val="{{false}}"><a href="#other-work" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 13px; color: #4A4950">Pick from your other tasks</a></sc-if>
 
@@ -155,20 +172,18 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </div>
         </details>
         <details class="hf-disclosure" style="margin-top: 12px">
-          <summary>Routines today · 1 of 2 done · next by 18:00</summary>
-          <div class="hf-disclosure-content"><label class="hf-check-row"><input type="checkbox" checked><span>Check overnight error emails · done 09:12</span></label><label class="hf-check-row"><input type="checkbox"><span>Daily wrap-up notes · by 18:00 · 3h 50m left</span></label><a href="MyRoutines.dc.html" style="min-height: 44px; align-self: flex-start; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600">Your routines</a></div>
+          <summary>{{routineSummary}}</summary>
+          <div class="hf-disclosure-content"><label class="hf-check-row"><input type="checkbox" checked disabled><span>Check overnight error emails · done 09:12</span></label><label class="hf-check-row"><input type="checkbox" checked="{{wrapDone}}" onChange="{{toggleWrap}}"><span>{{wrapLabel}}</span></label><a href="MyRoutines.dc.html" style="min-height: 44px; align-self: flex-start; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600">Your routines</a></div>
         </details>
       </section>
       </div>
       <div class="hf-col hf-today-context" style="flex: 4 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
-      <section aria-label="Top 3 progress" class="hf-progress" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; min-height: 260px; position: relative; overflow: hidden">
+      <section aria-label="Top 3 progress" aria-live="polite" class="hf-progress" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px; min-height: 260px; position: relative; overflow: hidden">
         <span style="font-size: 13px; line-height: 18px; font-weight: 600">Top 3 progress</span>
         <span class="hf-progress-number" style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.04em">{{doneCount}}/3</span>
         <span class="hf-progress-copy" style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{progressCopy}}</span>
         <div class="hf-progress-bars" style="margin-top: auto; display: flex; gap: 6px" aria-hidden="true">
-          <span style="flex: 1; height: 10px; border-radius: 999px; background: #1C1B1F"></span>
-          <span style="flex: 1; height: 10px; border-radius: 999px; background: {{secondBar}}"></span>
-          <span style="flex: 1; height: 10px; border-radius: 999px; background: {{thirdBar}}"></span>
+          <sc-for list="{{bars}}" as="b" hint-placeholder-count="3"><span style="flex: 1; height: 10px; border-radius: 999px; background: {{b}}"></span></sc-for>
         </div>
       </section>
         <section aria-label="Next meeting" style="order: 3; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 6px">
@@ -180,7 +195,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <h2>Beyond your Top 3</h2>
           <p>Your other work stays visible here.</p>
           <a class="hf-other-task" href="MyTasks.dc.html"><strong>Fix receipt printer driver</strong><span class="hf-blocked-copy">Blocked · waiting on vendor</span><span>Due Wed 21 · Update blocker</span></a>
-          <a class="hf-other-task" href="MyTasks.dc.html"><strong>Coupon rules screen</strong><span>Awaiting Chenda’s review</span></a>
+          <a class="hf-other-task" href="MyTasks.dc.html"><strong>Coupon rules screen</strong><span>{{couponStatus}}</span></a>
           <a class="hf-other-task" href="MyTasks.dc.html"><strong>Write release notes</strong><span>To do · due Tue 10 Nov</span></a>
           <a class="hf-other-task" href="MyTasks.dc.html"><strong>Menu sync job tests</strong><span>Due Thu 22 · moving to week 44 for your leave</span></a>
           <a class="hf-all-tasks-link" href="MyTasks.dc.html">View all my tasks</a>
@@ -216,7 +231,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 <script type="text/x-dc" data-dc-script data-props='{"celebrate":{"editor":"boolean","default":false},"overdue":{"editor":"boolean","default":false},"state":{"editor":"enum","options":["working","awaitingReview","allClear","empty"],"default":"working"},"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
-  componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
+  componentDidMount() { this._shown = this._stage; }
+  componentDidUpdate() { if (this._shown !== undefined && this._shown !== this._stage) { const n = document.querySelector('.hf-progress-number'); if (n && n.animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) n.animate([{ transform: 'scale(1.18)', transformOrigin: 'left center' }, { transform: 'none', transformOrigin: 'left center' }], { duration: 520, easing: 'cubic-bezier(.16,1,.3,1)' }); } this._shown = this._stage; const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
   renderVals() {
     const state = this.props.state ?? 'working';
     const local = this.state || {};
@@ -226,22 +242,32 @@ class Component extends DCLogic {
     const yourPartDone = checkoutSent && menuDone;
     const workResolved = allClear || yourPartDone;
     const doneCount = allClear ? 3 : 1 + (menuDone ? 1 : 0);
+    const celebrateOn = (this.props.celebrate ?? false) && !allClear;
+    this._stage = doneCount + '-' + checkoutSent;
     const stepOne = local.stepOne ?? true, stepTwo = local.stepTwo ?? true, stepThree = local.stepThree ?? false;
     return {
-      celebrate: (this.props.celebrate ?? false) && !(this.state || {}).celebrated, closeCelebrate: () => this.setState({ celebrated: true }), showOverdue: this.props.overdue ?? false,
+      celebrate: celebrateOn && !(this.state || {}).celebrated, closeCelebrate: () => this.setState({ celebrated: true }), showOverdue: this.props.overdue ?? false,
       working: state !== 'empty' && !workResolved, allClear, yourPartDone, workResolved, empty: state === 'empty', hasWork: state !== 'empty',
-      doneCount, progressCopy: allClear ? 'Three priorities done.' : (yourPartDone ? '2 done · 1 awaiting review' : (checkoutSent ? '1 awaiting review · 1 still needs you' : (menuDone ? 'One priority still needs you.' : 'Two priorities still need you.'))),
-      secondBar: doneCount >= 2 ? '#1C1B1F' : 'rgba(28,27,31,0.16)', thirdBar: allClear ? '#1C1B1F' : 'rgba(28,27,31,0.16)',
+      doneCount, progressCopy: allClear ? 'Three priorities done.' : (checkoutSent && local.justSent && state === 'working') ? 'Handed in. Chenda checks it at the 14:30 sync.' : (yourPartDone ? '2 done · 1 awaiting review' : (checkoutSent ? (local.justSent ? 'Handed in. Chenda checks it at the 14:30 sync.' : '1 awaiting review · 1 still needs you') : (menuDone ? 'One priority still needs you.' : 'Two priorities still need you.'))),
+      bars: [].concat(Array(doneCount).fill('#1C1B1F'), Array(checkoutSent ? 1 : 0).fill('rgba(28,27,31,0.45)'), Array(3 - doneCount - (checkoutSent ? 1 : 0)).fill('rgba(28,27,31,0.16)')),
+      notAllClear: !allClear,
+      doneRows: [].concat(allClear ? [{ t: 'Build the checkout API', meta: 'Accepted by Chenda 16:40', canUndo: false }] : [], menuDone ? [{ t: 'Check menu photos with Design', meta: local.menuDone ? 'Done 14:12' : 'Done 13:30', canUndo: !!local.menuDone && state === 'working', undo: () => this.focusTo('menu-btn', {menuDone: false, menuStarted: true}) }] : [], [{ t: 'Update receipt footer text', meta: 'Done 10:24', canUndo: false }]),
+      couponStatus: celebrateOn ? 'Done · accepted by Chenda' : 'Awaiting Chenda’s review',
+      routineSummary: 'Routines today · ' + (local.wrapDone ? '2 of 2 done' : '1 of 2 done · next by 18:00'), wrapDone: !!local.wrapDone,
+      wrapLabel: local.wrapDone ? 'Daily wrap-up notes · done 14:12' : 'Daily wrap-up notes · by 18:00 · 3h 50m left', toggleWrap: () => this.setState({wrapDone: !local.wrapDone}),
+      odIdle: !local.od, odPicking: local.od === 'picking', odMoved: local.od === 'moved', odDate: local.odDate || 'Mon 19 Oct', odWhy: local.odWhy || '', odError: !!local.odError,
+      odPick: () => this.focusTo('od-date', {od: 'picking'}), odSetDate: e => this.setState({odDate: e.target.value}), odSetWhy: e => this.setState({odWhy: e.target.value, odError: false}),
+      odSave: () => (local.odWhy || '').trim() ? this.focusTo('od-done', {od: 'moved', odError: false}) : this.setState({odError: true}),
+      odUndo: () => this.focusTo('od-new', {od: null, odWhy: ''}),
       checkoutActive: !checkoutSent && !allClear, checkoutSent, menuActive: !menuDone, menuDone,
       menuStatus: local.menuStarted ? 'In progress' : 'To do', menuAction: local.menuStarted ? 'Done' : 'Start',
       advanceMenu: () => this.setState(local.menuStarted ? {menuDone: true} : {menuStarted: true}),
-      sendCheckout: () => { const open = [[stepOne, 'Design the endpoint'], [stepTwo, 'Add checks'], [stepThree, 'Write tests']].filter(x => !x[0]).map(x => x[1]); if (open.length) this.focusTo('cs-keep', {confirmSend: true, openStep: open.join('” and “')}); else this.focusTo('sent-note', {checkoutSent: true, justSent: true}); },
+      sendCheckout: () => { const open = [[stepOne, 'Design the endpoint'], [stepTwo, 'Add checks for coupon and total'], [stepThree, 'Write tests']].filter(x => !x[0]).map(x => x[1]); if (open.length) this.focusTo('cs-keep', {confirmSend: true, openStep: open.join('” and “')}); else this.focusTo('sent-note', {checkoutSent: true, justSent: true}); },
       confirmSend: !!local.confirmSend && !checkoutSent, openStep: local.openStep || '',
       keepWorking: () => this.focusTo('step-three', {confirmSend: false}),
       sendAnyway: () => this.focusTo('sent-note', {confirmSend: false, checkoutSent: true, justSent: true}),
       justSent: !!local.justSent && state === 'working', sentClass: local.justSent ? 'hf-celebrate' : '',
       undoSend: () => this.focusTo('send-btn', {checkoutSent: false, justSent: false}),
-      menuUndo: !!local.menuDone && state === 'working', undoMenu: () => this.focusTo('menu-btn', {menuDone: false, menuStarted: true}),
       stepOne, stepTwo, stepThree,
       toggleOne: () => this.setState({stepOne: !stepOne}), toggleTwo: () => this.setState({stepTwo: !stepTwo}), toggleThree: () => this.setState({stepThree: !stepThree}),
       priorityNote: local.priorityNote || '', prioritiesAsking: !local.prioritiesSent, prioritiesSent: !!local.prioritiesSent, priorityError: !!local.priorityError,

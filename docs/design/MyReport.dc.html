@@ -36,25 +36,26 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">My week report</h1>
-        <p style="margin: 0; max-width: 64ch; font-size: 15px; line-height: 22px; color: #4A4950">Week 42 · 12–16 Oct, so far (Fri 16 Oct, 14:10). What you planned, what came up, and what moves on. Only you and Chenda see it, and it's never used to rank anyone.</p>
+        <p style="margin: 0; max-width: 64ch; font-size: 15px; line-height: 22px; color: #4A4950">{{weekLine}} What you planned, what came up, and what moves on. Only you and Chenda see it, and it's never used to rank anyone.</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">‹ Week 41</button>
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Download PDF</button>
+        <button type="button" id="mr-week" onClick="{{flipWeek}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{weekBtn}}</button>
+        <button type="button" onClick="{{savePdf}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Download PDF</button>
+        <sc-if value="{{pdfDone}}" hint-placeholder-val="{{false}}"><span id="mr-pdf" tabindex="-1" role="status" style="flex: 1 1 100%; font-size: 13px; color: #1F5E3A">Saved "{{pdfName}}" · 1 page</span></sc-if>
       </div>
     </div>
 
     <div class="bento hf-masonry" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
-      <section aria-label="This week in a sentence" style="flex: 1 1 100%; order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px">
+      <section aria-label="This week in a sentence" style="flex: 1 1 100%; order: 0; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px">
         <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
-          <h2 style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em; text-wrap: balance">A solid week, with two surprises</h2>
-          <span style="font-family: 'Geist Mono', monospace; font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums">1 of 4 planned done · 1 with Chenda · 1 due today · 3 came in · 2 move to week 43</span>
+          <h2 style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em; text-wrap: balance">{{headline}}</h2>
+          <span style="font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums">{{countsLine}}</span>
         </div>
-        <span style="font-size: 13px; line-height: 18px; max-width: 40ch">The receipt printer problem came in on Tuesday, and you took 2 of Pisey's tasks on Wednesday while she was sick. One planned task moves to next week. That's recorded, not counted against you.</span>
+        <span style="font-size: 13px; line-height: 18px; max-width: 40ch">{{story}}</span>
       </section>
       <div class="hf-col" style="flex: 6 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
       <section aria-labelledby="mr-planned" style="order: 2; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
-        <h2 id="mr-planned" style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Planned <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">4</span></h2>
+        <h2 id="mr-planned" style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Planned <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">{{plannedN}}</span></h2>
         <sc-for list="{{planned}}" as="r" hint-placeholder-count="3">
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 12px 0; border-top: 1px solid #F0EEE9">
             <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{r.title}}</a><span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{r.meta}}</span></div>
@@ -64,12 +65,12 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
       <section aria-label="Routines" style="order: 5; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Routines</h2>
-        <p style="margin: 0; font-size: 15px; line-height: 22px"><strong style="font-weight: 600">10 of 11 on time so far.</strong> <span style="color: #4A4950">Daily wrap-up notes was missed on Wednesday. Today's is due by 18:00.</span></p>
+        <p style="margin: 0; font-size: 15px; line-height: 22px"><strong style="font-weight: 600">{{routinesBold}}</strong> <span style="color: #4A4950">{{routinesText}}</span></p>
       </section>
       </div>
       <div class="hf-col" style="flex: 6 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
         <section aria-labelledby="mr-added" style="order: 3; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
-          <h2 id="mr-added" style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Came in during the week <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">3</span></h2>
+          <h2 id="mr-added" style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Came in during the week <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">{{addedN}}</span></h2>
           <sc-for list="{{added}}" as="r" hint-placeholder-count="3">
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 12px 0; border-top: 1px solid #F0EEE9">
             <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{r.title}}</a><span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{r.meta}}</span></div>
@@ -78,7 +79,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </sc-for>
         </section>
         <section aria-labelledby="mr-carried" style="order: 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
-          <h2 id="mr-carried" style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Moves to week 43 <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">2</span></h2>
+          <h2 id="mr-carried" style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{carriedTitle}} <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: #4A4950">{{carriedN}}</span></h2>
+          <sc-if value="{{nothingMoved}}" hint-placeholder-val="{{false}}"><p style="margin: 0; padding: 12px 0; border-top: 1px solid #F0EEE9; font-size: 15px; color: #4A4950">Nothing moved.</p></sc-if>
           <sc-for list="{{carried}}" as="r" hint-placeholder-count="3">
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 12px 0; border-top: 1px solid #F0EEE9">
             <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{r.title}}</a><span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{r.meta}}</span></div>
@@ -88,8 +90,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </section>
       <section aria-label="Thanks" style="order: 6; background: #F9D3DE; color: #6E4850; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 6px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Thanks you received</h2>
-        <p style="margin: 0; font-size: 15px; line-height: 22px; color: #1C1B1F">“Thanks for taking Pisey's two tasks on Wednesday.” · Chenda</p>
-        <p style="margin: 0; font-size: 15px; line-height: 22px; color: #1C1B1F">“The endpoint docs saved me an hour.” · Rithy</p>
+        <sc-for list="{{thanks}}" as="t" hint-placeholder-count="2"><p style="margin: 0; font-size: 15px; line-height: 22px; color: #1C1B1F">{{t}}</p></sc-for>
       </section>
       </div>
     </div>
@@ -100,7 +101,11 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
   renderVals() {
+    const ui = this.state || {};
+    const w41 = !!ui.w41;
     const st = {
       done: { status: 'Done', bg: '#DCEFE2', fg: '#1F5E3A', dot: '#2E7D4F' },
       review: { status: 'With Chenda', bg: '#C9DDE8', fg: '#33454F', dot: '#33454F' },
@@ -109,7 +114,7 @@ class Component extends DCLogic {
       progress: { status: 'Due today', bg: '#FFF6D6', fg: '#1C1B1F', dot: '#C9A227' }
     };
     const r = (title, meta, s) => Object.assign({ title, meta }, st[s]);
-    return {
+    const week42 = {
       planned: [
         r('Build the checkout API', 'Medium · due today 17:00', 'progress'),
         r('Coupon rules screen', 'Medium · sent Thu, Chenda checks it', 'review'),
@@ -126,6 +131,30 @@ class Component extends DCLogic {
         r('Fix receipt printer driver', 'Reason: waiting on the vendor', 'blocked')
       ]
     };
+    const week41 = {
+      planned: [
+        r('Payment webhook retries', 'Medium · done Thu 8 Oct', 'done'),
+        r('Order history endpoint', 'Medium · done Wed 7 Oct', 'done'),
+        r('Coupon banner tests', 'Small · done Tue 6 Oct', 'done')
+      ],
+      added: [r('Shop tablet login times out', 'From the shop team on Mon · Small · done Mon', 'done')],
+      carried: []
+    };
+    const d = w41 ? week41 : week42;
+    return Object.assign({}, d, {
+      weekLine: w41 ? 'Week 41 · 5–9 Oct, final.' : 'Week 42 · 12–16 Oct, so far (Fri 16 Oct, 14:10).',
+      weekBtn: w41 ? 'Week 42 ›' : '‹ Week 41', flipWeek: () => this.focusTo('mr-week', { w41: !w41, pdf: false }),
+      headline: w41 ? 'A steady week' : 'A solid week, with two surprises',
+      countsLine: w41 ? '3 of 3 planned done · 1 came in · nothing moves' : '1 of 4 planned done · 1 with Chenda · 1 due today · 3 came in · 2 move to week 43',
+      story: w41 ? 'Everything planned got done, and the shop tablet login problem on Monday was fixed the same day.' : "The receipt printer problem came in on Tuesday, and you took 2 of Pisey's tasks on Wednesday while she was sick. One planned task moves to next week. That's recorded, not counted against you.",
+      carriedTitle: w41 ? 'Moved to week 42' : 'Moves to week 43',
+      routinesBold: w41 ? '10 of 10 on time.' : '10 of 11 on time so far.',
+      routinesText: w41 ? 'Nothing missed.' : "Daily wrap-up notes was missed on Wednesday. Today's is due by 18:00.",
+      thanks: w41 ? ['“Webhook retries are solid. No lost orders this week.” · Chenda'] : ["“Thanks for taking Pisey's two tasks on Wednesday.” · Chenda", '“The endpoint docs saved me an hour.” · Rithy'],
+      plannedN: d.planned.length, addedN: d.added.length, carriedN: d.carried.length, nothingMoved: !d.carried.length,
+      pdfDone: !!ui.pdf, pdfName: (w41 ? 'My week report week 41' : 'My week report week 42') + '.pdf',
+      savePdf: () => this.focusTo('mr-pdf', { pdf: true })
+    });
   }
 }
 </script>

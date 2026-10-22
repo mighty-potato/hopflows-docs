@@ -68,7 +68,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
         <div style="display: flex; flex-direction: column; gap: 6px">
           <label for="nh-note" style="font-size: 13px; line-height: 18px; font-weight: 600">Note <span style="font-weight: 400; color: #6E6C73">· optional</span></label>
-          <textarea id="nh-note" rows="3" style="box-sizing: border-box; padding: 14px 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; line-height: 22px; color: #1C1B1F; resize: vertical">The sandbox returns an error when a coupon makes the total zero. I've emailed them, no answer yet.</textarea>
+          <textarea id="nh-note" rows="3" style="box-sizing: border-box; padding: 14px 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; line-height: 22px; color: #1C1B1F; resize: vertical">Live keys still haven't come from the payment provider, so I can't test real payments. Sandbox works. I emailed them on Wednesday, no answer yet.</textarea>
         </div>
 
         <div style="display: flex; align-items: flex-start; gap: 10px; padding: 14px 16px; border-radius: 22px; background: #F4F3EF; font-size: 13px; line-height: 18px">
@@ -90,11 +90,12 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
       <sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
         <div id="nh-sent" tabindex="-1" role="status" style="display: flex; flex-direction: column; gap: 14px">
-          <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 13px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>Blocked · waiting on payment provider</span>
+          <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 13px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>{{sentBadge}}</span>
           <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Chenda knows. You'll hear back in your Inbox.</span>
-          <span style="font-size: 15px; line-height: 22px; color: #4A4950">Keep going with your next task in the meantime. When it's sorted, tap Unblock on the task.</span>
+          <span style="font-size: 15px; line-height: 22px; color: #4A4950">{{sentNext}}</span>
         </div>
         <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px">
+          <button type="button" onClick="{{unsend}}" style="height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; cursor: pointer">Undo</button>
           <a href="TaskDetail.dc.html" style="height: 48px; padding: 0 22px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back to the task</a>
           <a href="Main.dc.html" style="height: 48px; padding: 0 28px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back to Today</a>
         </div>
@@ -152,7 +153,10 @@ class Component extends DCLogic {
       sendFailed: this.props.sendFailed ?? false,
       asking: !sent,
       reasons, notSure: reason === 'how', dialogKey: (e) => this.dialogKey(e),
-      send: () => this.focusTo('nh-sent', { sent: true })
+      sentBadge: { waiting: 'Blocked · waiting on payment provider support', access: 'Blocked · missing access or info', how: 'Need help · not sure how', much: 'Need help · too much on my plate', other: 'Need help' }[reason],
+      sentNext: (reason === 'waiting' || reason === 'access') ? 'Keep going with your next task in the meantime. When it\'s sorted, tap Unblock on the task.' : 'The task stays In progress. Chenda will look at it with you, in the app or at your next check-in.',
+      send: () => this.focusTo('nh-sent', { sent: true }),
+      unsend: () => this.focusTo('nh-title', { sent: false })
     };
   }
 }
