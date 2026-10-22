@@ -335,6 +335,8 @@ These rules apply everywhere in the app. The technical document (`HopFlows_Techn
 
 Once a Task is In Progress, it can't be left without an owner. Removing the owner moves it back to To Do. Only the owner or the lead can mark a Task Done. If a helper taps Done (in the app or from an alert), they are offered "Ask owner" instead. Cancelling a Task in a locked week is recorded as a plan change.
 
+If the owner sends a Task to Review with a checklist step still unticked, HopFlows names the step and asks first: keep working, or send anyway. Sending to Review can be undone until the reviewer opens it. (Proposed)
+
 A repeating daily task (routine) follows the same steps, plus one more ending: Missed. It is set automatically when the time to do it runs out. A Missed routine can't be reopened; the next day starts fresh.
 
 ```mermaid
@@ -752,6 +754,7 @@ HopFlows holds a lot of information, but nobody should have to dig through it. E
 
 - One main action per screen. Lists show three to five items, with "See all" for the rest.
 - The mobile app has four tabs: Home (different per role), Calendar, Inbox and a big Add button in the middle. Everything else is in Menu. Search sits at the top of every screen, not in a tab.
+- Today has one way to the rest of the work: the short "Beyond your Top 3" list and its "View all my tasks" link. Add Work stays in the top bar (and the middle button on mobile), not repeated on the page. (Proposed)
 - Routine work never competes with the top three priorities. It sits in its own folded "Routine today" group, and the "All clear" moment counts only the top three.
 - Words and colours before numbers: short labels like "On track" or "Needs you" and colour bands come first. Hours and percentages appear on tap.
 - Plain words for employees: "Planned this week", not "baseline"; "Add Work" and "New request", not "intake"; no planning jargon on employee screens.
@@ -1435,6 +1438,7 @@ When someone chooses "Create a company", HopFlows walks them through five short 
 - Company setup (Proposed): whoever creates a company is walked through company details, departments, people and optional products, and invites are sent together at the end (20 October).
 - After the lead-flow review (Proposed): approving leave first shows its effect on the person's week and lets the approver give away or move the Tasks due then; locking a week warns about leave requests still waiting but allows the lock; Handover warns when a receiver is on leave (20 October).
 - After the first employee-flow review (Proposed): an employee sees what their leave changes to next week's plan and can move or hand away Tasks due during it; leave requests, help requests, new routines and Add Work all confirm what was sent, with Undo; dialogs keep keyboard focus inside and close with Escape (22 October).
+- After the employee-flow P2 fixes (Proposed): sending a Task to Review with an unticked step asks first and can be undone; Today keeps one route to the rest of the work and drops the repeated links; My routines is in the employee menu; on phones the last item on a page clears the bottom navigation (22 October).
 - After the fifth leader-flow review (Proposed): approving a Goal shows the effect on the department and suggests Send back when it is over its buffer; decisions go to every lead and owner they affect, and a date-or-scope question can also lower the target with the Goal owner's agreement; the weekly summary shows the pace verdict for each Goal and an effect preview for each decision (22 October).
 - Company reports trend (Proposed): leaders see surprise work and work done for each department over the last three weeks side by side, with the change since the first week and a way to ask the department lead about it (21 October).
 - After the fourth leader-flow review (Proposed): each decision option shows its effect on the Goal; Goal cards show who set a flag, how long it has been open and its back-on-track date; one term, surprise work, is used everywhere; choice groups work with arrow keys and Escape closes decision panels (21 October).

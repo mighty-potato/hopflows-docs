@@ -19,7 +19,6 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
 .hf-nav-list{flex-direction:row !important;overflow-x:auto}
 .hf-hide-sm{display:none !important}
-.hf-main{padding:16px !important}
 .hf-board{grid-template-columns:repeat(4, minmax(240px, 1fr)) !important}
 }
 </style>
@@ -38,7 +37,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <p class="hf-task-intro">Your full task list, with your Top 3 highlighted.</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
-        <a href="AddWork.dc.html" class="hf-add-task">Add a task</a>
+        <a href="AddWork.dc.html" class="hf-add-task">Add Work</a>
         <div role="radiogroup" aria-label="View" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
           <sc-for list="{{views}}" as="v" hint-placeholder-count="3">
             <button type="button" role="radio" aria-checked="{{v.on}}" onClick="{{v.pick}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{v.bg}}; color: {{v.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{v.name}}</button>

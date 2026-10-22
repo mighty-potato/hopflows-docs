@@ -22,7 +22,6 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
 .hf-nav-list{flex-direction:row !important;overflow-x:auto}
 .hf-hide-sm{display:none !important}
-.hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important;grid-row:auto !important}
 }
 @media (max-width:1024px){
@@ -76,20 +75,14 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
     </sc-if>
     <sc-if value="{{hasWork}}" hint-placeholder-val="{{true}}">
-    <nav class="hf-work-overview" aria-label="Your workload">
-      <a href="MyTasks.dc.html"><strong>All my tasks</strong><span>Top 3 and everything else</span></a>
-      <a href="#other-work"><strong>Beyond your Top 3</strong><span>Upcoming, blocked &amp; in review</span></a>
-      <a href="AddWork.dc.html" class="hf-capture-link">Add a task</a>
-    </nav>
     <div class="bento hf-masonry hf-today-grid" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
       <div class="hf-col" style="flex: 8 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
       <section aria-label="Top 3" class="hf-top-three" style="order: 2; background: #FFFFFF; border-radius: 28px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px">
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Your Top 3</h2>
-          <a href="MyTasks.dc.html" style="font-size: 13px; font-weight: 600">See all tasks</a>
         </div>
 
-        <p style="margin: 0 0 8px; font-size: 13px; line-height: 18px; color: #4A4950">Start here. Your other tasks stay in My tasks.</p>
+        <p style="margin: 0 0 8px; font-size: 13px; line-height: 18px; color: #4A4950">Start here. Everything else waits below.</p>
 
 
         <sc-if value="{{checkoutActive}}" hint-placeholder-val="{{true}}">
@@ -103,40 +96,51 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <span style="font-size: 13px; line-height: 18px; color: #6E6C73">Launch In-App Ordering v1 · Retail App · Medium</span>
             </div>
             <div class="hf-current-actions" style="display: flex; flex-wrap: wrap; gap: 8px">
-              <button type="button" onClick="{{sendCheckout}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg>Send to review</button>
+              <button type="button" id="send-btn" onClick="{{sendCheckout}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg>Send to review</button>
               <a href="NeedHelp.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"></path></svg>Need help</a>
             </div>
+            <sc-if value="{{confirmSend}}" hint-placeholder-val="{{false}}">
+              <div role="alert" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 12px 12px 16px; border-radius: 16px; background: #FFFFFF">
+                <span style="flex: 1 1 220px; font-size: 13px; line-height: 18px">“{{openStep}}” isn’t ticked. Chenda will see it as not done.</span>
+                <button type="button" id="cs-keep" onClick="{{keepWorking}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Keep working</button>
+                <button type="button" onClick="{{sendAnyway}}" style="height: 44px; padding: 0 16px; border: 1px solid #6E6C73; border-radius: 999px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Send anyway</button>
+              </div>
+            </sc-if>
             <div role="group" aria-label="Task checklist">
               <label class="hf-check-row"><input type="checkbox" checked="{{stepOne}}" onChange="{{toggleOne}}"><span>Design the endpoint</span></label>
               <label class="hf-check-row"><input type="checkbox" checked="{{stepTwo}}" onChange="{{toggleTwo}}"><span>Add checks</span></label>
-              <label class="hf-check-row"><input type="checkbox" checked="{{stepThree}}" onChange="{{toggleThree}}"><span>Write tests</span></label>
+              <label class="hf-check-row"><input id="step-three" type="checkbox" checked="{{stepThree}}" onChange="{{toggleThree}}"><span>Write tests</span></label>
             </div>
           </div>
         </sc-if>
         <sc-if value="{{menuActive}}" hint-placeholder-val="{{true}}">
           <div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F0EEE9">
-            <span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 8px; border: 2px solid #1C1B1F; flex-shrink: 0"></span>
+            <span aria-hidden="true" style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 999px; border: 2px dashed #6E6C73; flex-shrink: 0"></span>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column"><a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">Check menu photos with Design</a><span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{menuStatus}} · due today · Small</span></div>
-            <button type="button" onClick="{{advanceMenu}}" style="height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"></path></svg>{{menuAction}}</button>
+            <button type="button" id="menu-btn" onClick="{{advanceMenu}}" style="height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"></path></svg>{{menuAction}}</button>
           </div>
         </sc-if>
 
         <sc-if value="{{checkoutSent}}" hint-placeholder-val="{{false}}">
-          <div style="display: flex; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid #F0EEE9">
-            <span style="width: 28px; height: 28px; border-radius: 8px; background: #C9DDE8; color: #33454F; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span>
+          <div class="{{sentClass}}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid #F0EEE9">
+            <span aria-hidden="true" style="width: 28px; height: 28px; border-radius: 999px; background: #C9DDE8; color: #33454F; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span>
             <div style="display: flex; flex-direction: column; gap: 2px"><a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">Build the checkout API</a><span style="font-size: 13px; line-height: 18px; color: #33454F">Awaiting Chenda’s review · your part is done</span></div>
+            <sc-if value="{{justSent}}" hint-placeholder-val="{{false}}">
+              <p id="sent-note" tabindex="-1" role="status" style="flex: 1 1 100%; margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 13px; line-height: 18px; color: #1F5E3A">Handed in at 14:10. Chenda has it now, and it moves to Done when she accepts it.
+                <button type="button" onClick="{{undoSend}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button></p>
+            </sc-if>
           </div>
         </sc-if>
         <sc-if value="{{allClear}}" hint-placeholder-val="{{false}}"><p style="font-size: 15px; color: #4A4950">Build the checkout API · Done · accepted by Chenda</p></sc-if>
         <sc-if value="{{menuDone}}" hint-placeholder-val="{{false}}">
-          <p style="font-size: 15px; color: #6E6C73">Check menu photos with Design · Done</p>
+          <p role="status" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 15px; color: #6E6C73">Check menu photos with Design · Done<sc-if value="{{menuUndo}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{undoMenu}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button></sc-if></p>
         </sc-if>
         <div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F0EEE9">
-          <span style="width: 24px; height: 24px; border-radius: 8px; background: #1C1B1F; color: #F7C83A; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg></span>
+          <span aria-hidden="true" style="width: 24px; height: 24px; border-radius: 999px; background: #1C1B1F; color: #F7C83A; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg></span>
           <div style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; line-height: 22px; color: #6E6C73; text-decoration: line-through">Update receipt footer text</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">Done 10:24</span></div>
         </div>
 
-        <sc-if value="{{workResolved}}" hint-placeholder-val="{{false}}"><a href="MyTasks.dc.html" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 13px; color: #4A4950">See your other tasks</a></sc-if>
+        <sc-if value="{{workResolved}}" hint-placeholder-val="{{false}}"><a href="#other-work" style="min-height: 44px; display: inline-flex; align-items: center; font-size: 13px; color: #4A4950">Pick from your other tasks</a></sc-if>
 
         <details class="hf-disclosure">
           <summary>Discuss priorities</summary>
@@ -211,6 +215,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"celebrate":{"editor":"boolean","default":false},"overdue":{"editor":"boolean","default":false},"state":{"editor":"enum","options":["working","awaitingReview","allClear","empty"],"default":"working"},"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
   renderVals() {
     const state = this.props.state ?? 'working';
     const local = this.state || {};
@@ -229,7 +235,13 @@ class Component extends DCLogic {
       checkoutActive: !checkoutSent && !allClear, checkoutSent, menuActive: !menuDone, menuDone,
       menuStatus: local.menuStarted ? 'In progress' : 'To do', menuAction: local.menuStarted ? 'Done' : 'Start',
       advanceMenu: () => this.setState(local.menuStarted ? {menuDone: true} : {menuStarted: true}),
-      sendCheckout: () => this.setState({checkoutSent: true}),
+      sendCheckout: () => { const open = [[stepOne, 'Design the endpoint'], [stepTwo, 'Add checks'], [stepThree, 'Write tests']].filter(x => !x[0]).map(x => x[1]); if (open.length) this.focusTo('cs-keep', {confirmSend: true, openStep: open.join('” and “')}); else this.focusTo('sent-note', {checkoutSent: true, justSent: true}); },
+      confirmSend: !!local.confirmSend && !checkoutSent, openStep: local.openStep || '',
+      keepWorking: () => this.focusTo('step-three', {confirmSend: false}),
+      sendAnyway: () => this.focusTo('sent-note', {confirmSend: false, checkoutSent: true, justSent: true}),
+      justSent: !!local.justSent && state === 'working', sentClass: local.justSent ? 'hf-celebrate' : '',
+      undoSend: () => this.focusTo('send-btn', {checkoutSent: false, justSent: false}),
+      menuUndo: !!local.menuDone && state === 'working', undoMenu: () => this.focusTo('menu-btn', {menuDone: false, menuStarted: true}),
       stepOne, stepTwo, stepThree,
       toggleOne: () => this.setState({stepOne: !stepOne}), toggleTwo: () => this.setState({stepTwo: !stepTwo}), toggleThree: () => this.setState({stepThree: !stepThree}),
       priorityNote: local.priorityNote || '', prioritiesAsking: !local.prioritiesSent, prioritiesSent: !!local.prioritiesSent, priorityError: !!local.priorityError,

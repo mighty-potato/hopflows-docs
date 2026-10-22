@@ -19,21 +19,20 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
 .hf-nav-list{flex-direction:row !important;overflow-x:auto}
 .hf-hide-sm{display:none !important}
-.hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
   <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
-    <dc-import name="Sidebar" persona="employee" current="today" hint-size="232px,900px"></dc-import>
+    <dc-import name="Sidebar" persona="employee" current="myroutines" hint-size="232px,900px"></dc-import>
   </div>
   <main id="main" class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
     <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">My routines</h1>
-        <p style="margin: 0; max-width: 64ch; font-size: 15px; line-height: 22px; color: #4A4950">Work that repeats. Each day it shows on Today under Routine today, and it skips your days off and leave.</p>
+        <p style="margin: 0; max-width: 64ch; font-size: 15px; line-height: 22px; color: #4A4950">Work that repeats. Each day it shows on Today under Routines today, and it skips your days off and leave.</p>
       </div>
       <a href="Main.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Back to Today</a>
     </div>
@@ -90,7 +89,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
     </div>
   </main>
-  <dc-import name="MobileNav" current="today" hint-size="390px,80px"></dc-import>
+  <dc-import name="MobileNav" current="myroutines" hint-size="390px,80px"></dc-import>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>

@@ -70,6 +70,8 @@ body{margin:0}
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3 10 14"></path><path d="M21 3 14 21l-4-7-7-4z"></path></svg>Requests I sent</a>
     <a href="Leave.dc.html" aria-current="{{n.week.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.week.bg}}; color: {{n.week.fg}}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8c0 4-5 9-5 9s-5-5-5-9a5 5 0 0 1 10 0z"></path><circle cx="12" cy="8" r="1.8"></circle><path d="M5 21h14"></path></svg>My week &amp; leave</a>
+    <a href="MyRoutines.dc.html" aria-current="{{n.myroutines.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.myroutines.bg}}; color: {{n.myroutines.fg}}">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"></path><path d="M3 11V9a3 3 0 0 1 3-3h15"></path><path d="M7 22l-4-4 4-4"></path><path d="M21 13v2a3 3 0 0 1-3 3H3"></path></svg>My routines</a>
     </div>
     </sc-if>
     <a href="Calendar.dc.html" aria-current="{{n.calendar.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.calendar.bg}}; color: {{n.calendar.fg}}">
@@ -147,7 +149,7 @@ class Component extends DCLogic {
   renderVals() {
     const persona = this.props.persona ?? 'employee';
     const current = this.props.current ?? 'today';
-    const keys = ['today','tasks','requests','week','calendar','inbox','needs','queue','plan','workload','deliverables','team','routines','review','goals','summary','reports','people','holidays','org','settings'];
+    const keys = ['today','tasks','requests','week','myroutines','calendar','inbox','needs','queue','plan','workload','deliverables','team','routines','review','goals','summary','reports','people','holidays','org','settings'];
     const n = {};
     keys.forEach((k) => {
       n[k] = current === k ? { bg: '#1C1B1F', fg: '#FFFFFF', cur: 'page' } : { bg: 'transparent', fg: '#4A4950', cur: 'false' };
