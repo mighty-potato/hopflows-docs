@@ -191,7 +191,7 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
 class Component extends DCLogic {
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
-  componentDidMount() { try { if (window.location.hash === '#review') this.setState({ asLead: true }); } catch (e) {} }
+  componentDidMount() { try { if (window.location.hash === '#review') { const r = window.localStorage.getItem('hf-lead-review'); this.setState(Object.assign({ asLead: true }, r ? { rv: r } : {})); } } catch (e) {} }
   renderVals() {
     const local = this.state || {};
     const viewer = local.asLead ? 'reviewer' : (this.props.viewer ?? 'owner');
@@ -210,9 +210,9 @@ class Component extends DCLogic {
       rvOpen: !rv || rv === 'back', rvBack: rv === 'back', rvNotBack: rv !== 'back', rvDone: rv === 'accepted' || rv === 'sent',
       rvDoneText: rv === 'accepted' ? 'Accepted. Build the checkout API is Done, and Dara is told.' : 'Sent back to Dara with your note: "' + (local.rvNote || '').trim().replace(/[.!?]+$/, '') + '". It is In progress again.',
       rvNote: local.rvNote || '', setRvNote: (e) => this.setState({ rvNote: e.target.value, rvError: false }), rvError: !!local.rvError, rvBad: local.rvError ? 'true' : 'false',
-      accept: () => this.focusTo('rv-done', { rv: 'accepted' }), openBack: () => this.focusTo('rv-note', { rv: 'back' }), cancelBack: () => this.focusTo('rv-back', { rv: '', rvError: false }),
-      sendBack: () => (local.rvNote || '').trim() ? this.focusTo('rv-done', { rv: 'sent', rvError: false }) : this.focusTo('rv-note', { rvError: true }),
-      rvUndo: () => this.focusTo('rv-accept', { rv: '' }),
+      accept: () => { try { window.localStorage.setItem('hf-lead-review', 'accepted'); } catch (e) {} this.focusTo('rv-done', { rv: 'accepted' }); }, openBack: () => this.focusTo('rv-note', { rv: 'back' }), cancelBack: () => this.focusTo('rv-back', { rv: '', rvError: false }),
+      sendBack: () => (local.rvNote || '').trim() ? (() => { try { window.localStorage.setItem('hf-lead-review', 'sent'); } catch (e) {} this.focusTo('rv-done', { rv: 'sent', rvError: false }); })() : this.focusTo('rv-note', { rvError: true }),
+      rvUndo: () => { try { window.localStorage.removeItem('hf-lead-review'); } catch (e) {} this.focusTo('rv-accept', { rv: '' }); },
       rvKey: (e) => { if (e.key === 'Escape' && rv === 'back') { e.preventDefault(); this.focusTo('rv-back', { rv: '', rvError: false }); } }
     };
     return Object.assign(rvVals, {isOwner: viewer === 'owner', isHelper: viewer === 'helper', canSendReview: viewer === 'owner' && !reviewSent, reviewSent, statusLabel: viewer === 'reviewer' ? (rv === 'accepted' ? 'Done' : rv === 'sent' ? 'In progress · sent back' : 'Review · sent 15:10') : reviewSent ? 'Awaiting review' : (blocked ? 'In progress · Blocked' : 'In progress'), isBlocked: blocked, justUnblocked: (this.props.blocked ?? false) && unblocked, unblock: () => this.setState({unblocked: true}), reviewLabel: viewer === 'reviewer' ? (rv === 'accepted' ? 'Accepted by you' : 'You check it') : reviewSent ? 'Chenda checks it' : 'Review required',

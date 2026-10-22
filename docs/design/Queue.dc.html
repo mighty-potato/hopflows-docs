@@ -220,6 +220,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1120}}'>
 class Component extends DCLogic {
+  componentDidMount() { try { const d = JSON.parse(window.localStorage.getItem('hf-lead-queue') || 'null'); this._loaded = true; if (d && typeof d === 'object' && Object.keys(d).length) this.setState({ done: d }); } catch (e) { this._loaded = true; } }
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
   // one Tab stop per choice group; arrow keys move and pick
@@ -254,6 +255,7 @@ class Component extends DCLogic {
     ];
     const SORTED = [{ id: 'addr', title: 'Receipt prints the wrong shop address', meta: 'Dara Sok · merged into Fix receipt printer driver · Wed' }];
     const done = ui.done || {};
+    if (this._loaded) { try { window.localStorage.setItem('hf-lead-queue', JSON.stringify(done)); } catch (e) {} }
     const open = REQ.filter((r) => !done[r.id]);
     const view = ui.view || 'new';
     const curId = open.some((r) => r.id === ui.cur) ? ui.cur : (open[0] && open[0].id);
@@ -287,13 +289,14 @@ class Component extends DCLogic {
     const steps = stepList.map((text, i) => ({ text, remove: () => this.setState({ steps: stepList.filter((x, k) => k !== i) }) }));
     const addStep = () => { const t = (ui.newStep || '').trim(); if (!t) return this.focusTo('q-new', {}); this.focusTo('q-new', { steps: stepList.concat([t]), newStep: '' }); };
     const SZ = { small: 4, medium: 12, large: 20 };
+    const lv = (() => { try { return window.localStorage.getItem('hf-dara-leave') || ''; } catch (e) { return ''; } })();
     const DUES = [['Today, Fri 16 Oct', 'w42'], ['Mon 19 Oct', 'w43'], ['Wed 21 Oct', 'w43'], ['Fri 23 Oct', 'w43'], ['Wed 28 Oct', 'w44'], ['No due date', 'none']];
     const due = ui.due || 'Wed 21 Oct';
     const wk = (DUES.find((d) => d[0] === due) || [0, 'w43'])[1];
     // [id, name, planned, time to plan, available, note] for the week the task lands in
     const LOADS = {
       w42: [['chenda', 'Chenda Lim', 16, 18, 32, ''], ['pisey', 'Pisey Chea', 12, 14, 19, ''], ['rithy', 'Rithy Heng', 29, 24, 32, ''], ['dara', 'Dara Sok', 22, 24, 32, ''], ['vannak', 'Vannak Prum', 14, 24, 32, ' · says Full']],
-      w43: [['chenda', 'Chenda Lim', 19, 18, 24, ''], ['pisey', 'Pisey Chea', 17, 14, 19, ''], ['rithy', 'Rithy Heng', 29, 24, 32, ''], ['dara', 'Dara Sok', 22, 12, 16, ' · leave asked'], ['vannak', 'Vannak Prum', 35, 24, 32, ' · says Full']]
+      w43: [['chenda', 'Chenda Lim', 19, 18, 24, ''], ['pisey', 'Pisey Chea', 17, 14, 19, ''], ['rithy', 'Rithy Heng', 29, 24, 32, ''], (lv === 'approved' ? ['dara', 'Dara Sok', 12, 12, 16, ' · on leave Thu–Fri'] : lv === 'declined' ? ['dara', 'Dara Sok', 22, 24, 32, ''] : ['dara', 'Dara Sok', 22, 12, 16, ' · leave asked']), ['vannak', 'Vannak Prum', 35, 24, 32, ' · says Full']]
     };
     const wordOf = (h, tp, av) => h > av ? 'Too much' : h > tp ? 'Using buffer' : h >= 0.7 * tp ? 'Balanced' : 'Room';
     const addH = SZ[ui.size || cur.size];

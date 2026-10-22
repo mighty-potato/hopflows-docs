@@ -107,7 +107,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                   <sc-for list="{{it.acts}}" as="a" hint-placeholder-count="3"><button type="button" role="radio" id="{{a.id}}" tabindex="{{a.tab}}" aria-checked="{{a.on}}" onClick="{{a.pick}}" onKeyDown="{{a.key}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{a.bg}}; color: {{a.fg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">{{a.name}}</button></sc-for>
                 </div>
                 <div style="flex: 1 1 260px; max-width: 360px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
-                  <sc-if value="{{it.pick}}" hint-placeholder-val="{{true}}"><sc-if value="{{it.editing}}" hint-placeholder-val="{{false}}"><select id="{{it.selId}}" aria-label="Who gets {{it.title}}" onChange="{{it.setTo}}" onKeyDown="{{it.selKey}}" style="width: 100%; max-width: 100%; box-sizing: border-box; height: 44px; padding: 0 10px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 13px; font-weight: 600; color: #1C1B1F"><sc-for list="{{it.opts}}" as="o" hint-placeholder-count="5"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for></select></sc-if><sc-if value="{{it.notEditing}}" hint-placeholder-val="{{true}}"><span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px"><span style="font-size: 15px; font-weight: 600">→ {{it.toName}}</span><button type="button" aria-label="Change who gets {{it.title}}" onClick="{{it.edit}}" style="height: 44px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">Change</button></span></sc-if><span style="align-self: flex-start; padding: 3px 10px; border-radius: 10px; background: {{it.capBg}}; color: {{it.capFg}}; font-size: 12px; font-weight: 600">{{it.capText}}</span></sc-if><sc-if value="{{it.noPick}}" hint-placeholder-val="{{false}}"><span style="height: 44px; padding: 0 14px; border-radius: 14px; background: #F4F3EF; font-size: 13px; font-weight: 600; display: flex; align-items: center">{{it.to}}</span></sc-if>
+                  <sc-if value="{{it.pick}}" hint-placeholder-val="{{true}}"><sc-if value="{{it.editing}}" hint-placeholder-val="{{false}}"><select id="{{it.selId}}" aria-label="Who gets {{it.title}}" onChange="{{it.setTo}}" onKeyDown="{{it.selKey}}" style="width: 100%; max-width: 100%; box-sizing: border-box; height: 44px; padding: 0 10px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 13px; font-weight: 600; color: #1C1B1F"><sc-for list="{{it.opts}}" as="o" hint-placeholder-count="5"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for></select></sc-if><sc-if value="{{it.notEditing}}" hint-placeholder-val="{{true}}"><span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px"><span style="font-size: 15px; font-weight: 600">→ {{it.toName}}</span><button type="button" id="{{it.chgId}}" aria-label="Change who gets {{it.title}}" onClick="{{it.edit}}" style="height: 44px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">Change</button></span></sc-if><span style="align-self: flex-start; padding: 3px 10px; border-radius: 10px; background: {{it.capBg}}; color: {{it.capFg}}; font-size: 12px; font-weight: 600">{{it.capText}}</span></sc-if><sc-if value="{{it.noPick}}" hint-placeholder-val="{{false}}"><span style="height: 44px; padding: 0 14px; border-radius: 14px; background: #F4F3EF; font-size: 13px; font-weight: 600; display: flex; align-items: center">{{it.to}}</span></sc-if>
                   <sc-if value="{{it.noPick}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; padding: 3px 10px; border-radius: 10px; background: {{it.capBg}}; color: {{it.capFg}}; font-size: 12px; font-weight: 600">{{it.capText}}</span></sc-if>
                 </div>
               </div>
@@ -157,6 +157,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal", "loading", "empty", "error", "saveError"],"default":"normal"},"step":{"editor":"enum","options":["items","confirm","done"],"default":"items"},"$preview":{"width":1440,"height":1180}}'>
 class Component extends DCLogic {
+  componentDidMount() { try { if (window.localStorage.getItem('hf-lead-handover') === 'done') this.setState({ step: 'done' }); } catch (e) {} }
   // move keyboard focus to the part of the screen that just appeared
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() {
@@ -176,7 +177,8 @@ class Component extends DCLogic {
       later: { cap: 'Not in week 43', capBg: '#F4F3EF', capFg: '#4A4950' }
     };
     const ui = this.state || {};
-    const base = { 'Pisey Chea': [9, 14, 19], 'Chenda Lim': [14, 18, 24], 'Rithy Heng': [29, 24, 32], 'Dara Sok': [22, 12, 16], 'Vannak Prum': [35, 24, 32] };
+    const lvH = (() => { try { return window.localStorage.getItem('hf-dara-leave') || ''; } catch (e) { return ''; } })();
+    const base = { 'Pisey Chea': [9, 14, 19], 'Chenda Lim': [14, 18, 24], 'Rithy Heng': [29, 24, 32], 'Dara Sok': lvH === 'approved' ? [12, 12, 16] : lvH === 'declined' ? [22, 24, 32] : [22, 12, 16], 'Vannak Prum': [35, 24, 32] };
     const word = (h, tp, av) => h > av ? 'over' : h > tp ? 'buffer' : h >= 0.7 * tp ? 'balanced' : 'room';
     // title, meta, default owner, default action, hours in week 43, group
     const SEED = [
@@ -206,9 +208,9 @@ class Component extends DCLogic {
       });
       const moving = it.act === 'move';
       return Object.assign({ title: it.title, meta: it.meta, warn: '', acts: actsUI, pick: moving, noPick: !moving, to: it.act === 'cancel' ? 'Cancelled' : 'Back to Ready to plan',
-        opts: Object.keys(base).map((n) => { const [, tp2, av2] = base[n]; const a2 = run[n] + (n === it.to ? 0 : it.h); return { v: n, sel: n === it.to, label: n + ' · ' + a2 + 'h of ' + tp2 + 'h · ' + cap[word(a2, tp2, av2)].cap + (n === 'Dara Sok' ? ' · leave asked' : '') }; }),
+        opts: Object.keys(base).map((n) => { const [, tp2, av2] = base[n]; const a2 = run[n] + (n === it.to ? 0 : it.h); return { v: n, sel: n === it.to, label: n + ' · ' + a2 + 'h of ' + tp2 + 'h · ' + cap[word(a2, tp2, av2)].cap + (n === 'Dara Sok' && !lvH ? ' · leave asked' : '') }; }),
         setTo: (e) => this.setState({ tos: Object.assign({}, tos, { [it.title]: e.target.value }) }),
-        toName: it.to, editing: !!(ui.editing || {})[it.title], notEditing: !(ui.editing || {})[it.title], selId: 'ho-sel-' + it.k, selKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.setState({ editing: Object.assign({}, ui.editing, { [it.title]: false }) }); } }, edit: () => this.focusTo('ho-sel-' + it.k, { editing: Object.assign({}, ui.editing, { [it.title]: true }) }),
+        toName: it.to, editing: !!(ui.editing || {})[it.title], notEditing: !(ui.editing || {})[it.title], selId: 'ho-sel-' + it.k, chgId: 'ho-chg-' + it.k, selKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('ho-chg-' + it.k, { editing: Object.assign({}, ui.editing, { [it.title]: false }) }); } }, edit: () => this.focusTo('ho-sel-' + it.k, { editing: Object.assign({}, ui.editing, { [it.title]: true }) }),
         capText: it.h ? '+' + it.h + 'h · ' + name1(it.to) + '\'s total ' + after + 'h of ' + tp + 'h · ' + c.cap : 'Adds no hours', capBg: it.h ? c.capBg : '#F4F3EF', capFg: it.h ? c.capFg : '#4A4950' }, moving ? {} : cap.none, moving ? {} : { capText: it.act === 'cancel' ? 'Nobody picks it up' : 'Waits in Ready to plan' });
     });
     const GN = ['Open tasks', 'Deliverables Sophal leads', 'Routines', 'Meetings'];
@@ -234,14 +236,14 @@ class Component extends DCLogic {
       toItems: () => this.focusTo('ho-review', { step: 'items' }),
       confirmKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('ho-review', { step: 'items' }); } },
       toConfirm: () => this.focusTo('ho-c-title', { step: 'confirm', undone: false }),
-      toDone: () => this.focusTo('ho-done', { step: 'done' }),
+      toDone: () => { try { window.localStorage.setItem('hf-lead-handover', 'done'); } catch (e) {} this.focusTo('ho-done', { step: 'done' }); },
       overWarn: (() => { const o = owners.filter((n) => word(run[n], base[n][1], base[n][2]) === 'over').map(name1); return o.length ? o.join(' and ') + (o.length > 1 ? ' would have' : ' would have') + ' more work than time in week 43. Go back and pick someone else, or choose No owner for some items.' : ''; })(),
       groups, summary, changed: Object.keys(tos).length > 0, useSuggested: () => this.setState({ tos: {}, editing: {} }),
       totals: owners.map((n) => { const [, tp, av] = base[n]; const c2 = cap[word(run[n], tp, av)]; return { label: name1(n) + ' · ' + run[n] + 'h of ' + tp + 'h · ' + c2.cap, bg: c2.capBg, fg: c2.capFg }; }), nAll: items.length, nMove: moving.length,
       confirmTitle: 'On Mon 19 Oct, Sophal\'s work moves to ' + (owners.length === 1 ? ownerNames[0] : owners.length + ' people'),
       doneText: moving.length + ' items now belong to ' + (ownerNames.length > 1 ? ownerNames.slice(0, -1).join(', ') + ' and ' + ownerNames[ownerNames.length - 1] : ownerNames[0]) + ', from Mon 19 Oct. Each of them has the background, and Sophal has been told. When week 43 is locked, it keeps Sophal as the original owner. ' + (items.some((it) => it.act === 'none') ? 'Items with no owner wait in Ready to plan.' : 'Nothing is left with Sophal, so his account can be closed after his last day, Fri 23 Oct.'),
       undone: !!ui.undone && step === 'items',
-      undoDone: () => this.focusTo('ho-review', { step: 'items', undone: true })
+      undoDone: () => { try { window.localStorage.removeItem('hf-lead-handover'); } catch (e) {} this.focusTo('ho-review', { step: 'items', undone: true }); }
     };
   }
 }
