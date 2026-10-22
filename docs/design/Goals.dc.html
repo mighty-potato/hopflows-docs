@@ -258,6 +258,8 @@ class Component extends DCLogic {
     });
   }
   componentDidMount() {
+    // decisions made earlier today stay made
+    try { const d = JSON.parse(window.localStorage.getItem('hf-leader-decided') || '{}'); const st = {}; if (d.a && d.aStep) st.aStep = d.aStep; if (d.b && d.bPick) { st.bStep = 'sent'; st.bPick = d.bPick; } if (d.c && d.cPick) { st.cStep = 'sent'; st.cPick = d.cPick; } this._loaded = true; if (Object.keys(st).length) this.setState(st); } catch (e) { this._loaded = true; }
     // arriving from the weekly summary: focus the decision that the link opened
     let hash = '';
     try { hash = window.location.hash; } catch (e) {}
@@ -334,7 +336,7 @@ class Component extends DCLogic {
       undo: () => this.focusTo('dn-open', { cStep: 'closed' })
     };
     const left = (a.done ? 0 : 1) + (b.done ? 0 : 1) + (c.done ? 0 : 1);
-    try { window.localStorage.setItem('hf-leader-decided', JSON.stringify({ a: a.done, b: b.done, c: c.done })); } catch (e) {}
+    if (this._loaded) { try { window.localStorage.setItem('hf-leader-decided', JSON.stringify({ a: a.done, b: b.done, c: c.done, aStep: a.done ? aStep : null, bPick: b.done ? s.bPick : null, cPick: c.done ? s.cPick : null })); } catch (e) {} }
     const dc = left > 1 ? { title: left + ' decisions for you', sub: 'Only you can make these. Each one shows what it changes.' }
       : left === 1 ? { title: '1 decision for you', sub: 'Only you can make this one.' }
       : { title: 'No decisions waiting', sub: "You're up to date. New ones show here and in the weekly summary." };
@@ -402,7 +404,7 @@ class Component extends DCLogic {
     const st = this.props.state ?? 'normal';
     return {
       dc, a, b, c,
-      heroLine: '3 Goals need attention this quarter.' + (3 - left > 0 ? ' ' + (3 - left) + ' of your 3 decisions made today.' : ''),
+      heroLine: '3 Goals need attention this quarter.' + (left === 0 ? ' All 3 of your decisions are made.' : 3 - left > 0 ? ' ' + (3 - left) + ' of your 3 decisions made today.' : ''),
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       goals, filters, filtered, noMatch: goals.length === 0,
       showOkBtn: !s.showOk, okToggle: () => this.setState({ showOk: true }),

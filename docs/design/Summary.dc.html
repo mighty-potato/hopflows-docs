@@ -165,18 +165,18 @@ class Component extends DCLogic {
       off: { fg: '#7A1F18', dot: '#C0352B' }
     };
     // only in-app sales has its own page on the canvas; the rest open the Goals list
-    const c = (goal, why, now, k) => Object.assign({ goal, why, now, k, href: goal === 'Increase in-app sales by 20%' ? 'GoalDetail.dc.html' : 'Goals.dc.html#goal-' + goal.toLowerCase().replace(/[^a-z0-9]+/g, '-') }, s[k]);
+    const c = (goal, why, now, k) => Object.assign({ goal, why, now, k, href: goal === 'Increase in-app sales by 20%' ? 'GoalDetail.dc.html' : goal === '3 more Goals' ? 'Goals.dc.html#goal-keep-the-app-rating-at-4-5-or-higher' : 'Goals.dc.html#goal-' + goal.toLowerCase().replace(/[^a-z0-9]+/g, '-') }, s[k]);
     const d = (name, pct, k) => ({ name, v: pct + '%', w: Math.round(pct / 40 * 100) + '%', bg: k });
     // risk flags: every row opens its item and says who to ask
+    const dec = ui.decided || {};
     const tag = { New: '#1C1B1F', 'Still open': '#4A4950', Decision: '#33454F', Cleared: '#1F5E3A' };
     const fl = (t, item, text, who, href) => ({ tag: t, tagColor: tag[t], item, text, who, href });
     const flags = [
-      fl('New', 'School App sign-up flow', 'Off track · Scope change: schools asked for Khmer forms · since Tue 13 Oct', 'Who to ask: Chenda Lim, Technical · waiting for your decision', 'Goals.dc.html#decide-schoolapp'),
-      fl('Decision', 'Staff laptop setup guide', 'At risk · Time: not enough people · open 3 weeks, since Mon 28 Sep', 'Who to ask: Bopha Meas, Operations · now a decision for you', 'Goals.dc.html#decide-newhire'),
+      fl('New', 'School App sign-up flow', 'Off track · Scope change: schools asked for Khmer forms · since Tue 13 Oct', 'Who to ask: Chenda Lim, Technical · ' + (dec.b ? 'you decided today' : 'waiting for your decision'), dec.b ? 'Goals.dc.html#goal-onboard-40-pilot-schools' : 'Goals.dc.html#decide-schoolapp'),
+      fl('Decision', 'Staff laptop setup guide', 'At risk · Time: not enough people · open 3 weeks, since Mon 28 Sep', 'Who to ask: Bopha Meas, Operations · ' + (dec.c ? 'you decided today' : 'now a decision for you'), dec.c ? 'Goals.dc.html#goal-cut-new-hire-setup-to-2-days' : 'Goals.dc.html#decide-newhire'),
       fl('Still open', 'Launch In-App Ordering v1', 'At risk · Waiting on others: payment provider keys late · since Fri 9 Oct', 'Who to ask: Chenda Lim, Technical · back on track by Fri 23 Oct', 'GoalDetail.dc.html'),
       fl('Cleared', 'Support inbox rules', '“Second person joined from Operations”', 'Cleared by Bopha Meas, Operations', 'Goals.dc.html#goal-cut-support-reply-time-to-4-hours')
     ];
-    const dec = ui.decided || {};
     const nLeft = ['a', 'b', 'c'].filter((k) => !dec[k]).length;
     return {
       openA: !dec.a, openB: !dec.b, openC: !dec.c, someDecided: nLeft < 3,
@@ -197,9 +197,9 @@ class Component extends DCLogic {
       savePdf: () => this.focusTo('pdf-done', { pdf: true }),
       changes: [
         c('Cut support reply time to 4 hours', 'Ahead of pace. Was At risk; flag cleared Thursday.', 'On track', 'ok'),
-        c('Onboard 40 pilot schools', 'Result behind pace; sign-up flow went off track (new flag). Waiting for your decision.', 'Off track', 'off'),
+        c('Onboard 40 pilot schools', 'Result behind pace; sign-up flow went off track (new flag). ' + (dec.b ? 'You decided today.' : 'Waiting for your decision.'), 'Off track', 'off'),
         c('Increase in-app sales by 20%', 'Result ahead of pace; launch date at risk since Fri 9 Oct (payment keys late).', 'At risk', 'risk'),
-        c('Cut new-hire setup to 2 days', 'Result behind pace; flag open 3 weeks, now a decision for you.', 'At risk', 'risk'),
+        c('Cut new-hire setup to 2 days', 'Result behind pace; flag open 3 weeks. ' + (dec.c ? 'You decided today.' : 'Now a decision for you.'), 'At risk', 'risk'),
         c('Reach 25,000 monthly users', 'Ahead of pace. No change.', 'On track', 'ok'),
         c('3 more Goals', 'On pace or ahead, no change: app rating, card fees, school partners', 'On track', 'ok')
       ].sort((x, y) => ({ off: 0, risk: 1, ok: 2 })[x.k] - ({ off: 0, risk: 1, ok: 2 })[y.k]),

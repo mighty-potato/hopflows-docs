@@ -75,7 +75,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <span id="ur-calc" role="status" style="padding-bottom: 14px; max-width: 44ch; font-size: 13px; line-height: 18px; color: {{rp.calcColor}}; font-weight: {{rp.calcWeight}}">{{rp.calc}}</span>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
-          <sc-if value="{{rp.valid}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{rp.save}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">{{rp.saveLabel}}</button></sc-if>
+          <sc-if value="{{rp.valid}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{rp.save}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: {{rp.saveBg}}; color: {{rp.saveFg}}; box-shadow: {{rp.saveRing}}">{{rp.saveLabel}}</button></sc-if>
           <sc-if value="{{rp.invalid}}" hint-placeholder-val="{{false}}"><button type="button" aria-disabled="true" aria-describedby="ur-calc" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Save result</button></sc-if>
           <button type="button" onClick="{{rp.cancel}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Cancel</button>
         </div>
@@ -83,7 +83,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{rp.done}}" hint-placeholder-val="{{false}}">
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 20px; border-radius: 22px; background: #FFFFFF">
-        <span id="ur-done" tabindex="-1" role="status" style="flex: 1 1 260px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>Result saved: {{rp.savedText}}.</strong> The chart and the Goal card use the new number.</span>
+        <span id="ur-done" tabindex="-1" role="status" style="flex: 1 1 260px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>Result saved: {{rp.savedText}}.</strong> The chart and pace on this page use the new number; the Goals page updates with the next summary.</span>
         <button type="button" onClick="{{rp.undo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button>
       </div>
     </sc-if>
@@ -262,7 +262,7 @@ class Component extends DCLogic {
       open: !!ui.rOpen, done: !!ui.rDone && !ui.rOpen, openAttr: ui.rOpen ? 'true' : 'false',
       value: typed, valid, invalid: !valid,
       calc: !valid ? 'Type a number, like 55000' : big ? 'That\'s ' + Math.round(Math.abs(jump) * 100) + '% ' + (jump < 0 ? 'lower' : 'higher') + ' than the number on the page (' + money(shown) + '). Check for a missing or extra digit.' : '= ' + sign(pctOf(n)) + ' from ' + money(START),
-      calcColor: !valid ? '#9A3412' : big ? '#9A3412' : '#4A4950', calcWeight: big ? '600' : '400', saveLabel: big ? 'Save ' + money(n) + ' anyway' : 'Save result',
+      calcColor: !valid ? '#9A3412' : big ? '#9A3412' : '#4A4950', calcWeight: big ? '600' : '400', saveLabel: big ? 'Save ' + money(n) + ' anyway' : 'Save result', saveBg: big ? '#FFFFFF' : '#1C1B1F', saveFg: big ? '#9A3412' : '#FFFFFF', saveRing: big ? 'inset 0 0 0 2px #9A3412' : 'none',
       last: money(54950) + ' a month (+14%) for week 42, Mon 19 Oct',
       money: money(shown), dir: shown >= START ? 'up' : 'down', pctShort: (pctOf(shown) >= 0 ? '+' : '−') + Math.round(Math.abs(pctOf(shown))) + '%',
       savedText: money(shown) + ' a month, ' + sign(pctOf(shown)),
@@ -298,7 +298,7 @@ class Component extends DCLogic {
       save: () => this.focusTo('sf-done', { fOpen: false, fDone: true, prevFlag: live || null, goalFlag: { sev, reason: (ui.reasonKey ? REASONS[ui.reasonKey] : null), note: (ui.note || '').trim(), date: (ui.date || '').trim(), was: live ? sevs[live.sev].name + ', ' + live.reason + ': "' + live.note + '"' : '' } }),
       key: (e) => { if (e.key === 'Escape') this.focusTo('sf-btn', { fOpen: false }); },
       undo: () => this.focusTo('sf-btn', { fDone: false, goalFlag: ui.prevFlag || null, prevFlag: null, reasonKey: null, note: '', date: '' }),
-      history: (saved && saved.was ? 'Changed today from ' + saved.was + '. ' : '') + (saved ? (saved.cleared ? 'Your flag (' + sevs[saved.sev].name + ', ' + saved.reason + ': "' + saved.note + '") was set and cleared today: "' + saved.cleared + '". Before that: no flags.' : 'Your flag: ' + sevs[saved.sev].name + ', ' + saved.reason + ', "' + saved.note + '", set today, Mon 19 Oct. Before that: no flags.') : "Chenda's flag on Launch In-App Ordering v1 (At risk since Fri 9 Oct) is what makes this Goal At risk. No earlier flags."),
+      history: (saved && saved.was ? 'Changed today from ' + saved.was + '. ' : '') + (saved ? (saved.cleared ? 'Your flag (' + sevs[saved.sev].name + ', ' + saved.reason + ': "' + saved.note + '") was set and cleared today: "' + saved.cleared + '". Chenda\'s flag on Launch In-App Ordering v1 (At risk since Fri 9 Oct) stays open.' : 'Your flag: ' + sevs[saved.sev].name + ', ' + saved.reason + ', "' + saved.note + '", set today, Mon 19 Oct. Chenda\'s flag on Launch In-App Ordering v1 (At risk since Fri 9 Oct) stays open.') : "Chenda's flag on Launch In-App Ordering v1 (At risk since Fri 9 Oct) is what makes this Goal At risk. No earlier flags."),
       canClear: !!saved && !saved.cleared && !ui.clearing && !ui.fOpen,
       clearing: !!ui.clearing, clearNote: ui.clearNote || '',
       clearReady: !!(ui.clearNote || '').trim(), clearNotReady: !(ui.clearNote || '').trim(),
