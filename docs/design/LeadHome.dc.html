@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Needs you</title>
 <script src="./support.js"></script>
 </head>
@@ -203,7 +204,7 @@ class Component extends DCLogic {
     const leave = {
       open: !approved && !sheet && !declined && !declining, done: approved || declined, sheet, declining,
       doneTitle: declined ? 'Dara\'s leave is declined' : 'Dara\'s leave is approved', doneTag: declined ? 'Declined' : 'Approved', doneBg: declined ? '#F4F3EF' : '#DCEFE2', doneFg: declined ? '#4A4950' : '#1F5E3A',
-      doneMeta: declined ? 'Dara is told: “' + (s.why || '').trim() + '”. Her week 43 goes back to 24h to plan.' : 'Thu 22 – Fri 23 Oct show as Away. ' + (later ? 'Menu sync job tests moves to week 44, and Dara is told now.' : 'Menu sync job tests goes to Pisey, and Dara and Pisey are told now.'),
+      doneMeta: declined ? 'Dara is told: “' + (s.why || '').trim().replace(/[.!?]+$/, '') + '”. Her week 43 goes back to 24h to plan.' : 'Thu 22 – Fri 23 Oct show as Away. ' + (later ? 'Menu sync job tests moves to week 44, and Dara is told now.' : 'Menu sync job tests goes to Pisey, and Dara and Pisey are told now.'),
       decline: () => this.focusTo('dc-title', { declining: true }), why: s.why || '', setWhy: (e) => this.setState({ why: e.target.value, whyError: false }), whyError: !!s.whyError, whyBad: s.whyError ? 'true' : 'false', whyBorder: s.whyError ? '2px solid #9A3412' : '0',
       confirmDecline: () => (s.why || '').trim() ? this.focusTo('lv-done', { declined: true, declining: false }) : this.focusTo('dc-why', { whyError: true }),
       cancelDecline: () => this.focusTo('lv-decline', { declining: false }),
@@ -215,7 +216,7 @@ class Component extends DCLogic {
       undo: () => this.focusTo('lv-open', { approved: false, declined: false })
     };
     const need = (kind, tone, title, meta, action, href, second) => Object.assign({ kind, title, meta, action, href: href || '', inline: !href, second: second || '', open: true, done: false, sheet: false }, k[tone], href ? {} : leave);
-    const waiting = approved || declined ? 8 : 9;
+    const waiting = approved || declined ? 9 : 10;
     const cap = {
       room: { word: 'Room', bg: '#DCEFE2', fg: '#1F5E3A' },
       balanced: { word: 'Balanced', bg: '#C9DDE8', fg: '#33454F' },
@@ -230,7 +231,7 @@ class Component extends DCLogic {
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       waiting,
       leaveDone: later ? 'Menu sync job tests moves to week 44, and Dara is told now.' : 'Menu sync job tests goes to Pisey, and Dara and Pisey are told now.',
-      waitingLine: approved || declined ? '4 requests to sort, 1 Need help, 1 review, 1 handover and 1 week status.' : '4 requests to sort, 1 Need help, 1 review, 1 leave request, 1 handover and 1 week status.',
+      waitingLine: approved || declined ? '4 requests to sort, 1 Need help, 1 review, 1 handover, 1 routine gap and 1 week status.' : '4 requests to sort, 1 Need help, 1 review, 1 leave request, 1 handover, 1 routine gap and 1 week status.',
       needs: [
         need('Need help', 'help', 'Payment webhook retries is blocked', "Sophal Ouk · 25 min ago · waiting on the provider's keys · Launch In-App Ordering v1", 'See it on the Deliverable', 'Deliverable.dc.html'),
         need('New requests', 'plain', '4 waiting in the Incoming Queue', 'Oldest: 2 days · 3 match work you already have', 'Sort', 'Queue.dc.html'),

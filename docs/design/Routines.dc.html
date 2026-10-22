@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Routines</title>
 <script src="./support.js"></script>
 </head>
@@ -99,7 +100,7 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
         </sc-for>
       </section>
 
-      <section aria-labelledby="new-r" style="grid-column: span 5; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px; min-width: 0">
+      <section aria-labelledby="new-r" onKeyDown="{{formKey}}" style="grid-column: span 5; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px; min-width: 0">
         <h2 id="new-r" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">{{formTitle}}</h2>
         <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-title" style="font-size: 13px; font-weight: 600">Title</label><input id="r-title" type="text" value="{{fTitle}}" placeholder="For example: Check payment errors log" onChange="{{setTitle}}" aria-invalid="{{titleBad}}" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: {{titleBorder}}; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><sc-if value="{{titleError}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 13px; color: #9A3412">Give the routine a short title.</span></sc-if></div>
         <div style="display: flex; flex-direction: column; gap: 6px">
@@ -195,6 +196,7 @@ class Component extends DCLogic {
       stOk: ['normal', 'saveError', 'partial'].indexOf(this.props.state ?? 'normal') >= 0, stLoading: this.props.state === 'loading', stEmpty: this.props.state === 'empty', stError: this.props.state === 'error',
       routines, hasNote: !!ui.note, note: ui.note || '', undo: () => this.setState({ list: ui.prevList || SEED, note: '' }),
       setCover: (e) => this.setState({ cover: e.target.value, coverError: false }), coverError: !!ui.coverError && !ui.cover, askCover,
+      formKey: (e) => { if (e.key === 'Escape' && editing) { e.preventDefault(); this.focusTo('new-r', { editing: null, fTitle: null, by: null }); } },
       formTitle: editing ? 'Edit ' + editing.title : 'New routine', isEdit: !!editing, submitLabel: editing ? 'Save changes' : 'Create routine', cancelEdit: () => this.focusTo('new-r', { editing: null, fTitle: null, by: null }),
       fTitle, setTitle: (e) => this.setState({ fTitle: e.target.value, titleError: false }), titleError: !!ui.titleError, titleBad: ui.titleError ? 'true' : 'false', titleBorder: ui.titleError ? '2px solid #9A3412' : '0',
       repeats, isWeekdays: rep === 'weekdays', isMonthly: rep === 'monthly',

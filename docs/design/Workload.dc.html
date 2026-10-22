@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Workload</title>
 <script src="./support.js"></script>
 </head>
@@ -162,7 +163,7 @@ class Component extends DCLogic {
       { id: 'rithy', name: 'Rithy Heng', first: 'Rithy', note: '', w: [['buffer', 32, 24, 29, 'Planned 24h, then Coupon breaks payment at checkout (5h) came in after locking.'], ['buffer', 32, 24, 29, ''], ['balanced'], ['room']] },
       { id: 'sophal', name: 'Sophal Ouk', first: 'Sophal', note: 'Leaving 23 Oct · finish the handover', w: [['leaving', 32, 24, 10, 'Handing over his work. Takes no new work.'], ['leaving', 32, 24, 0, 'Last day Fri 23 Oct. All 13h handed over from Mon 19 Oct.'], ['left'], ['left']] },
       { id: 'sreymom', name: 'Sreymom Ly', first: 'Sreymom', note: 'Away until 30 Oct', w: [['away', 0, 0, 0, 'Annual leave.'], ['away', 0, 0, 0, 'Annual leave all week.'], ['away'], ['room']] },
-      { id: 'vannak', name: 'Vannak Prum', first: 'Vannak', note: '', w: [['room', 32, 24, 14, 'Planned work fits, but he says Full.', true], ['over', 32, 24, 35, 'Says Full. "Move Vannak\'s work" in the Planner moves Shop tablet updates (6h) and Printer setup guide (4h) to week 44. After: 25h, Using buffer.', true], ['balanced'], ['room']] }
+      { id: 'vannak', name: 'Vannak Prum', first: 'Vannak', note: '', w: [['room', 32, 24, 14, '', true], ['over', 32, 24, 35, 'Says Full. "Move Vannak\'s work" in the Planner moves Shop tablet updates (6h) and Printer setup guide (4h) to week 44. After: 25h, Using buffer.', true], ['balanced'], ['room']] }
     ];
     const sel = ui.sel || ['rithy', 0];
     const rows = P.map((p) => {

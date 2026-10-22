@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Handover</title>
 <script src="./support.js"></script>
 </head>
@@ -124,13 +125,14 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isConfirm}}" hint-placeholder-val="{{false}}">
       <div style="display: flex; flex-direction: column; gap: 12px">
-        <section aria-labelledby="ho-c-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+        <section aria-labelledby="ho-c-title" onKeyDown="{{confirmKey}}" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
           <h2 id="ho-c-title" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">{{confirmTitle}}</h2>
           <dl style="margin: 0; display: grid; grid-template-columns: minmax(120px, 180px) 1fr; gap: 0 16px; font-size: 15px; line-height: 22px">
             <sc-for list="{{summary}}" as="g" hint-placeholder-count="3"><dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">{{g.who}}</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">{{g.items}}<sc-if value="{{g.load}}" hint-placeholder-val="{{false}}"> · <span style="color: {{g.loadFg}}; font-weight: 600">{{g.load}}</span></sc-if></dd></sc-for>
           </dl>
         </section>
         <section aria-label="Confirm handover" style="background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+          <sc-if value="{{overWarn}}" hint-placeholder-val="{{false}}"><p role="alert" style="flex: 1 1 100%; margin: 0; padding: 12px 16px; border-radius: 16px; background: #FCE3D3; color: #9A3412; font-size: 15px; line-height: 22px; font-weight: 600">{{overWarn}}</p></sc-if>
           <span style="flex: 1 1 360px; font-size: 13px; line-height: 18px; color: #4A4950">Everything moves at once. When week 43 is locked, it keeps Sophal as the original owner, so reports show this as reassigned, not missed. New owners get the status, blockers and recent comments, and Sophal is told.</span>
           <button type="button" onClick="{{toItems}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Back</button>
           <button type="button" onClick="{{toDone}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Hand over {{nMove}} items</button>
@@ -213,7 +215,7 @@ class Component extends DCLogic {
     const groups = GN.map((name, g) => { const its = view.filter((v, k) => items[k].g === g); return { name: name + ' · ' + its.length, items: its }; });
     const moving = items.filter((it) => it.act === 'move');
     const owners = Array.from(new Set(moving.map((it) => it.to)));
-    const summary = owners.map((n) => { const [, tp, av] = base[n]; const w = word(run[n], tp, av); return { who: n, items: moving.filter((it) => it.to === n).map((it) => it.title).join(' · '), load: run[n] + 'h of ' + tp + 'h in week 43' + (w === 'buffer' ? ', inside ' + (name1(n) === 'Chenda' || name1(n) === 'Pisey' ? 'her' : 'their') + ' ' + av + 'h' : ''), loadFg: cap[w].capFg }; })
+    const summary = owners.map((n) => { const [, tp, av] = base[n]; const w = word(run[n], tp, av); return { who: n, items: moving.filter((it) => it.to === n).map((it) => it.title).join(' · '), load: run[n] + 'h of ' + tp + 'h in week 43 · ' + cap[w].cap + (w === 'buffer' ? ', inside ' + av + 'h available' : w === 'over' ? ', past ' + av + 'h available' : ''), loadFg: cap[w].capFg }; })
       .concat(items.some((it) => it.act === 'none') ? [{ who: 'No owner', items: items.filter((it) => it.act === 'none').map((it) => it.title).join(' · ') + ' · back to Ready to plan', load: '' }] : [])
       .concat(items.some((it) => it.act === 'cancel') ? [{ who: 'Cancelled', items: items.filter((it) => it.act === 'cancel').map((it) => it.title).join(' · '), load: '' }] : []);
     const ownerNames = owners.map(name1);
@@ -230,12 +232,14 @@ class Component extends DCLogic {
       s3: step === 'items' ? stepOff : stepOn,
       stepText: step === 'items' ? 'Step 2 of 3 · choose who gets each item · loads shown for week 43 as planned now' : step === 'confirm' ? 'Step 3 of 3 · check and confirm' : 'Done · Fri 16 Oct, 16:52 · you can undo for 10 minutes',
       toItems: () => this.focusTo('ho-review', { step: 'items' }),
+      confirmKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('ho-review', { step: 'items' }); } },
       toConfirm: () => this.focusTo('ho-c-title', { step: 'confirm', undone: false }),
       toDone: () => this.focusTo('ho-done', { step: 'done' }),
+      overWarn: (() => { const o = owners.filter((n) => word(run[n], base[n][1], base[n][2]) === 'over').map(name1); return o.length ? o.join(' and ') + (o.length > 1 ? ' would have' : ' would have') + ' more work than time in week 43. Go back and pick someone else, or choose No owner for some items.' : ''; })(),
       groups, summary, changed: Object.keys(tos).length > 0, useSuggested: () => this.setState({ tos: {}, editing: {} }),
       totals: owners.map((n) => { const [, tp, av] = base[n]; const c2 = cap[word(run[n], tp, av)]; return { label: name1(n) + ' · ' + run[n] + 'h of ' + tp + 'h · ' + c2.cap, bg: c2.capBg, fg: c2.capFg }; }), nAll: items.length, nMove: moving.length,
       confirmTitle: 'On Mon 19 Oct, Sophal\'s work moves to ' + (owners.length === 1 ? ownerNames[0] : owners.length + ' people'),
-      doneText: moving.length + ' items now belong to ' + ownerNames.join(' and ') + ', from Mon 19 Oct. Each of them has the background, and Sophal has been told. When week 43 is locked, it keeps Sophal as the original owner. ' + (items.some((it) => it.act === 'none') ? 'Items with no owner wait in Ready to plan.' : 'Nothing is left with Sophal, so his account can be closed after his last day, Fri 23 Oct.'),
+      doneText: moving.length + ' items now belong to ' + (ownerNames.length > 1 ? ownerNames.slice(0, -1).join(', ') + ' and ' + ownerNames[ownerNames.length - 1] : ownerNames[0]) + ', from Mon 19 Oct. Each of them has the background, and Sophal has been told. When week 43 is locked, it keeps Sophal as the original owner. ' + (items.some((it) => it.act === 'none') ? 'Items with no owner wait in Ready to plan.' : 'Nothing is left with Sophal, so his account can be closed after his last day, Fri 23 Oct.'),
       undone: !!ui.undone && step === 'items',
       undoDone: () => this.focusTo('ho-review', { step: 'items', undone: true })
     };

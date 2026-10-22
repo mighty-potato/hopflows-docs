@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weekly plan</title>
 <script src="./support.js"></script>
 </head>
@@ -102,13 +103,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <p id="lock-what" style="margin: 0; max-width: 68ch; font-size: 15px; line-height: 22px; color: #4A4950">Locking saves this plan as the team's promise for the week. Anything that changes after this is recorded next to it, never written over it.</p>
         </div>
         <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
-          <sc-if value="{{vannakOver}}" hint-placeholder-val="{{true}}"><li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #FCE3D3; color: #9A3412; font-size: 15px"><strong style="font-weight: 600">Vannak Prum has more work than time.</strong><span>35h planned of 24h to plan, with 32h available.</span></li></sc-if>
-          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">Dara's leave for Thu 22 – Fri 23 isn't decided.</strong><span style="color: #4A4950">It's counted here, so Dara has 22h planned of 12h to plan (16h available) until Menu sync job tests moves.</span><a href="LeadHome.dc.html" style="margin-left: auto; font-size: 13px; font-weight: 600">Decide it first</a></li>
+          <sc-if value="{{vannakOver}}" hint-placeholder-val="{{true}}"><li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #FCE3D3; color: #9A3412; font-size: 15px"><strong style="font-weight: 600">Vannak Prum has more work than time.</strong><span>35h planned of 24h to plan, with 32h available.</span><button type="button" onClick="{{openMove}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; margin-left: auto">Move Vannak's work first</button></li></sc-if>
+          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">Dara's leave for Thu 22 – Fri 23 isn't decided.</strong><span style="color: #4A4950">{{daraLock}}</span><a href="LeadHome.dc.html" style="margin-left: auto; font-size: 13px; font-weight: 600">Decide it first</a></li>
           <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">Sophal's handover is still open.</strong><span style="color: #4A4950">It's counted here too. With it, Pisey uses some buffer and nobody else is over.</span><a href="Handover.dc.html" style="margin-left: auto; font-size: 13px; font-weight: 600">Finish it first</a></li>
           <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">2 tasks have no estimate.</strong><span style="color: #4A4950">They're counted apart and won't show in anyone's hours.</span></li>
         </ul>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
-          <sc-if value="{{vannakOver}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{openMove}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Move Vannak's work first</button></sc-if>
+          
           <button type="button" onClick="{{doLock}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Lock anyway</button>
           <button type="button" onClick="{{cancelLock}}" style="height: 48px; padding: 0 16px; border: 0; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; text-decoration: underline; cursor: pointer">Not yet</button>
         </div>
@@ -170,7 +171,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
 
       <sc-if value="{{moving}}" hint-placeholder-val="{{false}}">
-      <section aria-labelledby="mv-title" style="grid-column: span 12; background: #FFFFFF; border-radius: 28px; padding: 24px; box-shadow: inset 0 0 0 2px #1C1B1F; display: flex; flex-direction: column; gap: 14px">
+      <section aria-labelledby="mv-title" style="grid-column: span 12; background: #FFFFFF; border-radius: 28px; padding: 24px; box-shadow: inset 0 0 0 2px #1C1B1F; display: flex; flex-direction: column; gap: 14px" onKeyDown="{{moveKey}}">
         <div style="display: flex; flex-direction: column; gap: 4px">
           <h2 id="mv-title" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Move Vannak's work</h2>
           <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">Vannak has 35h planned of 24h to plan, with 32h available. Moving these two to week 44 gets him back inside his time, without adding to anyone else's week.</p>
@@ -290,9 +291,11 @@ class Component extends DCLogic {
       showMoveBtn: !moved && !moving,
       moveNote: lock === 'locked' ? ' The week is locked, so this shows as a change in the weekly review.' : '',
       toPlanTotal: 116,
-      confirmTitle: moved ? 'Lock week 43 with 3 things open?' : 'Lock week 43 with 4 things open?',
+      confirmTitle: 'Lock week 43 with ' + (moved ? 3 : 4) + ' things open?',
+      daraLock: (s.out || {}).tests ? 'It\'s counted here. Menu sync job tests is already in week 44, so Dara has ' + people[1].hours + 'h planned of 12h to plan. Only the decision is left.' : 'It\'s counted here, so Dara has ' + people[1].hours + 'h planned of 12h to plan (16h available) until Menu sync job tests moves.',
       openMove: () => this.focusTo('mv-title', { lock: lock === 'confirm' ? 'planning' : lock, moving: true }),
       cancelMove: () => this.focusTo('move-btn', { moving: false }),
+      moveKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('move-btn', { moving: false }); } },
       doMove: () => this.focusTo('moved-note', { moved: true, moving: false, movedLocked: lock === 'locked' }),
       planning: lock !== 'locked',
       confirming: lock === 'confirm',
