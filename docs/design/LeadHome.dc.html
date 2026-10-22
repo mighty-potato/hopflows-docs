@@ -93,14 +93,32 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <sc-if value="{{n.href}}" hint-placeholder-val="{{true}}">
                 <a href="{{n.href}}" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">{{n.action}}</a>
               </sc-if>
+              <sc-if value="{{n.isHelp}}" hint-placeholder-val="{{false}}">
+                <button type="button" id="hp-open" onClick="{{n.helpOpen}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Reply to Sophal</button>
+              </sc-if>
               <sc-if value="{{n.inline}}" hint-placeholder-val="{{false}}">
                 <button type="button" id="lv-open" onClick="{{n.approve}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{n.action}}</button>
               </sc-if>
             </div>
           </div>
           </sc-if>
+          <sc-if value="{{n.helping}}" hint-placeholder-val="{{false}}">
+          <div onKeyDown="{{n.helpKey}}" style="padding: 14px 0; border-bottom: 1px solid #F0EEE9">
+            <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 22px; background: #F4F3EF">
+              <h2 id="hp-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Payment webhook retries is blocked</h2>
+              <p style="margin: 0; font-size: 13px; line-height: 18px; color: #4A4950">Sophal: "Waiting on the provider's live keys. Sandbox works." It moves to Pisey on Mon 19 Oct with the handover.</p>
+              <div role="radiogroup" aria-label="What you'll do" style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{n.helpChoices}}" as="o" hint-placeholder-count="3"><button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" onKeyDown="{{o.key}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for></div>
+              <label for="hp-note" style="font-size: 13px; font-weight: 600">Note to Sophal <span style="font-weight: 400; color: #4A4950">· optional</span></label>
+              <input id="hp-note" type="text" value="{{n.helpNote}}" onChange="{{n.setHelpNote}}" placeholder="For example: I'll call them this afternoon" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #FFFFFF; font-family: inherit; font-size: 15px">
+              <div style="display: flex; flex-wrap: wrap; gap: 8px"><button type="button" onClick="{{n.helpSend}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send to Sophal</button><button type="button" onClick="{{n.helpClose}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #1C1B1F">Not now</button><a href="Deliverable.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; font-weight: 600">See it on the Deliverable</a></div>
+            </div>
+          </div>
+          </sc-if>
+          <sc-if value="{{n.helpDone}}" hint-placeholder-val="{{false}}">
+          <div role="status" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 0; border-bottom: 1px solid #F0EEE9"><span id="hp-done" tabindex="-1" style="flex: 1 1 240px; font-size: 15px; line-height: 22px; font-weight: 600">{{n.helpDoneText}}</span><button type="button" onClick="{{n.helpUndo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button></div>
+          </sc-if>
           <sc-if value="{{n.declining}}" hint-placeholder-val="{{false}}">
-          <div style="padding: 14px 0; border-bottom: 1px solid #F0EEE9">
+          <div onKeyDown="{{n.declineKey}}" style="padding: 14px 0; border-bottom: 1px solid #F0EEE9">
             <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 22px; background: #F4F3EF">
               <h2 id="dc-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Decline Dara's leave, Thu 22 – Fri 23 Oct?</h2>
               <label for="dc-why" style="font-size: 13px; font-weight: 600">Tell Dara why, and what would work instead</label>
@@ -111,7 +129,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </div>
           </sc-if>
           <sc-if value="{{n.sheet}}" hint-placeholder-val="{{false}}">
-          <div role="group" aria-labelledby="lv-title" style="padding: 14px 0; border-bottom: 1px solid #F0EEE9">
+          <div role="group" aria-labelledby="lv-title" onKeyDown="{{n.sheetKey}}" style="padding: 14px 0; border-bottom: 1px solid #F0EEE9">
             <div style="display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 22px; background: #F4F3EF">
               <div style="display: flex; flex-direction: column; gap: 4px">
                 <h2 id="lv-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Approve Dara's leave, Thu 22 – Fri 23 Oct?</h2>
@@ -164,7 +182,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </a>
           <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 0">
             <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 15px; font-weight: 600">School App sign-up flow</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #9B2C24; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C0352B"></span>Off track</span></span>
-            <span style="font-size: 12px; color: #6E6C73">Scope change · 3 days · due 6 Nov · Chenda leads it</span>
+            <span style="font-size: 12px; color: #6E6C73">Scope change · 3 days · due 6 Nov</span>
           </div>
         </section>
       <section aria-label="This week's plan" style="break-inside: avoid; margin: 0 0 12px; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
@@ -205,7 +223,9 @@ class Component extends DCLogic {
       open: !approved && !sheet && !declined && !declining, done: approved || declined, sheet, declining,
       doneTitle: declined ? 'Dara\'s leave is declined' : 'Dara\'s leave is approved', doneTag: declined ? 'Declined' : 'Approved', doneBg: declined ? '#F4F3EF' : '#DCEFE2', doneFg: declined ? '#4A4950' : '#1F5E3A',
       doneMeta: declined ? 'Dara is told: “' + (s.why || '').trim().replace(/[.!?]+$/, '') + '”. Her week 43 goes back to 24h to plan.' : 'Thu 22 – Fri 23 Oct show as Away. ' + (later ? 'Menu sync job tests moves to week 44, and Dara is told now.' : 'Menu sync job tests goes to Pisey, and Dara and Pisey are told now.'),
-      decline: () => this.focusTo('dc-title', { declining: true }), why: s.why || '', setWhy: (e) => this.setState({ why: e.target.value, whyError: false }), whyError: !!s.whyError, whyBad: s.whyError ? 'true' : 'false', whyBorder: s.whyError ? '2px solid #9A3412' : '0',
+      decline: () => this.focusTo('dc-title', { declining: true }),
+      declineKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('lv-decline', { declining: false }); } },
+      sheetKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('lv-open', { sheet: false }); } }, why: s.why || '', setWhy: (e) => this.setState({ why: e.target.value, whyError: false }), whyError: !!s.whyError, whyBad: s.whyError ? 'true' : 'false', whyBorder: s.whyError ? '2px solid #9A3412' : '0',
       confirmDecline: () => (s.why || '').trim() ? this.focusTo('lv-done', { declined: true, declining: false }) : this.focusTo('dc-why', { whyError: true }),
       cancelDecline: () => this.focusTo('lv-decline', { declining: false }),
       give: pick(!later), later: pick(later),
@@ -215,8 +235,18 @@ class Component extends DCLogic {
       cancel: () => this.focusTo('lv-open', { sheet: false }),
       undo: () => this.focusTo('lv-open', { approved: false, declined: false })
     };
+    const hc = s.hc || 'chase';
+    const HC = [['chase', 'I\'ll chase the provider'], ['pisey', 'Pisey takes it Monday'], ['wait', 'Wait for the keys']];
+    const help = { href: '', inline: false, isHelp: !s.helping && !s.helped, open: !s.helping && !s.helped, helping: !!s.helping && !s.helped, helpDone: !!s.helped,
+      helpChoices: HC.map(([key, name], i) => { const on = hc === key; return { id: 'hc-' + key, name, on: on ? 'true' : 'false', tab: on ? '0' : '-1', bg: on ? '#1C1B1F' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1C1B1F', pick: () => this.setState({ hc: key }), key: (e) => { const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0; if (d) { e.preventDefault(); const n = HC[(i + d + 3) % 3][0]; this.focusTo('hc-' + n, { hc: n }); } } }; }),
+      helpNote: s.helpNote || '', setHelpNote: (e) => this.setState({ helpNote: e.target.value }),
+      helpOpen: () => this.focusTo('hp-title', { helping: true }), helpClose: () => this.focusTo('hp-open', { helping: false }),
+      helpKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('hp-open', { helping: false }); } },
+      helpSend: () => this.focusTo('hp-done', { helped: true, helping: false }),
+      helpDoneText: 'Sent to Sophal: ' + { chase: 'you\'ll chase the provider for the live keys', pisey: 'Pisey takes it over on Monday with the handover', wait: 'it waits for the keys; you\'ll check on Wednesday' }[hc] + ((s.helpNote || '').trim() ? ' · "' + s.helpNote.trim().replace(/[.!?]+$/, '') + '"' : '') + '.',
+      helpUndo: () => this.focusTo('hp-open', { helped: false }) };
     const need = (kind, tone, title, meta, action, href, second) => Object.assign({ kind, title, meta, action, href: href || '', inline: !href, second: second || '', open: true, done: false, sheet: false }, k[tone], href ? {} : leave);
-    const waiting = approved || declined ? 9 : 10;
+    const waiting = (approved || declined ? 9 : 10) - (s.helped ? 1 : 0);
     const cap = {
       room: { word: 'Room', bg: '#DCEFE2', fg: '#1F5E3A' },
       balanced: { word: 'Balanced', bg: '#C9DDE8', fg: '#33454F' },
@@ -231,9 +261,9 @@ class Component extends DCLogic {
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       waiting,
       leaveDone: later ? 'Menu sync job tests moves to week 44, and Dara is told now.' : 'Menu sync job tests goes to Pisey, and Dara and Pisey are told now.',
-      waitingLine: approved || declined ? '4 requests to sort, 1 Need help, 1 review, 1 handover, 1 routine gap and 1 week status.' : '4 requests to sort, 1 Need help, 1 review, 1 leave request, 1 handover, 1 routine gap and 1 week status.',
+      waitingLine: (s.helped ? (x) => x.replace('1 Need help, ', '') : (x) => x)(approved || declined ? '4 requests to sort, 1 Need help, 1 review, 1 handover, 1 routine gap and 1 week status.' : '4 requests to sort, 1 Need help, 1 review, 1 leave request, 1 handover, 1 routine gap and 1 week status.'),
       needs: [
-        need('Need help', 'help', 'Payment webhook retries is blocked', "Sophal Ouk · 25 min ago · waiting on the provider's keys · Launch In-App Ordering v1", 'See it on the Deliverable', 'Deliverable.dc.html'),
+        Object.assign(need('Need help', 'help', 'Payment webhook retries is blocked', "Sophal Ouk · 25 min ago · waiting on the provider's keys · Launch In-App Ordering v1", '', 'x'), help),
         need('New requests', 'plain', '4 waiting in the Incoming Queue', 'Oldest: 2 days · 3 match work you already have', 'Sort', 'Queue.dc.html'),
         need('Review', 'plain', 'Build the checkout API', 'Dara Sok · sent for review 15:10', 'Review', 'TaskDetail.dc.html#review'),
         need('Leave', 'plain', 'Dara asks for Thu 22 – Fri 23 Oct', 'Annual · week 43 · 2 tasks due on those days', 'Check and approve', '', 'Decline'),

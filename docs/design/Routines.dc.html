@@ -93,7 +93,7 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
             </sc-if>
             <div style="display: flex; flex-wrap: wrap; gap: 8px">
               <sc-if value="{{r.isGap}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{r.findCover}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Find Saturday cover</button></sc-if>
-              <button type="button" aria-label="Edit {{r.title}}" onClick="{{r.edit}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Edit</button>
+              <button type="button" id="{{r.editId}}" aria-label="Edit {{r.title}}" onClick="{{r.edit}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Edit</button>
               <button type="button" aria-label="{{r.toggleLabel}}" onClick="{{r.flip}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">{{r.toggle}}</button>
             </div>
           </article>
@@ -168,7 +168,7 @@ class Component extends DCLogic {
     const snapshot = () => ({ prevList: list });
     const setList = (next, note, focus) => this.focusTo(focus || 'rt-note', Object.assign(snapshot(), { list: next, note }));
     const routines = list.map((r) => Object.assign({}, r, st[r.s], { isGap: r.s === 'gap', covering: ui.covering === r.id, toggle: r.s === 'paused' ? 'Resume' : 'Pause', toggleLabel: (r.s === 'paused' ? 'Resume ' : 'Pause ') + r.title,
-      flip: () => setList(list.map((x) => x.id === r.id ? Object.assign({}, x, { s: x.s === 'paused' ? 'on' : 'paused', rate: x.s === 'paused' ? 'Resumed today. Starts again on its next day.' : 'Paused today. Nobody gets it until you resume it.' }) : x), r.title + (r.s === 'paused' ? ' is back on.' : ' is paused. It stops showing on Today from tomorrow.')),
+      editId: 'rt-edit-' + r.id, flip: () => setList(list.map((x) => x.id === r.id ? Object.assign({}, x, { s: x.s === 'paused' ? 'on' : 'paused', rate: x.s === 'paused' ? 'Resumed today. Starts again on its next day.' : 'Paused today. Nobody gets it until you resume it.' }) : x), r.title + (r.s === 'paused' ? ' is back on.' : ' is paused. It stops showing on Today from tomorrow.')),
       findCover: () => this.focusTo('rt-cover', { covering: r.id }),
       edit: () => this.focusTo('new-r', { editing: r.id, fTitle: r.title, by: r.by, titleError: false, ppl: (r.who.match(/Dara|Rithy|Vannak|Pisey|Chenda|Sreymom|Sophal/g) || []).filter((x, i, a) => a.indexOf(x) === i), whoMode: /turns|By weekday/.test(r.who) ? 'turns' : 'one' }) }));
     const askCover = () => { if (!ui.cover) return this.focusTo('rt-cover', { coverError: true }); this.focusTo('rt-note', Object.assign(snapshot(), { covering: null, list: list.map((x) => x.id === ui.covering ? Object.assign({}, x, { s: 'covered', rate: 'Asked ' + ui.cover + ' to cover Saturdays until 30 Oct. Waiting for an answer.' }) : x), note: 'Asked ' + ui.cover + ' to cover Close shop on Saturdays until 30 Oct. You\'ll see the answer in your Inbox.' })); };
@@ -196,7 +196,7 @@ class Component extends DCLogic {
       stOk: ['normal', 'saveError', 'partial'].indexOf(this.props.state ?? 'normal') >= 0, stLoading: this.props.state === 'loading', stEmpty: this.props.state === 'empty', stError: this.props.state === 'error',
       routines, hasNote: !!ui.note, note: ui.note || '', undo: () => this.setState({ list: ui.prevList || SEED, note: '' }),
       setCover: (e) => this.setState({ cover: e.target.value, coverError: false }), coverError: !!ui.coverError && !ui.cover, askCover,
-      formKey: (e) => { if (e.key === 'Escape' && editing) { e.preventDefault(); this.focusTo('new-r', { editing: null, fTitle: null, by: null }); } },
+      formKey: (e) => { if (e.key === 'Escape' && editing) { e.preventDefault(); this.focusTo('rt-edit-' + editing.id, { editing: null, fTitle: null, by: null, ppl: null }); } },
       formTitle: editing ? 'Edit ' + editing.title : 'New routine', isEdit: !!editing, submitLabel: editing ? 'Save changes' : 'Create routine', cancelEdit: () => this.focusTo('new-r', { editing: null, fTitle: null, by: null }),
       fTitle, setTitle: (e) => this.setState({ fTitle: e.target.value, titleError: false }), titleError: !!ui.titleError, titleBad: ui.titleError ? 'true' : 'false', titleBorder: ui.titleError ? '2px solid #9A3412' : '0',
       repeats, isWeekdays: rep === 'weekdays', isMonthly: rep === 'monthly',

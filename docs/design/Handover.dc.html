@@ -209,7 +209,7 @@ class Component extends DCLogic {
         opts: Object.keys(base).map((n) => { const [, tp2, av2] = base[n]; const a2 = run[n] + (n === it.to ? 0 : it.h); return { v: n, sel: n === it.to, label: n + ' · ' + a2 + 'h of ' + tp2 + 'h · ' + cap[word(a2, tp2, av2)].cap + (n === 'Dara Sok' ? ' · leave asked' : '') }; }),
         setTo: (e) => this.setState({ tos: Object.assign({}, tos, { [it.title]: e.target.value }) }),
         toName: it.to, editing: !!(ui.editing || {})[it.title], notEditing: !(ui.editing || {})[it.title], selId: 'ho-sel-' + it.k, edit: () => this.focusTo('ho-sel-' + it.k, { editing: Object.assign({}, ui.editing, { [it.title]: true }) }),
-        capText: it.h ? 'After: ' + after + 'h of ' + tp + 'h · ' + c.cap : 'Adds no hours', capBg: it.h ? c.capBg : '#F4F3EF', capFg: it.h ? c.capFg : '#4A4950' }, moving ? {} : cap.none, moving ? {} : { capText: it.act === 'cancel' ? 'Nobody picks it up' : 'Waits in Ready to plan' });
+        capText: it.h ? '+' + it.h + 'h · ' + name1(it.to) + '\'s total ' + after + 'h of ' + tp + 'h · ' + c.cap : 'Adds no hours', capBg: it.h ? c.capBg : '#F4F3EF', capFg: it.h ? c.capFg : '#4A4950' }, moving ? {} : cap.none, moving ? {} : { capText: it.act === 'cancel' ? 'Nobody picks it up' : 'Waits in Ready to plan' });
     });
     const GN = ['Open tasks', 'Deliverables Sophal leads', 'Routines', 'Meetings'];
     const groups = GN.map((name, g) => { const its = view.filter((v, k) => items[k].g === g); return { name: name + ' · ' + its.length, items: its }; });

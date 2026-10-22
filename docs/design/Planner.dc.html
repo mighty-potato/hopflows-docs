@@ -105,7 +105,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
           <sc-if value="{{vannakOver}}" hint-placeholder-val="{{true}}"><li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #FCE3D3; color: #9A3412; font-size: 15px"><strong style="font-weight: 600">Vannak Prum has more work than time.</strong><span>35h planned of 24h to plan, with 32h available.</span><button type="button" onClick="{{openMove}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; margin-left: auto">Move Vannak's work first</button></li></sc-if>
           <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">Dara's leave for Thu 22 – Fri 23 isn't decided.</strong><span style="color: #4A4950">{{daraLock}}</span><a href="LeadHome.dc.html" style="margin-left: auto; font-size: 13px; font-weight: 600">Decide it first</a></li>
-          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">Sophal's handover is still open.</strong><span style="color: #4A4950">It's counted here too. With it, Pisey uses some buffer and nobody else is over.</span><a href="Handover.dc.html" style="margin-left: auto; font-size: 13px; font-weight: 600">Finish it first</a></li>
+          <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">Sophal's handover is still open.</strong><span style="color: #4A4950">It's counted here too. With it, Pisey and Chenda use some buffer and nobody else is over.</span><a href="Handover.dc.html" style="margin-left: auto; font-size: 13px; font-weight: 600">Finish it first</a></li>
           <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 15px"><strong style="font-weight: 600">2 tasks have no estimate.</strong><span style="color: #4A4950">They're counted apart and won't show in anyone's hours.</span></li>
         </ul>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
@@ -210,7 +210,11 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <section aria-label="Carried over" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Carried over from week 42 <span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #4A4950">· {{nCarried}}</span></h2>
         <sc-for list="{{carried}}" as="c" hint-placeholder-count="3"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">{{c.t}} <span style="font-size: 12px; color: #6E6C73">· {{c.m}}</span></span><button type="button" id="{{c.id}}" aria-label="Move {{c.t}} to week 44" onClick="{{c.go}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Move to week 44</button></div></sc-for>
-        <sc-if value="{{noCarried}}" hint-placeholder-val="{{false}}"><p style="margin: 0; padding: 10px 0; font-size: 15px; color: #4A4950">Nothing carried over.</p></sc-if>
+        <sc-if value="{{noCarried}}" hint-placeholder-val="{{false}}"><p style="margin: 0; padding: 10px 0; font-size: 15px; color: #4A4950">Nothing left to carry over.</p></sc-if>
+        <sc-if value="{{hasMoved}}" hint-placeholder-val="{{false}}">
+          <h3 style="margin: 12px 0 0; font-size: 13px; font-weight: 600; color: #4A4950">Moved to week 44</h3>
+          <sc-for list="{{movedOut}}" as="r" hint-placeholder-count="1"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">{{r.t}} <span style="font-size: 12px; color: #6E6C73">· {{r.m}}</span></span><button type="button" id="{{r.id}}" aria-label="{{r.label}}" onClick="{{r.go}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Put back</button></div></sc-for>
+        </sc-if>
       </section>
 
       <section aria-label="Ready to plan" style="grid-column: span 5; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
@@ -262,24 +266,24 @@ class Component extends DCLogic {
       row('Rithy Heng', '', 32, 24, 29),
       row('Sophal Ouk', 'Last day Fri 23 Oct · his week goes to the handover, no new work', 32, 24, 0, 'leaving'),
       row('Sreymom Ly', 'Annual leave all week', 0, 0, 0),
-      row('Vannak Prum', moved ? 'Says Full · 10h moved to week 44' : 'Says Full this week', 32, 24, moved ? 25 : 35)
+      row('Vannak Prum', moved ? 'Said Full in week 42 · 10h moved to week 44' : 'Said Full in week 42', 32, 24, moved ? 25 : 35)
     ];
     const plannedTotal = people.reduce((n, p) => n + p.hours, 0);
     const overN = people.filter((p) => p.word === 'Too much').map((p) => p.name.split(' ')[0]);
     const tone = { leave: { bg: '#F4F3EF', fg: '#1C1B1F' }, handover: { bg: '#C9DDE8', fg: '#33454F' }, moved: { bg: '#DCEFE2', fg: '#1F5E3A' } };
     const change = (kind, t, what, effect, action, href) => Object.assign({ kind, what, effect, action: action || '', href: href || '' }, tone[t]);
     const changes = [
-      change('Leave', 'leave', "Dara asks for Thu 22 – Fri 23 Oct · waiting for you", "Counted: Dara's time to plan is 12h, not 24h. Menu sync job tests (10h, due Thu 22) still has to move.", 'Decide', 'LeadHome.dc.html#leave'),
+      change('Leave', 'leave', "Dara asks for Thu 22 – Fri 23 Oct · waiting for you", "Counted: Dara's time to plan is 12h, not 24h. " + (out0.tests ? 'Menu sync job tests is already in week 44, so only the decision is left.' : 'Menu sync job tests (10h, due Thu 22) still has to move.'), 'Decide', 'LeadHome.dc.html#leave'),
       change('Handover', 'handover', "Sophal's work moves on Mon 19 Oct · step 2 of 3", 'Counted: 13h moves, 8h to Pisey and 5h to Chenda. Sophal keeps nothing.', 'Continue', 'Handover.dc.html')
     ];
     if (moved) changes.push(change(s.movedLocked ? 'Changed' : 'Moved', 'moved', "10h moved off Vannak's week", 'Shop tablet updates and Printer setup guide → week 44.' + (s.movedLocked ? ' Made after locking, so the weekly review shows it as a change.' : '')));
-    const CAR = [['printer', 'Fix receipt printer driver', 'Dara · Small · 8h · blocked, waiting on the vendor'], ['photos', 'Menu photo export', "Pisey · Medium · 6h · moved after Pisey's sick day"], ['tests', 'Menu sync job tests', 'Dara · Medium · 10h · moves to week 44 for her leave']];
+    const CAR = [['printer', 'Fix receipt printer driver', 'Dara · Small · 8h · blocked, waiting on the vendor'], ['photos', 'Menu photo export', "Pisey · Small · 6h · moved after Pisey's sick day"], ['tests', 'Menu sync job tests', 'Dara · Medium · 10h · moves to week 44 for her leave']];
     const RDY = [['spike', 'Khmer search spike', 'Large · no owner'], ['hours', 'Store opening hours API', 'Small · no owner'], ['history', 'Order history page', 'No estimate']];
     const out = s.out || {}, inn = s.inn || {};
     const loadAfter = (k, leaving) => { const who = k === 'photos' ? 'pisey' : 'dara'; const h = { printer: 8, tests: 10, photos: 6 }[k]; const p = people.find((x) => x.name.toLowerCase().startsWith(who)); const after = p.hours + (leaving ? -h : h); const tp = parseInt(p.toPlan, 10), av = parseInt(p.avail, 10); const w = after > av ? 'Too much' : after > tp ? 'Using buffer' : after >= 0.7 * tp ? 'Balanced' : 'Room'; return p.name.split(' ')[0] + ': ' + after + 'h planned of ' + tp + 'h to plan, ' + w + '.'; };
     const carried = CAR.filter((c) => !out[c[0]]).map(([k, t, m]) => ({ id: 'pl-c-' + k, t, m, go: () => this.focusTo('pl-list-note', { out: Object.assign({}, out, { [k]: true }), listNote: t + ' moves to week 44. ' + loadAfter(k, true) }) }));
-    const ready = CAR.filter((c) => out[c[0]]).map(([k, t, m]) => ({ id: 'pl-r-' + k, t, m: 'from week 42 · ' + m.split(' · ')[0], btn: 'Put back', label: 'Put ' + t + ' back in week 43', bg: '#F4F3EF', fg: '#1C1B1F', go: () => this.focusTo('pl-c-' + k, { out: Object.assign({}, out, { [k]: false }), listNote: t + ' is back in week 43. ' + loadAfter(k, false) }) }))
-      .concat(RDY.map(([k, t, m]) => ({ id: 'pl-r-' + k, t, m: inn[k] ? 'in week 43 · no owner yet, so no one\'s hours change until you pick one in Team tasks' : m, btn: inn[k] ? 'Take out' : '+ Add', label: (inn[k] ? 'Take ' + t + ' out of' : 'Add ' + t + ' to') + ' week 43', bg: inn[k] ? '#1C1B1F' : '#F4F3EF', fg: inn[k] ? '#FFFFFF' : '#1C1B1F',
+    const movedOut = CAR.filter((c) => out[c[0]]).map(([k, t, m]) => ({ id: 'pl-r-' + k, t, m: 'from week 42 · ' + m.split(' · ')[0], btn: 'Put back', label: 'Put ' + t + ' back in week 43', bg: '#F4F3EF', fg: '#1C1B1F', go: () => this.focusTo('pl-c-' + k, { out: Object.assign({}, out, { [k]: false }), listNote: t + ' is back in week 43. ' + loadAfter(k, false) }) }));
+    const ready = [].concat(RDY.map(([k, t, m]) => ({ id: 'pl-r-' + k, t, m: inn[k] ? 'in week 43 · no owner yet, so no one\'s hours change until you pick one in Team tasks' : m, btn: inn[k] ? 'Take out' : '+ Add', label: (inn[k] ? 'Take ' + t + ' out of' : 'Add ' + t + ' to') + ' week 43', bg: inn[k] ? '#1C1B1F' : '#F4F3EF', fg: inn[k] ? '#FFFFFF' : '#1C1B1F',
         go: () => this.focusTo('pl-list-note', { inn: Object.assign({}, inn, { [k]: !inn[k] }), listNote: inn[k] ? t + ' is back in Ready to plan.' : t + ' is in week 43 with no owner. Give it to someone in Team tasks; their hours update then.' }) })));
     const pageState = this.props.state ?? 'normal';
     return {
@@ -301,14 +305,14 @@ class Component extends DCLogic {
       confirming: lock === 'confirm',
       locked: lock === 'locked',
       weekState: lock === 'locked' ? 'locked Fri 16 Oct, 16:40' : 'not locked yet',
-      heroTitle: (lock === 'locked' ? 'Locked, with ' : '') + (overN.length === 0 ? (lock === 'locked' ? 'nobody over' : 'Nobody is over') : overN.length === 1 ? (lock === 'locked' ? overN[0] + ' over' : 'One person is over') : (lock === 'locked' ? overN.length + ' people over' : overN.length + ' people are over')),
-      heroNext: overN.length === 0 ? 'Everyone fits in week 43. Lock it when you\'re ready.' : [overN.indexOf('Vannak') >= 0 ? "Vannak has more work than time: move his work here." : '', overN.indexOf('Dara') >= 0 ? "Dara is over because her leave is counted: decide it, and move Menu sync job tests to week 44." : ''].filter(Boolean).join(' '),
+      heroTitle: lock === 'locked' ? 'Week 43 is locked · ' + (s.lockedTotal || plannedTotal) + 'h planned' : (overN.length === 0 ? 'Nobody is over' : overN.length === 1 ? 'One person is over' : overN.length + ' people are over'),
+      heroNext: lock === 'locked' ? (overN.length ? overN.join(' and ') + (overN.length > 1 ? ' are' : ' is') + ' still over. Changes now show in the weekly review, never as a miss.' : 'Everyone fits. Work added from now on shows as added in the weekly review.') : overN.length === 0 ? 'Everyone fits in week 43. Lock it when you\'re ready.' : [overN.indexOf('Vannak') >= 0 ? 'Vannak has more work than time: move his work here.' : '', overN.indexOf('Dara') >= 0 ? 'Dara is over because her leave is counted: decide it, and move Menu sync job tests to week 44.' : ''].filter(Boolean).join(' '),
       askLock: () => this.focusTo('lock-title', { lock: 'confirm' }),
       doLock: () => this.focusTo('locked-title', { lock: 'locked', lockedTotal: plannedTotal }),
       cancelLock: () => this.focusTo('lock-btn', { lock: 'planning' }),
       hasLeaveLink: true,
       lockKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('lock-btn', { lock: 'planning' }); } },
-      carried, nCarried: carried.length, noCarried: !carried.length, ready, hasListNote: !!s.listNote, listNote: s.listNote || '',
+      carried, movedOut, hasMoved: movedOut.length > 0, nCarried: carried.length, noCarried: !carried.length, ready, hasListNote: !!s.listNote, listNote: s.listNote || '',
     };
   }
 }
