@@ -2,7 +2,7 @@
 
 The Lead screens on the design canvas (`LeadHome`, `Queue`, `Planner`, `Workload`, `Deliverable`, `WeeklyReview`, `Handover`, `Routines`, `TeamTable`) all tell the story of the same two weeks at Riverline Co.'s Technical department. Claude Design screens can't load a shared data file, so each screen keeps its own copy of the data. This page is the agreed version: when a screen changes, check it against this page so the numbers stay honest.
 
-"Today" is **Friday 16 October 2026, week 42** (12–16 Oct). Week 43 is 19–23 Oct and is planned but not locked yet. Chenda Lim leads the department.
+"Today" is **Friday 16 October 2026, week 42** (12–16 Oct). On the Lead screens it is about **16:30**: Dara's coupon request came in at 13:58, Build the checkout API went to review at 15:10, Sophal asked for help at 16:05, and Chenda locks week 43 at 16:40. Week 43 is 19–23 Oct and is planned but not locked yet. Chenda Lim leads the department.
 
 ## Sizes and hours
 
