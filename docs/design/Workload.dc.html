@@ -99,7 +99,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             </sc-for>
           </div>
         </div>
-        <p style="margin: 14px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Sorted by name. Week 43 counts Dara's asked leave and Sophal's handover, like the Planner. Pick any square to see why. Worked out from estimates each time you open it, never saved as a score. Teammates never see each other's colours.</p>
+        <p style="margin: 14px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Sorted by name. Week 43 counts Dara's leave and Sophal's handover, like the Planner. Pick any square to see why. Worked out from estimates each time you open it, never saved as a score. Teammates never see each other's colours.</p>
       </section>
 
       <section id="wl-panel" tabindex="-1" aria-label="{{d.aria}}" style="grid-column: span 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
@@ -140,7 +140,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 class Component extends DCLogic {
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
-  componentDidMount() { try { const h = (window.location.hash || '').slice(1); if (['chenda', 'dara', 'pisey', 'rithy', 'sophal', 'sreymom', 'vannak'].indexOf(h) >= 0) this.setState({ sel: [h, 0] }); } catch (x) {} }
+  componentDidMount() { try { const lv = window.localStorage.getItem('hf-dara-leave'), tp = window.localStorage.getItem('hf-dara-leave-tests'), rp = window.localStorage.getItem('hf-lead-vannak'); this.setState({ lv: lv || '', lvTests: tp || '', replied: !!rp, reply: rp || '' }); } catch (e) {} try { const h = (window.location.hash || '').slice(1); if (['chenda', 'dara', 'pisey', 'rithy', 'sophal', 'sreymom', 'vannak'].indexOf(h) >= 0) this.setState({ sel: [h, 0] }); } catch (x) {} }
   renderVals() {
     const ui = this.state || {};
     const cap = {
@@ -156,10 +156,13 @@ class Component extends DCLogic {
     const n = four ? 4 : 2;
     const WEEKS = ['Week 42 · this week', 'Week 43 · 19–23 Oct', 'Week 44 · 26–30 Oct', 'Week 45 · 2–6 Nov'];
     // [status, available, time to plan, planned, why]
+    const lvW = ui.lv || '';
+    const daraW43 = lvW === 'approved' ? ['balanced', 16, 12, 12, 'Leave approved Thu 22 – Fri 23. ' + (ui.lvTests === 'pisey' ? 'Menu sync job tests went to Pisey.' : 'Menu sync job tests moved to week 44.')] : lvW === 'declined' ? ['balanced', 32, 24, 22, 'Leave declined, so Dara has her full week.'] : ['over', 16, 12, 22, 'Leave asked for Thu 22 – Fri 23, counted. Fits (12h of 12h) once Menu sync job tests (10h) moves to week 44.'];
+    const piseyW43 = ui.lvTests === 'pisey' && lvW === 'approved' ? ['over', 19, 14, 27, '+8h from Sophal and +10h Menu sync job tests from Dara.'] : ['buffer', 19, 14, 17, '+8h from Sophal: Store sales export, Payment webhook retries (4h left).'];
     const P = [
       { id: 'chenda', name: 'Chenda Lim', first: 'Chenda', note: 'Lead', w: [['balanced', 32, 18, 16, ''], ['buffer', 24, 18, 19, '+5h from Sophal: Salary file check, Nightly backup check, Data sync weekly.'], ['room'], ['room']] },
-      { id: 'dara', name: 'Dara Sok', first: 'Dara', note: '', w: [['balanced', 32, 24, 22, 'Took 2 of Pisey\'s tasks on Wednesday; Menu sync job tests moved out.'], ['over', 16, 12, 22, 'Leave asked for Thu 22 – Fri 23, counted. Fits (12h of 12h) once Menu sync job tests (10h) moves to week 44.'], ['balanced'], ['room']] },
-      { id: 'pisey', name: 'Pisey Chea', first: 'Pisey', note: 'Technical 60%', w: [['balanced', 19, 14, 12, 'Sick on Wednesday; 2 tasks went to Dara.'], ['buffer', 19, 14, 17, '+8h from Sophal: Store sales export, Payment webhook retries (4h left).'], ['room'], ['away']] },
+      { id: 'dara', name: 'Dara Sok', first: 'Dara', note: '', w: [['balanced', 32, 24, 22, 'Took 2 of Pisey\'s tasks on Wednesday; Menu sync job tests moved out.'], daraW43, ['balanced'], ['room']] },
+      { id: 'pisey', name: 'Pisey Chea', first: 'Pisey', note: 'Technical 60%', w: [['balanced', 19, 14, 12, 'Sick on Wednesday; 2 tasks went to Dara.'], piseyW43, ['room'], ['away']] },
       { id: 'rithy', name: 'Rithy Heng', first: 'Rithy', note: '', w: [['buffer', 32, 24, 29, 'Planned 24h, then Coupon breaks payment at checkout (5h) came in after locking.'], ['buffer', 32, 24, 29, ''], ['balanced'], ['room']] },
       { id: 'sophal', name: 'Sophal Ouk', first: 'Sophal', note: 'Leaving 23 Oct · finish the handover', w: [['leaving', 32, 24, 10, 'Handing over his work. Takes no new work.'], ['leaving', 32, 24, 0, 'Last day Fri 23 Oct. All 13h handed over from Mon 19 Oct.'], ['left'], ['left']] },
       { id: 'sreymom', name: 'Sreymom Ly', first: 'Sreymom', note: 'Away until 30 Oct', w: [['away', 0, 0, 0, 'Annual leave.'], ['away', 0, 0, 0, 'Annual leave all week.'], ['away'], ['room']] },
@@ -186,8 +189,8 @@ class Component extends DCLogic {
       rows,
       d: { aria: p.name + ', ' + WEEKS[sel[1]], name: p.name, first: p.first, week: WEEKS[sel[1]], word: c.word, bg: c.bg, fg: c.fg, ring: c.ring || 'none', line, why: (w[4] || ''), hasNums: has, nums, saysFull: !!w[5], go: go[0], goHref: go[1] },
       replyOpen: !ui.replied, replySent: !!ui.replied, reply: ui.reply || '', setReply: (e) => this.setState({ reply: e.target.value, replyError: false }),
-      sendReply: () => (ui.reply || '').trim() ? this.focusTo('wl-sent', { replied: true, replyError: false }) : this.focusTo('wl-reply', { replyError: true }), replyError: !!ui.replyError, replyBad: ui.replyError ? 'true' : 'false',
-      undoReply: () => this.focusTo('wl-reply', { replied: false })
+      sendReply: () => (ui.reply || '').trim() ? (() => { try { window.localStorage.setItem('hf-lead-vannak', ui.reply.trim()); } catch (e) {} this.focusTo('wl-sent', { replied: true, replyError: false }); })() : this.focusTo('wl-reply', { replyError: true }), replyError: !!ui.replyError, replyBad: ui.replyError ? 'true' : 'false',
+      undoReply: () => { try { window.localStorage.removeItem('hf-lead-vannak'); } catch (e) {} this.focusTo('wl-reply', { replied: false }); }
     };
   }
 }

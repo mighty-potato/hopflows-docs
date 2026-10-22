@@ -200,7 +200,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
-  componentDidMount() { try { const q = JSON.parse(window.localStorage.getItem('hf-lead-queue') || '{}'); this.setState({ qDone: Object.keys(q || {}).length, revDone: !!window.localStorage.getItem('hf-lead-review'), hoDone: window.localStorage.getItem('hf-lead-handover') === 'done', helped: window.localStorage.getItem('hf-lead-help') ? true : !!(this.state || {}).helped, hc: window.localStorage.getItem('hf-lead-help') || (this.state || {}).hc }); } catch (e) {} try { const v = window.localStorage.getItem('hf-dara-leave'); if (v === 'approved') this.setState({ approved: true }); else if (v === 'declined') this.setState({ declined: true, why: window.localStorage.getItem('hf-dara-leave-why') || '' }); else if (window.location.hash === '#leave') this.focusTo('lv-title', { sheet: true }); } catch (e) {} }
+  componentDidMount() { try { const q = JSON.parse(window.localStorage.getItem('hf-lead-queue') || '{}'); this.setState({ qDone: Object.keys(q || {}).length, revDone: !!window.localStorage.getItem('hf-lead-review'), hoDone: window.localStorage.getItem('hf-lead-handover') === 'done', coverAsked: !!window.localStorage.getItem('hf-lead-cover'), vannakReplied: !!window.localStorage.getItem('hf-lead-vannak'), helped: window.localStorage.getItem('hf-lead-help') ? true : !!(this.state || {}).helped, hc: window.localStorage.getItem('hf-lead-help') || (this.state || {}).hc }); } catch (e) {} try { const v = window.localStorage.getItem('hf-dara-leave'); if (v === 'approved') this.setState({ approved: true, choice: window.localStorage.getItem('hf-dara-leave-tests') === 'pisey' ? 'give' : 'later' }); else if (v === 'declined') this.setState({ declined: true, why: window.localStorage.getItem('hf-dara-leave-why') || '' }); else if (window.location.hash === '#leave') this.focusTo('lv-title', { sheet: true }); } catch (e) {} }
   // move keyboard focus to the part of the screen that just appeared
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() {
@@ -231,9 +231,9 @@ class Component extends DCLogic {
       give: pick(!later), later: pick(later),
       pickGive: () => this.setState({ choice: 'give' }), pickLater: () => this.setState({ choice: 'later' }),
       approve: () => this.focusTo('lv-title', { sheet: true }),
-      confirm: () => { try { window.localStorage.setItem('hf-dara-leave', 'approved'); } catch (x) {} this.focusTo('lv-done', { approved: true, sheet: false }); },
+      confirm: () => { try { window.localStorage.setItem('hf-dara-leave', 'approved'); window.localStorage.setItem('hf-dara-leave-tests', later ? 'w44' : 'pisey'); } catch (x) {} this.focusTo('lv-done', { approved: true, sheet: false }); },
       cancel: () => this.focusTo('lv-open', { sheet: false }),
-      undo: () => { try { window.localStorage.removeItem('hf-dara-leave'); } catch (x) {} this.focusTo('lv-open', { approved: false, declined: false }); }
+      undo: () => { try { window.localStorage.removeItem('hf-dara-leave'); window.localStorage.removeItem('hf-dara-leave-tests'); } catch (x) {} this.focusTo('lv-open', { approved: false, declined: false }); }
     };
     const hc = s.hc || 'chase';
     const HC = [['chase', 'I\'ll chase the provider'], ['pisey', 'Pisey takes it Monday'], ['wait', 'Wait for the keys']];
@@ -247,8 +247,8 @@ class Component extends DCLogic {
       helpUndo: () => { try { window.localStorage.removeItem('hf-lead-help'); } catch (e) {} this.focusTo('hp-open', { helped: false }); } };
     const need = (kind, tone, title, meta, action, href, second) => Object.assign({ kind, title, meta, action, href: href || '', inline: !href, second: second || '', open: true, done: false, sheet: false }, k[tone], href ? {} : leave);
     const qLeft = 4 - (s.qDone || 0);
-    const waiting = qLeft + (s.helped ? 0 : 1) + (s.revDone ? 0 : 1) + (approved || declined ? 0 : 1) + (s.hoDone ? 0 : 1) + 2;
-    const parts = [qLeft ? qLeft + (qLeft === 1 ? ' request' : ' requests') + ' to sort' : '', s.helped ? '' : '1 Need help', s.revDone ? '' : '1 review', approved || declined ? '' : '1 leave request', s.hoDone ? '' : '1 handover', '1 routine gap', '1 week status'].filter(Boolean);
+    const waiting = qLeft + (s.helped ? 0 : 1) + (s.revDone ? 0 : 1) + (approved || declined ? 0 : 1) + (s.hoDone ? 0 : 1) + (s.coverAsked ? 0 : 1) + (s.vannakReplied ? 0 : 1);
+    const parts = [qLeft ? qLeft + (qLeft === 1 ? ' request' : ' requests') + ' to sort' : '', s.helped ? '' : '1 Need help', s.revDone ? '' : '1 review', approved || declined ? '' : '1 leave request', s.hoDone ? '' : '1 handover', s.coverAsked ? '' : '1 routine gap', s.vannakReplied ? '' : '1 week status'].filter(Boolean);
     const cap = {
       room: { word: 'Room', bg: '#DCEFE2', fg: '#1F5E3A' },
       balanced: { word: 'Balanced', bg: '#C9DDE8', fg: '#33454F' },
@@ -270,8 +270,8 @@ class Component extends DCLogic {
         s.revDone ? null : need('Review', 'plain', 'Build the checkout API', 'Dara Sok · sent for review 15:10', 'Review', 'TaskDetail.dc.html#review'),
         need('Leave', 'plain', 'Dara asks for Thu 22 – Fri 23 Oct', 'Annual · week 43 · 2 tasks due on those days', 'Check and approve', '', 'Decline'),
         s.hoDone ? null : need('Handover', 'plain', 'Sophal leaves Fri 23 Oct · finish the handover', 'Step 2 of 3 · 8 items · 13h of week 43 moves', 'Continue', 'Handover.dc.html'),
-        need('Routine', 'plain', 'Close shop checklist has nobody on Saturdays', 'Sreymom is away until 30 Oct · Pisey covers weekdays', 'Find cover', 'Routines.dc.html'),
-        need('Week status', 'plain', 'Vannak says this week is Full', 'Colour shows Room · note: “covering the shop till”', 'Look and reply', 'Workload.dc.html#vannak')
+        s.coverAsked ? null : need('Routine', 'plain', 'Close shop checklist has nobody on Saturdays', 'Sreymom is away until 30 Oct · Pisey covers weekdays', 'Find cover', 'Routines.dc.html'),
+        s.vannakReplied ? null : need('Week status', 'plain', 'Vannak says this week is Full', 'Colour shows Room · note: “covering the shop till”', 'Look and reply', 'Workload.dc.html#vannak')
       ].filter(Boolean),
       team: [
         person('Chenda Lim (you)', 'CL', 'balanced'),

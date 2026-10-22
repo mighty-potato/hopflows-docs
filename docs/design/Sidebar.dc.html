@@ -159,7 +159,7 @@ class Component extends DCLogic {
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
   renderVals() {
-    const lead = (() => { try { const g = (k) => window.localStorage.getItem(k); const q = 4 - Object.keys(JSON.parse(g('hf-lead-queue') || '{}') || {}).length; return { q, needs: q + (g('hf-lead-help') ? 0 : 1) + (g('hf-lead-review') ? 0 : 1) + (g('hf-dara-leave') ? 0 : 1) + (g('hf-lead-handover') === 'done' ? 0 : 1) + 2 }; } catch (e) { return { q: 4, needs: 10 }; } })();
+    const lead = (() => { try { const g = (k) => window.localStorage.getItem(k); const q = 4 - Object.keys(JSON.parse(g('hf-lead-queue') || '{}') || {}).length; return { q, needs: q + (g('hf-lead-help') ? 0 : 1) + (g('hf-lead-review') ? 0 : 1) + (g('hf-dara-leave') ? 0 : 1) + (g('hf-lead-handover') === 'done' ? 0 : 1) + (g('hf-lead-cover') ? 0 : 1) + (g('hf-lead-vannak') ? 0 : 1) }; } catch (e) { return { q: 4, needs: 10 }; } })();
     const persona = this.props.persona ?? 'employee';
     const current = this.props.current ?? 'today';
     const keys = ['today','tasks','requests','week','myroutines','calendar','inbox','needs','queue','plan','workload','deliverables','team','routines','review','goals','summary','reports','people','holidays','org','settings'];

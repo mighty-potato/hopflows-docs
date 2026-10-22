@@ -171,7 +171,7 @@ class Component extends DCLogic {
       editId: 'rt-edit-' + r.id, flip: () => setList(list.map((x) => x.id === r.id ? Object.assign({}, x, { s: x.s === 'paused' ? 'on' : 'paused', rate: x.s === 'paused' ? 'Resumed today. Starts again on its next day.' : 'Paused today. Nobody gets it until you resume it.' }) : x), r.title + (r.s === 'paused' ? ' is back on.' : ' is paused. It stops showing on Today from tomorrow.')),
       findCover: () => this.focusTo('rt-cover', { covering: r.id }),
       edit: () => this.focusTo('new-r', { editing: r.id, fTitle: r.title, by: r.by, titleError: false, ppl: (r.who.match(/Dara|Rithy|Vannak|Pisey|Chenda|Sreymom|Sophal/g) || []).filter((x, i, a) => a.indexOf(x) === i), whoMode: /turns|By weekday/.test(r.who) ? 'turns' : 'one' }) }));
-    const askCover = () => { if (!ui.cover) return this.focusTo('rt-cover', { coverError: true }); this.focusTo('rt-note', Object.assign(snapshot(), { covering: null, list: list.map((x) => x.id === ui.covering ? Object.assign({}, x, { s: 'covered', rate: 'Asked ' + ui.cover + ' to cover Saturdays until 30 Oct. Waiting for an answer.' }) : x), note: 'Asked ' + ui.cover + ' to cover Close shop on Saturdays until 30 Oct. You\'ll see the answer in your Inbox.' })); };
+    const askCover = () => { if (!ui.cover) return this.focusTo('rt-cover', { coverError: true }); this.focusTo('rt-note', Object.assign(snapshot(), { covering: null, list: list.map((x) => x.id === ui.covering ? Object.assign({}, x, { s: 'covered', rate: 'Asked ' + ui.cover + ' to cover Saturdays until 30 Oct. Waiting for an answer.' }) : x), note: 'Asked ' + ui.cover + ' to cover Close shop on Saturdays until 30 Oct. You\'ll see the answer in your Inbox.' })); try { window.localStorage.setItem('hf-lead-cover', ui.cover); } catch (e) {} };
     const editing = list.find((x) => x.id === ui.editing);
     const rep = ui.rep || 'working';
     const repeats = this.radioGroup('rr', [{ key: 'daily', name: 'Every day' }, { key: 'working', name: 'Working days' }, { key: 'weekdays', name: 'Chosen weekdays' }, { key: 'monthly', name: 'A day each month' }], rep, 'rep');
@@ -194,7 +194,7 @@ class Component extends DCLogic {
     };
     return {
       stOk: ['normal', 'saveError', 'partial'].indexOf(this.props.state ?? 'normal') >= 0, stLoading: this.props.state === 'loading', stEmpty: this.props.state === 'empty', stError: this.props.state === 'error',
-      routines, hasNote: !!ui.note, note: ui.note || '', undo: () => this.focusTo('rt-list', { list: ui.prevList || SEED, note: '' }),
+      routines, hasNote: !!ui.note, note: ui.note || '', undo: () => { try { if (!(ui.prevList || SEED).some((x) => x.s === 'covered')) window.localStorage.removeItem('hf-lead-cover'); } catch (e) {} this.focusTo('rt-list', { list: ui.prevList || SEED, note: '' }); },
       coverKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('rt-cover-btn', { covering: null }); } }, setCover: (e) => this.setState({ cover: e.target.value, coverError: false }), coverError: !!ui.coverError && !ui.cover, askCover,
       formKey: (e) => { if (e.key === 'Escape' && editing) { e.preventDefault(); this.focusTo('rt-edit-' + editing.id, { editing: null, fTitle: null, by: null, ppl: null }); } },
       formTitle: editing ? 'Edit ' + editing.title : 'New routine', isEdit: !!editing, submitLabel: editing ? 'Save changes' : 'Create routine', cancelEdit: () => this.focusTo(editing ? 'rt-edit-' + editing.id : 'new-r', { editing: null, fTitle: null, by: null, ppl: null }),

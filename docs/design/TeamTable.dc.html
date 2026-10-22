@@ -160,12 +160,14 @@ class Component extends DCLogic {
       ready: { wk: 'Not planned', wkBg: '#FFFFFF', wkFg: '#4A4950' }
     };
     // id, title, owner, status, due (sortable key), due label, size, deliverable, kind, came from, week
+    const rev = (() => { try { return window.localStorage.getItem('hf-lead-review') || ''; } catch (e) { return ''; } })();
+    const hoDoneT = (() => { try { return window.localStorage.getItem('hf-lead-handover') === 'done'; } catch (e) { return false; } })();
     const SEED = [
       ['coupon', 'Coupon breaks payment at checkout', 'Rithy Heng', 'doing', 1, 'Fri 16', 'Small · 5h', 'Launch In-App Ordering v1', 'Bug', 'Customer', 'added'],
-      ['checkout', 'Build the checkout API', 'Dara Sok', 'review', 1, 'Fri 16', 'Medium · 12h', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'],
+      ['checkout', 'Build the checkout API', 'Dara Sok', rev === 'sent' ? 'doing' : 'review', 1, 'Fri 16', 'Medium · 12h', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'planned'],
       ['backup', 'Nightly backup alerts', 'Vannak Prum', 'todo', 1, 'Fri 16', 'Small · 1h', '—', 'Operations', 'System alert', 'added'],
-      ['webhook', 'Payment webhook retries', 'Sophal Ouk', 'blocked', 5, 'Tue 20', 'Medium · 4h left', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'w43'],
-      ['export', 'Store sales export', 'Sophal Ouk', 'todo', 6, 'Wed 21', 'Small · 4h', 'Store sales dashboard v1', 'Feature', 'Manager', 'w43'],
+      ['webhook', 'Payment webhook retries', hoDoneT ? 'Pisey Chea' : 'Sophal Ouk, then Pisey', 'blocked', 5, 'Tue 20', 'Medium · 4h left', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'w43'],
+      ['export', 'Store sales export', hoDoneT ? 'Pisey Chea' : 'Sophal Ouk, then Pisey', 'todo', 6, 'Wed 21', 'Small · 4h', 'Store sales dashboard v1', 'Feature', 'Manager', 'w43'],
       ['printer', 'Fix receipt printer driver', 'Dara Sok', 'blocked', 6, 'Wed 21', 'Small · 8h', '—', 'Bug', 'Shop team', 'carried'],
       ['tests', 'Menu sync job tests', 'Dara Sok', 'todo', 7, 'Thu 22', 'Medium · 10h', '—', 'Feature', 'Planned', 'carried'],
       ['photos', 'Menu photo export', 'Pisey Chea', 'todo', 7, 'Thu 22', 'Small · 6h', 'Menu refresh', 'Feature', 'Planned', 'carried'],
@@ -175,14 +177,14 @@ class Component extends DCLogic {
       ['spike', 'Khmer search spike', '—', 'todo', 99, '—', 'Large', 'Menu search', 'Feature', 'Meeting', 'ready']
     ];
     const ch = ui.changes || {};
-    const data = SEED.map((r) => { const c = ch[r[0]] || {}; const w = c.w || r[10]; const moved = w === 'w44' && r[10] !== 'w44'; return { id: r[0], title: r[1], owner: c.owner || r[2], s: r[3], dk: moved ? 14 : r[4], due: moved ? 'Thu 29' : r[5], size: r[6], del: r[7], kind: r[8], from: r[9], w, w0: r[10], o0: r[2] }; });
+    const data = SEED.filter((r) => !(r[0] === 'checkout' && rev === 'accepted')).map((r) => { const c = ch[r[0]] || {}; const w = c.w || r[10]; const moved = w === 'w44' && r[10] !== 'w44'; return { id: r[0], title: r[1], owner: c.owner || r[2], s: r[3], dk: moved ? 14 : r[4], due: moved ? 'Thu 29' : r[5], size: r[6], del: r[7], kind: r[8], from: r[9], w, w0: r[10], o0: r[2] }; });
     // week 43 loads, as in the Planner, then adjusted by changes made here
     const hrs = (sz) => { const m = /(\d+)h/.exec(sz); return m ? +m[1] : /Large/.test(sz) ? 20 : /Medium/.test(sz) ? 12 : 4; };
     const in43 = (w) => w === 'w43' || w === 'carried';
     const W43 = { 'Chenda Lim': [19, 18, 24], 'Dara Sok': [22, 12, 16], 'Pisey Chea': [17, 14, 19], 'Rithy Heng': [29, 24, 32], 'Vannak Prum': [35, 24, 32] };
     const load = {}; Object.keys(W43).forEach((n) => { load[n] = W43[n][0]; });
     // Sophal's open work is already counted with Pisey in week 43 (the handover is counted)
-    const eff = (n) => n === 'Sophal Ouk' ? 'Pisey Chea' : n;
+    const eff = (n) => /^Sophal/.test(n) ? 'Pisey Chea' : n;
     data.forEach((d) => { if (in43(d.w0) && load[eff(d.o0)] != null) load[eff(d.o0)] -= hrs(d.size); if (in43(d.w) && load[eff(d.owner)] != null) load[eff(d.owner)] += hrs(d.size); });
     const wordOf = (n) => { const [, tp, av] = W43[n]; const h = load[n]; return h > av ? 'Too much' : h > tp ? 'Using buffer' : h >= 0.7 * tp ? 'Balanced' : 'Room'; };
     const loadText = (n) => load[n] + 'h of ' + W43[n][1] + 'h · ' + wordOf(n);
