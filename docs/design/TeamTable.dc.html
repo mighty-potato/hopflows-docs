@@ -166,7 +166,7 @@ class Component extends DCLogic {
       ['webhook', 'Payment webhook retries', 'Sophal Ouk', 'blocked', 5, 'Tue 20', 'Medium · 4h left', 'Launch In-App Ordering v1', 'Feature', 'Planned', 'w43'],
       ['export', 'Store sales export', 'Sophal Ouk', 'todo', 6, 'Wed 21', 'Small · 4h', 'Store sales dashboard v1', 'Feature', 'Manager', 'w43'],
       ['printer', 'Fix receipt printer driver', 'Dara Sok', 'blocked', 6, 'Wed 21', 'Small · 8h', '—', 'Bug', 'Shop team', 'carried'],
-      ['tests', 'Menu sync job tests', 'Dara Sok', 'todo', 7, 'Thu 22', 'Medium · 10h', '—', 'Feature', 'Planned', 'w43'],
+      ['tests', 'Menu sync job tests', 'Dara Sok', 'todo', 7, 'Thu 22', 'Medium · 10h', '—', 'Feature', 'Planned', 'carried'],
       ['photos', 'Menu photo export', 'Pisey Chea', 'todo', 7, 'Thu 22', 'Medium', 'Menu refresh', 'Feature', 'Planned', 'carried'],
       ['tablet', 'Shop tablet updates', 'Vannak Prum', 'todo', 7, 'Thu 22', 'Small · 6h', '—', 'Operations', 'Planned', 'w43'],
       ['guide', 'Printer setup guide', 'Vannak Prum', 'todo', 7, 'Thu 22', 'Small · 4h', '—', 'Support', 'Planned', 'w43'],
@@ -174,25 +174,40 @@ class Component extends DCLogic {
       ['spike', 'Khmer search spike', '—', 'todo', 99, '—', 'Large', 'Menu search', 'Feature', 'Meeting', 'ready']
     ];
     const ch = ui.changes || {};
-    const data = SEED.map((r) => { const c = ch[r[0]] || {}; return { id: r[0], title: r[1], owner: c.owner || r[2], s: r[3], dk: r[4], due: r[5], size: r[6], del: r[7], kind: r[8], from: r[9], w: c.w || r[10] }; });
+    const data = SEED.map((r) => { const c = ch[r[0]] || {}; const w = c.w || r[10]; const moved = w === 'w44' && r[10] !== 'w44'; return { id: r[0], title: r[1], owner: c.owner || r[2], s: r[3], dk: moved ? 14 : r[4], due: moved ? 'Thu 29' : r[5], size: r[6], del: r[7], kind: r[8], from: r[9], w, w0: r[10], o0: r[2] }; });
+    // week 43 loads, as in the Planner, then adjusted by changes made here
+    const hrs = (sz) => { const m = /(\d+)h/.exec(sz); return m ? +m[1] : /Large/.test(sz) ? 20 : /Medium/.test(sz) ? 12 : 4; };
+    const in43 = (w) => w === 'w43' || w === 'carried';
+    const W43 = { 'Chenda Lim': [19, 18, 24], 'Dara Sok': [22, 12, 16], 'Pisey Chea': [17, 14, 19], 'Rithy Heng': [29, 24, 32], 'Vannak Prum': [35, 24, 32] };
+    const load = {}; Object.keys(W43).forEach((n) => { load[n] = W43[n][0]; });
+    // Sophal's open work is already counted with Pisey in week 43 (the handover is counted)
+    const eff = (n) => n === 'Sophal Ouk' ? 'Pisey Chea' : n;
+    data.forEach((d) => { if (in43(d.w0) && load[eff(d.o0)] != null) load[eff(d.o0)] -= hrs(d.size); if (in43(d.w) && load[eff(d.owner)] != null) load[eff(d.owner)] += hrs(d.size); });
+    const wordOf = (n) => { const [, tp, av] = W43[n]; const h = load[n]; return h > av ? 'Too much' : h > tp ? 'Using buffer' : h >= 0.7 * tp ? 'Balanced' : 'Room'; };
+    const loadText = (n) => load[n] + 'h of ' + W43[n][1] + 'h · ' + wordOf(n);
     const sort = ui.sort || 'due';
     const cmp = { title: (a, b) => a.title.localeCompare(b.title), owner: (a, b) => (a.owner === '—') - (b.owner === '—') || a.owner.localeCompare(b.owner) || a.dk - b.dk, due: (a, b) => a.dk - b.dk || a.title.localeCompare(b.title) }[sort];
     const sel = ui.sel || {};
-    const rows = data.slice().sort(cmp).map((d) => Object.assign({ sel: !!sel[d.id], rowBg: sel[d.id] ? '#FBFAF7' : 'transparent', title: d.title, owner: d.owner, due: d.due, size: d.size, del: d.del, kind: d.kind, from: d.from,
+    const rows = data.slice().sort((a, b) => (ui.desc ? -1 : 1) * cmp(a, b)).map((d) => Object.assign({ sel: !!sel[d.id], rowBg: sel[d.id] ? '#FBFAF7' : 'transparent', title: d.title, owner: d.owner, due: d.due, size: d.size, del: d.del, kind: d.kind, from: d.from,
       toggle: () => this.setState({ sel: Object.assign({}, sel, { [d.id]: !sel[d.id] }), bulkError: false }) }, st[d.s], wk[d.w]));
     const selIds = data.filter((d) => sel[d.id]).map((d) => d.id);
-    const OWN = [['Chenda Lim', 'Chenda Lim · Using buffer in week 43'], ['Dara Sok', 'Dara Sok · Too much in week 43'], ['Pisey Chea', 'Pisey Chea · Using buffer in week 43'], ['Rithy Heng', 'Rithy Heng · Using buffer in week 43'], ['Vannak Prum', 'Vannak Prum · Too much in week 43'], ['Sophal Ouk', 'Sophal Ouk · leaving Fri 23, no new work'], ['Sreymom Ly', 'Sreymom Ly · away all week']];
+    const OWN = Object.keys(W43).map((n) => [n, n + ' · week 43 now ' + loadText(n)]).concat([['Sophal Ouk', 'Sophal Ouk · leaving Fri 23, no new work'], ['Sreymom Ly', 'Sreymom Ly · away all week']]);
     const apply = () => {
       const o = ui.newOwner || '', w = ui.newWeek || '';
       if (!o && !w) return this.setState({ bulkError: true });
       const next = Object.assign({}, ch);
       selIds.forEach((id) => { next[id] = Object.assign({}, next[id], o ? { owner: o } : {}, w ? { w } : {}); });
       const wl = { w43: 'week 43', w44: 'week 44', ready: 'Not planned' }[w];
-      const note = (selIds.length === 1 ? '1 task' : selIds.length + ' tasks') + (o ? ' now owned by ' + o : '') + (o && w ? ', ' : '') + (w ? ' moved to ' + wl : '') + '. ' + (w === 'w44' || o ? 'The Planner counts it in week 43; owners are told.' : 'Owners are told.');
+      const touched = Array.from(new Set(selIds.map((id) => eff(data.find((d) => d.id === id).owner)).concat(o ? [eff(o)] : []))).filter((n) => W43[n]);
+      const after = {}; Object.keys(load).forEach((n) => { after[n] = load[n]; });
+      selIds.forEach((id) => { const d = data.find((x) => x.id === id); const nw = w || d.w, no = o || d.owner; if (in43(d.w) && after[eff(d.owner)] != null) after[eff(d.owner)] -= hrs(d.size); if (in43(nw) && after[eff(no)] != null) after[eff(no)] += hrs(d.size); });
+      const loads = touched.map((n) => { const [, tp, av] = W43[n]; const h = after[n]; return n.split(' ')[0] + ' ' + h + 'h of ' + tp + 'h' + (h > av ? ', Too much' : h > tp ? ', Using buffer' : ''); }).join(' · ');
+      const note = (selIds.length === 1 ? '1 task' : selIds.length + ' tasks') + (o ? ' now owned by ' + o : '') + (o && w ? ', ' : '') + (w ? ' moved to ' + wl : '') + (w === 'w44' ? ', due Thu 29 Oct' : '') + '. Week 43: ' + loads + '. Owners are told.';
       this.focusTo('tt-note', { changes: next, prev: ch, sel: {}, note, newOwner: '', newWeek: '', bulkError: false });
     };
-    const arrow = (k) => sort === k ? '↓' : '';
-    const ariaSort = (k) => sort === k ? 'ascending' : 'none';
+    const desc = !!ui.desc;
+    const arrow = (k) => sort === k ? (desc ? '↑' : '↓') : '';
+    const ariaSort = (k) => sort === k ? (desc ? 'descending' : 'ascending') : 'none';
     return {
       stOk: ['normal', 'saveError', 'partial'].indexOf(this.props.state ?? 'normal') >= 0, stLoading: this.props.state === 'loading', stEmpty: this.props.state === 'empty', stError: this.props.state === 'error',
       showPartial: this.props.state === 'partial' && !ui.partialOk, dismissPartial: () => this.setState({ partialOk: true }),
@@ -202,7 +217,7 @@ class Component extends DCLogic {
       owners: OWN.map(([v, t]) => ({ v, t, off: v === 'Sophal Ouk' || v === 'Sreymom Ly' })), setOwner: (e) => this.setState({ newOwner: e.target.value, bulkError: false }), setWeek: (e) => this.setState({ newWeek: e.target.value, bulkError: false }),
       apply, bulkError: !!ui.bulkError, hasNote: !!ui.note, note: ui.note || '',
       undo: () => this.setState({ changes: ui.prev || {}, note: '' }),
-      byTitle: () => this.setState({ sort: 'title' }), byOwner: () => this.setState({ sort: 'owner' }), byDue: () => this.setState({ sort: 'due' }),
+      byTitle: () => this.setState({ sort: 'title', desc: sort === 'title' ? !ui.desc : false }), byOwner: () => this.setState({ sort: 'owner', desc: sort === 'owner' ? !ui.desc : false }), byDue: () => this.setState({ sort: 'due', desc: sort === 'due' ? !ui.desc : false }),
       arrowTitle: arrow('title'), arrowOwner: arrow('owner'), arrowDue: arrow('due'), sortTitle: ariaSort('title'), sortOwner: ariaSort('owner'), sortDue: ariaSort('due'),
       exported: !!ui.xls, exportXls: () => this.setState({ xls: true })
     };

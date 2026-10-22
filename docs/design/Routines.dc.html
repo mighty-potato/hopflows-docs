@@ -13,6 +13,7 @@
 body{margin:0}
 a{color:#1C1B1F}a:hover{color:#4A4950}
 :focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
 @media (max-width:760px){
 .hf-side{border-right:0 !important;border-bottom:1px solid #E7E5DF}
 .hf-nav-list{flex-direction:row !important;overflow-x:auto}
@@ -86,7 +87,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <sc-if value="{{r.covering}}" hint-placeholder-val="{{false}}">
               <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; padding: 12px; border-radius: 16px; background: #F4F3EF">
                 <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600">Ask who to cover Saturdays until 30 Oct<select id="rt-cover" onChange="{{setCover}}" style="height: 44px; border: 0; border-radius: 12px; padding: 0 10px; background: #FFFFFF; font-family: inherit; font-size: 15px"><option value="">Choose someone</option><option value="Rithy">Rithy Heng · Using buffer</option><option value="Vannak">Vannak Prum · says Full</option><option value="Chenda">Chenda Lim (you)</option></select></label>
-                <button type="button" onClick="{{askCover}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Ask</button>
+                <sc-if value="{{coverError}}" hint-placeholder-val="{{false}}"><span role="alert" style="flex: 1 1 100%; font-size: 13px; color: #9A3412">Choose someone to ask first.</span></sc-if><button type="button" onClick="{{askCover}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Ask</button>
               </div>
             </sc-if>
             <div style="display: flex; flex-wrap: wrap; gap: 8px">
@@ -169,7 +170,7 @@ class Component extends DCLogic {
       flip: () => setList(list.map((x) => x.id === r.id ? Object.assign({}, x, { s: x.s === 'paused' ? 'on' : 'paused', rate: x.s === 'paused' ? 'Resumed today. Starts again on its next day.' : 'Paused today. Nobody gets it until you resume it.' }) : x), r.title + (r.s === 'paused' ? ' is back on.' : ' is paused. It stops showing on Today from tomorrow.')),
       findCover: () => this.focusTo('rt-cover', { covering: r.id }),
       edit: () => this.focusTo('new-r', { editing: r.id, fTitle: r.title, by: r.by, titleError: false, ppl: (r.who.match(/Dara|Rithy|Vannak|Pisey|Chenda|Sreymom|Sophal/g) || []).filter((x, i, a) => a.indexOf(x) === i), whoMode: /turns|By weekday/.test(r.who) ? 'turns' : 'one' }) }));
-    const askCover = () => { if (!ui.cover) return this.focusTo('rt-cover', {}); this.focusTo('rt-note', Object.assign(snapshot(), { covering: null, list: list.map((x) => x.id === ui.covering ? Object.assign({}, x, { s: 'covered', rate: 'Asked ' + ui.cover + ' to cover Saturdays until 30 Oct. Waiting for an answer.' }) : x), note: 'Asked ' + ui.cover + ' to cover Close shop on Saturdays until 30 Oct. You\'ll see the answer in your Inbox.' })); };
+    const askCover = () => { if (!ui.cover) return this.focusTo('rt-cover', { coverError: true }); this.focusTo('rt-note', Object.assign(snapshot(), { covering: null, list: list.map((x) => x.id === ui.covering ? Object.assign({}, x, { s: 'covered', rate: 'Asked ' + ui.cover + ' to cover Saturdays until 30 Oct. Waiting for an answer.' }) : x), note: 'Asked ' + ui.cover + ' to cover Close shop on Saturdays until 30 Oct. You\'ll see the answer in your Inbox.' })); };
     const editing = list.find((x) => x.id === ui.editing);
     const rep = ui.rep || 'working';
     const repeats = this.radioGroup('rr', [{ key: 'daily', name: 'Every day' }, { key: 'working', name: 'Working days' }, { key: 'weekdays', name: 'Chosen weekdays' }, { key: 'monthly', name: 'A day each month' }], rep, 'rep');
@@ -182,9 +183,8 @@ class Component extends DCLogic {
     const fTitle = ui.fTitle != null ? ui.fTitle : '';
     const by = ui.by || '10:00';
     const submit = () => {
-      if (!fTitle.trim()) return this.focusTo('r-title', { titleError: true });
-      if (!shown.length) return this.focusTo('r-add', { whoError: true });
-      if (rep === 'monthly' && !ui.mday) return this.focusTo('r-mday', { mdayError: true });
+      const errs = { titleError: !fTitle.trim(), whoError: !shown.length, mdayError: rep === 'monthly' && !ui.mday };
+      if (errs.titleError || errs.whoError || errs.mdayError) return this.focusTo(errs.titleError ? 'r-title' : errs.whoError ? 'r-add' : 'r-mday', errs);
       const when = { daily: 'Every day', working: 'Working days', weekdays: DAYS.filter((d) => dsel[d]).join(', ') || 'No days yet', monthly: 'Monthly, ' + (ui.mday || '') }[rep] + ' · by ' + by;
       const whoTxt = whoMode === 'one' ? shown[0] || 'Nobody yet' : 'Takes turns: ' + shown.join(', ');
       if (editing) return setList(list.map((x) => x.id === editing.id ? Object.assign({}, x, { title: fTitle.trim(), when, by, who: whoTxt, backup: 'Backup: ' + (ui.backup || editing.backup.replace('Backup: ', '')) }) : x), 'Saved ' + fTitle.trim() + '. Changes start from tomorrow.', 'rt-note');
@@ -194,14 +194,14 @@ class Component extends DCLogic {
     return {
       stOk: ['normal', 'saveError', 'partial'].indexOf(this.props.state ?? 'normal') >= 0, stLoading: this.props.state === 'loading', stEmpty: this.props.state === 'empty', stError: this.props.state === 'error',
       routines, hasNote: !!ui.note, note: ui.note || '', undo: () => this.setState({ list: ui.prevList || SEED, note: '' }),
-      setCover: (e) => this.setState({ cover: e.target.value }), askCover,
+      setCover: (e) => this.setState({ cover: e.target.value, coverError: false }), coverError: !!ui.coverError && !ui.cover, askCover,
       formTitle: editing ? 'Edit ' + editing.title : 'New routine', isEdit: !!editing, submitLabel: editing ? 'Save changes' : 'Create routine', cancelEdit: () => this.focusTo('new-r', { editing: null, fTitle: null, by: null }),
       fTitle, setTitle: (e) => this.setState({ fTitle: e.target.value, titleError: false }), titleError: !!ui.titleError, titleBad: ui.titleError ? 'true' : 'false', titleBorder: ui.titleError ? '2px solid #9A3412' : '0',
       repeats, isWeekdays: rep === 'weekdays', isMonthly: rep === 'monthly',
       days: DAYS.map((t) => ({ t, on: dsel[t] ? 'true' : 'false', bg: dsel[t] ? '#1C1B1F' : '#F4F3EF', fg: dsel[t] ? '#FFFFFF' : '#1C1B1F', flip: () => this.setState({ days: Object.assign({}, dsel, { [t]: !dsel[t] }) }) })),
       times: ['07:00', '08:00', '09:00', '09:30', '10:00', '12:00', '17:00', '18:00', '21:00'].map((v) => ({ v, sel: v === by })), setBy: (e) => this.setState({ by: e.target.value }),
       whoModes, people: shown.map((name, i) => ({ name, label: (whoMode === 'turns' ? (i + 1) + ' · ' : '') + name, remove: () => this.setState({ ppl: ppl.filter((x) => x !== name) }) })),
-      addable: ['Rithy', 'Vannak', 'Dara', 'Pisey', 'Chenda'].filter((x) => ppl.indexOf(x) < 0), addPerson: (e) => { const v = e.target.value; if (v) this.setState({ ppl: ppl.concat([v]), whoError: false }); e.target.value = ''; },
+      addable: ['Rithy', 'Vannak', 'Dara', 'Pisey', 'Chenda'].filter((x) => ppl.indexOf(x) < 0), addPerson: (e) => { const v = e.target.value; if (v) this.focusTo('r-add', { ppl: ppl.concat([v]), whoError: false }); e.target.value = ''; },
       setBackup: (e) => this.setState({ backup: e.target.value }), setMday: (e) => this.setState({ mday: e.target.value, mdayError: false }), whoError: !!ui.whoError && !shown.length, mdayError: !!ui.mdayError && !ui.mday,
       holidays: !!ui.holidays, flipHolidays: () => this.setState({ holidays: !ui.holidays }), submit
     };

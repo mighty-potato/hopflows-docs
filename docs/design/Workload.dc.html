@@ -113,7 +113,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <span style="font-size: 13px; line-height: 18px"><strong>Vannak says Full</strong>, but his planned work says Room. Ask what isn't showing.</span>
             <sc-if value="{{replyOpen}}" hint-placeholder-val="{{true}}">
               <label for="wl-reply" style="font-size: 12px; font-weight: 600">Reply to Vannak</label>
-              <input id="wl-reply" type="text" value="{{reply}}" onChange="{{setReply}}" placeholder="What's taking your time that isn't in HopFlows?" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 1px solid #6E6C73; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px">
+              <input id="wl-reply" type="text" value="{{reply}}" onChange="{{setReply}}" aria-invalid="{{replyBad}}" aria-describedby="wl-reply-err" placeholder="What's taking your time that isn't in HopFlows?" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 1px solid #6E6C73; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px">
+              <sc-if value="{{replyError}}" hint-placeholder-val="{{false}}"><span id="wl-reply-err" role="alert" style="font-size: 13px; color: #9A3412">Write a short question first.</span></sc-if>
               <button type="button" onClick="{{sendReply}}" style="align-self: flex-start; height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Send to Vannak</button>
             </sc-if>
             <sc-if value="{{replySent}}" hint-placeholder-val="{{false}}"><p id="wl-sent" tabindex="-1" role="status" style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: #1F5E3A">Sent. His answer comes to your Inbox, and "Says Full" stays until he changes it.<button type="button" onClick="{{undoReply}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button></p></sc-if>
@@ -183,8 +184,8 @@ class Component extends DCLogic {
       weeksLabel: four ? 'Show 2 weeks' : 'Show 4 weeks', fourOn: four ? 'true' : 'false', toggleWeeks: () => this.focusTo('wl-weeks', { four: !four, sel: sel[1] > 1 ? [sel[0], 0] : sel }),
       rows,
       d: { aria: p.name + ', ' + WEEKS[sel[1]], name: p.name, first: p.first, week: WEEKS[sel[1]], word: c.word, bg: c.bg, fg: c.fg, ring: c.ring || 'none', line, why: (w[4] || ''), hasNums: has, nums, saysFull: !!w[5], go: go[0], goHref: go[1] },
-      replyOpen: !ui.replied, replySent: !!ui.replied, reply: ui.reply || '', setReply: (e) => this.setState({ reply: e.target.value }),
-      sendReply: () => (ui.reply || '').trim() ? this.focusTo('wl-sent', { replied: true }) : this.focusTo('wl-reply', {}),
+      replyOpen: !ui.replied, replySent: !!ui.replied, reply: ui.reply || '', setReply: (e) => this.setState({ reply: e.target.value, replyError: false }),
+      sendReply: () => (ui.reply || '').trim() ? this.focusTo('wl-sent', { replied: true, replyError: false }) : this.focusTo('wl-reply', { replyError: true }), replyError: !!ui.replyError, replyBad: ui.replyError ? 'true' : 'false',
       undoReply: () => this.focusTo('wl-reply', { replied: false })
     };
   }

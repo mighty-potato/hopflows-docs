@@ -29,7 +29,7 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
   <div class="hf-side" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; border-right: 1px solid #E7E5DF">
-    <dc-import name="Sidebar" persona="employee" current="tasks" hint-size="232px,900px"></dc-import>
+    <dc-import name="Sidebar" persona="{{sidePersona}}" current="{{sideCurrent}}" hint-size="232px,900px"></dc-import>
   </div>
   <main id="main" class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 24px">
     <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
@@ -88,6 +88,24 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
       </div>
     </sc-if>
     <sc-if value="{{justUnblocked}}" hint-placeholder-val="{{false}}"><p role="status" style="margin: 0; padding: 16px 20px; border-radius: 22px; background: #DCEFE2; color: #1F5E3A; font-size: 15px; line-height: 22px">Unblocked. Chenda has been told, and the task is back to normal In progress.</p></sc-if>
+    <sc-if value="{{isReviewer}}" hint-placeholder-val="{{false}}">
+      <section aria-labelledby="rv-title" style="display: flex; flex-direction: column; gap: 12px; padding: 20px; border-radius: 22px; background: #FFFFFF; box-shadow: inset 0 0 0 2px #C9DDE8">
+        <h2 id="rv-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Your review</h2>
+        <sc-if value="{{rvOpen}}" hint-placeholder-val="{{true}}">
+          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">Dara sent this for review on Fri 16 Oct at 15:10. All 3 steps are ticked. Done means: tests pass and it works against the payment provider's sandbox.</p>
+          <sc-if value="{{rvBack}}" hint-placeholder-val="{{false}}">
+            <label for="rv-note" style="font-size: 13px; font-weight: 600">What should Dara change?</label>
+            <input id="rv-note" type="text" value="{{rvNote}}" onChange="{{setRvNote}}" aria-invalid="{{rvBad}}" aria-describedby="rv-err" placeholder="For example: the total is off by one cent with two coupons" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 1px solid #6E6C73; border-radius: 16px; font-family: inherit; font-size: 15px">
+            <sc-if value="{{rvError}}" hint-placeholder-val="{{false}}"><span id="rv-err" role="alert" style="font-size: 13px; color: #9A3412">Say what to change. Dara sees your note on the task.</span></sc-if>
+          </sc-if>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <sc-if value="{{rvNotBack}}" hint-placeholder-val="{{true}}"><button type="button" id="rv-accept" onClick="{{accept}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Accept · mark Done</button><button type="button" onClick="{{openBack}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Send back</button></sc-if>
+            <sc-if value="{{rvBack}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{sendBack}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send back to Dara</button><button type="button" onClick="{{cancelBack}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #1C1B1F; text-decoration: underline">Not now</button></sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{rvDone}}" hint-placeholder-val="{{false}}"><p id="rv-done" tabindex="-1" role="status" style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 15px; line-height: 22px; color: #1F5E3A">{{rvDoneText}}<button type="button" onClick="{{rvUndo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button></p></sc-if>
+      </section>
+    </sc-if>
     <sc-if value="{{confirmSend}}" hint-placeholder-val="{{false}}">
       <section role="alert" aria-label="Step not ticked" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 16px 20px; border-radius: 22px; background: #FFFFFF">
         <span style="flex: 1 1 320px; font-size: 15px; line-height: 22px">“{{openStep}}” isn’t ticked. Chenda will see it as not done.</span>
@@ -172,19 +190,30 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
 class Component extends DCLogic {
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
+  componentDidMount() { try { if (window.location.hash === '#review') this.setState({ asLead: true }); } catch (e) {} }
   renderVals() {
     const local = this.state || {};
-    const viewer = this.props.viewer ?? 'owner';
+    const viewer = local.asLead ? 'reviewer' : (this.props.viewer ?? 'owner');
+    const rv = local.rv || '';
     const reviewSent = !!local.reviewSent;
     const unblocked = !!local.unblocked;
     const blocked = (this.props.blocked ?? false) && !unblocked;
     const names = local.names || ['Design the endpoint', 'Add checks for coupon and total', 'Write tests'];
-    const ticks = local.ticks || [true, true, false];
+    const ticks = local.ticks || (viewer === 'reviewer' ? [true, true, true] : [true, true, false]);
     const steps = names.map((t, i) => ({ t, id: 'td-step-' + i, done: ticks[i], fg: ticks[i] ? '#6E6C73' : '#1C1B1F', deco: ticks[i] ? 'line-through' : 'none', line: '1px solid #F0EEE9', toggle: () => { const n = ticks.slice(); n[i] = !n[i]; this.setState({ ticks: n, confirmSend: false }); } }));
     const addStep = (v) => { const t = (v ?? local.stepDraft ?? '').trim(); if (!t) return; this.focusTo('td-step-new', {names: names.concat([t]), ticks: ticks.concat([false]), stepDraft: ''}); };
     const open = names.filter((t, i) => !ticks[i]);
     const firstOpen = ticks.indexOf(false);
-    return {isOwner: viewer === 'owner', isHelper: viewer === 'helper', canSendReview: viewer === 'owner' && !reviewSent, reviewSent, statusLabel: reviewSent ? 'Awaiting review' : (blocked ? 'In progress · Blocked' : 'In progress'), isBlocked: blocked, justUnblocked: (this.props.blocked ?? false) && unblocked, unblock: () => this.setState({unblocked: true}), reviewLabel: reviewSent ? 'Chenda checks it' : 'Review required',
+    const rvVals = {
+      isReviewer: viewer === 'reviewer', sidePersona: viewer === 'reviewer' ? 'lead' : 'employee', sideCurrent: viewer === 'reviewer' ? 'needs' : 'tasks',
+      rvOpen: !rv || rv === 'back', rvBack: rv === 'back', rvNotBack: rv !== 'back', rvDone: rv === 'accepted' || rv === 'sent',
+      rvDoneText: rv === 'accepted' ? 'Accepted. Build the checkout API is Done, and Dara is told.' : 'Sent back to Dara: "' + (local.rvNote || '').trim() + '". It is In progress again.',
+      rvNote: local.rvNote || '', setRvNote: (e) => this.setState({ rvNote: e.target.value, rvError: false }), rvError: !!local.rvError, rvBad: local.rvError ? 'true' : 'false',
+      accept: () => this.focusTo('rv-done', { rv: 'accepted' }), openBack: () => this.focusTo('rv-note', { rv: 'back' }), cancelBack: () => this.focusTo('rv-accept', { rv: '', rvError: false }),
+      sendBack: () => (local.rvNote || '').trim() ? this.focusTo('rv-done', { rv: 'sent', rvError: false }) : this.focusTo('rv-note', { rvError: true }),
+      rvUndo: () => this.focusTo('rv-accept', { rv: '' })
+    };
+    return Object.assign(rvVals, {isOwner: viewer === 'owner', isHelper: viewer === 'helper', canSendReview: viewer === 'owner' && !reviewSent, reviewSent, statusLabel: viewer === 'reviewer' ? (rv === 'accepted' ? 'Done' : rv === 'sent' ? 'In progress · sent back' : 'Review · sent 15:10') : reviewSent ? 'Awaiting review' : (blocked ? 'In progress · Blocked' : 'In progress'), isBlocked: blocked, justUnblocked: (this.props.blocked ?? false) && unblocked, unblock: () => this.setState({unblocked: true}), reviewLabel: reviewSent ? 'Chenda checks it' : 'Review required',
       steps, doneN: ticks.filter(Boolean).length, stepCount: names.length,
       stepDraft: local.stepDraft || '', setStepDraft: e => this.setState({stepDraft: e.target.value}),
       addStep: () => addStep(), stepEnter: e => { if (e.key === 'Enter') { e.preventDefault(); addStep(e.target.value); } },
@@ -204,7 +233,7 @@ class Component extends DCLogic {
       confirmSend: !!local.confirmSend && !reviewSent, openStep: open.join('” and “'),
       keepWorking: () => this.focusTo('td-step-' + Math.max(firstOpen, 0), {confirmSend: false}),
       sendAnyway: () => this.focusTo('td-sent', {confirmSend: false, reviewSent: true}),
-      undoSend: () => this.focusTo('td-send', {reviewSent: false})};
+      undoSend: () => this.focusTo('td-send', {reviewSent: false})});
   }
 }
 </script>
