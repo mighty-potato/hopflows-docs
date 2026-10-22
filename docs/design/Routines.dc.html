@@ -59,11 +59,12 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load routines</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
-          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><a href="Routines.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Try again</a></div>
         </div>
       </section>
     </sc-if>
     <sc-if value="{{stOk}}" hint-placeholder-val="{{true}}">
+    <sc-if value="{{hasNote}}" hint-placeholder-val="{{false}}"><p id="rt-note" tabindex="-1" role="status" style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 12px 12px 20px; border-radius: 22px; background: #DCEFE2; color: #1F5E3A; font-size: 15px">{{note}}<button type="button" onClick="{{undo}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #1C1B1F">Undo</button></p></sc-if>
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
       <section aria-label="Team routines" style="grid-column: span 7; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <sc-for list="{{routines}}" as="r" hint-placeholder-count="4">
@@ -82,48 +83,49 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <span style="padding: 6px 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{r.holidays}}</span>
             </div>
             <span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{r.rate}}</span>
+            <sc-if value="{{r.covering}}" hint-placeholder-val="{{false}}">
+              <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; padding: 12px; border-radius: 16px; background: #F4F3EF">
+                <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600">Ask who to cover Saturdays until 30 Oct<select id="rt-cover" onChange="{{setCover}}" style="height: 44px; border: 0; border-radius: 12px; padding: 0 10px; background: #FFFFFF; font-family: inherit; font-size: 15px"><option value="">Choose someone</option><option value="Rithy">Rithy Heng · Using buffer</option><option value="Vannak">Vannak Prum · says Full</option><option value="Chenda">Chenda Lim (you)</option></select></label>
+                <button type="button" onClick="{{askCover}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Ask</button>
+              </div>
+            </sc-if>
             <div style="display: flex; flex-wrap: wrap; gap: 8px">
-              <sc-if value="{{r.isGap}}" hint-placeholder-val="{{false}}"><button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Find Saturday cover</button></sc-if>
-              <button type="button" aria-label="Edit {{r.title}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Edit</button>
-              <button type="button" aria-label="{{r.toggle}} {{r.title}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{r.toggle}}</button>
+              <sc-if value="{{r.isGap}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{r.findCover}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Find Saturday cover</button></sc-if>
+              <button type="button" aria-label="Edit {{r.title}}" onClick="{{r.edit}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Edit</button>
+              <button type="button" aria-label="{{r.toggleLabel}}" onClick="{{r.flip}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">{{r.toggle}}</button>
             </div>
           </article>
         </sc-for>
       </section>
 
       <section aria-labelledby="new-r" style="grid-column: span 5; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px; min-width: 0">
-        <h2 id="new-r" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">New routine</h2>
-        <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-title" style="font-size: 13px; font-weight: 600">Title</label><input id="r-title" type="text" value="Check payment errors log" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+        <h2 id="new-r" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">{{formTitle}}</h2>
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-title" style="font-size: 13px; font-weight: 600">Title</label><input id="r-title" type="text" value="{{fTitle}}" onChange="{{setTitle}}" aria-invalid="{{titleBad}}" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: {{titleBorder}}; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><sc-if value="{{titleError}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 13px; color: #9A3412">Give the routine a short title.</span></sc-if></div>
         <div style="display: flex; flex-direction: column; gap: 6px">
           <span id="r-rep" style="font-size: 13px; font-weight: 600">Repeats</span>
-          <div role="radiogroup" aria-labelledby="r-rep" style="display: flex; flex-wrap: wrap; gap: 6px">
-            <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Every day</button>
-            <button type="button" role="radio" aria-checked="true" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Working days</button>
-            <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Chosen weekdays</button>
-            <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">A day each month</button>
-          </div>
+          <div role="radiogroup" aria-labelledby="r-rep" style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{repeats}}" as="o" hint-placeholder-count="3"><button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" onKeyDown="{{o.key}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for></div>
+          <sc-if value="{{isWeekdays}}" hint-placeholder-val="{{false}}"><div role="group" aria-label="Days" style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{days}}" as="d" hint-placeholder-count="5"><button type="button" aria-pressed="{{d.on}}" onClick="{{d.flip}}" style="width: 52px; height: 44px; border: 0; border-radius: 999px; background: {{d.bg}}; color: {{d.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{d.t}}</button></sc-for></div></sc-if>
+          <sc-if value="{{isMonthly}}" hint-placeholder-val="{{false}}"><label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; max-width: 220px">Day of the month<select style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>1st</option><option>15th</option><option>Last working day</option></select></label></sc-if>
         </div>
         <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
-          <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-by" style="font-size: 13px; font-weight: 600">Done by</label><input id="r-by" type="text" value="10:00" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: 'Geist Mono', monospace; font-size: 15px; color: #1C1B1F"></div>
-          <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-est" style="font-size: 13px; font-weight: 600">Estimate</label><select id="r-est" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>15 min</option><option>30 min</option><option>1 hour</option></select></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-by" style="font-size: 13px; font-weight: 600">Done by</label><select id="r-by" onChange="{{setBy}}" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><sc-for list="{{times}}" as="t" hint-placeholder-count="6"><option value="{{t.v}}" selected="{{t.sel}}">{{t.v}}</option></sc-for></select></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-est" style="font-size: 13px; font-weight: 600">About how long?</label><select id="r-est" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>10 min</option><option selected>15 min</option><option>30 min</option><option>1 hour</option></select></div>
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
           <span id="r-who" style="font-size: 13px; font-weight: 600">Who does it</span>
-          <div role="radiogroup" aria-labelledby="r-who" style="display: flex; padding: 4px; gap: 4px; background: #F4F3EF; border-radius: 999px; align-self: flex-start">
-            <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">One person</button>
-            <button type="button" role="radio" aria-checked="true" style="height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Take turns</button>
-          </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px">
-            <span style="padding: 8px 12px; border-radius: 999px; background: #C9DDE8; color: #33454F; font-size: 13px; font-weight: 600">1 · Rithy</span>
-            <span style="padding: 8px 12px; border-radius: 999px; background: #C9DDE8; color: #33454F; font-size: 13px; font-weight: 600">2 · Vannak</span>
-            <span style="padding: 8px 12px; border-radius: 999px; background: #C9DDE8; color: #33454F; font-size: 13px; font-weight: 600">3 · Dara</span>
-            <button type="button" style="height: 36px; padding: 0 12px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">+ Add</button>
+          <div role="radiogroup" aria-labelledby="r-who" style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{whoModes}}" as="o" hint-placeholder-count="3"><button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" onKeyDown="{{o.key}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for></div>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 4px">
+            <sc-for list="{{people}}" as="p" hint-placeholder-count="3"><span style="display: inline-flex; align-items: center; gap: 4px; padding: 0 4px 0 12px; height: 44px; border-radius: 999px; background: #C9DDE8; color: #33454F; font-size: 13px; font-weight: 600">{{p.label}}<button type="button" aria-label="Remove {{p.name}}" onClick="{{p.remove}}" style="width: 36px; height: 36px; border: 0; border-radius: 999px; background: transparent; color: #33454F; cursor: pointer">×</button></span></sc-for>
+            <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Add a person</span><select id="r-add" onChange="{{addPerson}}" style="height: 44px; border: 0; border-radius: 999px; padding: 0 10px; background: #F4F3EF; font-family: inherit; font-size: 13px; font-weight: 600"><option value="">+ Add</option><sc-for list="{{addable}}" as="a" hint-placeholder-count="3"><option value="{{a}}">{{a}}</option></sc-for></select></label>
           </div>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-backup" style="font-size: 13px; font-weight: 600">Backup</label><select id="r-backup" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Pisey Chea</option><option>Chenda Lim</option></select></div>
-        <label style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; font-size: 15px">Runs on holidays<input type="checkbox" style="width: 22px; height: 22px; accent-color: #1C1B1F"></label>
-        <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Shows in each person's Today under “Routine today”. Not done in time closes as Missed. Changes only affect future days.</span>
-        <button type="button" style="height: 48px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Create routine</button>
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="r-backup" style="font-size: 13px; font-weight: 600">Backup</label><select id="r-backup" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Pisey Chea</option><option>Rithy Heng</option><option>Chenda Lim</option></select></div>
+        <label style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; font-size: 15px">Runs on holidays<input type="checkbox" checked="{{holidays}}" onChange="{{flipHolidays}}" style="width: 22px; height: 22px; accent-color: #1C1B1F"></label>
+        <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Shows in each person's Today under “Routines today”. Not done in time closes as Missed. Changes only affect future days.</span>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <button type="button" onClick="{{submit}}" style="flex: 1 1 200px; height: 48px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">{{submitLabel}}</button>
+          <sc-if value="{{isEdit}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{cancelEdit}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Cancel</button></sc-if>
+        </div>
       </section>
     </div>
     </sc-if>
@@ -132,23 +134,72 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal", "loading", "empty", "error"],"default":"normal"},"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
+  radioGroup(group, list, current, setKey) {
+    return list.map((x, i) => {
+      const on = current === x.key;
+      const move = (d) => { const n = list[(i + d + list.length) % list.length]; this.focusTo(group + '-' + n.key, { [setKey]: n.key }); };
+      return Object.assign({}, x, { id: group + '-' + x.key, on: on ? 'true' : 'false', tab: on ? '0' : '-1', bg: on ? '#1C1B1F' : '#F4F3EF', fg: on ? '#FFFFFF' : '#1C1B1F',
+        pick: () => this.setState({ [setKey]: x.key }),
+        key: (e) => { if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); move(1); } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); move(-1); } } });
+    });
+  }
   renderVals() {
+    const ui = this.state || {};
     const st = {
       on: { state: 'On', bg: '#DCEFE2', fg: '#1F5E3A' },
       paused: { state: 'Paused', bg: '#F4F3EF', fg: '#4A4950' },
-      gap: { state: 'Nobody this Saturday', bg: '#FCE3D3', fg: '#9A3412' }
+      gap: { state: 'Nobody this Saturday', bg: '#FCE3D3', fg: '#9A3412' },
+      covered: { state: 'Cover asked', bg: '#C9DDE8', fg: '#33454F' }
     };
-    const r = (title, when, who, backup, steps, holidays, rate, s) => Object.assign({ title, when, who, backup, steps, holidays, rate, isGap: s === 'gap', toggle: s === 'paused' ? 'Resume' : 'Pause' }, st[s]);
-    const pageState = this.props.state ?? 'normal';
+    const SEED = [
+      { id: 'open', title: 'Open shop checklist', when: 'Working days · by 09:00 · 20 min', who: 'By weekday: Dara Tue and Thu, Vannak Mon, Wed and Fri', backup: 'Backup: Pisey', steps: '5 steps', holidays: 'Skips holidays', rate: 'On time this month: 96% · team rate', s: 'on', by: '09:00' },
+      { id: 'close', title: 'Close shop checklist', when: 'Every day · by 21:00 · 20 min', who: 'Sreymom Ly', backup: 'Backup: Pisey (away Saturday)', steps: '6 steps', holidays: 'Runs on holidays', rate: 'Sreymom is away until 30 Oct. Pisey covers weekdays, but Saturdays have nobody', s: 'gap', by: '21:00' },
+      { id: 'errors', title: 'Check overnight error emails', when: 'Working days · by 09:30 · 10 min', who: 'Dara Sok', backup: 'Backup: Rithy', steps: '2 steps', holidays: 'Skips holidays', rate: 'On time this month: 100% · team rate', s: 'on', by: '09:30' },
+      { id: 'backup', title: 'Nightly backup check', when: 'Working days · by 09:00 · 10 min', who: 'Sophal Ouk · goes to Chenda on 19 Oct', backup: 'Backup: Vannak', steps: '2 steps', holidays: 'Skips holidays', rate: 'On time this month: 100% · team rate', s: 'on', by: '09:00' },
+      { id: 'wrap', title: 'Daily wrap-up notes', when: 'Working days · by 18:00 · 15 min', who: 'Dara Sok', backup: 'Backup: Rithy', steps: '3 steps', holidays: 'Skips holidays', rate: 'On time this month: 88% · team rate', s: 'on', by: '18:00' },
+      { id: 'costs', title: 'Month-end server costs', when: '1st of each month · by 17:00 · 1 hour', who: 'Chenda Lim', backup: 'No backup', steps: '4 steps', holidays: 'Skips holidays', rate: 'Paused since September', s: 'paused', by: '17:00' }
+    ];
+    const list = ui.list || SEED;
+    const snapshot = () => ({ prevList: list });
+    const setList = (next, note, focus) => this.focusTo(focus || 'rt-note', Object.assign(snapshot(), { list: next, note }));
+    const routines = list.map((r) => Object.assign({}, r, st[r.s], { isGap: r.s === 'gap', covering: ui.covering === r.id, toggle: r.s === 'paused' ? 'Resume' : 'Pause', toggleLabel: (r.s === 'paused' ? 'Resume ' : 'Pause ') + r.title,
+      flip: () => setList(list.map((x) => x.id === r.id ? Object.assign({}, x, { s: x.s === 'paused' ? 'on' : 'paused', rate: x.s === 'paused' ? 'Resumed today. Starts again on its next day.' : 'Paused today. Nobody gets it until you resume it.' }) : x), r.title + (r.s === 'paused' ? ' is back on.' : ' is paused. It stops showing on Today from tomorrow.')),
+      findCover: () => this.focusTo('rt-cover', { covering: r.id }),
+      edit: () => this.focusTo('new-r', { editing: r.id, fTitle: r.title, by: r.by, titleError: false }) }));
+    const askCover = () => { if (!ui.cover) return this.focusTo('rt-cover', {}); this.focusTo('rt-note', Object.assign(snapshot(), { covering: null, list: list.map((x) => x.id === ui.covering ? Object.assign({}, x, { s: 'covered', rate: 'Asked ' + ui.cover + ' to cover Saturdays until 30 Oct. Waiting for an answer.' }) : x), note: 'Asked ' + ui.cover + ' to cover Close shop on Saturdays until 30 Oct. You\'ll see the answer in your Inbox.' })); };
+    const editing = list.find((x) => x.id === ui.editing);
+    const rep = ui.rep || 'working';
+    const repeats = this.radioGroup('rr', [{ key: 'daily', name: 'Every day' }, { key: 'working', name: 'Working days' }, { key: 'weekdays', name: 'Chosen weekdays' }, { key: 'monthly', name: 'A day each month' }], rep, 'rep');
+    const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const dsel = ui.days || { Mon: true, Wed: true, Fri: true };
+    const whoMode = ui.whoMode || 'turns';
+    const whoModes = this.radioGroup('rw', [{ key: 'one', name: 'One person' }, { key: 'turns', name: 'Take turns' }], whoMode, 'whoMode');
+    const ppl = ui.ppl || ['Rithy', 'Vannak', 'Dara'];
+    const shown = whoMode === 'one' ? ppl.slice(0, 1) : ppl;
+    const fTitle = ui.fTitle != null ? ui.fTitle : 'Check payment errors log';
+    const by = ui.by || '10:00';
+    const submit = () => {
+      if (!fTitle.trim()) return this.focusTo('r-title', { titleError: true });
+      const when = { daily: 'Every day', working: 'Working days', weekdays: DAYS.filter((d) => dsel[d]).join(', ') || 'No days yet', monthly: 'Once a month' }[rep] + ' · by ' + by;
+      const whoTxt = whoMode === 'one' ? shown[0] || 'Nobody yet' : 'Takes turns: ' + shown.join(', ');
+      if (editing) return setList(list.map((x) => x.id === editing.id ? Object.assign({}, x, { title: fTitle.trim(), when, by }) : x), 'Saved ' + fTitle.trim() + '. Changes start from tomorrow.', 'rt-note');
+      const r = { id: 'new' + list.length, title: fTitle.trim(), when, who: whoTxt, backup: 'Backup: Pisey', steps: 'No steps yet', holidays: ui.holidays ? 'Runs on holidays' : 'Skips holidays', rate: 'New · first one on its next day', s: 'on', by };
+      this.focusTo('rt-note', Object.assign(snapshot(), { list: [r].concat(list), note: 'Created ' + r.title + '. ' + (whoMode === 'one' ? shown[0] : shown[0] + ' goes first') + '; it shows on Today from its next day.', fTitle: '', titleError: false }));
+    };
     return {
-      stOk: ['normal', 'saveError', 'partial'].indexOf(pageState) >= 0, stLoading: pageState === 'loading', stEmpty: pageState === 'empty', stError: pageState === 'error', stSave: pageState === 'saveError', stPartial: pageState === 'partial',
-      routines: [
-        r('Open shop checklist', 'Every day · by 09:00 · 20 min', 'Takes turns: Sreymom (skipped while away), Vannak, Dara', 'Backup: Pisey', '5 steps', 'Runs on holidays', 'On time this month: 96% · team rate', 'on'),
-        r('Close shop checklist', 'Every day · by 21:00 · 20 min', 'Sreymom Ly', 'Backup: Pisey (away Saturday)', '6 steps', 'Runs on holidays', 'Sreymom is away until 30 Oct. Pisey covers weekdays, but Saturdays have nobody', 'gap'),
-        r('Nightly backup check', 'Working days · by 09:00 · 10 min', 'Sophal Ouk · goes to Chenda on 19 Oct', 'Backup: Vannak', '2 steps', 'Skips holidays', 'On time this month: 100% · team rate', 'on'),
-        r('Daily wrap-up notes', 'Working days · by 18:00 · 15 min', 'Dara Sok', 'Backup: Rithy', '3 steps', 'Skips holidays', 'On time this month: 88% · team rate', 'on'),
-        r('Month-end server costs', '1st of each month · by 17:00 · 1 hour', 'Chenda Lim', 'No backup', '4 steps', 'Skips holidays', 'Paused since September', 'paused')
-      ]
+      stOk: ['normal', 'saveError', 'partial'].indexOf(this.props.state ?? 'normal') >= 0, stLoading: this.props.state === 'loading', stEmpty: this.props.state === 'empty', stError: this.props.state === 'error',
+      routines, hasNote: !!ui.note, note: ui.note || '', undo: () => this.setState({ list: ui.prevList || SEED, note: '' }),
+      setCover: (e) => this.setState({ cover: e.target.value }), askCover,
+      formTitle: editing ? 'Edit ' + editing.title : 'New routine', isEdit: !!editing, submitLabel: editing ? 'Save changes' : 'Create routine', cancelEdit: () => this.focusTo('new-r', { editing: null, fTitle: null, by: null }),
+      fTitle, setTitle: (e) => this.setState({ fTitle: e.target.value, titleError: false }), titleError: !!ui.titleError, titleBad: ui.titleError ? 'true' : 'false', titleBorder: ui.titleError ? '2px solid #9A3412' : '0',
+      repeats, isWeekdays: rep === 'weekdays', isMonthly: rep === 'monthly',
+      days: DAYS.map((t) => ({ t, on: dsel[t] ? 'true' : 'false', bg: dsel[t] ? '#1C1B1F' : '#F4F3EF', fg: dsel[t] ? '#FFFFFF' : '#1C1B1F', flip: () => this.setState({ days: Object.assign({}, dsel, { [t]: !dsel[t] }) }) })),
+      times: ['07:00', '08:00', '09:00', '09:30', '10:00', '12:00', '17:00', '18:00', '21:00'].map((v) => ({ v, sel: v === by })), setBy: (e) => this.setState({ by: e.target.value }),
+      whoModes, people: shown.map((name, i) => ({ name, label: (whoMode === 'turns' ? (i + 1) + ' · ' : '') + name, remove: () => this.setState({ ppl: ppl.filter((x) => x !== name) }) })),
+      addable: ['Rithy', 'Vannak', 'Dara', 'Pisey', 'Chenda'].filter((x) => ppl.indexOf(x) < 0), addPerson: (e) => { const v = e.target.value; if (v) this.setState({ ppl: ppl.concat([v]) }); e.target.value = ''; },
+      holidays: !!ui.holidays, flipHolidays: () => this.setState({ holidays: !ui.holidays }), submit
     };
   }
 }

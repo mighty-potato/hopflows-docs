@@ -62,23 +62,22 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load Needs you</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
-          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><a href="LeadHome.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Try again</a></div>
         </div>
       </section>
     </sc-if>
     <sc-if value="{{ok}}" hint-placeholder-val="{{true}}">
     <div class="bento hf-lh-cols" style="columns: 2 360px; column-gap: 12px">
-      <section aria-label="Needs you count" style="break-inside: avoid; margin: 0 0 12px; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; min-height: 280px">
-        <span style="font-size: 13px; font-weight: 600">Waiting on you</span>
-        <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">{{waiting}}</span>
-        <span style="font-size: 15px; line-height: 22px; margin-top: auto">{{waitingLine}}</span>
-      </section>
-      <section aria-label="Needs you list" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 12px 24px; display: flex; flex-direction: column; min-width: 0">
+      <section aria-labelledby="nu-count" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 20px 24px 12px; display: flex; flex-direction: column; min-width: 0">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding-bottom: 8px; border-bottom: 1px solid #F0EEE9">
+          <h2 id="nu-count" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em"><span style="display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; margin-right: 8px; padding: 0 8px; box-sizing: border-box; border-radius: 12px; background: #F7C83A; color: #1C1B1F">{{waiting}}</span>waiting on you</h2>
+          <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{waitingLine}}</span>
+        </div>
         <sc-for list="{{needs}}" as="n" hint-placeholder-count="5">
           <sc-if value="{{n.done}}" hint-placeholder-val="{{false}}">
           <div role="status" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 0; border-bottom: 1px solid #F0EEE9">
-            <span style="flex: 0 0 auto; min-width: 104px; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; box-sizing: border-box; border-radius: 999px; background: #DCEFE2; color: #1F5E3A; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #2E7D4F"></span>Approved</span>
-            <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column"><span id="lv-done" tabindex="-1" style="font-size: 15px; line-height: 22px; font-weight: 600">Dara's leave is approved</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">Thu 22 – Fri 23 Oct show as Away. {{leaveDone}}</span></div>
+            <span style="flex: 0 0 auto; min-width: 104px; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; box-sizing: border-box; border-radius: 999px; background: {{n.doneBg}}; color: {{n.doneFg}}; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{n.doneFg}}"></span>{{n.doneTag}}</span>
+            <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column"><span id="lv-done" tabindex="-1" style="font-size: 15px; line-height: 22px; font-weight: 600">{{n.doneTitle}}</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{n.doneMeta}}</span></div>
             <button type="button" onClick="{{n.undo}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button>
           </div>
           </sc-if>
@@ -88,7 +87,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; line-height: 22px; font-weight: 600">{{n.title}}</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{n.meta}}</span></div>
             <div style="display: flex; gap: 6px">
               <sc-if value="{{n.second}}" hint-placeholder-val="{{false}}">
-                <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{n.second}}</button>
+                <button type="button" id="lv-decline" onClick="{{n.decline}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{n.second}}</button>
               </sc-if>
               <sc-if value="{{n.href}}" hint-placeholder-val="{{true}}">
                 <a href="{{n.href}}" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">{{n.action}}</a>
@@ -96,6 +95,17 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <sc-if value="{{n.inline}}" hint-placeholder-val="{{false}}">
                 <button type="button" id="lv-open" onClick="{{n.approve}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{n.action}}</button>
               </sc-if>
+            </div>
+          </div>
+          </sc-if>
+          <sc-if value="{{n.declining}}" hint-placeholder-val="{{false}}">
+          <div style="padding: 14px 0; border-bottom: 1px solid #F0EEE9">
+            <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 22px; background: #F4F3EF">
+              <h2 id="dc-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Decline Dara's leave, Thu 22 – Fri 23 Oct?</h2>
+              <label for="dc-why" style="font-size: 13px; font-weight: 600">Tell Dara why, and what would work instead</label>
+              <input id="dc-why" type="text" value="{{n.why}}" onChange="{{n.setWhy}}" placeholder="For example: could you take Mon 26 – Tue 27 instead? The pilot launches Thu 22." style="height: 48px; box-sizing: border-box; padding: 0 16px; border: {{n.whyBorder}}; border-radius: 16px; background: #FFFFFF; font-family: inherit; font-size: 15px">
+              <sc-if value="{{n.whyError}}" hint-placeholder-val="{{false}}"><p role="alert" style="margin: 0; font-size: 13px; color: #9A3412">Add a short reason. Dara sees it with the answer.</p></sc-if>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px"><button type="button" onClick="{{n.confirmDecline}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Decline leave</button><button type="button" onClick="{{n.cancelDecline}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Not yet</button></div>
             </div>
           </div>
           </sc-if>
@@ -126,7 +136,6 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </div>
           </sc-if>
         </sc-for>
-        <button type="button" style="align-self: flex-start; height: 44px; margin: 6px 0; padding: 0; border: 0; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">See all {{waiting}}</button>
       </section>
       <section aria-label="Team this week" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px">
@@ -134,16 +143,16 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <a href="Workload.dc.html" style="font-size: 13px; font-weight: 600">Open Workload</a>
         </div>
         <sc-for list="{{team}}" as="p" hint-placeholder-count="6">
-          <div style="display: flex; align-items: center; gap: 12px; min-height: 44px">
+          <a href="Workload.dc.html#{{p.id}}" aria-label="{{p.aria}}" style="display: flex; align-items: center; gap: 12px; min-height: 44px; color: #1C1B1F; text-decoration: none">
             <span style="width: 32px; height: 32px; border-radius: 999px; background: #F4F3EF; color: #4A4950; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{p.init}}</span>
             <span style="flex: 1; min-width: 0; font-size: 15px">{{p.name}}</span>
             <sc-if value="{{p.says}}" hint-placeholder-val="{{false}}">
               <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; border: 1.5px solid #9A3412; color: #9A3412">{{p.says}}</span>
             </sc-if>
-            <span style="width: 132px; height: 36px; border-radius: 12px; background: {{p.bg}}; color: {{p.fg}}; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{p.word}}</span>
-          </div>
+            <span style="width: 132px; height: 36px; border-radius: 12px; background: {{p.bg}}; color: {{p.fg}}; box-shadow: {{p.ring}}; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{p.word}}</span>
+          </a>
         </sc-for>
-        <span style="font-size: 12px; color: #6E6C73; margin-top: 4px">Sorted by name. Based on estimates. Hours on tap.</span>
+        <span style="font-size: 12px; color: #6E6C73; margin-top: 4px">Sorted by name. Based on estimates. Pick a person to see their hours in Workload.</span>
       </section>
       <section aria-label="Deliverables at risk" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px"><h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Deliverables at risk</h2><a href="DeliverableList.dc.html" style="font-size: 13px; font-weight: 600">All deliverables</a></div>
@@ -153,7 +162,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </a>
           <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 0">
             <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 15px; font-weight: 600">School App sign-up flow</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #9B2C24; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C0352B"></span>Off track</span></span>
-            <span style="font-size: 12px; color: #6E6C73">Scope change · 3 days · due 6 Nov · its page isn't on the canvas yet</span>
+            <span style="font-size: 12px; color: #6E6C73">Scope change · 3 days · due 6 Nov · Chenda leads it</span>
           </div>
         </section>
       <section aria-label="This week's plan" style="break-inside: avoid; margin: 0 0 12px; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
@@ -186,46 +195,53 @@ class Component extends DCLogic {
       plain: { kbg: '#F4F3EF', kfg: '#1C1B1F' }
     };
     const s = this.state || {};
-    const approved = !!s.approved, sheet = !!s.sheet && !approved, later = s.choice !== 'give';
+    const declined = !!s.declined, approved = !!s.approved, sheet = !!s.sheet && !approved, later = s.choice !== 'give';
+    const declining = !!s.declining && !declined && !approved;
     const pick = (on) => on ? { on: 'true', bg: '#1C1B1F', fg: '#FFFFFF' } : { on: 'false', bg: 'transparent', fg: '#4A4950' };
     const leave = {
-      open: !approved && !sheet, done: approved, sheet,
+      open: !approved && !sheet && !declined && !declining, done: approved || declined, sheet, declining,
+      doneTitle: declined ? 'Dara\'s leave is declined' : 'Dara\'s leave is approved', doneTag: declined ? 'Declined' : 'Approved', doneBg: declined ? '#F4F3EF' : '#DCEFE2', doneFg: declined ? '#4A4950' : '#1F5E3A',
+      doneMeta: declined ? 'Dara is told: “' + (s.why || '').trim() + '”. Her week 43 goes back to 24h to plan.' : 'Thu 22 – Fri 23 Oct show as Away. ' + (later ? 'Menu sync job tests moves to week 44, and Dara is told now.' : 'Menu sync job tests goes to Pisey, and Dara and Pisey are told now.'),
+      decline: () => this.focusTo('dc-title', { declining: true }), why: s.why || '', setWhy: (e) => this.setState({ why: e.target.value, whyError: false }), whyError: !!s.whyError, whyBorder: s.whyError ? '2px solid #9A3412' : '0',
+      confirmDecline: () => (s.why || '').trim() ? this.focusTo('lv-done', { declined: true, declining: false }) : this.focusTo('dc-why', { whyError: true }),
+      cancelDecline: () => this.focusTo('lv-decline', { declining: false }),
       give: pick(!later), later: pick(later),
       pickGive: () => this.setState({ choice: 'give' }), pickLater: () => this.setState({ choice: 'later' }),
       approve: () => this.focusTo('lv-title', { sheet: true }),
       confirm: () => this.focusTo('lv-done', { approved: true, sheet: false }),
       cancel: () => this.focusTo('lv-open', { sheet: false }),
-      undo: () => this.focusTo('lv-open', { approved: false })
+      undo: () => this.focusTo('lv-open', { approved: false, declined: false })
     };
     const need = (kind, tone, title, meta, action, href, second) => Object.assign({ kind, title, meta, action, href: href || '', inline: !href, second: second || '', open: true, done: false, sheet: false }, k[tone], href ? {} : leave);
-    const waiting = approved ? 8 : 9;
+    const waiting = approved || declined ? 8 : 9;
     const cap = {
       room: { word: 'Room', bg: '#DCEFE2', fg: '#1F5E3A' },
       balanced: { word: 'Balanced', bg: '#C9DDE8', fg: '#33454F' },
       buffer: { word: 'Using buffer', bg: '#FCE3D3', fg: '#9A3412' },
       over: { word: 'Too much', bg: '#F2B8B2', fg: '#7A1F18' },
-      away: { word: 'Away', bg: 'repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px)', fg: '#4A4950' }
+      away: { word: 'Away', bg: 'repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px)', fg: '#4A4950' },
+      leaving: { word: 'Leaving', bg: '#FFFFFF', fg: '#4A4950', ring: 'inset 0 0 0 1px #6E6C73' }
     };
-    const person = (name, init, c, says) => Object.assign({ name, init, says: says || '' }, cap[c]);
+    const person = (name, init, c, says) => Object.assign({ name, init, id: name.split(' ')[0].toLowerCase(), says: says || '', aria: name + ': ' + cap[c].word + (says ? ', says Full' : '') + '. Open in Workload', ring: 'none' }, cap[c]);
     const st = this.props.state ?? 'normal';
     return {
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       waiting,
       leaveDone: later ? 'Menu sync job tests moves to week 44, and Dara is told now.' : 'Menu sync job tests goes to Pisey, and Dara and Pisey are told now.',
-      waitingLine: approved ? '4 requests to sort, 1 Need help, 1 review, 1 handover and 1 week status.' : '4 requests to sort, 1 Need help, 1 review, 1 leave request, 1 handover and 1 week status.',
+      waitingLine: approved || declined ? '4 requests to sort, 1 Need help, 1 review, 1 handover and 1 week status.' : '4 requests to sort, 1 Need help, 1 review, 1 leave request, 1 handover and 1 week status.',
       needs: [
         need('Need help', 'help', 'Payment webhook retries is blocked', "Sophal Ouk · 25 min ago · waiting on the provider's keys · Launch In-App Ordering v1", 'Open', 'TaskDetail.dc.html'),
         need('New requests', 'plain', '4 waiting in the Incoming Queue', 'Oldest: 2 days · 3 match work you already have', 'Sort', 'Queue.dc.html'),
         need('Review', 'plain', 'Build the checkout API', 'Dara Sok · sent for review 15:10', 'Review', 'TaskDetail.dc.html'),
         need('Leave', 'plain', 'Dara asks for Thu 22 – Fri 23 Oct', 'Annual · week 43 · 1 task due on those days', 'Check and approve', '', 'Decline'),
         need('Handover', 'plain', 'Sophal leaves Fri 23 Oct · finish the handover', 'Step 2 of 3 · 8 items · 13h of week 43 moves', 'Continue', 'Handover.dc.html'),
-        need('Week status', 'plain', 'Vannak says this week is Full', 'Colour shows Room · note: “covering the shop till”', 'Look', 'Workload.dc.html')
+        need('Week status', 'plain', 'Vannak says this week is Full', 'Colour shows Room · note: “covering the shop till”', 'Look and reply', 'Workload.dc.html#vannak')
       ],
       team: [
         person('Dara Sok', 'DS', 'balanced'),
         person('Pisey Chea', 'PC', 'balanced'),
         person('Rithy Heng', 'RH', 'buffer'),
-        person('Sophal Ouk', 'SO', 'room'),
+        person('Sophal Ouk', 'SO', 'leaving'),
         person('Sreymom Ly', 'SL', 'away'),
         person('Vannak Prum', 'VP', 'room', 'Says Full')
       ]

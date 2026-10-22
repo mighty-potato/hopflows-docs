@@ -78,14 +78,15 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
     </sc-if>
     <sc-if value="{{isItems}}" hint-placeholder-val="{{true}}">
+    <sc-if value="{{undone}}" hint-placeholder-val="{{false}}"><p role="status" style="margin: 0; padding: 12px 20px; border-radius: 22px; background: #DCEFE2; color: #1F5E3A; font-size: 15px">Handover undone. Nothing moved, and Sophal still owns these items.</p></sc-if>
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
       <section aria-label="Handover summary" style="grid-column: span 12; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px">
         <div style="display: flex; flex-direction: column"><span style="font-size: 12px; color: #6E6C73">Reason</span><span style="font-size: 15px; font-weight: 600">Leaving the company</span></div>
         <div style="display: flex; flex-direction: column"><span style="font-size: 12px; color: #6E6C73">Kind</span><span style="font-size: 15px; font-weight: 600">Permanent</span></div>
         <div style="display: flex; flex-direction: column"><span style="font-size: 12px; color: #6E6C73">Starts</span><span style="font-size: 15px; font-weight: 600; font-family: 'Geist Mono', monospace">Mon 19 Oct</span></div>
-        <div style="flex: 1 1 320px; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px">
+        <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px">
           <label for="ho-all" style="font-size: 13px; font-weight: 600">Give everything to</label>
-          <select id="ho-all" style="height: 48px; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option selected="">Choose for each item</option><option>Pisey Chea · would be Too much</option><option>Chenda Lim · would be Too much</option><option>Rithy Heng · would be Too much</option><option>Dara Sok · leave asked Thu 22–Fri 23</option><option>Vannak Prum · already Too much</option></select>
+          <select id="ho-all" onChange="{{giveAll}}" style="max-width: 100%; height: 48px; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option value="" selected="">Choose for each item</option><sc-for list="{{allOpts}}" as="o" hint-placeholder-count="5"><option value="{{o.v}}">{{o.t}}</option></sc-for></select>
           <span style="font-size: 12px; line-height: 16px; color: #4A4950; max-width: 240px">Nobody has room for all of it in week 43, so each item goes to whoever has the most. <a href="Planner.dc.html#week-changes" style="font-weight: 600">See week 43 changes</a></span>
         </div>
       </section>
@@ -102,12 +103,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                   <sc-if value="{{it.warn}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; margin-top: 4px; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #FCE3D3; color: #9A3412">{{it.warn}}</span></sc-if>
                 </div>
                 <div role="radiogroup" aria-label="What happens to {{it.title}}" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 999px">
-                  <button type="button" role="radio" aria-checked="{{it.mv}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{it.mvBg}}; color: {{it.mvFg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Move</button>
-                  <button type="button" role="radio" aria-checked="false" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">No owner</button>
-                  <button type="button" role="radio" aria-checked="{{it.cx}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{it.cxBg}}; color: {{it.cxFg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Cancel</button>
+                  <sc-for list="{{it.acts}}" as="a" hint-placeholder-count="3"><button type="button" role="radio" id="{{a.id}}" tabindex="{{a.tab}}" aria-checked="{{a.on}}" onClick="{{a.pick}}" onKeyDown="{{a.key}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{a.bg}}; color: {{a.fg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">{{a.name}}</button></sc-for>
                 </div>
-                <div style="flex: 0 1 340px; min-width: 220px; display: flex; flex-direction: column; gap: 4px">
-                  <sc-if value="{{it.pick}}" hint-placeholder-val="{{true}}"><select aria-label="Who gets {{it.title}}" style="height: 44px; padding: 0 10px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 13px; font-weight: 600; color: #1C1B1F"><sc-for list="{{it.opts}}" as="o" hint-placeholder-count="5"><option selected="{{o.sel}}">{{o.label}}</option></sc-for></select></sc-if><sc-if value="{{it.noPick}}" hint-placeholder-val="{{false}}"><span style="height: 44px; padding: 0 14px; border-radius: 14px; background: #F4F3EF; font-size: 13px; font-weight: 600; display: flex; align-items: center">{{it.to}}</span></sc-if>
+                <div style="flex: 1 1 260px; max-width: 360px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+                  <sc-if value="{{it.pick}}" hint-placeholder-val="{{true}}"><select aria-label="Who gets {{it.title}}" onChange="{{it.setTo}}" style="width: 100%; max-width: 100%; box-sizing: border-box; height: 44px; padding: 0 10px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 13px; font-weight: 600; color: #1C1B1F"><sc-for list="{{it.opts}}" as="o" hint-placeholder-count="5"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for></select><span style="align-self: flex-start; padding: 3px 10px; border-radius: 10px; background: {{it.capBg}}; color: {{it.capFg}}; font-size: 12px; font-weight: 600">{{it.capText}}</span></sc-if><sc-if value="{{it.noPick}}" hint-placeholder-val="{{false}}"><span style="height: 44px; padding: 0 14px; border-radius: 14px; background: #F4F3EF; font-size: 13px; font-weight: 600; display: flex; align-items: center">{{it.to}}</span></sc-if>
                   <sc-if value="{{it.noPick}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; padding: 3px 10px; border-radius: 10px; background: {{it.capBg}}; color: {{it.capFg}}; font-size: 12px; font-weight: 600">{{it.capText}}</span></sc-if>
                 </div>
               </div>
@@ -117,35 +116,33 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
 
       <section aria-label="Confirm" style="grid-column: span 12; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
-        <span style="flex: 1 1 360px; font-size: 13px; line-height: 18px; color: #4A4950">"No owner" puts an item back in Ready to plan, so nobody takes work they have no room for. Locked plans keep Sophal as the original owner. This shows as reassigned, not missed. New owners get the status, blockers and recent comments. Sophal's account can be closed once nothing is left.</span>
-        <a href="LeadHome.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back</a>
-        <button type="button" id="ho-review" onClick="{{toConfirm}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Review 8 items</button>
+        <span style="flex: 1 1 360px; font-size: 13px; line-height: 18px; color: #4A4950">"No owner" puts an item back in Ready to plan, so nobody takes work they have no room for. When week 43 is locked, it keeps Sophal as the original owner. This shows as reassigned, not missed. New owners get the status, blockers and recent comments. Sophal's account can be closed once nothing is left.</span>
+        <a href="LeadHome.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Not now</a>
+        <button type="button" id="ho-review" onClick="{{toConfirm}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Review {{nAll}} items</button>
       </section>
     </div>
     </sc-if>
     <sc-if value="{{isConfirm}}" hint-placeholder-val="{{false}}">
       <div style="display: flex; flex-direction: column; gap: 12px">
         <section aria-labelledby="ho-c-title" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
-          <h2 id="ho-c-title" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">On Mon 19 Oct, Sophal's work moves to 2 people</h2>
+          <h2 id="ho-c-title" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">{{confirmTitle}}</h2>
           <dl style="margin: 0; display: grid; grid-template-columns: minmax(120px, 180px) 1fr; gap: 0 16px; font-size: 15px; line-height: 22px">
-            <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Pisey Chea</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Store sales export · Payment webhook retries · Store sales dashboard v1 (Deliverable lead) · <span style="color: #9A3412; font-weight: 600">17h of 14h in week 43, inside her 19h</span></dd>
-                        <dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">Chenda Lim</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">Salary file check (confidential) · Nightly backup check (routine) · Data sync weekly and Release check-in (organizer) · <span style="color: #9A3412; font-weight: 600">19h of 18h in week 43, inside her 24h</span></dd>
-            <dt style="padding: 10px 0; font-weight: 600">Cancelled</dt><dd style="margin: 0; padding: 10px 0; color: #4A4950">Old report clean-up</dd>
+            <sc-for list="{{summary}}" as="g" hint-placeholder-count="3"><dt style="padding: 10px 0; border-bottom: 1px solid #F0EEE9; font-weight: 600">{{g.who}}</dt><dd style="margin: 0; padding: 10px 0; border-bottom: 1px solid #F0EEE9; color: #4A4950">{{g.items}}<sc-if value="{{g.load}}" hint-placeholder-val="{{false}}"> · <span style="color: {{g.loadFg}}; font-weight: 600">{{g.load}}</span></sc-if></dd></sc-for>
           </dl>
         </section>
         <section aria-label="Confirm handover" style="background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
-          <span style="flex: 1 1 360px; font-size: 13px; line-height: 18px; color: #4A4950">Everything moves at once. Locked plans keep Sophal as the original owner, so reports show this as reassigned, not missed. New owners get the status, blockers and recent comments, and Sophal is told.</span>
+          <span style="flex: 1 1 360px; font-size: 13px; line-height: 18px; color: #4A4950">Everything moves at once. When week 43 is locked, it keeps Sophal as the original owner, so reports show this as reassigned, not missed. New owners get the status, blockers and recent comments, and Sophal is told.</span>
           <button type="button" onClick="{{toItems}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Back</button>
-          <button type="button" onClick="{{toDone}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Hand over 7 items</button>
+          <button type="button" onClick="{{toDone}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Hand over {{nMove}} items</button>
         </section>
       </div>
     </sc-if>
     <sc-if value="{{isDone}}" hint-placeholder-val="{{false}}">
       <section role="status" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 14px">
         <h2 id="ho-done" tabindex="-1" style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em">Sophal's work is handed over</h2>
-        <p style="margin: 0; max-width: 68ch; font-size: 15px; line-height: 22px; color: #4A4950">7 items now belong to Pisey and Chenda, from Mon 19 Oct. Each of them has the background, and Sophal has been told. Week 43's locked plan still shows Sophal as the original owner. Nothing is left with Sophal, so his account can be closed after his last day, Fri 23 Oct.</p>
+        <p style="margin: 0; max-width: 68ch; font-size: 15px; line-height: 22px; color: #4A4950">{{doneText}}</p>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
-          <button type="button" onClick="{{toConfirm}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Undo · 9:52 left</button>
+          <button type="button" onClick="{{undoDone}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Undo handover</button>
           <a href="Planner.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">See week 43's plan</a>
           <a href="LeadHome.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back to Needs you</a>
         </div>
@@ -176,26 +173,51 @@ class Component extends DCLogic {
       none: { cap: '—', capBg: '#F4F3EF', capFg: '#4A4950' },
       later: { cap: 'Not in week 43', capBg: '#F4F3EF', capFg: '#4A4950' }
     };
-    const on = { bg: '#1C1B1F', fg: '#FFFFFF' };
-    const off = { bg: 'transparent', fg: '#4A4950' };
-    // week 43 as planned now: planned, time to plan, available
-    // Dara's asked leave is counted, like everywhere else in week 43
+    const ui = this.state || {};
     const base = { 'Pisey Chea': [9, 14, 19], 'Chenda Lim': [14, 18, 24], 'Rithy Heng': [29, 24, 32], 'Dara Sok': [22, 12, 16], 'Vannak Prum': [35, 24, 32] };
+    const word = (h, tp, av) => h > av ? 'over' : h > tp ? 'buffer' : h >= 0.7 * tp ? 'balanced' : 'room';
+    // title, meta, default owner, default action, hours in week 43, group
+    const SEED = [
+      ['Store sales export', 'To do · Small · 4h · due Wed 21 Oct · in week 43 plan', 'Pisey Chea', 'move', 4, 0],
+      ['Payment webhook retries', 'In progress · Medium · 4h left · due Tue 20 Oct · blocked: provider keys', 'Pisey Chea', 'move', 4, 0],
+      ['Salary file check', 'Confidential · Small · 3h · due Thu 22 Oct', 'Chenda Lim', 'move', 3, 0],
+      ['Old report clean-up', 'To do · no due date', '', 'cancel', 0, 0],
+      ['Store sales dashboard v1', 'Active · due Fri 13 Nov · On track · leading it adds no hours', 'Pisey Chea', 'move', 0, 1],
+      ['Nightly backup check', 'Working days · by 09:00 · about 1h a week', 'Chenda Lim', 'move', 1, 2],
+      ['Data sync weekly · organizer', 'Repeats Tuesdays 10:00 · 1h', 'Chenda Lim', 'move', 1, 3],
+      ['Release check-in · organizer', 'Repeats monthly, first Monday · next on 2 Nov', 'Chenda Lim', 'move', 0, 3]
+    ];
+    const acts = ui.acts || {}, tos = ui.tos || {};
+    const items = SEED.map(([title, meta, to0, act0, h, g], k) => ({ k, title, meta, h, g, act: acts[title] || act0, to: tos[title] || to0 || 'Pisey Chea' }));
     const run = {}; Object.keys(base).forEach((n) => { run[n] = base[n][0]; });
-    const word = (h, tp, av) => h > av ? 'Too much' : h > tp ? 'Using buffer' : h >= 0.7 * tp ? 'Balanced' : 'Room';
-    const opts = (to, h) => Object.keys(base).map((n) => {
-      const [, tp, av] = base[n]; const after = run[n] + h;
-      return { sel: n === to, label: n + ' · ' + after + 'h of ' + tp + 'h · ' + word(after, tp, av) + (n === 'Dara Sok' ? ' · leave asked' : '') };
+    items.forEach((it) => { if (it.act === 'move') run[it.to] += it.h; });
+    const name1 = (n) => n.split(' ')[0];
+    const ACT = [['move', 'Move'], ['none', 'No owner'], ['cancel', 'Cancel']];
+    const view = items.map((it) => {
+      const tp = base[it.to][1], av = base[it.to][2], after = run[it.to], c = cap[word(after, tp, av)];
+      const actsUI = ACT.map(([key, name], i) => {
+        const on = it.act === key;
+        const move = (d) => { const n = ACT[(i + d + 3) % 3][0]; this.focusTo('ho-' + it.k + '-' + n, { acts: Object.assign({}, acts, { [it.title]: n }) }); };
+        return { id: 'ho-' + it.k + '-' + key, name, on: on ? 'true' : 'false', tab: on ? '0' : '-1', bg: on ? '#1C1B1F' : 'transparent', fg: on ? '#FFFFFF' : '#4A4950',
+          pick: () => this.setState({ acts: Object.assign({}, acts, { [it.title]: key }) }),
+          key: (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); move(1); } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); move(-1); } } };
+      });
+      const moving = it.act === 'move';
+      return Object.assign({ title: it.title, meta: it.meta, warn: '', acts: actsUI, pick: moving, noPick: !moving, to: it.act === 'cancel' ? 'Cancelled' : 'Back to Ready to plan',
+        opts: Object.keys(base).map((n) => { const [, tp2, av2] = base[n]; const a2 = run[n] + (n === it.to ? 0 : it.h); return { v: n, sel: n === it.to, label: n + ' · ' + a2 + 'h of ' + tp2 + 'h · ' + cap[word(a2, tp2, av2)].cap + (n === 'Dara Sok' ? ' · leave asked' : '') }; }),
+        setTo: (e) => this.setState({ tos: Object.assign({}, tos, { [it.title]: e.target.value }) }),
+        capText: it.h ? 'After: ' + after + 'h of ' + tp + 'h · ' + c.cap : 'Adds no hours', capBg: it.h ? c.capBg : '#F4F3EF', capFg: it.h ? c.capFg : '#4A4950' }, moving ? {} : cap.none, moving ? {} : { capText: it.act === 'cancel' ? 'Cancelled' : 'Ready to plan' });
     });
-    const item = (title, meta, to, c, act, warn, after, h) => {
-      const mv = act !== 'cancel';
-      const pick = mv && h != null && base[to] != null;
-      const o = pick ? opts(to, h) : [];
-      if (pick) run[to] += h;
-      return Object.assign({ title, meta, to, warn: warn || '', pick, noPick: !pick, opts: o, capText: after ? 'After: ' + after + ' · ' + cap[c].cap : cap[c].cap,
-        mv: mv ? 'true' : 'false', mvBg: mv ? on.bg : off.bg, mvFg: mv ? on.fg : off.fg,
-        cx: mv ? 'false' : 'true', cxBg: mv ? off.bg : on.bg, cxFg: mv ? off.fg : on.fg }, cap[c]);
-    };
+    const GN = ['Open tasks', 'Deliverables Sophal leads', 'Routines', 'Meetings'];
+    const groups = GN.map((name, g) => { const its = view.filter((v, k) => items[k].g === g); return { name: name + ' · ' + its.length, items: its }; });
+    const moving = items.filter((it) => it.act === 'move');
+    const owners = Array.from(new Set(moving.map((it) => it.to)));
+    const summary = owners.map((n) => { const [, tp, av] = base[n]; const w = word(run[n], tp, av); return { who: n, items: moving.filter((it) => it.to === n).map((it) => it.title).join(' · '), load: run[n] + 'h of ' + tp + 'h in week 43' + (w === 'buffer' ? ', inside ' + (name1(n) === 'Chenda' || name1(n) === 'Pisey' ? 'her' : 'their') + ' ' + av + 'h' : ''), loadFg: cap[w].capFg }; })
+      .concat(items.some((it) => it.act === 'none') ? [{ who: 'No owner', items: items.filter((it) => it.act === 'none').map((it) => it.title).join(' · ') + ' · back to Ready to plan', load: '' }] : [])
+      .concat(items.some((it) => it.act === 'cancel') ? [{ who: 'Cancelled', items: items.filter((it) => it.act === 'cancel').map((it) => it.title).join(' · '), load: '' }] : []);
+    const ownerNames = owners.map(name1);
+    const giveAll = (e) => { const v = e.target.value; if (!v) return; const nt = Object.assign({}, tos); items.forEach((it) => { if (it.act === 'move') nt[it.title] = v; }); this.setState({ tos: nt }); };
+    const allOpts = Object.keys(base).map((n) => { const [, tp, av] = base[n]; const total = base[n][0] + moving.reduce((a, it) => a + it.h, 0); return { v: n, t: n + ' · would be ' + total + 'h of ' + tp + 'h · ' + cap[word(total, tp, av)].cap }; });
     const step = (this.state && this.state.step) || this.props.step || 'items';
     const stepOn = { cur: 'step', bg: '#1C1B1F', fg: '#FFFFFF' };
     const stepOff = { cur: 'false', bg: 'transparent', fg: '#4A4950' };
@@ -205,28 +227,15 @@ class Component extends DCLogic {
       isItems: step === 'items', isConfirm: step === 'confirm', isDone: step === 'done',
       s2: step === 'items' ? stepOn : stepOff,
       s3: step === 'items' ? stepOff : stepOn,
-      stepText: step === 'items' ? 'Step 2 of 3 · choose who gets each item · loads shown for week 43, after the move' : step === 'confirm' ? 'Step 3 of 3 · check and confirm' : 'Done · Fri 16 Oct, 16:52 · you can undo for 10 minutes',
+      stepText: step === 'items' ? 'Step 2 of 3 · choose who gets each item · loads shown for week 43, after the move' : step === 'confirm' ? 'Step 3 of 3 · check and confirm' : 'Done · Fri 16 Oct, 16:52 · you can undo until anyone starts on the work',
       toItems: () => this.focusTo('ho-review', { step: 'items' }),
-      toConfirm: () => this.focusTo('ho-c-title', { step: 'confirm' }),
+      toConfirm: () => this.focusTo('ho-c-title', { step: 'confirm', undone: false }),
       toDone: () => this.focusTo('ho-done', { step: 'done' }),
-      groups: [
-        { name: 'Open tasks · 4', items: [
-          item('Store sales export', 'To Do · Small · 4h · due Wed 21 Oct · in week 43 plan', 'Pisey Chea', 'balanced', 'move', '', '13h of 14h', 4),
-          item('Payment webhook retries', 'In progress · Medium · 4h left · due Tue 20 Oct · blocked: provider keys', 'Pisey Chea', 'buffer', 'move', '', '17h of 14h', 4),
-          item('Salary file check', 'Confidential · Small · 3h · due Thu 22 Oct', 'Chenda Lim', 'balanced', 'move', '', '17h of 18h', 3),
-          item('Old report clean-up', 'To Do · no due date', '—', 'none', 'cancel')
-        ]},
-        { name: 'Deliverables Sophal leads · 1', items: [
-          item('Store sales dashboard v1', 'Active · due Fri 13 Nov · On track · leading it adds no hours', 'Pisey Chea', 'balanced', 'move')
-        ]},
-        { name: 'Routines · 1', items: [
-          item('Nightly backup check', 'Working days · by 09:00 · about 1h a week', 'Chenda Lim', 'balanced', 'move', '', '18h of 18h', 1)
-        ]},
-        { name: 'Meetings · 2', items: [
-          item('Data sync weekly · organizer', 'Repeats Tuesdays 10:00 · 1h', 'Chenda Lim', 'buffer', 'move', '', '19h of 18h', 1),
-          item('Release check-in · organizer', 'Repeats monthly, first Monday · next on 2 Nov', 'Chenda Lim', 'later', 'move')
-        ]}
-      ]
+      groups, allOpts, giveAll, summary, nAll: items.length, nMove: moving.length,
+      confirmTitle: 'On Mon 19 Oct, Sophal\'s work moves to ' + (owners.length === 1 ? ownerNames[0] : owners.length + ' people'),
+      doneText: moving.length + ' items now belong to ' + ownerNames.join(' and ') + ', from Mon 19 Oct. Each of them has the background, and Sophal has been told. When week 43 is locked, it keeps Sophal as the original owner. ' + (items.some((it) => it.act === 'none') ? 'Items with no owner wait in Ready to plan.' : 'Nothing is left with Sophal, so his account can be closed after his last day, Fri 23 Oct.'),
+      undone: !!ui.undone && step === 'items',
+      undoDone: () => this.focusTo('ho-review', { step: 'items', undone: true })
     };
   }
 }

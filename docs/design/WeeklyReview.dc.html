@@ -69,7 +69,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load the weekly review</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
-          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><a href="WeeklyReview.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Try again</a></div>
         </div>
       </section>
     </sc-if>
@@ -81,9 +81,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 20px">
           <li style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,0.55)"><strong style="font-weight: 600">Menu photo export</strong><span style="font-size: 13px">Moved to week 43 after Pisey's sick day</span></li>
           <li style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,0.55)"><strong style="font-weight: 600">Menu sync job tests</strong><span style="font-size: 13px">Moved to week 43 for the receipt problem</span></li>
-          <li style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,0.55)"><strong style="font-weight: 600">Build the checkout API</strong><span style="font-size: 13px">Sent Friday, waiting on your review</span></li>
+          <li style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,0.55)"><span style="display: flex; flex-direction: column"><strong style="font-weight: 600">Build the checkout API</strong><span style="font-size: 13px">Sent Fri 15:10, waiting on your review</span></span><a href="TaskDetail.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Review it</a></li>
         </ul>
-        <span style="font-size: 13px; line-height: 18px">The other 17 of 20 were done. Cancelled and covered work is never counted against anyone. Carried over is a different list: it also has the receipt printer fix, which was added after locking.</span>
+        <span style="font-size: 13px; line-height: 18px">The other 17 of 20 were done, including Coupon rules screen, accepted on Friday. Covered work is never counted against anyone. Carried over is a different list: it also has the receipt printer fix, which was added after locking.</span>
       </section>
         <section aria-label="Flags to check" style="order: 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Flags to check</h2>
@@ -95,10 +95,17 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <span style="font-size: 15px; line-height: 22px">11 came in · 9 sorted within a day</span>
           <span style="font-size: 13px; line-height: 18px; color: #4A4950">“Receipt printer offline” was reported 3 times.</span>
         </section>
-        <section aria-label="Buffer" style="order: 6; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 12px">Buffer</span>
-          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Surprises used about a third of the buffer.</span>
-          <span style="font-size: 13px; line-height: 18px">Keeping it at 8h per person looks right for now.</span>
+        <section aria-labelledby="wr-close" style="order: 6; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+          <h2 id="wr-close" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Close the week</h2>
+          <span style="font-size: 13px; line-height: 18px">Surprises used about a third of the buffer (14h, 13% of all work).</span>
+          <sc-if value="{{open}}" hint-placeholder-val="{{true}}">
+            <span id="wr-buf" style="font-size: 13px; font-weight: 600; color: #1C1B1F">Buffer for week 43</span>
+            <div role="radiogroup" aria-labelledby="wr-buf" style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{bufs}}" as="o" hint-placeholder-count="2"><button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" onKeyDown="{{o.key}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for></div>
+            <label for="wr-note" style="font-size: 13px; font-weight: 600; color: #1C1B1F">A line for the team <span style="font-weight: 400">· optional</span></label>
+            <input id="wr-note" type="text" value="{{note}}" onChange="{{setNote}}" placeholder="For example: thanks for covering Pisey's day" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px">
+            <button type="button" onClick="{{closeWeek}}" style="align-self: flex-start; height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Close week 42</button>
+          </sc-if>
+          <sc-if value="{{closed}}" hint-placeholder-val="{{false}}"><p id="wr-done" tabindex="-1" role="status" style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 15px; line-height: 22px; color: #1C1B1F">{{closedText}}<button type="button" onClick="{{reopen}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button></p></sc-if>
         </section>
       </div>
       <div class="hf-col" style="flex: 8 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
@@ -127,7 +134,14 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal", "loading", "empty", "error"],"default":"normal"},"$preview":{"width":1440,"height":1160}}'>
 class Component extends DCLogic {
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
   renderVals() {
+    const ui = this.state || {};
+    const buf = ui.buf || 'keep';
+    const BUF = [['keep', 'Keep 8h a person'], ['up', 'Raise to 10h a person']];
+    const bufs = BUF.map(([key, name], i) => { const on = buf === key; const move = () => { const n = BUF[(i + 1) % 2][0]; this.focusTo('wr-b-' + n, { buf: n }); };
+      return { id: 'wr-b-' + key, name, on: on ? 'true' : 'false', tab: on ? '0' : '-1', bg: on ? '#1C1B1F' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1C1B1F', pick: () => this.setState({ buf: key }), key: (e) => { if (['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].indexOf(e.key) >= 0) { e.preventDefault(); move(); } } }; });
     const tone = {
       added: { bg: '#FCE3D3', fg: '#9A3412' },
       plain: { bg: '#F4F3EF', fg: '#1C1B1F' },
@@ -136,6 +150,9 @@ class Component extends DCLogic {
     const c = (type, t, what, why) => Object.assign({ type, what, why }, tone[t]);
     const pageState = this.props.state ?? 'normal';
     return {
+      bufs, note: ui.note || '', setNote: (e) => this.setState({ note: e.target.value }), open: !ui.closed, closed: !!ui.closed,
+      closedText: 'Week 42 is closed. ' + (buf === 'up' ? 'Week 43 plans with 10h of buffer a person, so time to plan drops by 2h each.' : 'Buffer stays 8h a person.') + ((ui.note || '').trim() ? ' The team sees your line: “' + ui.note.trim() + '”.' : '') + ' Leaders get the summary on Monday.',
+      closeWeek: () => this.focusTo('wr-done', { closed: true }), reopen: () => this.focusTo('wr-close', { closed: false }),
       stOk: ['normal', 'saveError', 'partial'].indexOf(pageState) >= 0, stLoading: pageState === 'loading', stEmpty: pageState === 'empty', stError: pageState === 'error', stSave: pageState === 'saveError', stPartial: pageState === 'partial',
       changes: [
         c('Added', 'added', 'Coupon breaks payment at checkout · 5h · Rithy', 'Urgent problem from the Toul Kork shop on Wednesday'),
@@ -144,7 +161,6 @@ class Component extends DCLogic {
         c('Moved later', 'plain', 'Menu photo export → week 43 · Pisey', 'Pisey was sick on Wednesday'),
         c('Moved later', 'plain', 'Menu sync job tests → week 43 · Dara', 'Made room for the receipt printer problem'),
         c('Reassigned', 'handed', '2 tasks from Pisey Chea → Dara Sok', 'Covered while Pisey was sick on Wednesday'),
-        c('Cancelled', 'plain', 'Old banner A/B test · 3h', 'Priorities changed by leadership'),
         c('Time changed', 'plain', 'Pisey sick on Wednesday · −8h', 'Sick leave added after locking')
       ]
     };

@@ -49,7 +49,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Plan next week</h1>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
-        <button type="button" style="height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">‹ Week 42 · locked</button>
+        <a href="WeeklyReview.dc.html" style="height: 48px; padding: 0 18px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">‹ Week 42 review</a>
         <sc-if value="{{planning}}" hint-placeholder-val="{{true}}">
         <button type="button" id="lock-btn" onClick="{{askLock}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Lock week 43</button>
         </sc-if>
@@ -96,7 +96,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
     </sc-if>
     <sc-if value="{{confirming}}" hint-placeholder-val="{{false}}">
-      <section role="alertdialog" aria-modal="true" aria-labelledby="lock-title" aria-describedby="lock-what" style="background: #FFFFFF; border-radius: 28px; padding: 24px; box-shadow: inset 0 0 0 2px #1C1B1F; display: flex; flex-direction: column; gap: 16px">
+      <section role="alertdialog" aria-labelledby="lock-title" aria-describedby="lock-what" onKeyDown="{{lockKey}}" style="background: #FFFFFF; border-radius: 28px; padding: 24px; box-shadow: inset 0 0 0 2px #1C1B1F; display: flex; flex-direction: column; gap: 16px">
         <div style="display: flex; flex-direction: column; gap: 6px">
           <h2 id="lock-title" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">{{confirmTitle}}</h2>
           <p id="lock-what" style="margin: 0; max-width: 68ch; font-size: 15px; line-height: 22px; color: #4A4950">Locking saves this plan as the team's promise for the week. Anything that changes after this is recorded next to it, never written over it.</p>
@@ -120,7 +120,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <span id="locked-title" tabindex="-1" style="font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Week 43 is locked. That's the promise.</span>
           <span style="font-size: 15px; line-height: 22px; color: #D9D7D2">Saved Fri 16 Oct at 16:40 with {{savedTotal}}h planned. Everyone sees their plan on Monday morning. Work added from now on counts as added, so the weekly review stays honest.</span>
         </div>
-        <button type="button" onClick="{{cancelLock}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Undo · 9:52 left</button>
+        <button type="button" onClick="{{cancelLock}}" style="height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Undo the lock</button>
       </section>
     </sc-if>
 
@@ -207,17 +207,15 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
 
       <section aria-label="Carried over" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
-        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Carried over from week 42 <span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #4A4950">· 3</span></h2>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">Fix receipt printer driver <span style="font-size: 12px; color: #6E6C73">· Dara · Small · 8h · blocked, waiting on the vendor</span></span><button type="button" aria-label="Remove Fix receipt printer driver from week 43" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">Menu photo export <span style="font-size: 12px; color: #6E6C73">· Pisey · Medium · moved after Pisey's sick day</span></span><button type="button" aria-label="Remove Menu photo export from week 43" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0"><span style="flex: 1 1 220px; font-size: 15px">Menu sync job tests <span style="font-size: 12px; color: #6E6C73">· Dara · Medium · moved for the receipt problem</span></span><button type="button" aria-label="Remove Menu sync job tests from week 43" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div>
+        <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Carried over from week 42 <span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #4A4950">· {{nCarried}}</span></h2>
+        <sc-for list="{{carried}}" as="c" hint-placeholder-count="3"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1 1 220px; font-size: 15px">{{c.t}} <span style="font-size: 12px; color: #6E6C73">· {{c.m}}</span></span><button type="button" id="{{c.id}}" aria-label="Remove {{c.t}} from week 43" onClick="{{c.go}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove from week</button></div></sc-for>
+        <sc-if value="{{noCarried}}" hint-placeholder-val="{{false}}"><p style="margin: 0; padding: 10px 0; font-size: 15px; color: #4A4950">Nothing carried over.</p></sc-if>
       </section>
 
       <section aria-label="Ready to plan" style="grid-column: span 5; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Ready to plan</h2>
-        <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1; font-size: 15px">Khmer search spike <span style="font-size: 12px; color: #6E6C73">· Large · no owner</span></span><button type="button" aria-label="Add Khmer search spike to week 43" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
-        <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1; font-size: 15px">Store opening hours API <span style="font-size: 12px; color: #6E6C73">· Small · no owner</span></span><button type="button" aria-label="Add Store opening hours API to week 43" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
-        <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0"><span style="flex: 1; font-size: 15px">Order history page <span style="font-size: 12px; color: #6E6C73">· No estimate</span></span><button type="button" aria-label="Add Order history page to week 43" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
+        <sc-for list="{{ready}}" as="r" hint-placeholder-count="3"><div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEE9"><span style="flex: 1; font-size: 15px">{{r.t}} <span style="font-size: 12px; color: #6E6C73">· {{r.m}}</span></span><button type="button" id="{{r.id}}" aria-label="{{r.label}}" onClick="{{r.go}}" style="height: 44px; min-width: 44px; padding: 0 12px; border: 0; border-radius: 999px; background: {{r.bg}}; color: {{r.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{r.btn}}</button></div></sc-for>
+        <sc-if value="{{hasListNote}}" hint-placeholder-val="{{false}}"><p id="pl-list-note" tabindex="-1" role="status" style="margin: 8px 0 0; font-size: 13px; line-height: 18px; color: #1F5E3A">{{listNote}}</p></sc-if>
       </section>
     </div>
     </sc-if>
@@ -241,7 +239,8 @@ class Component extends DCLogic {
       balanced: { word: 'Balanced', bg: '#C9DDE8', fg: '#33454F', bar: '#33454F' },
       buffer: { word: 'Using buffer', bg: '#FCE3D3', fg: '#9A3412', bar: '#C2410C' },
       over: { word: 'Too much', bg: '#F2B8B2', fg: '#7A1F18', bar: '#C0352B' },
-      away: { word: 'Away', bg: 'repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px)', fg: '#4A4950', bar: '#E7E5DF' }
+      away: { word: 'Away', bg: 'repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px)', fg: '#4A4950', bar: '#E7E5DF' },
+      leaving: { word: 'Leaving', bg: '#FFFFFF', fg: '#4A4950', bar: '#E7E5DF' }
     };
     const row = (name, note, avail, toPlan, planned, c) => {
       const fill = avail ? Math.min(planned / avail, 1) * 100 : 0;
@@ -258,7 +257,7 @@ class Component extends DCLogic {
       row('Dara Sok', 'Leave asked Thu–Fri, counted', 16, 12, 22),
       row('Pisey Chea', 'Technical 60% · +8h from Sophal', 19, 14, 17),
       row('Rithy Heng', '', 32, 24, 29),
-      row('Sophal Ouk', 'Leaving 23 Oct · all 13h handed over · finish the handover', 32, 24, 0),
+      row('Sophal Ouk', 'Last day Fri 23 Oct · his week goes to the handover, no new work', 32, 24, 0, 'leaving'),
       row('Sreymom Ly', 'Annual leave all week', 0, 0, 0),
       row('Vannak Prum', moved ? 'Says Full · 10h moved to week 44' : 'Says Full this week', 32, 24, moved ? 25 : 35)
     ];
@@ -270,6 +269,13 @@ class Component extends DCLogic {
       change('Handover', 'handover', "Sophal's work moves on Mon 19 Oct · step 2 of 3", 'Counted: 13h moves, 8h to Pisey and 5h to Chenda. Sophal keeps nothing.', 'Continue', 'Handover.dc.html')
     ];
     if (moved) changes.push(change(s.movedLocked ? 'Changed' : 'Moved', 'moved', "10h moved off Vannak's week", 'Shop tablet updates and Printer setup guide → week 44.' + (s.movedLocked ? ' Made after locking, so the weekly review shows it as a change.' : '')));
+    const CAR = [['printer', 'Fix receipt printer driver', 'Dara · Small · 8h · blocked, waiting on the vendor'], ['photos', 'Menu photo export', "Pisey · Medium · moved after Pisey's sick day"], ['tests', 'Menu sync job tests', 'Dara · Medium · 10h · moves to week 44 for her leave']];
+    const RDY = [['spike', 'Khmer search spike', 'Large · no owner'], ['hours', 'Store opening hours API', 'Small · no owner'], ['history', 'Order history page', 'No estimate']];
+    const out = s.out || {}, inn = s.inn || {};
+    const carried = CAR.filter((c) => !out[c[0]]).map(([k, t, m]) => ({ id: 'pl-c-' + k, t, m, go: () => this.focusTo('pl-list-note', { out: Object.assign({}, out, { [k]: true }), listNote: t + ' is out of week 43 and back in Ready to plan.' }) }));
+    const ready = CAR.filter((c) => out[c[0]]).map(([k, t, m]) => ({ id: 'pl-r-' + k, t, m: 'from week 42 · ' + m.split(' · ')[0], btn: 'Put back', label: 'Put ' + t + ' back in week 43', bg: '#F4F3EF', fg: '#1C1B1F', go: () => this.focusTo('pl-c-' + k, { out: Object.assign({}, out, { [k]: false }), listNote: t + ' is back in week 43.' }) }))
+      .concat(RDY.map(([k, t, m]) => ({ id: 'pl-r-' + k, t, m: inn[k] ? 'in week 43 · no owner yet, pick one in Team tasks' : m, btn: inn[k] ? 'Take out' : '+ Add', label: (inn[k] ? 'Take ' + t + ' out of' : 'Add ' + t + ' to') + ' week 43', bg: inn[k] ? '#1C1B1F' : '#F4F3EF', fg: inn[k] ? '#FFFFFF' : '#1C1B1F',
+        go: () => this.focusTo('pl-list-note', { inn: Object.assign({}, inn, { [k]: !inn[k] }), listNote: inn[k] ? t + ' is back in Ready to plan.' : t + ' is in week 43 with no owner. Give it to someone in Team tasks; their hours update then.' }) })));
     const pageState = this.props.state ?? 'normal';
     return {
       stOk: ['normal', 'saveError', 'partial'].indexOf(pageState) >= 0, stLoading: pageState === 'loading', stEmpty: pageState === 'empty', stError: pageState === 'error', stSave: pageState === 'saveError', stPartial: pageState === 'partial',
@@ -294,6 +300,8 @@ class Component extends DCLogic {
       doLock: () => this.focusTo('locked-title', { lock: 'locked', lockedTotal: plannedTotal }),
       cancelLock: () => this.focusTo('lock-btn', { lock: 'planning' }),
       hasLeaveLink: true,
+      lockKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('lock-btn', { lock: 'planning' }); } },
+      carried, nCarried: carried.length, noCarried: !carried.length, ready, hasListNote: !!s.listNote, listNote: s.listNote || '',
     };
   }
 }

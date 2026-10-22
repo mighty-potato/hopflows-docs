@@ -37,8 +37,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Workload</h1>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Department: Technical</button>
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{weeksLabel}}</button>
+        <button type="button" id="wl-weeks" aria-pressed="{{fourOn}}" onClick="{{toggleWeeks}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{weeksLabel}}</button>
       </div>
     </div>
 
@@ -67,7 +66,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load Workload</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
-          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><a href="Workload.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Try again</a></div>
         </div>
       </section>
     </sc-if>
@@ -78,6 +77,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <li style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: #FCE3D3; color: #9A3412; font-size: 13px; font-weight: 600">Using buffer</li>
       <li style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: #F2B8B2; color: #7A1F18; font-size: 13px; font-weight: 600">Too much</li>
       <li style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px); color: #4A4950; font-size: 13px; font-weight: 600">Away</li>
+      <li style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #6E6C73; color: #4A4950; font-size: 13px; font-weight: 600">Leaving · takes no new work</li>
     </ul>
 
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
@@ -92,34 +92,41 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <div class="hf-wrow" style="display: grid; grid-template-columns: {{cols}}; gap: 8px; align-items: center">
                 <span style="display: flex; flex-direction: column; min-width: 0"><span style="font-size: 15px; font-weight: 600">{{row.name}}</span><sc-if value="{{row.plainNote}}" hint-placeholder-val="{{true}}"><span style="font-size: 12px; color: #6E6C73">{{row.note}}</span></sc-if><sc-if value="{{row.href}}" hint-placeholder-val="{{false}}"><a href="{{row.href}}" style="font-size: 12px; font-weight: 600">{{row.note}}</a></sc-if></span>
                 <sc-for list="{{row.cells}}" as="c" hint-placeholder-count="4">
-                  <button type="button" aria-label="{{c.label}}" style="position: relative; height: 56px; border: 0; border-radius: 12px; background: {{c.bg}}; color: {{c.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; box-shadow: {{c.ring}}; cursor: pointer">{{c.word}}<sc-if value="{{c.says}}" hint-placeholder-val="{{false}}"><span style="position: absolute; top: 4px; right: 6px; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: #FFFFFF; color: #9A3412">{{c.says}}</span></sc-if></button>
+                  <button type="button" id="{{c.id}}" aria-label="{{c.label}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="position: relative; height: 56px; border: 0; border-radius: 12px; background: {{c.bg}}; color: {{c.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; box-shadow: {{c.ring}}; cursor: pointer">{{c.word}}<sc-if value="{{c.says}}" hint-placeholder-val="{{false}}"><span style="position: absolute; top: 4px; right: 6px; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: #FFFFFF; color: #9A3412">{{c.says}}</span></sc-if></button>
                 </sc-for>
               </div>
             </sc-for>
           </div>
         </div>
-        <p style="margin: 14px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Sorted by name. Worked out from estimates each time you open it, never saved as a score. Teammates never see each other's colours.</p>
+        <p style="margin: 14px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Sorted by name. Week 43 counts Dara's asked leave and Sophal's handover, like the Planner. Pick any square to see why. Worked out from estimates each time you open it, never saved as a score. Teammates never see each other's colours.</p>
       </section>
 
-      <section aria-label="Rithy, week 42" style="grid-column: span 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+      <section id="wl-panel" tabindex="-1" aria-label="{{d.aria}}" style="grid-column: span 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <div style="display: flex; flex-direction: column; gap: 4px">
-          <span style="font-size: 12px; color: #6E6C73">Rithy Heng · Week 42</span>
-          <span style="align-self: flex-start; display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: #FCE3D3; color: #9A3412; font-size: 13px; font-weight: 600">Using buffer</span>
+          <span style="font-size: 12px; color: #6E6C73">{{d.name}} · {{d.week}}</span>
+          <span style="align-self: flex-start; display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 12px; background: {{d.bg}}; color: {{d.fg}}; box-shadow: {{d.ring}}; font-size: 13px; font-weight: 600">{{d.word}}</span>
         </div>
+        <p style="margin: 0; font-size: 15px; line-height: 22px; font-weight: 600">{{d.line}}</p>
+        <sc-if value="{{d.why}}" hint-placeholder-val="{{true}}"><p style="margin: 0; font-size: 13px; line-height: 18px; color: #4A4950">{{d.why}}</p></sc-if>
+        <sc-if value="{{d.saysFull}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border-radius: 16px; background: #F4F3EF">
+            <span style="font-size: 13px; line-height: 18px"><strong>Vannak says Full</strong>, but his planned work says Room. Ask what isn't showing.</span>
+            <sc-if value="{{replyOpen}}" hint-placeholder-val="{{true}}">
+              <label for="wl-reply" style="font-size: 12px; font-weight: 600">Reply to Vannak</label>
+              <input id="wl-reply" type="text" value="{{reply}}" onChange="{{setReply}}" placeholder="What's taking your time that isn't in HopFlows?" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 1px solid #6E6C73; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px">
+              <button type="button" onClick="{{sendReply}}" style="align-self: flex-start; height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Send to Vannak</button>
+            </sc-if>
+            <sc-if value="{{replySent}}" hint-placeholder-val="{{false}}"><p id="wl-sent" tabindex="-1" role="status" style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: #1F5E3A">Sent. His answer comes to your Inbox, and "Says Full" stays until he changes it.<button type="button" onClick="{{undoReply}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button></p></sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{d.hasNums}}" hint-placeholder-val="{{true}}">
         <dl style="margin: 0; display: grid; grid-template-columns: 1fr auto; font-size: 13px; line-height: 18px">
-          <dt style="padding: 8px 0; color: #4A4950">Working week</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">40h</dd>
-          <dt style="padding: 8px 0; color: #4A4950">Meetings and time off</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">−8h</dd>
-          <dt style="padding: 8px 0; border-top: 1px solid #F0EEE9; font-weight: 600">Available</dt><dd style="margin: 0; padding: 8px 0; border-top: 1px solid #F0EEE9; font-family: 'Geist Mono', monospace; font-weight: 600; text-align: right">32h</dd>
-          <dt style="padding: 8px 0; color: #4A4950">Buffer</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">−8h</dd>
-          <dt style="padding: 8px 0; border-top: 1px solid #F0EEE9; font-weight: 600">Time to plan</dt><dd style="margin: 0; padding: 8px 0; border-top: 1px solid #F0EEE9; font-family: 'Geist Mono', monospace; font-weight: 600; text-align: right">24h</dd>
-          <dt style="padding: 8px 0; color: #4A4950">Planned</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">24h</dd>
-          <dt style="padding: 8px 0; color: #4A4950">Added after locking</dt><dd style="margin: 0; padding: 8px 0; font-family: 'Geist Mono', monospace; text-align: right">+5h</dd>
-          <dt style="padding: 8px 0; border-top: 1px solid #F0EEE9; font-weight: 600">Total work</dt><dd style="margin: 0; padding: 8px 0; border-top: 1px solid #F0EEE9; font-family: 'Geist Mono', monospace; font-weight: 600; text-align: right">29h</dd>
+          <sc-for list="{{d.nums}}" as="x" hint-placeholder-count="4"><dt style="padding: 8px 0; border-top: {{x.line}}; color: {{x.c}}; font-weight: {{x.w}}">{{x.k}}</dt><dd style="margin: 0; padding: 8px 0; border-top: {{x.line}}; text-align: right; font-weight: {{x.w}}">{{x.v}}</dd></sc-for>
         </dl>
-        <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Estimated · 1 task has no estimate</span>
+        </sc-if>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
-          <a href="TeamTable.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Move work</a>
-          <a href="TeamTable.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Open his tasks</a>
+          <a href="{{d.goHref}}" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">{{d.go}}</a>
+          <a href="TeamTable.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Open {{d.first}}'s tasks</a>
         </div>
       </section>
     </div>
@@ -129,35 +136,56 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal", "loading", "empty", "error"],"default":"normal"},"weeks":{"editor":"enum","options":["pilot","later"],"default":"pilot"},"$preview":{"width":1440,"height":1000}}'>
 class Component extends DCLogic {
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
+  componentDidMount() { try { const h = (window.location.hash || '').slice(1); if (['chenda', 'dara', 'pisey', 'rithy', 'sophal', 'sreymom', 'vannak'].indexOf(h) >= 0) this.setState({ sel: [h, 0] }); } catch (x) {} }
   renderVals() {
+    const ui = this.state || {};
     const cap = {
       room: { word: 'Room', bg: '#DCEFE2', fg: '#1F5E3A' },
       balanced: { word: 'Balanced', bg: '#C9DDE8', fg: '#33454F' },
       buffer: { word: 'Using buffer', bg: '#FCE3D3', fg: '#9A3412' },
       over: { word: 'Too much', bg: '#F2B8B2', fg: '#7A1F18' },
-      away: { word: 'Away', bg: 'repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px)', fg: '#4A4950' }
+      away: { word: 'Away', bg: 'repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px)', fg: '#4A4950' },
+      leaving: { word: 'Leaving', bg: '#FFFFFF', fg: '#4A4950', ring: 'inset 0 0 0 1px #6E6C73' },
+      left: { word: 'Left', bg: '#F4F3EF', fg: '#6E6C73' }
     };
-    const cell = (c, says, selected) => Object.assign({ says: says || '', ring: selected ? 'inset 0 0 0 2px #1C1B1F' : 'none' }, cap[c]);
-    const later = (this.props.weeks ?? 'pilot') === 'later';
-    const n = later ? 4 : 1;
-    const row = (name, note, cells) => { const href = /handover/.test(note) ? 'Handover.dc.html' : ''; return { name, note, href, plainNote: !href, cells: cells.slice(0, n).map((c, i) => Object.assign({}, c, { label: name + ', ' + ['week 42', 'week 43', 'week 44', 'week 45'][i] + ': ' + c.word + (c.says ? ', says Full' : '') })) }; };
-    const heads = [['Wk 42 · this week', 600, '#1C1B1F'], ['Wk 43 · 19 Oct', 400, '#6E6C73'], ['Wk 44 · 26 Oct', 400, '#6E6C73'], ['Wk 45 · 2 Nov', 400, '#6E6C73']].slice(0, n).map(([t, w, c]) => ({ t, w, c }));
-    const pageState = this.props.state ?? 'normal';
+    const four = ui.four ?? ((this.props.weeks ?? 'pilot') === 'later');
+    const n = four ? 4 : 2;
+    const WEEKS = ['Week 42 · this week', 'Week 43 · 19–23 Oct', 'Week 44 · 26–30 Oct', 'Week 45 · 2–6 Nov'];
+    // [status, available, time to plan, planned, why]
+    const P = [
+      { id: 'chenda', name: 'Chenda Lim', first: 'Chenda', note: 'Lead', w: [['balanced', 32, 18, 16, ''], ['buffer', 24, 18, 19, '+5h from Sophal: Salary file check, Nightly backup check, Data sync weekly.'], ['room'], ['room']] },
+      { id: 'dara', name: 'Dara Sok', first: 'Dara', note: '', w: [['balanced', 32, 24, 22, 'Took 2 of Pisey\'s tasks on Wednesday; Menu sync job tests moved out.'], ['over', 16, 12, 22, 'Leave asked for Thu 22 – Fri 23, counted. Fits (12h of 12h) once Menu sync job tests (10h) moves to week 44.'], ['balanced'], ['room']] },
+      { id: 'pisey', name: 'Pisey Chea', first: 'Pisey', note: 'Technical 60%', w: [['balanced', 19, 14, 12, 'Sick on Wednesday; 2 tasks went to Dara.'], ['buffer', 19, 14, 17, '+8h from Sophal: Store sales export, Payment webhook retries (4h left).'], ['room'], ['away']] },
+      { id: 'rithy', name: 'Rithy Heng', first: 'Rithy', note: '', w: [['buffer', 32, 24, 29, 'Planned 24h, then Coupon breaks payment at checkout (5h) came in after locking.'], ['buffer', 32, 24, 29, ''], ['balanced'], ['room']] },
+      { id: 'sophal', name: 'Sophal Ouk', first: 'Sophal', note: 'Leaving 23 Oct · finish the handover', w: [['leaving', 32, 24, 10, 'Handing over his work. Takes no new work.'], ['leaving', 32, 24, 0, 'Last day Fri 23 Oct. All 13h handed over from Mon 19 Oct.'], ['left'], ['left']] },
+      { id: 'sreymom', name: 'Sreymom Ly', first: 'Sreymom', note: 'Away until 30 Oct', w: [['away', 0, 0, 0, 'Annual leave.'], ['away', 0, 0, 0, 'Annual leave all week.'], ['away'], ['room']] },
+      { id: 'vannak', name: 'Vannak Prum', first: 'Vannak', note: '', w: [['room', 32, 24, 14, 'Planned work fits, but he says Full.', true], ['over', 32, 24, 35, 'Says Full. "Move Vannak\'s work" in the Planner moves Shop tablet updates (6h) and Printer setup guide (4h) to week 44. After: 25h, Using buffer.', true], ['balanced'], ['room']] }
+    ];
+    const sel = ui.sel || ['rithy', 0];
+    const rows = P.map((p) => {
+      const href = p.id === 'sophal' ? 'Handover.dc.html' : '';
+      return { name: p.name, note: p.note, href, plainNote: !href, cells: p.w.slice(0, n).map((w, i) => {
+        const c = cap[w[0]]; const on = sel[0] === p.id && sel[1] === i;
+        return Object.assign({}, c, { id: 'wl-' + p.id + '-' + i, says: w[5] ? 'Says Full' : '', ring: on ? 'inset 0 0 0 2px #1C1B1F' : (c.ring || 'none'), on: on ? 'true' : 'false', label: p.name + ', ' + WEEKS[i] + ': ' + c.word + (w[5] ? ', says Full' : ''), pick: () => this.focusTo('wl-panel', { sel: [p.id, i] }) });
+      }) };
+    });
+    const p = P.find((x) => x.id === sel[0]); const w = p.w[sel[1]]; const c = cap[w[0]];
+    const has = w.length > 1 && w[0] !== 'away' && w[0] !== 'left';
+    const line = !has ? (w[0] === 'left' ? 'No longer at Riverline Co.' : w[0] === 'away' ? 'Away. Nothing planned.' : 'Not planned yet.') : w[3] + 'h planned of ' + w[2] + 'h to plan' + (w[3] > w[1] ? ' · ' + w[1] + 'h available' : '');
+    const nums = has ? [['Available', w[1] + 'h'], ['Buffer and routines', '−' + (w[1] - w[2]) + 'h'], ['Time to plan', w[2] + 'h', 1], ['Planned', w[3] + 'h', 1]].map(([k, v, b], i) => ({ k, v, w: b ? 600 : 400, c: b ? '#1C1B1F' : '#4A4950', line: i ? '1px solid #F0EEE9' : '0' })) : [];
+    const go = sel[1] === 1 ? ['Plan week 43', 'Planner.dc.html'] : p.id === 'sophal' ? ['Open the handover', 'Handover.dc.html'] : ['Move work', 'TeamTable.dc.html'];
     return {
-      stOk: ['normal', 'saveError', 'partial'].indexOf(pageState) >= 0, stLoading: pageState === 'loading', stEmpty: pageState === 'empty', stError: pageState === 'error', stSave: pageState === 'saveError', stPartial: pageState === 'partial',
-      n,
-      cols: '180px repeat(' + n + ', minmax(0, 1fr))',
-      heads,
-      weeksLabel: later ? '4 weeks' : 'This week · future weeks come later',
-      rows: [
-        row('Chenda Lim', 'Lead', [cell('balanced'), cell('balanced'), cell('room'), cell('room')]),
-        row('Dara Sok', '', [cell('balanced'), cell('balanced'), cell('room'), cell('room')]),
-        row('Pisey Chea', 'Technical 60%', [cell('balanced'), cell('room'), cell('room'), cell('away')]),
-        row('Rithy Heng', '', [cell('buffer', '', true), cell('buffer'), cell('balanced'), cell('room')]),
-        row('Sophal Ouk', 'Leaving 23 Oct · finish the handover', [cell('room'), cell('room'), cell('away'), cell('away')]),
-        row('Sreymom Ly', 'Away until 30 Oct', [cell('away'), cell('away'), cell('away'), cell('room')]),
-        row('Vannak Prum', '', [cell('room', 'Says Full'), cell('over'), cell('balanced'), cell('room')])
-      ]
+      stOk: ['normal', 'saveError', 'partial'].indexOf(this.props.state ?? 'normal') >= 0, stLoading: this.props.state === 'loading', stEmpty: this.props.state === 'empty', stError: this.props.state === 'error',
+      n, cols: '180px repeat(' + n + ', minmax(0, 1fr))',
+      heads: WEEKS.slice(0, n).map((t, i) => ({ t, w: i ? 400 : 600, c: i ? '#6E6C73' : '#1C1B1F' })),
+      weeksLabel: four ? 'Show 2 weeks' : 'Show 4 weeks', fourOn: four ? 'true' : 'false', toggleWeeks: () => this.focusTo('wl-weeks', { four: !four, sel: sel[1] > 1 ? [sel[0], 0] : sel }),
+      rows,
+      d: { aria: p.name + ', ' + WEEKS[sel[1]], name: p.name, first: p.first, week: WEEKS[sel[1]], word: c.word, bg: c.bg, fg: c.fg, ring: c.ring || 'none', line, why: (w[4] || ''), hasNums: has, nums, saysFull: !!w[5], go: go[0], goHref: go[1] },
+      replyOpen: !ui.replied, replySent: !!ui.replied, reply: ui.reply || '', setReply: (e) => this.setState({ reply: e.target.value }),
+      sendReply: () => (ui.reply || '').trim() ? this.focusTo('wl-sent', { replied: true }) : this.focusTo('wl-reply', {}),
+      undoReply: () => this.focusTo('wl-reply', { replied: false })
     };
   }
 }

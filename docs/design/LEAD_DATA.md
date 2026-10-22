@@ -24,7 +24,7 @@ The Planner counts every open change for week 43 (Dara's asked leave, Sophal's o
 | Dara Sok | 16h | 12h | 22h | Too much | Leave asked for Thu 22 – Fri 23, counted. Fits (12h of 12h, Balanced) once Menu sync job tests (10h) moves to week 44 |
 | Pisey Chea | 19h | 14h | 17h | Using buffer | +8h from Sophal (Store sales export 4h, Payment webhook retries 4h left) |
 | Rithy Heng | 32h | 24h | 29h | Using buffer | |
-| Sophal Ouk | 32h | 24h | 0h | Room | Leaving; last day Fri 23 Oct; all 13h handed over from Mon 19 Oct |
+| Sophal Ouk | 32h | 24h | 0h | Leaving | Takes no new work; last day Fri 23 Oct; all 13h handed over from Mon 19 Oct |
 | Sreymom Ly | 0h | 0h | 0h | Away | Annual leave all week |
 | Vannak Prum | 32h | 24h | 35h | Too much | Says Full. "Move Vannak's work" moves Shop tablet updates (6h) and Printer setup guide (4h, due moves to Thu 29) to week 44, so nobody else's week grows. After: 25h · Using buffer |
 | **Total** | **155h** | **116h** | **122h** | | Buffer 39h, routines 6h, 2 tasks with no estimate. 112h planned after Vannak's move |
@@ -81,6 +81,22 @@ The Planner lists every change to week 43 in one place. Open changes are counted
 | Receipt printer offline at Toul Kork | Shop team, 1 h | Fix receipt printer driver |
 | Show prices in riel and dollars | Pisey, from Product sync, yesterday | New |
 | Export sales by store | Sokha Meng, 2 days | Store sales export |
+
+Queue tabs: Postponed · 2 (Khmer font in menu PDFs, Dara, back Tue 3 Nov; Dark mode for the shop app, Vannak, back Mon 26 Oct). Sorted · 1 (Receipt prints the wrong shop address, Dara, merged into Fix receipt printer driver on Wed). Merge targets: Coupon breaks payment at checkout (Rithy), Fix receipt printer driver (Dara), Store sales export (moving from Sophal to Pisey). Sophal can't be picked as an owner (leaving Fri 23).
+
+## Workload, week 42 (this week)
+
+| Person | Available | Time to plan | Planned | Status |
+|---|---|---|---|---|
+| Chenda Lim | 32h | 18h | 16h | Balanced |
+| Dara Sok | 32h | 24h | 22h | Balanced |
+| Pisey Chea | 19h | 14h | 12h | Balanced (sick Wed) |
+| Rithy Heng | 32h | 24h | 29h | Using buffer (24h + 5h added) |
+| Sophal Ouk | 32h | 24h | 10h | Leaving |
+| Sreymom Ly | 0h | 0h | 0h | Away |
+| Vannak Prum | 32h | 24h | 14h | Room, says Full |
+
+Workload shows week 42 and week 43 by default; week 43 matches the Planner table above. Routines: Open shop checklist runs working days by 09:00 (Dara Tue and Thu, Vannak Mon, Wed and Fri); Check overnight error emails is Dara's, working days by 09:30.
 
 ## Deliverables (DeliverableList)
 

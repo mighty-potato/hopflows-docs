@@ -31,16 +31,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <span style="font-size: 12px; color: #6E6C73">Technical · sort each request: make a Task, merge, postpone or close</span>
+        <span style="font-size: 12px; color: #6E6C73">Technical · sort each request: make a Task, merge, postpone or close · ↑ ↓ moves between requests</span>
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Incoming Queue</h1>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
         <div role="tablist" aria-label="Queue" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
-          <button type="button" role="tab" aria-selected="true" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">New · 4</button>
-          <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Postponed · 2</button>
-          <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Sorted</button>
+          <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3"><button type="button" role="tab" id="{{t.id}}" aria-selected="{{t.on}}" tabindex="{{t.tab}}" onClick="{{t.pick}}" onKeyDown="{{t.key}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{t.bg}}; color: {{t.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{t.name}}</button></sc-for>
         </div>
-        <button type="button" style="height: 48px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">View: List</button>
       </div>
     </div>
 
@@ -54,12 +51,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
     </sc-if>
     <sc-if value="{{isEmpty}}" hint-placeholder-val="{{false}}">
-      <section aria-label="The queue is clear" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
+      <section id="q-clear" tabindex="-1" aria-label="The queue is clear" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
         <img src="/_blob/a431a6fdd4e19f548f54f9fd97283158" alt="Punh Punh waving" style="width: 144px; height: 144px; border-radius: 28px; object-fit: cover; flex-shrink: 0">
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">The queue is clear</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">New requests from your team land here. Every request you sorted has been answered, and the sender was told.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px"><a href="LeadHome.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back to Needs you</a></div>
+          <sc-if value="{{clearUndo}}" hint-placeholder-val="{{false}}"><p role="status" style="margin: 0; font-size: 13px; color: #1F5E3A">{{lastNote}}</p></sc-if>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px"><sc-if value="{{clearUndo}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{undo}}" style="height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Undo last</button></sc-if><a href="LeadHome.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back to Needs you</a></div>
         </div>
       </section>
     </sc-if>
@@ -69,15 +67,16 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load the Incoming Queue</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
-          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><a href="Queue.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Try again</a></div>
         </div>
       </section>
     </sc-if>
-    <sc-if value="{{ok}}" hint-placeholder-val="{{true}}">
+    <sc-if value="{{showList}}" hint-placeholder-val="{{true}}">
+    <sc-if value="{{hasStatus}}" hint-placeholder-val="{{false}}"><p id="q-status" tabindex="-1" role="status" style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 12px 12px 20px; border-radius: 22px; background: #DCEFE2; color: #1F5E3A; font-size: 15px; line-height: 22px">{{lastNote}}<button type="button" onClick="{{undo}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button></p></sc-if>
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
-      <section aria-label="New requests" style="grid-column: span 5; display: flex; flex-direction: column; gap: 8px; min-width: 0">
-        <sc-for list="{{requests}}" as="r" hint-placeholder-count="4">
-          <button type="button" aria-pressed="{{r.selected}}" style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 0; border-radius: 22px; background: {{r.bg}}; color: {{r.fg}}; font-family: inherit; text-align: left; cursor: pointer">
+      <section aria-label="{{listLabel}}" style="grid-column: span 5; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
+          <button type="button" id="{{r.domId}}" aria-pressed="{{r.selected}}" tabindex="{{r.tab}}" onClick="{{r.pick}}" onKeyDown="{{r.key}}" style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 0; border-radius: 22px; background: {{r.bg}}; color: {{r.fg}}; font-family: inherit; text-align: left; cursor: pointer">
             <span style="display: flex; align-items: center; gap: 8px; width: 100%">
               <span style="flex: 1; font-size: 15px; line-height: 22px; font-weight: 600">{{r.title}}</span>
               <sc-if value="{{r.urgent}}" hint-placeholder-val="{{false}}"><span style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>Seems urgent</span></sc-if>
@@ -85,34 +84,41 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <span style="font-size: 12px; line-height: 16px; opacity: 0.8">{{r.meta}}</span>
           </button>
         </sc-for>
+        <sc-if value="{{listEmpty}}" hint-placeholder-val="{{false}}"><p style="margin: 0; padding: 18px 20px; border-radius: 22px; background: #FFFFFF; font-size: 15px; color: #4A4950">{{listEmptyText}}</p></sc-if>
       </section>
 
+      <sc-if value="{{showDetail}}" hint-placeholder-val="{{true}}">
       <section aria-labelledby="sort-title" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0">
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 12px; color: #6E6C73">From Dara Sok · app · 12 min ago · marked Seems urgent · kind: Bug</span>
-          <h2 id="sort-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Checkout fails with the 10% coupon</h2>
-          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">Saw it again at the Toul Kork till this morning. A customer couldn't pay with the 10% coupon.</p>
+          <span style="font-size: 12px; color: #6E6C73">{{cur.byline}}</span>
+          <h2 id="sort-title" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">{{cur.title}}</h2>
+          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">{{cur.body}}</p>
         </div>
+        <sc-if value="{{cur.photo}}" hint-placeholder-val="{{true}}">
         <div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 16px; background: #F4F3EF">
-          <span style="width: 72px; height: 52px; border-radius: 12px; background: #E7E5DF; color: #4A4950; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center">[photo]</span>
-          <span style="font-size: 13px">screenshot.jpg · attached by Dara</span>
+          <span style="width: 72px; height: 52px; border-radius: 12px; background: #E7E5DF; color: #4A4950; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center">Photo</span>
+          <span style="font-size: 13px">{{cur.photo}}</span>
         </div>
+        </sc-if>
+        <sc-if value="{{cur.match}}" hint-placeholder-val="{{true}}">
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 22px; background: #C9DDE8; color: #33454F">
-          <span style="flex: 1 1 260px; font-size: 13px; line-height: 18px">Looks like <strong style="color: #1C1B1F">“Coupon breaks payment at checkout”</strong> · Task · In progress · Rithy · added Wed. So Merge is picked for you.</span>
+          <span style="flex: 1 1 260px; font-size: 13px; line-height: 18px">Looks like <strong style="color: #1C1B1F">“{{cur.match}}”</strong> · {{cur.matchMeta}}. So Merge is picked for you.</span>
         </div>
+        </sc-if>
 
         <div role="radiogroup" aria-label="Decision" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
           <sc-for list="{{decisions}}" as="d" hint-placeholder-count="4">
-            <button type="button" role="radio" aria-checked="{{d.on}}" onClick="{{d.pick}}" style="height: 56px; border: 0; border-radius: 16px; background: {{d.bg}}; color: {{d.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{d.name}}</button>
+            <button type="button" role="radio" id="{{d.id}}" tabindex="{{d.tab}}" aria-checked="{{d.on}}" onClick="{{d.pick}}" onKeyDown="{{d.key}}" style="height: 56px; border: 0; border-radius: 16px; background: {{d.bg}}; color: {{d.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{d.name}}</button>
           </sc-for>
         </div>
 
         <sc-if value="{{isMerge}}" hint-placeholder-val="{{true}}">
           <div style="display: flex; flex-direction: column; gap: 14px">
-            <p style="margin: 0; font-size: 15px; line-height: 22px">Dara's photo and note are added to Rithy's task <strong>Coupon breaks payment at checkout</strong>. No new work is added, so nobody's week changes.</p>
+            <sc-if value="{{cur.match}}" hint-placeholder-val="{{true}}"><p style="margin: 0; font-size: 15px; line-height: 22px">{{cur.mergeText}}</p></sc-if>
+            <sc-if value="{{noMatch}}" hint-placeholder-val="{{false}}"><p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">Nothing open looks like this. Make a Task, postpone it or close it.</p></sc-if>
             <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
-              <span style="font-size: 12px; line-height: 16px; color: #6E6C73; flex: 1 1 260px">Dara is told in the app: “Rithy is already fixing this. Your photo was added to the task.”</span>
-              <button type="button" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Merge into Rithy's task</button>
+              <span style="font-size: 12px; line-height: 16px; color: #6E6C73; flex: 1 1 260px">{{cur.mergeTell}}</span>
+              <sc-if value="{{cur.match}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{doMerge}}" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">{{cur.mergeBtn}}</button></sc-if>
             </div>
           </div>
         </sc-if>
@@ -121,18 +127,21 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <div style="flex: 1 1 100%; display: flex; flex-direction: column; gap: 8px">
               <span id="q-back" style="font-size: 13px; font-weight: 600">Comes back</span>
               <div role="radiogroup" aria-labelledby="q-back" style="display: flex; flex-wrap: wrap; gap: 6px">
-                <sc-for list="{{backs}}" as="b" hint-placeholder-count="3"><button type="button" role="radio" aria-checked="{{b.on}}" onClick="{{b.pick}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{b.bg}}; color: {{b.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{b.name}}</button></sc-for>
+                <sc-for list="{{backs}}" as="b" hint-placeholder-count="3"><button type="button" role="radio" id="{{b.id}}" tabindex="{{b.tab}}" aria-checked="{{b.on}}" onClick="{{b.pick}}" onKeyDown="{{b.key}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{b.bg}}; color: {{b.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{b.name}}</button></sc-for>
               </div>
+              <sc-if value="{{pickDate}}" hint-placeholder-val="{{false}}"><label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; max-width: 260px">Day it comes back<select id="q-back-date" onChange="{{setBackDate}}" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option value="">Choose a day</option><option value="Wed 28 Oct">Wed 28 Oct</option><option value="Mon 2 Nov">Mon 2 Nov</option><option value="Mon 9 Nov">Mon 9 Nov</option><option value="Mon 16 Nov">Mon 16 Nov</option></select></label></sc-if>
             </div>
-            <span style="flex: 1 1 260px; font-size: 15px; line-height: 22px">{{backText}} Dara sees it waiting in Requests I sent.</span>
-            <button type="button" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Postpone</button>
+            <span style="flex: 1 1 260px; font-size: 15px; line-height: 22px">{{backText}}</span>
+            <button type="button" onClick="{{doPostpone}}" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Postpone</button>
+            <sc-if value="{{backError}}" hint-placeholder-val="{{false}}"><p role="alert" style="flex: 1 1 100%; margin: 0; font-size: 13px; color: #9A3412">Choose the day it comes back.</p></sc-if>
           </div>
         </sc-if>
         <sc-if value="{{isClose}}" hint-placeholder-val="{{false}}">
           <div style="display: flex; flex-direction: column; gap: 10px">
-            <label for="q-close" style="font-size: 13px; font-weight: 600">Tell Dara why</label>
-            <input id="q-close" type="text" placeholder="For example: fixed in today's release" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F">
-            <button type="button" style="align-self: flex-end; height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Close request</button>
+            <label for="q-close" style="font-size: 13px; font-weight: 600">Tell {{cur.fromFirst}} why</label>
+            <input id="q-close" type="text" value="{{closeWhy}}" onChange="{{setCloseWhy}}" aria-invalid="{{closeBad}}" placeholder="For example: fixed in today's release" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: {{closeBorder}}; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F">
+            <sc-if value="{{closeError}}" hint-placeholder-val="{{false}}"><p role="alert" style="margin: 0; font-size: 13px; color: #9A3412">Add a short reason. {{cur.fromFirst}} sees it in Requests I sent.</p></sc-if>
+            <button type="button" onClick="{{doClose}}" style="align-self: flex-end; height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Close request</button>
           </div>
         </sc-if>
         <sc-if value="{{isMake}}" hint-placeholder-val="{{false}}">
@@ -141,35 +150,30 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="display: flex; flex-wrap: wrap; gap: 12px">
           <div style="flex: 1 1 100%; min-width: 0; display: flex; flex-direction: column; gap: 6px">
             <label for="q-owner" style="font-size: 13px; font-weight: 600">Owner</label>
-            <div style="display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 8px 0 16px; border-radius: 16px; background: #F4F3EF">
-              <select id="q-owner" style="flex: 1; min-width: 0; height: 44px; border: 0; background: transparent; font-family: inherit; font-size: 15px; color: #1C1B1F"><option selected="" disabled="" value="">Choose an owner</option><option>Vannak Prum · Room after this · says Full</option><option>Sophal Ouk · Room after this · leaves Fri 23</option><option>Chenda Lim · Using buffer after this</option><option>Dara Sok · Using buffer after this</option><option>Pisey Chea · Using buffer after this</option><option>Rithy Heng · Too much after this</option><option disabled="">Sreymom Ly · Away all week</option></select>
-              
-            </div>
+            <select id="q-owner" onChange="{{setOwner}}" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option value="" selected="{{noOwner}}">Choose an owner</option><sc-for list="{{owners}}" as="w" hint-placeholder-count="6"><option value="{{w.id}}" disabled="{{w.off}}" selected="{{w.sel}}">{{w.label}}</option></sc-for></select>
+            <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Week 43 loads with Dara's leave and Sophal's handover counted. Sophal leaves Fri 23 and can't take new work.</span>
           </div>
           <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
             <span id="q-size" style="font-size: 13px; font-weight: 600">Size</span>
             <div role="radiogroup" aria-labelledby="q-size" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 16px; height: 48px; box-sizing: border-box">
-              <button type="button" role="radio" aria-checked="true" style="flex: 1; border: 0; border-radius: 14px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Small</button>
-              <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Medium</button>
-              <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Large</button>
+              <sc-for list="{{sizes}}" as="o" hint-placeholder-count="3"><button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" onKeyDown="{{o.key}}" style="flex: 1; border: 0; border-radius: 14px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for>
             </div>
           </div>
           <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
-            <span id="q-urgency" style="font-size: 13px; font-weight: 600">How urgent? <span style="font-weight: 400; color: #6E6C73">· Dara marked it Seems urgent; you decide</span></span>
+            <span id="q-urgency" style="font-size: 13px; font-weight: 600">How urgent? <span style="font-weight: 400; color: #6E6C73">· {{cur.urgencyHint}}</span></span>
             <div role="radiogroup" aria-labelledby="q-urgency" style="display: flex; padding: 2px; gap: 2px; background: #F4F3EF; border-radius: 16px; height: 48px; box-sizing: border-box">
-              <button type="button" role="radio" aria-checked="true" style="flex: 1; border: 0; border-radius: 14px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Normal</button>
-              <button type="button" role="radio" aria-checked="false" style="flex: 1; border: 0; border-radius: 14px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Urgent</button>
+              <sc-for list="{{urgencies}}" as="o" hint-placeholder-count="3"><button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" onKeyDown="{{o.key}}" style="flex: 1; border: 0; border-radius: 14px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for>
             </div>
           </div>
-          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-due" style="font-size: 13px; font-weight: 600">Due</label><input id="q-due" type="text" value="Today" style="height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
-          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-del" style="font-size: 13px; font-weight: 600">Deliverable <span style="font-weight: 400; color: #6E6C73">· optional</span></label><select id="q-del" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Launch In-App Ordering v1</option><option>None (standalone)</option></select></div>
+          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-due" style="font-size: 13px; font-weight: 600">Due</label><select id="q-due" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Today, Fri 16 Oct</option><option>Mon 19 Oct</option><option selected>Wed 21 Oct</option><option>Fri 23 Oct</option><option>No due date</option></select></div>
+          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-del" style="font-size: 13px; font-weight: 600">Deliverable <span style="font-weight: 400; color: #6E6C73">· optional</span></label><select id="q-del" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Launch In-App Ordering v1</option><option>Store sales dashboard v1</option><option>None (standalone)</option></select></div>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 8px">
           <span id="q-steps" style="font-size: 13px; line-height: 18px; font-weight: 600">Checklist <span style="font-weight: 400; color: #6E6C73">· optional · the owner can change these</span></span>
           <ul aria-labelledby="q-steps" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px">
             <sc-for list="{{steps}}" as="s" hint-placeholder-count="2">
-              <li style="display: flex; align-items: center; gap: 10px; padding: 0 0 0 14px; border-radius: 14px; background: #F4F3EF">
+              <li style="display: flex; align-items: center; gap: 10px; padding: 4px 4px 4px 14px; border-radius: 14px; background: #F4F3EF">
                 <span aria-hidden="true" style="width: 20px; height: 20px; box-sizing: border-box; border-radius: 6px; border: 2px solid #6E6C73; flex-shrink: 0"></span>
                 <span style="flex: 1; min-width: 0; font-size: 15px; line-height: 22px">{{s.text}}</span>
                 <button type="button" aria-label="Remove step: {{s.text}}" onClick="{{s.remove}}" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
@@ -178,24 +182,26 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </ul>
           <div style="display: flex; gap: 8px">
             <label for="q-new" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">New step</label>
-            <input id="q-new" type="text" placeholder="Add a step, then press Enter" style="flex: 1; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 14px; border: 2px dashed #E7E5DF; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F">
+            <input id="q-new" type="text" value="{{newStep}}" onChange="{{setNewStep}}" onKeyDown="{{stepKey}}" placeholder="Add a step, then press Enter" style="flex: 1; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 14px; border: 2px dashed #E7E5DF; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F">
             <button type="button" onClick="{{addStep}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Add step</button>
           </div>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: 22px; background: #FCE3D3; color: #9A3412">
-          <span style="font-size: 13px; font-weight: 600">Week 42 is locked. This counts as added work.</span>
-          <label for="q-why" style="font-size: 12px">Moving one of the owner's own tasks to make room? Say which and why <span style="opacity: 0.8">· optional</span></label>
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: 22px; background: #F4F3EF">
+          <span style="font-size: 13px; font-weight: 600">Week 42 is locked, so this shows as added work in the weekly review.</span>
+          <label for="q-why" style="font-size: 12px; color: #4A4950">Moving one of the owner's own tasks to make room? Say which and why <span>· optional</span></label>
           <input id="q-why" type="text" placeholder="Task name and reason" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 13px; color: #1C1B1F">
         </div>
 
         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
-          <span style="font-size: 12px; line-height: 16px; color: #6E6C73; flex: 1 1 260px">Dara is told in the app who owns it now. Only urgent tasks alert the owner right away.</span>
-          <button type="button" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Make a Task</button>
+          <span style="font-size: 12px; line-height: 16px; color: #6E6C73; flex: 1 1 260px">{{cur.fromFirst}} is told in the app who owns it now. Only urgent tasks alert the owner right away.</span>
+          <button type="button" onClick="{{doMake}}" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Make a Task</button>
+          <sc-if value="{{ownerError}}" hint-placeholder-val="{{false}}"><p role="alert" style="flex: 1 1 100%; margin: 0; font-size: 13px; color: #9A3412">Choose an owner first.</p></sc-if>
         </div>
         </div>
         </sc-if>
       </section>
+      </sc-if>
     </div>
     </sc-if>
   </main>
@@ -203,37 +209,99 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1120}}'>
 class Component extends DCLogic {
+  focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
+  componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
+  // one Tab stop per choice group; arrow keys move and pick
+  radioGroup(group, list, current, setKey, extra) {
+    return list.map((x, i) => {
+      const on = current === x.key;
+      const move = (d) => { const n = list[(i + d + list.length) % list.length]; this.focusTo(group + '-' + n.key, Object.assign({ [setKey]: n.key }, extra || {})); };
+      return Object.assign({}, x, {
+        id: group + '-' + x.key, on: on ? 'true' : 'false', tab: on ? '0' : '-1', sel: on,
+        bg: on ? '#1C1B1F' : (x.bgOff || '#F4F3EF'), fg: on ? '#FFFFFF' : '#1C1B1F',
+        pick: () => this.setState(Object.assign({ [setKey]: x.key }, extra || {})),
+        key: (e) => {
+          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); move(1); }
+          else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); move(-1); }
+        }
+      });
+    });
+  }
   renderVals() {
-    const sel = { bg: '#1C1B1F', fg: '#FFFFFF', selected: 'true' };
-    const idle = { bg: '#FFFFFF', fg: '#1C1B1F', selected: 'false' };
-    const pool = ['Reproduce it with the 10% coupon', 'Fix the total sent to the payment provider', 'Test on the Toul Kork till', 'Tell the shop team'];
-    const n = (this.state && this.state.n != null) ? this.state.n : 3;
-    const gone = (this.state && this.state.gone) || [];
-    const steps = pool.slice(0, n).map((text, i) => ({ text, i })).filter((s) => gone.indexOf(s.i) < 0)
-      .map((s) => ({ text: s.text, remove: () => this.setState({ gone: gone.concat([s.i]) }) }));
-    const addStep = () => this.setState({ n: Math.min(n + 1, pool.length) });
+    const ui = this.state || {};
     const st = this.props.state ?? 'normal';
-    const dec = (this.state && this.state.decision) || 'merge';
-    const back = (this.state && this.state.back) || 'mon';
-    const backs = [['mon', 'Next Mon, 19 Oct'], ['w44', 'Week 44'], ['pick', 'Pick a date']].map(([id, name]) => ({
-      name, on: back === id ? 'true' : 'false', bg: back === id ? '#1C1B1F' : '#F4F3EF', fg: back === id ? '#FFFFFF' : '#1C1B1F',
-      pick: () => this.setState({ back: id })
-    }));
-    const backText = back === 'mon' ? 'It comes back to the queue on Mon 19 Oct.' : back === 'w44' ? 'It comes back to the queue on Mon 26 Oct, when week 44 starts.' : 'Pick the day it comes back.';
-    const decisions = [['make', 'Make a Task'], ['merge', 'Merge'], ['postpone', 'Postpone'], ['close', 'Close']].map(([id, name]) => ({
-      name, on: dec === id ? 'true' : 'false', bg: dec === id ? '#1C1B1F' : '#F4F3EF', fg: dec === id ? '#FFFFFF' : '#1C1B1F',
-      pick: () => this.setState({ decision: id })
-    }));
+    const REQ = [
+      { id: 'coupon', title: 'Checkout fails with the 10% coupon', from: 'Dara Sok', fromFirst: 'Dara', meta: 'Dara Sok · app · 12 min · 1 photo · same as “Coupon breaks payment at checkout”', byline: 'From Dara Sok · app · 12 min ago · marked Seems urgent · kind: Bug', urgent: true, body: 'Saw it again at the Toul Kork till this morning. A customer couldn\'t pay with the 10% coupon.', photo: 'till-coupon.jpg · attached by Dara', match: 'Coupon breaks payment at checkout', matchMeta: 'Task · In progress · Rithy · added Wed', mergeText: 'Dara\'s photo and note are added to Rithy\'s task Coupon breaks payment at checkout. No new work is added, so nobody\'s week changes.', mergeTell: 'Dara is told in the app: “Rithy is already fixing this. Your photo was added to the task.”', mergeBtn: 'Merge into Rithy\'s task', mergeDone: 'Merged into Rithy\'s task. Dara is told.', steps: ['Reproduce it with the 10% coupon', 'Fix the total sent to the payment provider', 'Test on the Toul Kork till'], size: 'small' },
+      { id: 'printer', title: 'Receipt printer offline at Toul Kork', from: 'Shop team', fromFirst: 'the shop team', meta: 'Shop team · app · 1 h · same problem as “Fix receipt printer driver”', byline: 'From the shop team · app · 1 hour ago · kind: Bug', urgent: false, body: 'The printer at the Toul Kork shop shows offline since opening. Receipts are being written by hand.', photo: '', match: 'Fix receipt printer driver', matchMeta: 'Task · In progress, Blocked on the vendor · Dara · added Tue', mergeText: 'The shop team\'s note is added to Dara\'s task Fix receipt printer driver, which is waiting on the vendor. No new work is added.', mergeTell: 'The shop team is told: “Dara is on it and waiting on the vendor.”', mergeBtn: 'Merge into Dara\'s task', mergeDone: 'Merged into Dara\'s task. The shop team is told.', steps: [], size: 'small' },
+      { id: 'riel', title: 'Show prices in riel and dollars', from: 'Pisey Chea', fromFirst: 'Pisey', meta: 'Pisey Chea · from a meeting: Product sync · yesterday · new', byline: 'From Pisey Chea · from a meeting: Product sync · yesterday · kind: Feature', urgent: false, body: 'Shops asked for both prices on the menu and the receipt. Rate set once a day by the office.', photo: '', match: '', mergeTell: '', steps: ['Agree where the daily rate comes from', 'Show both prices on the menu', 'Show both on the receipt'], size: 'medium' },
+      { id: 'export', title: 'Export sales by store', from: 'Sokha Meng', fromFirst: 'Sokha', meta: 'Sokha Meng · app · 2 days · already planned as “Store sales export”', byline: 'From Sokha Meng · app · 2 days ago · kind: Report', urgent: false, body: 'Need a monthly file of sales per store for the board pack.', photo: '', match: 'Store sales export', matchMeta: 'Task · To do · moving from Sophal to Pisey · due Wed 21', mergeText: 'Sokha\'s note is added to Store sales export, which Pisey takes over from Sophal on Monday. No new work is added.', mergeTell: 'Sokha is told: “Already planned. Pisey delivers it Wed 21 Oct.”', mergeBtn: 'Merge into Store sales export', mergeDone: 'Merged into Store sales export. Sokha is told.', steps: [], size: 'small' }
+    ];
+    REQ.forEach((r) => { r.urgencyHint = r.urgent ? r.fromFirst.charAt(0).toUpperCase() + r.fromFirst.slice(1) + ' marked it Seems urgent; you decide' : 'you decide'; });
+    const POSTPONED = [
+      { id: 'pdf', title: 'Khmer font in menu PDFs', meta: 'Dara Sok · comes back Tue 3 Nov' },
+      { id: 'dark', title: 'Dark mode for the shop app', meta: 'Vannak Prum · comes back Mon 26 Oct' }
+    ];
+    const SORTED = [{ id: 'addr', title: 'Receipt prints the wrong shop address', meta: 'Dara Sok · merged into Fix receipt printer driver · Wed' }];
+    const done = ui.done || {};
+    const open = REQ.filter((r) => !done[r.id]);
+    const view = ui.view || 'new';
+    const curId = open.some((r) => r.id === ui.cur) ? ui.cur : (open[0] && open[0].id);
+    const cur = REQ.find((r) => r.id === curId) || REQ[0];
+    const dec = ui.dec || (cur.match ? 'merge' : 'make');
+    const finish = (how, note) => {
+      const nd = Object.assign({}, done, { [cur.id]: { how, note } });
+      const left = REQ.filter((r) => !nd[r.id]);
+      const i = open.findIndex((r) => r.id === cur.id);
+      const next = left[Math.min(i, left.length - 1)];
+      this.focusTo(left.length ? 'q-status' : 'q-clear', { done: nd, cur: next && next.id, dec: null, last: cur.id, lastNote: note, closeWhy: '', closeError: false, owner: '', ownerError: false, back: null, backDate: '', backError: false, steps: null, newStep: '', size: null, urg: null });
+    };
+    const rowsNew = open.map((r, i) => Object.assign({}, r, { domId: 'q-r-' + r.id }));
+    const postponedNow = POSTPONED.concat(REQ.filter((r) => done[r.id] && done[r.id].how === 'postpone').map((r) => ({ id: r.id, title: r.title, meta: r.from + ' · ' + done[r.id].note.replace(/^Postponed\. /, '') })));
+    const sortedNow = SORTED.concat(REQ.filter((r) => done[r.id] && done[r.id].how !== 'postpone').map((r) => ({ id: r.id, title: r.title, meta: r.from + ' · ' + done[r.id].note })));
+    const list = view === 'new' ? rowsNew : view === 'postponed' ? postponedNow : sortedNow;
+    const rows = list.map((r, i) => {
+      const on = view === 'new' && r.id === curId;
+      const go = (d) => { const n = list[(i + d + list.length) % list.length]; if (view === 'new') this.focusTo('q-r-' + n.id, { cur: n.id, dec: null }); else this.focusTo('q-r-' + n.id, {}); };
+      return { domId: 'q-r-' + r.id, title: r.title, meta: r.meta, urgent: !!r.urgent && view === 'new', selected: on ? 'true' : 'false', tab: (view === 'new' ? on : i === 0) ? '0' : '-1', bg: on ? '#1C1B1F' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1C1B1F',
+        pick: () => { if (view === 'new') this.focusTo('sort-title', { cur: r.id, dec: null, steps: null, closeError: false, ownerError: false }); },
+        key: (e) => { if (e.key === 'ArrowDown') { e.preventDefault(); go(1); } else if (e.key === 'ArrowUp') { e.preventDefault(); go(-1); } } };
+    });
+    const tabs = this.radioGroup('q-tab', [{ key: 'new', name: 'New · ' + open.length, bgOff: 'transparent' }, { key: 'postponed', name: 'Postponed · ' + postponedNow.length, bgOff: 'transparent' }, { key: 'sorted', name: 'Sorted · ' + sortedNow.length, bgOff: 'transparent' }], view, 'view').map((t) => Object.assign(t, { fg: t.sel ? '#FFFFFF' : '#4A4950' }));
+    const decisions = this.radioGroup('q-dec', [{ key: 'make', name: 'Make a Task' }, { key: 'merge', name: 'Merge' }, { key: 'postpone', name: 'Postpone' }, { key: 'close', name: 'Close' }], dec, 'dec');
+    const back = ui.back || 'mon';
+    const backs = this.radioGroup('q-back', [{ key: 'mon', name: 'Next Mon, 19 Oct' }, { key: 'w44', name: 'Week 44' }, { key: 'pick', name: 'Pick a date' }], back, 'back');
+    const backDay = back === 'mon' ? 'Mon 19 Oct' : back === 'w44' ? 'Mon 26 Oct' : (ui.backDate || '');
+    const backText = (backDay ? 'It comes back to the queue on ' + backDay + '. ' : 'Pick the day it comes back. ') + cur.fromFirst.charAt(0).toUpperCase() + cur.fromFirst.slice(1) + ' sees it waiting in Requests I sent.';
+    const stepList = ui.steps || cur.steps;
+    const steps = stepList.map((text, i) => ({ text, remove: () => this.setState({ steps: stepList.filter((x, k) => k !== i) }) }));
+    const addStep = () => { const t = (ui.newStep || '').trim(); if (!t) return this.focusTo('q-new', {}); this.focusTo('q-new', { steps: stepList.concat([t]), newStep: '' }); };
+    const OWN = [['vannak', 'Vannak Prum', 'Room after this · says Full'], ['chenda', 'Chenda Lim', 'Using buffer after this'], ['dara', 'Dara Sok', 'Too much in week 43 · on leave Thu 22–Fri 23'], ['pisey', 'Pisey Chea', 'Using buffer after this'], ['rithy', 'Rithy Heng', 'Too much after this'], ['sophal', 'Sophal Ouk', 'Leaving Fri 23 · can\'t take new work'], ['sreymom', 'Sreymom Ly', 'Away all week']];
+    const owner = ui.owner || '';
+    const owners = OWN.map(([id, n, w]) => ({ id, label: n + ' · ' + w, off: id === 'sophal' || id === 'sreymom', sel: owner === id }));
+    const ownerName = (OWN.find((o) => o[0] === owner) || [0, ''])[1];
+    const size = ui.size || cur.size;
+    const sizes = this.radioGroup('q-size', [{ key: 'small', name: 'Small' }, { key: 'medium', name: 'Medium' }, { key: 'large', name: 'Large' }], size, 'size');
+    const urg = ui.urg || (cur.urgent ? 'urgent' : 'normal');
+    const urgencies = this.radioGroup('q-urg', [{ key: 'normal', name: 'Normal' }, { key: 'urgent', name: 'Urgent' }], urg, 'urg');
+    const lastR = REQ.find((r) => r.id === ui.last);
+    const empty = st === 'empty' || (st === 'normal' && view === 'new' && !open.length);
     return {
-      steps, addStep, decisions, backs, backText,
-      isMake: dec === 'make', isMerge: dec === 'merge', isPostpone: dec === 'postpone', isClose: dec === 'close',
-      ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
-      requests: [
-        Object.assign({ title: 'Checkout fails with the 10% coupon', meta: 'Dara Sok · app · 12 min · 1 photo · same as “Coupon breaks payment at checkout”', urgent: true }, sel),
-        Object.assign({ title: 'Receipt printer offline at Toul Kork', meta: 'Shop team · app · 1 h · same problem as “Fix receipt printer driver”', urgent: false }, idle),
-        Object.assign({ title: 'Show prices in riel and dollars', meta: 'Pisey Chea · from a meeting: Product sync · yesterday · new', urgent: false }, idle),
-        Object.assign({ title: 'Export sales by store', meta: 'Sokha Meng · app · 2 days · already planned as “Store sales export”', urgent: false }, idle)
-      ]
+      tabs, rows, listLabel: view === 'new' ? 'New requests' : view === 'postponed' ? 'Postponed requests' : 'Sorted requests',
+      listEmpty: !rows.length && view !== 'new', listEmptyText: view === 'postponed' ? 'Nothing postponed.' : 'Nothing sorted yet.',
+      showList: st === 'normal' && !empty, showDetail: view === 'new' && !!open.length,
+      hasStatus: !!lastR && !!done[ui.last], lastNote: ui.lastNote || '', clearUndo: !!lastR && !!done[ui.last] && !open.length,
+      undo: () => { const nd = Object.assign({}, done); delete nd[ui.last]; this.focusTo('sort-title', { done: nd, cur: ui.last, last: null, view: 'new' }); },
+      cur, noMatch: !cur.match, decisions, isMake: dec === 'make', isMerge: dec === 'merge', isPostpone: dec === 'postpone', isClose: dec === 'close',
+      doMerge: () => finish('merge', cur.mergeDone),
+      backs, backText, pickDate: back === 'pick', setBackDate: (e) => this.setState({ backDate: e.target.value, backError: false }), backError: !!ui.backError,
+      doPostpone: () => backDay ? finish('postpone', 'Postponed. Comes back ' + backDay + '.') : this.focusTo('q-back-date', { backError: true }),
+      closeWhy: ui.closeWhy || '', setCloseWhy: (e) => this.setState({ closeWhy: e.target.value, closeError: false }), closeError: !!ui.closeError, closeBad: ui.closeError ? 'true' : 'false', closeBorder: ui.closeError ? '2px solid #9A3412' : '0',
+      doClose: () => (ui.closeWhy || '').trim() ? finish('close', 'Closed. ' + cur.fromFirst.charAt(0).toUpperCase() + cur.fromFirst.slice(1) + ' is told: “' + ui.closeWhy.trim() + '”') : this.focusTo('q-close', { closeError: true }),
+      owners, noOwner: !owner, setOwner: (e) => this.setState({ owner: e.target.value, ownerError: false }), ownerError: !!ui.ownerError,
+      doMake: () => owner ? finish('make', 'Made a Task for ' + ownerName + ': ' + cur.title + '.') : this.focusTo('q-owner', { ownerError: true }),
+      sizes, urgencies, steps, addStep, newStep: ui.newStep || '', setNewStep: (e) => this.setState({ newStep: e.target.value }),
+      stepKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); const t = e.target.value.trim(); if (t) this.focusTo('q-new', { steps: stepList.concat([t]), newStep: '' }); } },
+      ok: st === 'normal', isLoading: st === 'loading', isEmpty: empty, isError: st === 'error'
     };
   }
 }
