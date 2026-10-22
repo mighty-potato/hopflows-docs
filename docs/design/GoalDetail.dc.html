@@ -61,7 +61,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load this Goal</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button><a href="Goals.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back to Goals</a></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px"><a href="GoalDetail.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Try again</a><a href="Goals.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Back to Goals</a></div>
         </div>
       </section>
     </sc-if>
@@ -72,10 +72,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Last update: {{rp.last}}. Change it if the number was wrong. Next week's number goes in after Fri 23 Oct.</p>
         <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px">
           <div style="display: flex; flex-direction: column; gap: 6px"><label for="ur-input" style="font-size: 13px; font-weight: 600">In-app sales a month, in dollars</label><input id="ur-input" inputmode="numeric" value="{{rp.value}}" onChange="{{rp.set}}" aria-describedby="ur-calc" style="box-sizing: border-box; height: 48px; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F; width: 220px; font-family: 'Geist Mono', monospace"></div>
-          <span id="ur-calc" style="padding-bottom: 14px; font-size: 13px; color: {{rp.calcColor}}">{{rp.calc}}</span>
+          <span id="ur-calc" role="status" style="padding-bottom: 14px; max-width: 44ch; font-size: 13px; line-height: 18px; color: {{rp.calcColor}}; font-weight: {{rp.calcWeight}}">{{rp.calc}}</span>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
-          <sc-if value="{{rp.valid}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{rp.save}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Save result</button></sc-if>
+          <sc-if value="{{rp.valid}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{rp.save}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">{{rp.saveLabel}}</button></sc-if>
           <sc-if value="{{rp.invalid}}" hint-placeholder-val="{{false}}"><button type="button" aria-disabled="true" aria-describedby="ur-calc" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Save result</button></sc-if>
           <button type="button" onClick="{{rp.cancel}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Cancel</button>
         </div>
@@ -90,7 +90,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <sc-if value="{{fp.open}}" hint-placeholder-val="{{false}}">
       <section id="sf-panel" aria-labelledby="sf-title" onKeyDown="{{fp.key}}" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
         <h2 id="sf-title" tabindex="-1" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Set a flag on this Goal</h2>
-        <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Chenda's flag on Launch In-App Ordering v1 stays as it is. A flag you set on the Goal can only be cleared by a leader, with a short note.</p>
+        <p style="margin: 0; max-width: 62ch; font-size: 13px; line-height: 18px; color: #4A4950">Chenda's flag on Launch In-App Ordering v1 stays as it is. You, the Goal owner or another leader can clear a flag you set here, with a short note. The most serious open flag leads the Goal's status.</p>
         <div style="display: flex; flex-direction: column; gap: 6px">
           <span id="sf-sev" style="font-size: 13px; font-weight: 600">How serious</span>
           <div role="radiogroup" aria-labelledby="sf-sev" style="display: flex; flex-wrap: wrap; gap: 6px">
@@ -105,7 +105,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 12px">
           <div style="flex: 2 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="sf-note" style="font-size: 13px; font-weight: 600">Note</label><input id="sf-note" type="text" value="{{fp.note}}" onChange="{{fp.setNote}}" style="box-sizing: border-box; height: 48px; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
-          <div style="flex: 1 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="sf-date" style="font-size: 13px; font-weight: 600">Back on track by <span style="font-weight: 400; color: #6E6C73">· optional</span></label><input id="sf-date" type="text" value="{{fp.date}}" onChange="{{fp.setDate}}" style="box-sizing: border-box; height: 48px; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+          <div style="flex: 1 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="sf-date" style="font-size: 13px; font-weight: 600">Back on track by <span style="font-weight: 400; color: #6E6C73">· optional</span></label><select id="sf-date" onChange="{{fp.setDate}}" style="box-sizing: border-box; height: 48px; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><sc-for list="{{fp.dates}}" as="d" hint-placeholder-count="4"><option value="{{d.v}}" selected="{{d.sel}}">{{d.t}}</option></sc-for></select></div>
         </div>
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
           <sc-if value="{{fp.ready}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{fp.save}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Save flag</button></sc-if>
@@ -162,18 +162,18 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <section aria-label="Result" style="break-inside: avoid; margin: 0 0 12px; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
         <span style="font-size: 13px; font-weight: 600">Result so far · target +20%</span>
         <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">{{rp.pctShort}}</span>
-        <span style="font-size: 15px; line-height: 22px; margin-top: auto">{{rp.money}} a month in the app, up from $48,200. {{rp.updated}}</span>
+        <span style="font-size: 15px; line-height: 22px; margin-top: auto">{{rp.money}} a month in the app, {{rp.dir}} from $48,200. {{rp.updated}}</span>
       </section>
       <section aria-label="Result by week" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Result by week</h2>
-          <span style="font-size: 12px; color: #6E6C73">Dashed: target · Short line: needed by then</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #4A4950">Dashed line: target · <span aria-hidden="true" style="display: inline-block; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #1C1B1F"></span> needed by then</span>
         </div>
         <div role="img" aria-label="{{pace.chart}}" style="position: relative; flex: 1; min-height: 200px; display: flex; align-items: flex-end; gap: 16px; padding: 24px 0 0; border-bottom: 1px solid #E7E5DF">
           <div style="position: absolute; left: 0; right: 0; bottom: 150px; border-top: 2px dashed #6E6C73"><sc-if value="{{pace.showTarget}}" hint-placeholder-val="{{true}}"><span style="position: absolute; right: 0; bottom: 4px; font-size: 12px; font-weight: 600; color: #4A4950">+20% by 31 Dec</span></sc-if></div>
           <sc-for list="{{weeks}}" as="w" hint-placeholder-count="4">
             <div style="position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; justify-content: flex-end; height: 176px">
-              <div aria-hidden="true" style="position: absolute; left: 50%; transform: translateX(-50%); bottom: {{w.ph}}; width: 100%; max-width: 80px; height: 3px; border-radius: 2px; background: #4A4950; box-shadow: 0 0 0 1px #FFFFFF"></div>
+              <div aria-hidden="true" style="position: absolute; left: calc(50% + 38px); bottom: {{w.ph}}; width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-right: 9px solid #1C1B1F; transform: translateY(6px)"></div>
               <span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500">{{w.v}}</span>
               <div style="width: 100%; max-width: 64px; border-radius: 12px 12px 4px 4px; background: {{w.bg}}; height: {{w.h}}"></div>
             </div>
@@ -239,7 +239,7 @@ class Component extends DCLogic {
     const asked = !!(this.state && this.state.asked);
     const scale = (v) => Math.max(0, Math.min(170, Math.round((v / 20) * 150))) + 'px';
     // pace: a straight line from +6% in week 39 to +20% in week 53 (31 Dec), one point a week
-    const w = (label, n, pace, last) => ({ label, v: '+' + n + '%', h: scale(n), ph: scale(pace), bg: last ? '#1C1B1F' : '#C9DDE8' });
+    const w = (label, n, pace, last) => ({ label, v: (n >= 0 ? '+' : '−') + Math.abs(n) + '%', h: scale(n), ph: scale(pace), bg: last ? '#1C1B1F' : '#C9DDE8' });
     const f = {
       ok: { flag: 'On track', fg: '#1F5E3A', dot: '#2E7D4F' },
       risk: { flag: 'At risk', fg: '#9A3412', dot: '#C2410C' },
@@ -257,13 +257,14 @@ class Component extends DCLogic {
     const n = Number(String(typed).replace(/[$,\s]/g, ''));
     const valid = String(typed).trim() !== '' && isFinite(n) && n > 0;
     const sign = (x) => (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(1) + '%';
+    const jump = valid ? (n - 54950) / 54950 : 0, big = Math.abs(jump) > 0.25;
     const rp = {
       open: !!ui.rOpen, done: !!ui.rDone && !ui.rOpen, openAttr: ui.rOpen ? 'true' : 'false',
       value: typed, valid, invalid: !valid,
-      calc: valid ? '= ' + sign(pctOf(n)) + ' from ' + money(START) : 'Type a number, like 55000',
-      calcColor: valid ? '#4A4950' : '#9A3412',
+      calc: !valid ? 'Type a number, like 55000' : big ? 'That\'s ' + Math.round(Math.abs(jump) * 100) + '% ' + (jump < 0 ? 'lower' : 'higher') + ' than last week (' + money(54950) + '). Check for a missing or extra digit.' : '= ' + sign(pctOf(n)) + ' from ' + money(START),
+      calcColor: !valid ? '#9A3412' : big ? '#9A3412' : '#4A4950', calcWeight: big ? '600' : '400', saveLabel: big ? 'Save ' + money(n) + ' anyway' : 'Save result',
       last: money(54950) + ' a month (+14%) for week 42, Mon 19 Oct',
-      money: money(shown), pctShort: (pctOf(shown) >= 0 ? '+' : '−') + Math.round(Math.abs(pctOf(shown))) + '%',
+      money: money(shown), dir: shown >= START ? 'up' : 'down', pctShort: (pctOf(shown) >= 0 ? '+' : '−') + Math.round(Math.abs(pctOf(shown))) + '%',
       savedText: money(shown) + ' a month, ' + sign(pctOf(shown)),
       set: (e) => this.setState({ typed: e.target.value }),
       toggle: () => ui.rOpen ? this.focusTo('ur-btn', { rOpen: false }) : this.focusTo('ur-title', { rOpen: true, fOpen: false, typed: undefined }),
@@ -287,7 +288,7 @@ class Component extends DCLogic {
       bg: saved ? sevs[saved.sev].bg : '', fg: saved ? sevs[saved.sev].fg : '', dot: saved ? sevs[saved.sev].dot : '',
       sevs: this.radioGroup('sv', Object.keys(sevs).map((k) => ({ key: k, name: sevs[k].name })), sev, 'sev').map((o) => Object.assign(o, pickStyle(o.sel))),
       reasons: this.radioGroup('rs', ['Time', 'Waiting on others', 'Scope change', 'Quality', 'Outside the company', 'Other'].map((r) => ({ key: r.toLowerCase().replace(/ /g, '-'), name: r })), ui.reasonKey, 'reasonKey').map((o) => Object.assign(o, pickStyle(o.sel))),
-      note: ui.note || '', date: ui.date || '',
+      note: ui.note || '', date: ui.date || '', dates: ['', 'Fri 23 Oct', 'Fri 30 Oct', 'Fri 6 Nov', 'Fri 13 Nov', 'Mon 30 Nov'].map((v) => ({ v, t: v || 'Not sure yet', sel: (ui.date || '') === v })),
       setNote: (e) => this.setState({ note: e.target.value }), setDate: (e) => this.setState({ date: e.target.value }),
       ready: !!(ui.reasonKey ? REASONS[ui.reasonKey] : null) && !!(ui.note || '').trim(), notReady: !((ui.reasonKey ? REASONS[ui.reasonKey] : null) && (ui.note || '').trim()),
       hint: !(ui.reasonKey ? REASONS[ui.reasonKey] : null) ? 'Pick a reason and write a short note' : 'Write a short note',
@@ -325,7 +326,7 @@ class Component extends DCLogic {
       ? { label: 'Result ahead of pace', bg: '#DCEFE2', fg: '#1F5E3A', dot: '#2E7D4F', showTarget: true,
           text: 'The result is ahead of pace: it needs ' + r1(left) + ' more points in 11 weeks and has been adding about ' + r1(rate) + ' a week. ' + due }
       : { label: 'Result behind pace', bg: '#FCE3D3', fg: '#9A3412', dot: '#C2410C', showTarget: true,
-          text: 'The result is behind pace: it needs ' + r1(left) + ' more points in 11 weeks, about ' + r1(need) + ' a week, ' + (rate > 0 ? 'and has been adding about ' + r1(rate) + ' a week. ' : 'and has fallen since week 41 (+11%). ') + 'The date is at risk too: ordering in the app, where most of the remaining growth should come from, is due Mon 30 Nov.' };
+          text: 'The result is behind pace: it needs ' + r1(left) + ' more points in 11 weeks, about ' + r1(need) + ' a week, ' + (now >= 11 ? 'and has been adding about ' + r1(Math.max(rate, 0)) + ' a week. ' : 'and has fallen since week 41 (+11%). ') + 'The date is at risk too: ordering in the app, where most of the remaining growth should come from, is due Mon 30 Nov.' };
     // open flags, most serious first; Chenda's flag on the Deliverable is always open in this sample
     const chenda = Object.assign({ isChenda: true, isMine: false, sevName: 'At risk', reason: 'Waiting on others', item: 'Launch In-App Ordering v1', note: "Payment provider still hasn't sent live keys. Sandbox works.", setBy: 'Chenda Lim · Fri 9 Oct · 10 days ago', back: "Fri 23 Oct, Chenda's estimate", s: 1 }, sevs.risk);
     const own = live ? Object.assign({ isChenda: false, isMine: true, sevName: sevs[live.sev].name, reason: live.reason, item: 'This Goal', note: live.note, setBy: 'You · today, Mon 19 Oct', back: live.date || 'Not set', s: live.sev === 'off' ? 2 : 0 }, sevs[live.sev]) : null;
@@ -345,8 +346,8 @@ class Component extends DCLogic {
       dels: [
         d('Launch In-App Ordering v1', 'Technical · Chenda Lim · due 30 Nov', 'Active', 'risk'),
         d('Water Festival coupon campaign', 'Marketing · Kosal Nhem · due 20 Nov', 'Active', 'ok'),
-        d('Faster menu pages', 'Technical · Chenda Lim · done 2 Oct', 'Accepted', 'done'),
-        d('New app store screenshots', 'Design · Sreymom Kim · done 9 Oct', 'Accepted', 'done')
+        d('Faster menu pages', 'Technical · Chenda Lim · accepted 2 Oct', 'Closed', 'done'),
+        d('New app store screenshots', 'Design · Sreymom Kim · accepted 9 Oct', 'Closed', 'done')
       ]
     };
   }

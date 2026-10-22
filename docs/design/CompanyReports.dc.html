@@ -24,6 +24,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-th-row{display:none !important}
 .hf-tr{display:flex !important;flex-direction:column}
 .hf-lbl{display:inline !important}
+.hf-cr-trend{order:-1}
+.hf-cr-call{order:-1}
+.hf-gs-compact .hf-gs-more{display:none !important}
+.hf-gs-toggle{display:inline-flex !important}
+.hf-tr.hf-tr-trend{flex-direction:row;flex-wrap:wrap}
+.hf-tr-trend>[role=rowheader]{flex:1 1 100%}
+.hf-tr-trend>[role=cell]{flex:1 1 28%}
 }
 </style>
 </helmet>
@@ -58,15 +65,17 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load reports</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Last Monday's summary has the same Goal numbers.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button><a href="Summary.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Open the weekly summary</a></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px"><a href="CompanyReports.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Try again</a><a href="Summary.dc.html" style="height: 48px; padding: 0 20px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Open the weekly summary</a></div>
         </div>
       </section>
     </sc-if>
     <sc-if value="{{ok}}" hint-placeholder-val="{{true}}">
-    <section aria-labelledby="gs-h" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+    <div style="display: flex; flex-direction: column; gap: 24px">
+    <section aria-labelledby="gs-h" class="{{gsClass}}" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
       <div style="display: flex; flex-direction: column; gap: 2px">
         <h2 id="gs-h" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Goal status</h2>
         <span style="font-size: 12px; color: #6E6C73">Each Goal's result, how far along it should be by now, its flag and who to ask. 5 of 8 on track.</span>
+        <button type="button" class="hf-gs-toggle" aria-expanded="{{gsOpen}}" onClick="{{gsFlip}}" style="display: none; align-self: flex-start; margin-top: 6px; height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; align-items: center; cursor: pointer">{{gsLabel}}</button>
       </div>
       <div role="table" aria-labelledby="gs-h" style="display: flex; flex-direction: column">
         <div role="row" class="hf-th-row" style="display: grid; grid-template-columns: minmax(180px, 2fr) 90px 110px minmax(200px, 2.2fr) minmax(150px, 1.4fr) minmax(120px, 1.2fr) 64px; gap: 12px; padding: 8px 0"><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Goal</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Result</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Progress vs needed</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Status and reason</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Owner · who to ask</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Deliverables</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Ends</span></div>
@@ -75,24 +84,24 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <span role="rowheader" style="font-size: 13px; line-height: 18px; min-width: 0; font-weight: 600"><sc-if value="{{g.hasPage}}" hint-placeholder-val="{{false}}"><a href="GoalDetail.dc.html" style="color: #1C1B1F; text-underline-offset: 3px">{{g.title}}</a></sc-if><sc-if value="{{g.noPage}}" hint-placeholder-val="{{true}}">{{g.title}}</sc-if></span>
             <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Result </span><span style="font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums">{{g.now}} <span style="color: #6E6C73">of {{g.target}}</span></span></span>
             <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Progress vs needed </span><span style="font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums">{{g.have}} / {{g.need}}</span> <span style="color: #4A4950">{{g.paceWord}}</span></span>
-            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0"><span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: {{g.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{g.dot}}"></span>{{g.flag}}</span><span style="display: block; color: #4A4950">{{g.why}}</span></span>
-            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Owner </span>{{g.owner}}<span style="display: block; color: #4A4950">{{g.ask}}</span></span>
-            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0">{{g.del}}</span>
-            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; white-space: nowrap"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Ends </span>{{g.end}}</span>
+            <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Status </span><span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: {{g.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{g.dot}}"></span>{{g.flag}}</span><span style="display: block; color: #4A4950">{{g.why}}</span></span>
+            <span role="cell" class="hf-gs-more" style="font-size: 13px; line-height: 18px; min-width: 0"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Owner </span>{{g.owner}}<span style="display: block; color: #4A4950">{{g.ask}}</span></span>
+            <span role="cell" class="hf-gs-more" style="font-size: 13px; line-height: 18px; min-width: 0"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Deliverables </span>{{g.del}}</span>
+            <span role="cell" class="hf-gs-more" style="font-size: 13px; line-height: 18px; min-width: 0; white-space: nowrap"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Ends </span>{{g.end}}</span>
           </div>
         </sc-for>
       </div>
     </section>
 
-    <section aria-labelledby="tr-h" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+    <section aria-labelledby="tr-h" class="hf-cr-trend" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
       <div style="display: flex; flex-direction: column; gap: 2px">
         <h2 id="tr-h" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Trend · weeks 40–42</h2>
-        <span style="font-size: 12px; color: #6E6C73">Surprise work each week (bars on a 0–40% scale, orange at 25% or more) and the share of locked tasks done in their week. The latest week is darker.</span>
+        <span style="font-size: 12px; color: #6E6C73">Surprise work each week (bars on a 0–40% scale, striped at 25% or more, past the buffer) and the share of locked tasks done in their week. The latest week is darker.</span>
       </div>
       <div role="table" aria-labelledby="tr-h" style="display: flex; flex-direction: column">
         <div role="row" class="hf-th-row" style="display: grid; grid-template-columns: minmax(110px, 1.2fr) repeat(3, minmax(120px, 1fr)) 90px; gap: 12px; padding: 8px 0"><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Department</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Week 40</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Week 41</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Week 42</span><span role="columnheader" style="font-size: 12px; font-weight: 600; color: #6E6C73">Surprise work since week 40</span></div>
         <sc-for list="{{trend}}" as="t" hint-placeholder-count="4">
-          <div role="row" class="hf-tr" style="display: grid; grid-template-columns: minmax(110px, 1.2fr) repeat(3, minmax(120px, 1fr)) 90px; gap: 8px 12px; padding: 12px 0; border-top: 1px solid #F0EEE9">
+          <div role="row" class="hf-tr hf-tr-trend" style="display: grid; grid-template-columns: minmax(110px, 1.2fr) repeat(3, minmax(120px, 1fr)) 90px; gap: 8px 12px; padding: 12px 0; border-top: 1px solid #F0EEE9">
             <span role="rowheader" style="font-size: 13px; line-height: 18px; min-width: 0; font-weight: 600">{{t.name}}</span>
             <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; display: flex; flex-direction: column; gap: 4px"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Week 40</span><span style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="flex: 1; max-width: 120px; height: 8px; border-radius: 999px; background: #E7E5DF"><span style="display: block; height: 8px; border-radius: 999px; background: {{t.w40.bar}}; width: {{t.w40.w}}"></span></span><span style="font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; font-weight: {{t.w40.weight}}; color: {{t.w40.ink}}">{{t.w40.s}}</span></span><span style="font-size: 12px; color: #6E6C73">{{t.w40.done}} done</span></span>
             <span role="cell" style="font-size: 13px; line-height: 18px; min-width: 0; display: flex; flex-direction: column; gap: 4px"><span class="hf-lbl" style="display: none; font-size: 12px; color: #6E6C73">Week 41</span><span style="display: flex; align-items: center; gap: 8px"><span aria-hidden="true" style="flex: 1; max-width: 120px; height: 8px; border-radius: 999px; background: #E7E5DF"><span style="display: block; height: 8px; border-radius: 999px; background: {{t.w41.bar}}; width: {{t.w41.w}}"></span></span><span style="font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; font-weight: {{t.w41.weight}}; color: {{t.w41.ink}}">{{t.w41.s}}</span></span><span style="font-size: 12px; color: #6E6C73">{{t.w41.done}} done</span></span>
@@ -101,8 +110,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </div>
         </sc-for>
       </div>
-      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding-top: 4px">
-        <p style="flex: 1 1 320px; margin: 0; max-width: 70ch; font-size: 13px; line-height: 18px"><strong>Operations' surprise work has gone up three weeks running: 24% → 27% → 31%.</strong> Most of it is shop requests. Its buffer may be too small for next week's plan.</p>
+      <div class="hf-cr-call" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding-top: 4px">
+        <p style="flex: 1 1 320px; margin: 0; max-width: 70ch; font-size: 13px; line-height: 18px"><strong>Operations' surprise work has gone up each week since week 40: 24% → 27% → 31%.</strong> Most of it is shop requests. Its buffer may be too small for next week's plan.</p>
         <sc-if value="{{notAskedOps}}" hint-placeholder-val="{{true}}"><button type="button" id="ops-ask" onClick="{{askOps}}" aria-label="Ask Bopha Meas about Operations' buffer" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Ask Bopha about the buffer</button></sc-if>
         <sc-if value="{{askedOps}}" hint-placeholder-val="{{false}}"><span id="ops-asked" tabindex="-1" role="status" style="font-size: 13px; color: #1F5E3A">Asked Bopha. Her answer comes to your Inbox.</span><button type="button" onClick="{{unaskOps}}" aria-label="Undo asking Bopha" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button></sc-if>
       </div>
@@ -133,6 +142,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </div>
       <span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{weekNote}}</span>
     </section>
+    </div>
     </sc-if>
   </main>
 </div>
@@ -170,12 +180,12 @@ class Component extends DCLogic {
     const cellOf = (w, name, last) => {
       const x = byWeek[w].find((y) => y.name === name);
       const sp = parseInt(x.added, 10);
-      return { s: sp + '%', w: Math.min(100, Math.round(sp / 40 * 100)) + '%', bar: sp >= 25 ? '#C2410C' : '#1C1B1F', done: x.done.match(/\((\d+%)\)/)[1], weight: last ? 700 : 500, ink: last ? '#1C1B1F' : '#6E6C73' };
+      return { s: sp + '%', w: Math.min(100, Math.round(sp / 40 * 100)) + '%', bar: sp >= 25 ? 'repeating-linear-gradient(45deg, #1C1B1F 0 4px, #6E6C73 4px 8px)' : '#1C1B1F', done: x.done.match(/\((\d+%)\)/)[1], weight: last ? 700 : 500, ink: last ? '#1C1B1F' : '#6E6C73' };
     };
     const trend = names.map((name) => {
       const a = parseInt(byWeek[40].find((y) => y.name === name).added, 10), z = parseInt(byWeek[42].find((y) => y.name === name).added, 10);
       const d = z - a;
-      return { name, w40: cellOf(40, name), w41: cellOf(41, name), w42: cellOf(42, name, true), change: (d > 0 ? '+' : d < 0 ? '−' : '') + Math.abs(d) + ' pts', changeColor: d > 0 ? '#9A3412' : '#1F5E3A' };
+      return { name, w40: cellOf(40, name), w41: cellOf(41, name), w42: cellOf(42, name, true), change: (d > 0 ? '+' : d < 0 ? '−' : '') + Math.abs(d) + ' pts', changeColor: '#1C1B1F' };
     });
     const askedOps = !!(this.state && this.state.askedOps);
     // done vs needed by now, owner and who to ask match the Goals page
@@ -199,7 +209,9 @@ class Component extends DCLogic {
         g('Cut card fees in shops by 15%', 'ok', '−9%', '−15%', 'No flags', '1 of 2 accepted', '31 Dec'),
         g('Sign 5 school partners', 'ok', '3', '5', 'No flags', '1 of 2 accepted', '15 Dec')
     ];
+    const gsOpen = !!(this.state || {}).gsOpen;
     return {
+      gsClass: gsOpen ? '' : 'hf-gs-compact', gsOpen: gsOpen ? 'true' : 'false', gsLabel: gsOpen ? 'Hide owners and dates' : 'Show owners and dates', gsFlip: () => this.setState({ gsOpen: !gsOpen }),
       ok: st === 'normal', isLoading: st === 'loading', isError: st === 'error',
       saved: !!ui.saved && st === 'normal', savedText: ui.saved === 'xls' ? 'Saved "Company reports week 42.xlsx"' : 'Saved "Company reports week 42.pdf" · 3 pages',
       saveXls: () => this.focusTo('cr-saved', { saved: 'xls' }),

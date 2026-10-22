@@ -61,7 +61,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load Goals</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
-          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><a href="Goals.dc.html" style="height: 48px; padding: 0 24px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Try again</a></div>
         </div>
       </section>
     </sc-if>
@@ -92,7 +92,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
               <sc-if value="{{a.asking}}" hint-placeholder-val="{{false}}">
                 <div style="display: flex; flex-direction: column; gap: 6px">
                   <label for="da-note" style="font-size: 13px; font-weight: 600">What should Bopha change?</label>
-                  <textarea id="da-note" rows="2" style="box-sizing: border-box; padding: 12px 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; line-height: 22px; color: #1C1B1F; resize: vertical">Make the date Wed 30 Jun. Shops need the new count first.</textarea>
+                  <textarea id="da-note" rows="2" value="{{a.note}}" onChange="{{a.setNote}}" aria-invalid="{{a.noteBad}}" style="box-sizing: border-box; padding: 12px 16px; border: {{a.noteBorder}}; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; line-height: 22px; color: #1C1B1F; resize: vertical"></textarea><sc-if value="{{a.noteError}}" hint-placeholder-val="{{false}}"><span role="alert" style="font-size: 13px; color: #9A3412">Say what Bopha should change.</span></sc-if>
                 </div>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px">
                   <button type="button" onClick="{{a.send}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send back to Bopha</button>
@@ -164,7 +164,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                 </sc-for>
               </div>
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
-                <sc-if value="{{c.ready}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{c.send}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Send to {{c.to}}</button></sc-if>
+                <sc-if value="{{c.ready}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{c.send}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">{{c.sendLabel}}</button></sc-if>
                 <sc-if value="{{c.notReady}}" hint-placeholder-val="{{true}}"><button type="button" aria-disabled="true" aria-describedby="dn-hint" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #E7E5DF; color: #6E6C73; cursor: not-allowed">Send to {{c.to}}</button><span id="dn-hint" style="font-size: 12px; color: #6E6C73">Pick one first</span></sc-if>
                 <button type="button" onClick="{{c.close}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #4A4950; text-decoration: underline; text-underline-offset: 3px">Not now</button>
               </div>
@@ -182,7 +182,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <section aria-labelledby="gs-title" style="background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
           <h2 id="gs-title" style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em; font-variant-numeric: tabular-nums">5 of 8 on track</h2>
-          <span style="font-size: 15px; line-height: 22px">3 Goals need attention this quarter.</span>
+          <span style="font-size: 15px; line-height: 22px">{{heroLine}}</span>
           <div style="display: flex; flex-wrap: wrap; gap: 6px">
             <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #9A3412"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>2 at risk</span>
             <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #7A1F18"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C0352B"></span>1 off track</span>
@@ -286,7 +286,9 @@ class Component extends DCLogic {
       approve: () => this.focusTo('da-done', { aStep: 'approved' }),
       ask: () => this.focusTo('da-note', { aStep: 'ask' }),
       unask: () => this.focusTo('da-title', { aStep: 'choose' }),
-      send: () => this.focusTo('da-done', { aStep: 'sent' }),
+      note: s.aNote != null ? s.aNote : 'Make the date Wed 30 Jun. Shops need the new count first.', setNote: (e) => this.setState({ aNote: e.target.value, aNoteError: false }),
+      noteError: !!s.aNoteError, noteBad: s.aNoteError ? 'true' : 'false', noteBorder: s.aNoteError ? '2px solid #9A3412' : '0',
+      send: () => (s.aNote != null ? s.aNote : 'x').trim() ? this.focusTo('da-done', { aStep: 'sent', aNoteError: false }) : this.focusTo('da-note', { aNoteError: true }),
       undo: () => this.focusTo('da-open', { aStep: 'closed' }),
       esc: (e) => { if (e.key === 'Escape') this.focusTo('da-open', { aStep: 'closed' }); }
     };
@@ -319,6 +321,7 @@ class Component extends DCLogic {
       closed: cStep === 'closed', panel: cStep === 'choose', done: cStep === 'sent',
       ready: !!cPicked, notReady: !cPicked, doneText: cPicked ? cPicked.done : '',
       to: cPicked && cPicked.key === 'lend' ? 'Bopha and Sreymom' : 'Bopha',
+      sendLabel: cPicked && cPicked.key === 'wait' ? 'Ask again on Mon 2 Nov' : 'Send to ' + (cPicked && cPicked.key === 'lend' ? 'Bopha and Sreymom' : 'Bopha'),
       opts: this.radioGroup('oc', cChoices, s.cPick, 'cPick').map((o) => Object.assign(o, { bg: o.sel ? '#FFF6D6' : '#F4F3EF', fg: '#1C1B1F', sub: '#4A4950', ring: o.sel ? '2px' : '0' })),
       esc: (e) => { if (e.key === 'Escape') this.focusTo('dn-open', { cStep: 'closed' }); },
       open: () => this.focusTo('dn-title', { cStep: 'choose' }),
@@ -341,8 +344,8 @@ class Component extends DCLogic {
     // one plain verdict per Goal: how the result is doing, then what the flag is about
     const verdicts = {
       'Increase in-app sales by 20%': ['Result ahead of pace;', 'launch date at risk (payment keys late, back by Fri 23 Oct).'],
-      'Onboard 40 pilot schools': ['Result behind pace;', 'sign-up flow off track (schools asked for Khmer forms). Waiting for your decision.'],
-      'Cut new-hire setup to 2 days': ['Result behind pace;', 'setup guide has nobody free to write it for 3 weeks. Waiting for your decision.'],
+      'Onboard 40 pilot schools': ['Result behind pace;', 'sign-up flow off track (schools asked for Khmer forms). ' + (b.done && picked ? 'You decided today: ' + picked.name.charAt(0).toLowerCase() + picked.name.slice(1) + '.' : 'Waiting for your decision.')],
+      'Cut new-hire setup to 2 days': ['Result behind pace;', 'setup guide has nobody free to write it for 3 weeks. ' + (c.done && cPicked ? 'You decided today: ' + cPicked.name.charAt(0).toLowerCase() + cPicked.name.slice(1) + '.' : 'Waiting for your decision.')],
       'Cut support reply time to 4 hours': ['Ahead of pace.', 'Flag cleared Thu 15 Oct; support reply templates finished last week.'],
       'Reach 25,000 monthly users': ['Ahead of pace.', 'No flags.'],
       'Keep the app rating at 4.5 or higher': ['On target.', 'No flags. Up from 4.4 when the Goal started; above 4.5 since week 40.'],
@@ -374,7 +377,7 @@ class Component extends DCLogic {
       g('Cut new-hire setup to 2 days', 'risk', '4 days', '2 days', '6 days', '50%', 'From Staff laptop setup guide · Time: not enough people · 3 weeks · now a decision', 'Deliverables 1 of 2 accepted', ['No product'], ['Operations'], '18 Dec', '', 'Bopha Meas', 'Bopha Meas'),
       g('Cut support reply time to 4 hours', 'ok', '5.2h', '4h', '9h', '76%', 'Flag cleared Thu 15 Oct. Support reply templates finished last week.', 'Deliverables 3 of 4 accepted', ['Retail App', 'School App'], ['Operations'], '31 Dec', '', 'Bopha Meas', ''),
       g('Reach 25,000 monthly users', 'ok', '21,400', '25,000', '17,000', '55%', 'No flags.', 'Deliverables 2 of 3 accepted', ['Retail App'], ['Marketing', 'Technical'], '31 Dec', '', 'Kosal Nhem', ''),
-      g('Keep the app rating at 4.5 or higher', 'ok', '4.6', '4.5', '4.4', '100%', 'No flags. Above target since week 38.', 'Deliverables 1 of 1 accepted', ['Retail App'], ['Design'], '31 Dec', '', 'Sreymom Kim', ''),
+      g('Keep the app rating at 4.5 or higher', 'ok', '4.6', '4.5', '4.4', '100%', 'No flags. Above target since week 40.', 'Deliverables 1 of 1 accepted', ['Retail App'], ['Design'], '31 Dec', '', 'Sreymom Kim', ''),
       g('Cut card fees in shops by 15%', 'ok', '−9%', '−15%', '$1,900 a month', '60%', 'No flags.', 'Deliverables 1 of 2 accepted', ['No product'], ['Operations'], '31 Dec', '', 'Bopha Meas', ''),
       g('Sign 5 school partners', 'ok', '3', '5', '0 partners', '60%', 'No flags.', 'Deliverables 1 of 2 accepted', ['School App'], ['Marketing'], '15 Dec', '', 'Kosal Nhem', '')
     ];
@@ -393,6 +396,7 @@ class Component extends DCLogic {
     const st = this.props.state ?? 'normal';
     return {
       dc, a, b, c,
+      heroLine: '3 Goals need attention this quarter.' + (3 - left > 0 ? ' ' + (3 - left) + ' of your 3 decisions made today.' : ''),
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       goals, filters, filtered, noMatch: goals.length === 0,
       listTitle: filtered ? goals.length + ' of 8 Goals' : 'All 8 Goals',
