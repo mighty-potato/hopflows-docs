@@ -202,6 +202,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <span style="min-width: 96px; padding: 4px 10px; border-radius: 999px; background: {{c.bg}}; color: {{c.fg}}; font-size: 12px; font-weight: 600; text-align: center">{{c.kind}}</span>
             <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; line-height: 22px; font-weight: 600">{{c.what}}</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{c.effect}}</span></div>
             <sc-if value="{{c.href}}" hint-placeholder-val="{{true}}"><a href="{{c.href}}" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">{{c.action}}</a></sc-if>
+            <sc-if value="{{c.leave}}" hint-placeholder-val="{{false}}"><button type="button" id="pl-lv-open" onClick="{{c.open}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Decide</button></sc-if>
+            <sc-if value="{{c.deciding}}" hint-placeholder-val="{{false}}"><div onKeyDown="{{c.key}}" style="flex: 1 1 100%; display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border-radius: 16px; background: #F4F3EF"><strong id="pl-lv-title" tabindex="-1" style="font-size: 15px">Approve Dara's leave, Thu 22 – Fri 23 Oct?</strong><span style="font-size: 13px; line-height: 18px; color: #4A4950">{{c.hint}}</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><button type="button" onClick="{{c.approve}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Approve leave</button><a href="LeadHome.dc.html#leave" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; font-weight: 600">Decline, with a reason, on Needs you</a><button type="button" onClick="{{c.close}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: #1C1B1F; text-decoration: underline">Not now</button></div></div></sc-if>
           </div>
         </sc-for>
         <p style="margin: 8px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Once the week is locked, anything decided here shows as a change in the weekly review, never as a miss.</p>
@@ -229,6 +231,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal", "loading", "empty", "error", "saveError"],"default":"normal"},"lock":{"editor":"enum","options":["planning","confirm","locked"],"default":"planning"},"$preview":{"width":1440,"height":1160}}'>
 class Component extends DCLogic {
+  componentDidMount() { try { const v = window.localStorage.getItem('hf-dara-leave'); if (v === 'approved' || v === 'declined') this.setState({ leaveSt: v, out: v === 'approved' ? { tests: true } : {} }); } catch (x) {} }
   // move keyboard focus to the part of the screen that just appeared
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() {
@@ -258,10 +261,11 @@ class Component extends DCLogic {
     const lock = s.lock || this.props.lock || 'planning';
     const moved = !!s.moved, moving = !!s.moving && !moved;
     const out0 = s.out || {};
+    const leaveSt = s.leaveSt || '';
     const adj = { dara: (out0.printer ? -8 : 0) + (out0.tests ? -10 : 0), pisey: out0.photos ? -6 : 0 };
     const people = [
       row('Chenda Lim', 'Lead · +5h from Sophal', 24, 18, 19),
-      row('Dara Sok', 'Leave asked Thu–Fri, counted' + (adj.dara ? ' · ' + (-adj.dara) + 'h moved out' : ''), 16, 12, 22 + adj.dara),
+      row('Dara Sok', (leaveSt === 'declined' ? 'Leave declined' : leaveSt === 'approved' ? 'Leave approved Thu–Fri' : 'Leave asked Thu–Fri, counted') + (adj.dara ? ' · ' + (-adj.dara) + 'h moved out' : ''), leaveSt === 'declined' ? 32 : 16, leaveSt === 'declined' ? 24 : 12, 22 + adj.dara),
       row('Pisey Chea', 'Technical 60% · +8h from Sophal' + (adj.pisey ? ' · 6h moved out' : ''), 19, 14, 17 + adj.pisey),
       row('Rithy Heng', '', 32, 24, 29),
       row('Sophal Ouk', 'Last day Fri 23 Oct · his week goes to the handover, no new work', 32, 24, 0, 'leaving'),
@@ -273,7 +277,9 @@ class Component extends DCLogic {
     const tone = { leave: { bg: '#F4F3EF', fg: '#1C1B1F' }, handover: { bg: '#C9DDE8', fg: '#33454F' }, moved: { bg: '#DCEFE2', fg: '#1F5E3A' } };
     const change = (kind, t, what, effect, action, href) => Object.assign({ kind, what, effect, action: action || '', href: href || '' }, tone[t]);
     const changes = [
-      change('Leave', 'leave', "Dara asks for Thu 22 – Fri 23 Oct · waiting for you", "Counted: Dara's time to plan is 12h, not 24h. " + (out0.tests ? 'Menu sync job tests is already in week 44, so only the decision is left.' : 'Menu sync job tests (10h, due Thu 22) still has to move.'), 'Decide', 'LeadHome.dc.html#leave'),
+      Object.assign(change('Leave', 'leave', leaveSt === 'approved' ? 'Dara\'s leave Thu 22 – Fri 23 Oct · approved' : leaveSt === 'declined' ? 'Dara\'s leave Thu 22 – Fri 23 Oct · declined' : 'Dara asks for Thu 22 – Fri 23 Oct · waiting for you', leaveSt === 'approved' ? 'Dara has 12h to plan. ' + (out0.tests ? 'Menu sync job tests is in week 44.' : 'Menu sync job tests (10h, due Thu 22) still has to move.') : leaveSt === 'declined' ? 'Dara has her full 24h to plan again.' : "Counted: Dara's time to plan is 12h, not 24h. " + (out0.tests ? 'Menu sync job tests is already in week 44, so only the decision is left.' : 'Menu sync job tests (10h, due Thu 22) still has to move.'), '', ''), { leave: !leaveSt && !s.lvOpen, deciding: !leaveSt && !!s.lvOpen, hint: out0.tests ? 'Menu sync job tests is already in week 44, so Dara fits: 12h of 12h. Dara is told right away; the team sees the days as Away, never the reason.' : 'Menu sync job tests moves to week 44 with it, so Dara fits: 12h of 12h. Dara is told right away; the team sees the days as Away, never the reason.',
+        open: () => this.focusTo('pl-lv-title', { lvOpen: true }), close: () => this.focusTo('pl-lv-open', { lvOpen: false }), key: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('pl-lv-open', { lvOpen: false }); } },
+        approve: () => { try { window.localStorage.setItem('hf-dara-leave', 'approved'); } catch (x) {} this.focusTo('pl-list-note', { leaveSt: 'approved', lvOpen: false, out: Object.assign({}, s.out, { tests: true }), listNote: 'Dara\'s leave is approved and Menu sync job tests is in week 44. Dara: 12h planned of 12h to plan, Balanced.' }); } }),
       change('Handover', 'handover', "Sophal's work moves on Mon 19 Oct · step 2 of 3", 'Counted: 13h moves, 8h to Pisey and 5h to Chenda. Sophal keeps nothing.', 'Continue', 'Handover.dc.html')
     ];
     if (moved) changes.push(change(s.movedLocked ? 'Changed' : 'Moved', 'moved', "10h moved off Vannak's week", 'Shop tablet updates and Printer setup guide → week 44.' + (s.movedLocked ? ' Made after locking, so the weekly review shows it as a change.' : '')));

@@ -111,7 +111,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <sc-if value="{{d.why}}" hint-placeholder-val="{{true}}"><p style="margin: 0; font-size: 13px; line-height: 18px; color: #4A4950">{{d.why}}</p></sc-if>
         <sc-if value="{{d.saysFull}}" hint-placeholder-val="{{false}}">
           <div style="display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border-radius: 16px; background: #F4F3EF">
-            <span style="font-size: 13px; line-height: 18px"><strong>Vannak says Full</strong>, but his planned work says Room. Ask what isn't showing.</span>
+            <span style="font-size: 13px; line-height: 18px"><strong>Vannak says Full</strong>: "covering the shop till". His planned work says Room, so the till time isn't in HopFlows yet. Ask how many hours it takes.</span>
             <sc-if value="{{replyOpen}}" hint-placeholder-val="{{true}}">
               <label for="wl-reply" style="font-size: 12px; font-weight: 600">Reply to Vannak</label>
               <input id="wl-reply" type="text" value="{{reply}}" onChange="{{setReply}}" aria-invalid="{{replyBad}}" aria-describedby="wl-reply-err" placeholder="What's taking your time that isn't in HopFlows?" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 1px solid #6E6C73; border-radius: 12px; background: #FFFFFF; font-family: inherit; font-size: 15px">

@@ -124,17 +124,17 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
           <sc-for list="{{steps}}" as="st">
             <label style="display: flex; align-items: center; gap: 12px; min-height: 48px; border-bottom: {{st.line}}; font-size: 15px; color: {{st.fg}}"><input id="{{st.id}}" type="checkbox" checked="{{st.done}}" disabled="{{st.locked}}" onChange="{{st.toggle}}" style="width: 22px; height: 22px; accent-color: #1C1B1F"><span style="text-decoration: {{st.deco}}">{{st.t}}</span></label>
           </sc-for>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px">
+          <sc-if value="{{notReviewer}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px">
             <label for="td-step-new" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">New step</label>
             <input id="td-step-new" type="text" value="{{stepDraft}}" onChange="{{setStepDraft}}" onKeyDown="{{stepEnter}}" placeholder="Add a step" style="flex: 1 1 200px; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F">
             <sc-if value="{{stepError}}" hint-placeholder-val="{{false}}"><span role="alert" style="flex: 1 1 100%; font-size: 13px; color: #9A3412">Type the step first.</span></sc-if>
             <button type="button" onClick="{{addStep}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Add</button>
-          </div>
+          </div></sc-if>
         </section>
 
         <section aria-label="Notes" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
           <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Notes</h2>
-          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">One endpoint that takes the cart, applies coupons and returns the final total for the payment page. Done means: tests pass and Chenda has checked it against the payment provider's sandbox.</p>
+          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">One endpoint that takes the cart, applies coupons and returns the final total for the payment page. Done means: tests pass and it works against the payment provider's sandbox, checked by Chenda.</p>
         </section>
 
         <section aria-label="Activity" style="background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">

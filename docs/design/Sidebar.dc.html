@@ -153,7 +153,7 @@ body{margin:0}
   </div>
 </nav>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"needs":{"editor":"text","default":"9"},"persona":{"editor":"enum","options":["employee","lead","leader","admin"],"default":"employee"},"current":{"editor":"text","default":"today"},"$preview":{"width":232,"height":1010}}'>
+<script type="text/x-dc" data-dc-script data-props='{"needs":{"editor":"text","default":"10"},"persona":{"editor":"enum","options":["employee","lead","leader","admin"],"default":"employee"},"current":{"editor":"text","default":"today"},"$preview":{"width":232,"height":1010}}'>
 class Component extends DCLogic {
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
@@ -183,7 +183,7 @@ class Component extends DCLogic {
       toggleMine: () => this.setState({ mineOpen: !(this.state && this.state.mineOpen) }),
       n,
       me: people[persona] || people.employee,
-      needsCount: this.props.needs ?? '9',
+      needsCount: this.props.needs ?? String(10 - (((st) => { try { return window.localStorage.getItem('hf-dara-leave') ? 1 : 0; } catch (e) { return 0; } })())),
       isLead: persona === 'lead',
       isLeader: persona === 'leader',
       isAdmin: persona === 'admin',

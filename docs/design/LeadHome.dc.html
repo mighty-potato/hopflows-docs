@@ -200,7 +200,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
-  componentDidMount() { try { if (window.location.hash === '#leave') this.focusTo('lv-title', { sheet: true }); } catch (e) {} }
+  componentDidMount() { try { const v = window.localStorage.getItem('hf-dara-leave'); if (v === 'approved') this.setState({ approved: true }); else if (v === 'declined') this.setState({ declined: true, why: window.localStorage.getItem('hf-dara-leave-why') || '' }); else if (window.location.hash === '#leave') this.focusTo('lv-title', { sheet: true }); } catch (e) {} }
   // move keyboard focus to the part of the screen that just appeared
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() {
@@ -226,14 +226,14 @@ class Component extends DCLogic {
       decline: () => this.focusTo('dc-title', { declining: true }),
       declineKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('lv-decline', { declining: false }); } },
       sheetKey: (e) => { if (e.key === 'Escape') { e.preventDefault(); this.focusTo('lv-open', { sheet: false }); } }, why: s.why || '', setWhy: (e) => this.setState({ why: e.target.value, whyError: false }), whyError: !!s.whyError, whyBad: s.whyError ? 'true' : 'false', whyBorder: s.whyError ? '2px solid #9A3412' : '0',
-      confirmDecline: () => (s.why || '').trim() ? this.focusTo('lv-done', { declined: true, declining: false }) : this.focusTo('dc-why', { whyError: true }),
+      confirmDecline: () => (s.why || '').trim() ? (() => { try { window.localStorage.setItem('hf-dara-leave', 'declined'); window.localStorage.setItem('hf-dara-leave-why', s.why.trim()); } catch (x) {} this.focusTo('lv-done', { declined: true, declining: false }); })() : this.focusTo('dc-why', { whyError: true }),
       cancelDecline: () => this.focusTo('lv-decline', { declining: false }),
       give: pick(!later), later: pick(later),
       pickGive: () => this.setState({ choice: 'give' }), pickLater: () => this.setState({ choice: 'later' }),
       approve: () => this.focusTo('lv-title', { sheet: true }),
-      confirm: () => this.focusTo('lv-done', { approved: true, sheet: false }),
+      confirm: () => { try { window.localStorage.setItem('hf-dara-leave', 'approved'); } catch (x) {} this.focusTo('lv-done', { approved: true, sheet: false }); },
       cancel: () => this.focusTo('lv-open', { sheet: false }),
-      undo: () => this.focusTo('lv-open', { approved: false, declined: false })
+      undo: () => { try { window.localStorage.removeItem('hf-dara-leave'); } catch (x) {} this.focusTo('lv-open', { approved: false, declined: false }); }
     };
     const hc = s.hc || 'chase';
     const HC = [['chase', 'I\'ll chase the provider'], ['pisey', 'Pisey takes it Monday'], ['wait', 'Wait for the keys']];
@@ -263,7 +263,7 @@ class Component extends DCLogic {
       leaveDone: later ? 'Menu sync job tests moves to week 44, and Dara is told now.' : 'Menu sync job tests goes to Pisey, and Dara and Pisey are told now.',
       waitingLine: (s.helped ? (x) => x.replace('1 Need help, ', '') : (x) => x)(approved || declined ? '4 requests to sort, 1 Need help, 1 review, 1 handover, 1 routine gap and 1 week status.' : '4 requests to sort, 1 Need help, 1 review, 1 leave request, 1 handover, 1 routine gap and 1 week status.'),
       needs: [
-        Object.assign(need('Need help', 'help', 'Payment webhook retries is blocked', "Sophal Ouk · 25 min ago · waiting on the provider's keys · Launch In-App Ordering v1", '', 'x'), help),
+        Object.assign(need('Need help', 'help', 'Payment webhook retries is blocked', "Sophal Ouk · since 16:05 · waiting on the provider's keys · Launch In-App Ordering v1", '', 'x'), help),
         need('New requests', 'plain', '4 waiting in the Incoming Queue', 'Oldest: 2 days · 3 match work you already have', 'Sort', 'Queue.dc.html'),
         need('Review', 'plain', 'Build the checkout API', 'Dara Sok · sent for review 15:10', 'Review', 'TaskDetail.dc.html#review'),
         need('Leave', 'plain', 'Dara asks for Thu 22 – Fri 23 Oct', 'Annual · week 43 · 2 tasks due on those days', 'Check and approve', '', 'Decline'),

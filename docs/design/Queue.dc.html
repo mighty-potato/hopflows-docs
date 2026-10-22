@@ -77,13 +77,19 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
       <section aria-label="{{listLabel}}" style="grid-column: span 5; display: flex; flex-direction: column; gap: 8px; min-width: 0">
         <sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
-          <button type="button" id="{{r.domId}}" aria-pressed="{{r.selected}}" tabindex="{{r.tab}}" onClick="{{r.pick}}" onKeyDown="{{r.key}}" style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 0; border-radius: 22px; background: {{r.bg}}; color: {{r.fg}}; font-family: inherit; text-align: left; cursor: pointer">
+<sc-if value="{{r.isBtn}}" hint-placeholder-val="{{true}}">          <button type="button" id="{{r.domId}}" aria-pressed="{{r.selected}}" tabindex="{{r.tab}}" onClick="{{r.pick}}" onKeyDown="{{r.key}}" style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 0; border-radius: 22px; background: {{r.bg}}; color: {{r.fg}}; font-family: inherit; text-align: left; cursor: pointer">
             <span style="display: flex; align-items: center; gap: 8px; width: 100%">
               <span style="flex: 1; font-size: 15px; line-height: 22px; font-weight: 600">{{r.title}}</span>
               <sc-if value="{{r.urgent}}" hint-placeholder-val="{{false}}"><span style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>Seems urgent</span></sc-if>
             </span>
             <span style="font-size: 12px; line-height: 16px; opacity: 0.8">{{r.meta}}</span>
-          </button>
+          </button></sc-if><sc-if value="{{r.isItem}}" hint-placeholder-val="{{false}}">          <div role="listitem" style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 0; border-radius: 22px; background: {{r.bg}}; color: {{r.fg}}; font-family: inherit; text-align: left; ">
+            <span style="display: flex; align-items: center; gap: 8px; width: 100%">
+              <span style="flex: 1; font-size: 15px; line-height: 22px; font-weight: 600">{{r.title}}</span>
+              <sc-if value="{{r.urgent}}" hint-placeholder-val="{{false}}"><span style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 12px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>Seems urgent</span></sc-if>
+            </span>
+            <span style="font-size: 12px; line-height: 16px; opacity: 0.8">{{r.meta}}</span>
+          </div></sc-if>
         </sc-for>
         <sc-if value="{{listEmpty}}" hint-placeholder-val="{{false}}"><p style="margin: 0; padding: 18px 20px; border-radius: 22px; background: #FFFFFF; font-size: 15px; color: #4A4950">{{listEmptyText}}</p></sc-if>
       </section>
@@ -168,9 +174,11 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             </div>
           </div>
           <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-due" style="font-size: 13px; font-weight: 600">Due</label><select id="q-due" onChange="{{setDue}}" aria-describedby="q-week-note" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><sc-for list="{{dues}}" as="d" hint-placeholder-count="6"><option value="{{d.v}}" selected="{{d.sel}}">{{d.v}}</option></sc-for></select></div>
-          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-del" style="font-size: 13px; font-weight: 600">Deliverable <span style="font-weight: 400; color: #6E6C73">· optional</span></label><select id="q-del" onChange="{{setDel}}" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>None (standalone)</option><option>Launch In-App Ordering v1</option><option>Store sales dashboard v1</option></select></div>
+          
         </div>
 
+        <details class="hf-disclosure"><summary>More: Deliverable and checklist · optional</summary><div class="hf-disclosure-content" style="display: flex; flex-direction: column; gap: 14px">
+<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><label for="q-del" style="font-size: 13px; font-weight: 600">Deliverable <span style="font-weight: 400; color: #6E6C73">· optional</span></label><select id="q-del" onChange="{{setDel}}" style="height: 48px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>None (standalone)</option><option>Launch In-App Ordering v1</option><option>Store sales dashboard v1</option></select></div>
         <div style="display: flex; flex-direction: column; gap: 8px">
           <span id="q-steps" style="font-size: 13px; line-height: 18px; font-weight: 600">Checklist <span style="font-weight: 400; color: #6E6C73">· optional · the owner can change these</span></span>
           <ul aria-labelledby="q-steps" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px">
@@ -189,6 +197,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </div>
         </div>
 
+        </div></details>
         <div style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border-radius: 22px; background: #F4F3EF">
           <span id="q-week-note" style="font-size: 13px; font-weight: 600">{{weekNote}}</span>
           <label for="q-why" style="font-size: 12px; color: #4A4950">Moving one of the owner's own tasks to make room? Say which and why <span>· optional</span></label>
@@ -233,7 +242,7 @@ class Component extends DCLogic {
     const ui = this.state || {};
     const st = this.props.state ?? 'normal';
     const REQ = [
-      { id: 'coupon', title: 'Checkout fails with the 10% coupon', from: 'Dara Sok', fromFirst: 'Dara', meta: 'Dara Sok · app · 12 min · 1 photo · same as “Coupon breaks payment at checkout”', byline: 'From Dara Sok · app · 12 min ago · marked Seems urgent · kind: Bug', urgent: true, body: 'Saw it again at the Toul Kork till this morning. A customer couldn\'t pay with the 10% coupon.', photo: 'till-coupon.jpg · attached by Dara', match: 'Coupon breaks payment at checkout', matchMeta: 'Task · In progress · Rithy · added Wed', mergeText: 'Dara\'s photo and note are added to Rithy\'s task Coupon breaks payment at checkout. No new work is added, so nobody\'s week changes.', mergeTell: 'Dara is told in the app: “Rithy is already fixing this. Your photo was added to the task.”', mergeBtn: 'Merge into Rithy\'s task', mergeDone: 'Merged into Rithy\'s task. Dara is told.', steps: ['Reproduce it with the 10% coupon', 'Fix the total sent to the payment provider', 'Test on the Toul Kork till'], size: 'small' },
+      { id: 'coupon', title: 'Checkout fails with the 10% coupon', from: 'Dara Sok', fromFirst: 'Dara', meta: 'Dara Sok · app · sent 13:58 · 1 photo · same as “Coupon breaks payment at checkout”', byline: 'From Dara Sok · app · sent today at 13:58 · marked Seems urgent · kind: Bug', urgent: true, body: 'Saw it again at the Toul Kork till this morning. A customer couldn\'t pay with the 10% coupon.', photo: 'till-coupon.jpg · attached by Dara', match: 'Coupon breaks payment at checkout', matchMeta: 'Task · In progress · Rithy · added Wed', mergeText: 'Dara\'s photo and note are added to Rithy\'s task Coupon breaks payment at checkout. No new work is added, so nobody\'s week changes.', mergeTell: 'Dara is told in the app: “Rithy is already fixing this. Your photo was added to the task.”', mergeBtn: 'Merge into Rithy\'s task', mergeDone: 'Merged into Rithy\'s task. Dara is told.', steps: ['Reproduce it with the 10% coupon', 'Fix the total sent to the payment provider', 'Test on the Toul Kork till'], size: 'small' },
       { id: 'printer', title: 'Receipt printer offline at Toul Kork', from: 'Shop team', fromFirst: 'the shop team', meta: 'Shop team · app · 1 h · same problem as “Fix receipt printer driver”', byline: 'From the shop team · app · 1 hour ago · kind: Bug', urgent: false, body: 'The printer at the Toul Kork shop shows offline since opening. Receipts are being written by hand.', photo: '', match: 'Fix receipt printer driver', matchMeta: 'Task · In progress, Blocked on the vendor · Dara · added Tue', mergeText: 'The shop team\'s note is added to Dara\'s task Fix receipt printer driver, which is waiting on the vendor. No new work is added.', mergeTell: 'The shop team is told: “Dara is on it and waiting on the vendor.”', mergeBtn: 'Merge into Dara\'s task', mergeDone: 'Merged into Dara\'s task. The shop team is told.', steps: [], size: 'small' },
       { id: 'riel', title: 'Show prices in riel and dollars', from: 'Pisey Chea', fromFirst: 'Pisey', meta: 'Pisey Chea · from a meeting: Product sync · yesterday · new', byline: 'From Pisey Chea · from a meeting: Product sync · yesterday · kind: Feature', urgent: false, body: 'Shops asked for both prices on the menu and the receipt. Rate set once a day by the office.', photo: '', match: '', mergeTell: '', steps: ['Agree where the daily rate comes from', 'Show both prices on the menu', 'Show both on the receipt'], size: 'medium' },
       { id: 'export', title: 'Export sales by store', from: 'Sokha Meng', fromFirst: 'Sokha', meta: 'Sokha Meng · app · 2 days · already planned as “Store sales export”', byline: 'From Sokha Meng · app · 2 days ago · kind: Report', urgent: false, body: 'Need a monthly file of sales per store for the board pack.', photo: '', match: 'Store sales export', matchMeta: 'Task · To do · moving from Sophal to Pisey · due Wed 21', mergeText: 'Sokha\'s note is added to Store sales export, which Pisey takes over from Sophal on Monday. No new work is added.', mergeTell: 'Sokha is told: “Already planned. Pisey delivers it Wed 21 Oct.”', mergeBtn: 'Merge into Store sales export', mergeDone: 'Merged into Store sales export. Sokha is told.', steps: [], size: 'small' }
@@ -264,7 +273,7 @@ class Component extends DCLogic {
     const rows = list.map((r, i) => {
       const on = view === 'new' && r.id === curId;
       const go = (d) => { const n = list[(i + d + list.length) % list.length]; if (view === 'new') this.focusTo('q-r-' + n.id, { cur: n.id, dec: null }); else this.focusTo('q-r-' + n.id, {}); };
-      return { domId: 'q-r-' + r.id, title: r.title, meta: r.meta, urgent: !!r.urgent && view === 'new', selected: on ? 'true' : 'false', tab: (view === 'new' ? on : i === 0) ? '0' : '-1', bg: on ? '#1C1B1F' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1C1B1F',
+      return { isBtn: view === 'new', isItem: view !== 'new', domId: 'q-r-' + r.id, title: r.title, meta: r.meta, urgent: !!r.urgent && view === 'new', selected: on ? 'true' : 'false', tab: (view === 'new' ? on : i === 0) ? '0' : '-1', bg: on ? '#1C1B1F' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1C1B1F',
         pick: () => { if (view === 'new') this.focusTo('sort-title', { cur: r.id, dec: null, steps: null, closeError: false, ownerError: false }); },
         key: (e) => { if (e.key === 'ArrowDown') { e.preventDefault(); go(1); } else if (e.key === 'ArrowUp') { e.preventDefault(); go(-1); } } };
     });
@@ -290,9 +299,9 @@ class Component extends DCLogic {
     const addH = SZ[ui.size || cur.size];
     const wkName = { w42: 'this week', w43: 'week 43', w44: 'week 44', none: '' }[wk];
     const base = LOADS[wk] || LOADS.w43.map(([id, n]) => [id, n, null]);
-    const OWN = [['none', 'No owner yet', wk === 'none' ? 'waits in Ready to plan' : 'waits in Ready to plan for ' + wkName, false]].concat(base.map(([id, n, pl, tp, av, x]) => pl == null ? [id, n, wkName + ' isn\'t planned yet', false] : [id, n, wkName + ' after this ' + (pl + addH) + 'h of ' + tp + 'h · ' + wordOf(pl + addH, tp, av) + x, pl + addH > av, pl + addH, tp, av])).concat([['sophal', 'Sophal Ouk', 'leaving Fri 23 · no new work'], ['sreymom', 'Sreymom Ly', 'away until 30 Oct']]);
+    const OWN = [['none', 'No owner yet', wk === 'none' ? 'waits in Ready to plan' : 'waits in Ready to plan for ' + wkName, false]].concat(base.map(([id, n, pl, tp, av, x]) => pl == null ? [id, n, wkName + ' isn\'t planned yet', false] : [id, n, wkName + ' after this ' + (pl + addH) + 'h of ' + tp + 'h · ' + wordOf(pl + addH, tp, av) + (pl + addH > av ? ', ' + av + 'h available' : '') + x, pl + addH > av, pl + addH, tp, av])).concat([['sophal', 'Sophal Ouk', 'leaving Fri 23 · no new work'], ['sreymom', 'Sreymom Ly', 'away until 30 Oct']]);
     const allOver = LOADS[wk] ? base.every(([id, n, pl, tp, av]) => pl + addH > tp) : false;
-    const owner = ui.owner || '';
+    const owner = ui.owner != null ? ui.owner : (allOver ? 'none' : '');
     const owners = OWN.map(([id, n, w]) => ({ id, label: n + ' · ' + w, off: id === 'sophal' || id === 'sreymom', sel: owner === id }));
     const ownRow = OWN.find((o) => o[0] === owner);
     const overWarn = ownRow && ownRow[3] && ownRow[4] != null ? ownRow[1].split(' ')[0] + ' would have ' + ownRow[4] + 'h planned, past ' + ownRow[6] + 'h available. Pick someone else, or make the task smaller.' : '';

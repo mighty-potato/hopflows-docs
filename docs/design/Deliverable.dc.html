@@ -176,6 +176,7 @@ class Component extends DCLogic {
     const pill = pillCur.level === 'ok' ? { t: 'On track', bg: '#DCEFE2', fg: '#1F5E3A', dot: '#2E7D4F' } : { t: LV[pillCur.level][0] + (ui.savedCur && (ui.savedCur.level !== SAVED0.level || ui.savedCur.reason !== SAVED0.reason) ? ' · set today' : ' · 7 days'), bg: LV[pillCur.level][1], fg: LV[pillCur.level][2], dot: LV[pillCur.level][3] };
     const save = () => {
       if (!note.trim()) return this.focusTo('flag-note', { noteError: true });
+      if (level === cur.level && reason === cur.reason && note.trim() === cur.note && date === cur.date) return this.focusTo('flag-done', { saved: true, savedText: 'Nothing changed. The flag stays ' + LV[cur.level][0] + (cur.level === 'ok' ? '' : ' · ' + rname) + '.', noteError: false });
       const next = { level, reason, note: note.trim(), date };
       const text = level === 'ok' ? 'Flag cleared. Sokha sees On track on Increase in-app sales by 20%, with your note: "' + note.trim() + '"' : 'Saved. Sokha sees ' + LV[level][0] + ' · ' + rname + (date ? ', back on track by ' + date : '') + ' on Increase in-app sales by 20%.';
       this.focusTo('flag-done', { prev: ui.savedCur || cur, savedCur: next, cur: next, saved: true, savedText: text, level: null, reason: null, note: null, date: null, noteError: false });
