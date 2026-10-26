@@ -34,10 +34,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="display: flex; flex-direction: column; gap: 6px">
         <span style="font-size: 12px; color: #6E6C73">Week 42 · 12–16 Oct</span>
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">My tasks</h1>
-        <p class="hf-task-intro">Your full task list, with your Top 3 highlighted.</p>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
-        <a href="AddWork.dc.html" class="hf-add-task">Add Work</a>
         <div role="radiogroup" aria-label="View" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
           <sc-for list="{{views}}" as="v" hint-placeholder-count="3">
             <button type="button" role="radio" aria-checked="{{v.on}}" onClick="{{v.pick}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{v.bg}}; color: {{v.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{v.name}}</button>
@@ -51,7 +49,6 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div class="hf-task-filters" role="group" aria-label="Filter tasks">
         <sc-for list="{{filters}}" as="f" hint-placeholder-count="4"><button type="button" aria-label="{{f.label}}: {{f.count}} tasks" aria-pressed="{{f.selected}}" onClick="{{f.pick}}">{{f.label}} <span>{{f.count}}</span></button></sc-for>
       </div>
-      <p class="hf-task-result-count">{{visibleCount}} of {{totalCount}} tasks · {{openCount}} open · {{doneCount}} done</p>
     </section>
     <sc-if value="{{noResults}}" hint-placeholder-val="{{false}}"><div class="hf-task-empty"><h2>No matching tasks</h2><p>Try another name or return to all your tasks.</p><button type="button" onClick="{{resetFilters}}">Clear search and filters</button></div></sc-if>
     <sc-if value="{{hasNotice}}" hint-placeholder-val="{{false}}"><div class="hf-task-feedback" role="status"><span>{{notice}}</span><sc-if value="{{canUndo}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{undo}}">Undo</button></sc-if></div></sc-if>
@@ -65,15 +62,15 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <sc-for list="{{col.cards}}" as="card" hint-placeholder-count="2">
               <article class="hf-task-row" style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-top: 1px solid #F0EEE9">
                 <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px">
-                  <div style="flex: 1 1 240px; min-width: 0"><a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{card.title}}</a><sc-if value="{{card.topThree}}" hint-placeholder-val="{{false}}"><span class="hf-priority-tag">Top 3</span></sc-if><p style="margin: 4px 0 0; font-size: 13px; line-height: 18px; color: #4A4950">{{card.where}} · {{card.size}}</p><span class="hf-task-due">Due {{card.due}}</span></div>
+                  <div style="flex: 1 1 240px; min-width: 0"><a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{card.title}}</a><sc-if value="{{card.topThree}}" hint-placeholder-val="{{false}}"><span role="img" aria-label="Top 3 priority" title="Top 3 priority" style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-left: 8px; vertical-align: -4px; border-radius: 999px; background: #F7C83A; color: #1C1B1F"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path></svg></span></sc-if><p style="margin: 2px 0 0; font-size: 13px; line-height: 18px; color: #6E6C73">Due {{card.due}}</p></div>
                   <sc-if value="{{card.confidential}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px">Confidential</span></sc-if>
                   <sc-if value="{{card.hasAction}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{card.primary}}" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{card.action}}</button></sc-if>
-                  <details class="hf-status-menu"><summary aria-label="Update status: {{card.title}}">Update status</summary><div class="hf-status-options">
+                  <sc-if value="{{card.noAction}}" hint-placeholder-val="{{false}}"><details class="hf-status-menu"><summary aria-label="Update status: {{card.title}}">Update status</summary><div class="hf-status-options">
 <sc-if value="{{card.canStart}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{card.start}}">Start</button></sc-if>
 <sc-if value="{{card.canFinish}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{card.finish}}">{{card.finishLabel}}</button></sc-if>
 <sc-if value="{{card.canReopen}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{card.start}}">Back to In progress</button></sc-if>
 <sc-if value="{{card.isBlocked}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{card.unblock}}">Unblock</button></sc-if>
-</div></details>
+</div></details></sc-if>
                 </div>
                 <sc-if value="{{card.isBlocked}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; padding: 6px 12px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 13px">Blocked · {{card.blockerNote}}</span></sc-if>
                 <sc-if value="{{card.isBlocked}}" hint-placeholder-val="{{false}}"><details class="hf-disclosure"><summary>Update blocker</summary><div class="hf-disclosure-content">
@@ -89,37 +86,37 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isBoard}}" hint-placeholder-val="{{false}}">
       <div style="overflow-x: auto; padding-bottom: 12px">
-        <div class="hf-board" style="display: grid; grid-template-columns: repeat(4, minmax(240px, 1fr)); gap: 12px; align-items: start">
+        <div class="hf-board" style="display: grid; grid-template-columns: repeat(4, minmax(250px, 1fr)); gap: 12px; align-items: stretch">
           <sc-for list="{{columns}}" as="col" hint-placeholder-count="4">
-            <section aria-label="{{col.name}}" style="background: #FFFFFF; border-radius: 28px; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
-              <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600">{{col.name}} · {{col.count}}</h2>
+            <section aria-label="{{col.name}}, {{col.count}} tasks" style="background: {{col.bg}}; color: {{col.fg}}; border-radius: 28px; padding: 12px; display: flex; flex-direction: column; gap: 8px; min-width: 0; min-height: 360px; box-sizing: border-box">
+              <h2 style="margin: 0; padding: 8px 8px 6px; display: flex; align-items: center; gap: 10px; font-size: 15px; line-height: 22px; font-weight: 600">
+                <span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 999px; background: {{col.dot}}; flex-shrink: 0"></span>
+                <span style="flex: 1">{{col.name}}</span>
+                <span style="min-width: 28px; height: 24px; padding: 0 8px; box-sizing: border-box; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{col.count}}</span>
+              </h2>
               <sc-for list="{{col.cards}}" as="card" hint-placeholder-count="2">
-                <article style="display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 22px; background: #F4F3EF">
-                  <a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{card.title}}</a><sc-if value="{{card.topThree}}" hint-placeholder-val="{{false}}"><span class="hf-priority-tag">Top 3</span></sc-if>
-                  <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{card.where}} · {{card.due}} · {{card.size}}</span>
-                  <sc-if value="{{card.isBlocked}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; color: #9A3412">Blocked · {{card.blockerNote}}</span></sc-if>
-                  <details class="hf-status-menu"><summary aria-label="Update status: {{card.title}}">Update status</summary><div class="hf-status-options">
-<sc-if value="{{card.canStart}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{card.start}}">Start</button></sc-if>
-<sc-if value="{{card.canFinish}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{card.finish}}">{{card.finishLabel}}</button></sc-if>
-<sc-if value="{{card.canReopen}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{card.start}}">Back to In progress</button></sc-if>
-<sc-if value="{{card.isBlocked}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{card.unblock}}">Unblock</button></sc-if>
-</div></details><sc-if value="{{card.isBlocked}}" hint-placeholder-val="{{false}}"><details class="hf-disclosure"><summary>Update blocker</summary><div class="hf-disclosure-content">
-<label for="blocker-{{card.id}}" style="font-size: 13px">What are you waiting on?</label><textarea value="{{card.blockerNote}}" id="blocker-{{card.id}}" rows="2" onChange="{{card.editBlocker}}" style="width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #6E6C73; border-radius: 12px; font: inherit"></textarea>
-<button type="button" onClick="{{card.saveBlocker}}" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font: inherit; cursor: pointer">Save update for Chenda</button>
-</div></details></sc-if>
+                <article style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: 20px; background: {{card.boardBg}}; color: #1C1B1F">
+                  <sc-if value="{{card.isBlocked}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; font-weight: 600; color: #9A3412"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>Blocked · {{card.blockerNote}}</span></sc-if>
+                  <div style="display: flex; align-items: flex-start; gap: 8px"><a href="TaskDetail.dc.html" style="flex: 1; min-width: 0; font-size: 15px; line-height: 21px; font-weight: 600; text-decoration: none; color: {{card.boardTitleFg}}">{{card.title}}</a><sc-if value="{{card.topThree}}" hint-placeholder-val="{{false}}"><span role="img" aria-label="Top 3 priority" title="Top 3 priority" style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex-shrink: 0; border-radius: 999px; background: #F7C83A; color: #1C1B1F"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path></svg></span></sc-if></div>
+                  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px">
+                    <span style="height: 24px; padding: 0 10px; border-radius: 999px; background: {{card.dueBg}}; color: {{card.dueFg}}; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; white-space: nowrap">{{card.dueLabel}}</span>
+                    <sc-if value="{{card.confidential}}" hint-placeholder-val="{{false}}"><span style="height: 24px; padding: 0 10px; border-radius: 999px; background: #F4F3EF; color: #4A4950; font-size: 12px; display: inline-flex; align-items: center; gap: 4px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Private</span></sc-if>
+                    <sc-if value="{{card.hasAction}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{card.primary}}" aria-label="{{card.action}}: {{card.title}}" style="margin-left: auto; height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{card.btnBg}}; color: {{card.btnFg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{card.action}}</button></sc-if>
+                  </div>
                 </article>
               </sc-for>
+              <sc-if value="{{col.empty}}" hint-placeholder-val="{{false}}"><p style="margin: 0; padding: 20px 12px; border-radius: 20px; border: 2px dashed rgba(28,27,31,0.15); font-size: 13px; text-align: center; color: #4A4950">Nothing here</p></sc-if>
             </section>
           </sc-for>
         </div>
       </div>
-      <p style="margin: 0; font-size: 13px; line-height: 18px; color: #4A4950">Use each card’s Update status menu with a keyboard or touch. Work that needs a check goes to Review before Done.</p>
+      <p style="margin: 0; font-size: 13px; line-height: 18px; color: #4A4950">Blocked tasks are tinted orange. Open a task to change its status or update a blocker. Work that needs a check goes to Review before Done.</p>
     </sc-if>
     <sc-if value="{{isTable}}" hint-placeholder-val="{{false}}">
       <section aria-label="My tasks table" style="background: #FFFFFF; border-radius: 28px; padding: 16px 20px; min-width: 0; overflow-x: auto">
         <table style="width: 100%; min-width: 820px; border-collapse: collapse; font-size: 13px; text-align: left">
           <thead><tr><th scope="col" style="padding: 12px">Task</th><th scope="col" style="padding: 12px">Status</th><th scope="col" style="padding: 12px">Due</th><th scope="col" style="padding: 12px">Size</th><th scope="col" style="padding: 12px">Deliverable</th><th scope="col" style="padding: 12px">This week</th><th scope="col" style="padding: 12px">Actions</th></tr></thead>
-          <tbody><sc-for list="{{rows}}" as="r" hint-placeholder-count="9"><tr style="border-top: 1px solid #F0EEE9; vertical-align: top"><th scope="row" style="padding: 12px; font-weight: 600"><a href="TaskDetail.dc.html">{{r.title}}</a><sc-if value="{{r.topThree}}" hint-placeholder-val="{{false}}"><span class="hf-priority-tag">Top 3</span></sc-if></th><td style="padding: 12px">{{r.statusLabel}}</td><td style="padding: 12px; white-space: nowrap">{{r.due}}</td><td style="padding: 12px">{{r.size}}</td><td style="padding: 12px">{{r.where}}</td><td style="padding: 12px">{{r.week}}</td><td style="padding: 12px"><details class="hf-status-menu"><summary aria-label="Update status: {{r.title}}">Update status</summary><div class="hf-status-options">
+          <tbody><sc-for list="{{rows}}" as="r" hint-placeholder-count="9"><tr style="border-top: 1px solid #F0EEE9; vertical-align: top"><th scope="row" style="padding: 12px; font-weight: 600"><a href="TaskDetail.dc.html">{{r.title}}</a><sc-if value="{{r.topThree}}" hint-placeholder-val="{{false}}"><span role="img" aria-label="Top 3 priority" title="Top 3 priority" style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-left: 8px; vertical-align: -4px; border-radius: 999px; background: #F7C83A; color: #1C1B1F"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path></svg></span></sc-if></th><td style="padding: 12px">{{r.statusLabel}}</td><td style="padding: 12px; white-space: nowrap">{{r.due}}</td><td style="padding: 12px">{{r.size}}</td><td style="padding: 12px">{{r.where}}</td><td style="padding: 12px">{{r.week}}</td><td style="padding: 12px"><details class="hf-status-menu"><summary aria-label="Update status: {{r.title}}">Update status</summary><div class="hf-status-options">
 <sc-if value="{{r.canStart}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{r.start}}">Start</button></sc-if>
 <sc-if value="{{r.canFinish}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{r.finish}}">{{r.finishLabel}}</button></sc-if>
 <sc-if value="{{r.canReopen}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{r.start}}">Back to In progress</button></sc-if>
@@ -162,6 +159,14 @@ class Component extends DCLogic {
         canStart: c.status === 'To do', canFinish: c.status === 'In progress' && !c.blocked,
         canReopen: c.status === 'Review' || c.status === 'Done',
         hasAction: c.status === 'To do' || c.status === 'In progress',
+        noAction: !(c.status === 'To do' || c.status === 'In progress'),
+        boardBg: c.blocked ? '#FCE3D3' : '#FFFFFF',
+        boardTitleFg: c.status === 'Done' ? '#4A4950' : '#1C1B1F',
+        dueLabel: c.status === 'Done' ? 'Done' : (c.due === 'Today' ? 'Due today' : 'Due ' + c.due),
+        dueBg: c.status === 'Done' ? '#DCEFE2' : (c.due === 'Today' ? '#F7C83A' : '#F4F3EF'),
+        dueFg: c.status === 'Done' ? '#1F5E3A' : '#1C1B1F',
+        btnBg: c.blocked ? '#FFFFFF' : '#1C1B1F',
+        btnFg: c.blocked ? '#1C1B1F' : '#FFFFFF',
         action: c.blocked ? 'Unblock' : (c.status === 'To do' ? 'Start' : finishLabel),
         primary: c.blocked ? unblock : (c.status === 'To do' ? start : finish),
         finishLabel, start, finish, unblock,
@@ -175,8 +180,8 @@ class Component extends DCLogic {
     const filtered = cards.filter(c => matchesScope(c, scope) && (c.title + ' ' + c.where).toLowerCase().includes(query.trim().toLowerCase()));
     const filters = [['all', 'All tasks'], ['top', 'Top 3'], ['blocked', 'Blocked'], ['review', 'Awaiting review']].map(([id, label]) => ({label, count: cards.filter(c => matchesScope(c, id)).length, selected: scope === id ? 'true' : 'false', pick: () => this.setState({scope: id})}));
     const group = (name, matches) => {const list = filtered.filter(matches); return {name, count: list.length, cards: list, isDone: name === 'Done', expanded: name !== 'Done' || !!local.showDone || !!query.trim()};};
-    const listColumns = [group('In progress', c => c.status === 'In progress' && !c.blocked), group('Blocked', c => c.blocked), group('To do', c => c.status === 'To do'), group('Awaiting review', c => c.status === 'Review'), group('Done', c => c.status === 'Done')].filter(c => c.count);
-    return {query, filters, openCount: cards.filter(c => c.status !== 'Done').length, doneCount: cards.filter(c => c.status === 'Done').length, toggleDone: () => this.setState({showDone: !local.showDone, query: ''}), doneToggleLabel: local.showDone || query.trim() ? 'Hide completed tasks' : 'Show completed tasks', hasNotice: !!local.notice, canUndo: !!local.canUndo, undo: () => this.setState({changes: local.undoChanges || {}, canUndo: false, notice: 'Last task update undone.'}), totalCount: cards.length, visibleCount: filtered.length, noResults: !filtered.length, setQuery: e => this.setState({query: e.target.value}), resetFilters: () => this.setState({query: '', scope: 'all'}), views, listColumns, columns: ['To do','In progress','Review','Done'].map(name => group(name, c => c.status === name)), rows: listColumns.flatMap(c => c.cards), notice: local.notice || 'Active work first. Blocked tasks stay In progress and appear under Blocked.', isList: view === 'list', isBoard: view === 'board', isTable: view === 'table', notList: view !== 'list'};
+    const listColumns = [group('In progress', c => c.status === 'In progress' && !c.blocked), group('Needs help', c => c.blocked), group('To do', c => c.status === 'To do'), group('Awaiting review', c => c.status === 'Review'), group('Done', c => c.status === 'Done')].filter(c => c.count);
+    return {query, filters, openCount: cards.filter(c => c.status !== 'Done').length, doneCount: cards.filter(c => c.status === 'Done').length, toggleDone: () => this.setState({showDone: !local.showDone, query: ''}), doneToggleLabel: local.showDone || query.trim() ? 'Hide completed tasks' : 'Show completed tasks', hasNotice: !!local.notice, canUndo: !!local.canUndo, undo: () => this.setState({changes: local.undoChanges || {}, canUndo: false, notice: 'Last task update undone.'}), totalCount: cards.length, visibleCount: filtered.length, noResults: !filtered.length, setQuery: e => this.setState({query: e.target.value}), resetFilters: () => this.setState({query: '', scope: 'all'}), views, listColumns, columns: ['To do','In progress','Review','Done'].map(name => { const g = group(name, c => c.status === name); const look = {'To do': {bg: '#E7E5DF', fg: '#1C1B1F', dot: '#6E6C73'}, 'In progress': {bg: '#C9DDE8', fg: '#1C1B1F', dot: '#1C1B1F'}, 'Review': {bg: '#F9D3DE', fg: '#1C1B1F', dot: '#6E4850'}, 'Done': {bg: '#DCEFE2', fg: '#1F5E3A', dot: '#2E7D4F'}}[name]; return Object.assign(g, look, {empty: !g.count}); }), rows: listColumns.flatMap(c => c.cards), notice: local.notice || 'Active work first. Blocked tasks stay In progress and appear under Needs help.', isList: view === 'list', isBoard: view === 'board', isTable: view === 'table', notList: view !== 'list'};
   }
 }
 </script>
