@@ -1381,7 +1381,8 @@ Each row is what we build unless we decide otherwise. **Open** rows still need a
 
 ## Sign-in and joining a company
 
-- In the first version, people sign in with an email code or a Google account. Company single sign-on (SSO) comes in a later stage.
+- In the first version, Google is the main way to sign in: "Continue with Google" is the first and largest button on the web and phone sign-in screens. People without a Google work account sign in with a one-time code sent to their email instead. Company single sign-on (SSO) comes in a later stage.
+- An invited person signs in with the Google account, or the email, the invite was sent to; a Google account with a different email does not join the company.
 - Admins and leads invite people by email or with an invite link. A person's status goes from invited, to active, and later possibly to suspended or deactivated.
 - Whoever creates the company becomes its first admin. A company always has at least one active admin.
 - Company roles are admin, leadership and member. Lead rights come from leading a department. "If given the right" in the permission table means a right given to a named person.
@@ -1391,7 +1392,7 @@ flowchart TD
   S1["Someone creates the company"] --> S2["They become the first admin"]
   S2 --> S3["Admins and leads invite people<br/>by email or invite link"]
   S3 --> S4["Status: invited"]
-  S4 --> S5["Sign in with an email code<br/>or Google account"]
+  S4 --> S5["Sign in with Google<br/>(email code as fallback)"]
   S5 --> S6["Status: active<br/>role: admin, leadership or member"]
   S6 --> S7["Allow push alerts<br/>(Flow G)"]
   S6 -.-> S8["Later: suspended, or deactivated<br/>only after a Handover (Flow D)"]
@@ -1438,6 +1439,7 @@ When someone chooses "Create a company", HopFlows walks them through five short 
 - Company setup (Proposed): whoever creates a company is walked through company details, departments, people and optional products, and invites are sent together at the end (20 October).
 - After the lead-flow review (Proposed): approving leave first shows its effect on the person's week and lets the approver give away or move the Tasks due then; locking a week warns about leave requests still waiting but allows the lock; Handover warns when a receiver is on leave (20 October).
 - After the first employee-flow review (Proposed): an employee sees what their leave changes to next week's plan and can move or hand away Tasks due during it; leave requests, help requests, new routines and Add Work all confirm what was sent, with Undo; dialogs keep keyboard focus inside and close with Escape (22 October).
+- Google sign-in first (Proposed): "Continue with Google" is the main sign-in on web and phone; a one-time email code is the fallback for people without a Google work account (27 October).
 - After the employee-flow P2 fixes (Proposed): sending a Task to Review with an unticked step asks first and can be undone; Today keeps one route to the rest of the work and drops the repeated links; My routines is in the employee menu; on phones the last item on a page clears the bottom navigation (22 October).
 - After the fifth leader-flow review (Proposed): approving a Goal shows the effect on the department and suggests Send back when it is over its buffer; decisions go to every lead and owner they affect, and a date-or-scope question can also lower the target with the Goal owner's agreement; the weekly summary shows the pace verdict for each Goal and an effect preview for each decision (22 October).
 - Company reports trend (Proposed): leaders see surprise work and work done for each department over the last three weeks side by side, with the change since the first week and a way to ask the department lead about it (21 October).

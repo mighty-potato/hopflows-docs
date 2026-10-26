@@ -43,17 +43,20 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <form style="width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 20px">
         <div style="display: flex; flex-direction: column; gap: 8px">
           <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Sign in</h1>
-          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">We'll email you a code. No password to remember.</p>
+          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">Use your Google work account. No password to remember.</p>
         </div>
+        <a href="Welcome.dc.html" style="height: 56px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 12px">
+          <span style="width: 30px; height: 30px; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path></svg></span>Continue with Google</a>
+        <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Invited by your team? Pick the Google account your invite was sent to.</p>
+        <div style="display: flex; align-items: center; gap: 12px; color: #6E6C73; font-size: 12px"><span style="flex: 1; height: 1px; background: #E7E5DF"></span>No Google account?<span style="flex: 1; height: 1px; background: #E7E5DF"></span></div>
         <div style="display: flex; flex-direction: column; gap: 6px">
           <label for="email" style="font-size: 13px; line-height: 18px; font-weight: 600">Work email</label>
-          <input id="email" type="email" value="dara.sok@riverline.example" style="height: 52px; box-sizing: border-box; padding: 0 18px; border: 2px solid #1C1B1F; border-radius: 16px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <input id="email" type="email" value="dara.sok@riverline.example" style="flex: 1 1 200px; min-width: 0; height: 48px; box-sizing: border-box; padding: 0 16px; border: 2px solid #8A8890; border-radius: 16px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F">
+            <button type="button" onClick="{{toCode}}" style="height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Email me a code</button>
+          </div>
         </div>
-        <button type="button" onClick="{{toCode}}" style="height: 52px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; cursor: pointer">Send me a code</button>
-        <div style="display: flex; align-items: center; gap: 12px; color: #6E6C73; font-size: 12px"><span style="flex: 1; height: 1px; background: #E7E5DF"></span>or<span style="flex: 1; height: 1px; background: #E7E5DF"></span></div>
-        <button type="button" style="height: 52px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12h-8"></path><path d="M20 12a8 8 0 1 1-2.3-5.7"></path></svg>Continue with Google</button>
-        <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Invited by your team? Use the email your invite was sent to. Company single sign-on comes later.</p>
+        <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Company single sign-on comes later.</p>
       </form>
       </sc-if>
       <sc-if value="{{onCode}}" hint-placeholder-val="{{false}}">
