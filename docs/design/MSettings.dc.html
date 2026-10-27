@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Alerts and settings · phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 1040px; overflow: hidden; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif">
+  <main style="box-sizing: border-box; padding: 20px 16px 120px; display: flex; flex-direction: column; gap: 12px">
+    <a href="MMenu.dc.html" aria-label="Back to Menu" style="width: 44px; height: 44px; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #1C1B1F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></a>
+    <h1 style="margin: 0; padding: 0 4px; font-size: 30px; line-height: 34px; font-weight: 600; letter-spacing: -0.04em">Alerts &amp; Telegram</h1>
+
+    <section aria-label="Connect Telegram" style="background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">Get alerts in Telegram</span>
+      <span style="font-size: 13px; line-height: 18px">Open the HopFlows bot and send this code. It works once.</span>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 20px; background: #FFFFFF; color: #1C1B1F">
+        <span style="flex: 1; font-family: 'Geist Mono', monospace; font-size: 28px; line-height: 32px; font-weight: 600; letter-spacing: 0.04em">HF-4821</span>
+        <span style="font-size: 12px; color: #6E6C73">9:42 left</span>
+      </div>
+      <button type="button" style="height: 52px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600">Open the bot</button>
+    </section>
+
+    <section aria-label="This phone" style="background: #FFFFFF; border-radius: 24px; padding: 4px 18px; display: flex; flex-direction: column">
+      <label style="display: flex; align-items: center; gap: 12px; min-height: 56px; border-bottom: 1px solid #F0EEE9"><span style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 500">Push on this phone</span><span style="font-size: 12px; color: #6E6C73">At most 5 normal alerts a day</span></span><input type="checkbox" checked style="width: 22px; height: 22px; accent-color: #1C1B1F"></label>
+      <div style="display: flex; align-items: center; gap: 12px; min-height: 56px; border-bottom: 1px solid #F0EEE9"><span style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 500">Quiet hours</span><span style="font-size: 12px; color: #6E6C73">Only urgent alerts break them</span></span><span style="font-family: 'Geist Mono', monospace; font-size: 14px; font-weight: 600">20:00–07:00</span></div>
+      <div style="display: flex; align-items: center; gap: 12px; min-height: 56px"><span style="flex: 1; font-size: 15px; font-weight: 500">Morning summary</span><span style="font-family: 'Geist Mono', monospace; font-size: 14px; font-weight: 600">08:00</span></div>
+    </section>
+
+    <section aria-label="Each kind of alert" style="background: #FFFFFF; border-radius: 24px; padding: 4px 18px; display: flex; flex-direction: column">
+      <sc-for list="{{kinds}}" as="k" hint-placeholder-count="5">
+        <a href="MSettings.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 56px; border-bottom: {{k.line}}; text-decoration: none; color: #1C1B1F">
+          <span style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 500">{{k.name}}</span><span style="font-size: 12px; color: #6E6C73">{{k.where}}</span></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6E6C73" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+        </a>
+      </sc-for>
+    </section>
+
+    <section aria-label="Punh Punh" style="background: #FFFFFF; border-radius: 24px; padding: 4px 18px">
+      <label style="display: flex; align-items: center; gap: 12px; min-height: 56px"><span style="flex: 1; font-size: 15px; font-weight: 500">Punh Punh animations</span><input type="checkbox" checked style="width: 22px; height: 22px; accent-color: #1C1B1F"></label>
+    </section>
+  </main>
+  <div style="position: absolute; left: 16px; right: 16px; bottom: 22px">
+    <dc-import name="MTabBar" current="menu" persona="employee" hint-size="358px,64px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const k = (name, where) => ({ name, where });
+    const list = [
+      k('Urgent', 'Push and Telegram · always right away'),
+      k('Task given to you', 'Push and Telegram · right away'),
+      k('Your request was answered', 'Push and Telegram · right away'),
+      k('Meetings', 'Push · 10 minutes before'),
+      k('Deadlines', 'Morning summary')
+    ];
+    return { kinds: list.map((x, i) => Object.assign(x, { line: i < list.length - 1 ? '1px solid #F0EEE9' : '0' })) };
+  }
+}
+</script>
+</body>
+</html>

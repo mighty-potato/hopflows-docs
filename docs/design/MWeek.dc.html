@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>My week and leave · phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 1040px; overflow: hidden; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif">
+  <main style="box-sizing: border-box; padding: 20px 16px 120px; display: flex; flex-direction: column; gap: 12px">
+    <a href="MMenu.dc.html" aria-label="Back to Menu" style="width: 44px; height: 44px; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #1C1B1F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></a>
+    <h1 style="margin: 0; padding: 0 4px; font-size: 30px; line-height: 34px; font-weight: 600; letter-spacing: -0.04em">My week &amp; leave</h1>
+
+    <section aria-labelledby="mw-q" style="background: #FFFFFF; border-radius: 28px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <h2 id="mw-q" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">How does this week look?</h2>
+        <span style="font-size: 12px; color: #6E6C73">Chenda sees it. It resets on Sunday.</span>
+      </div>
+      <div role="radiogroup" aria-labelledby="mw-q" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px">
+        <sc-for list="{{week}}" as="w" hint-placeholder-count="3">
+          <button type="button" role="radio" aria-checked="{{w.on}}" onClick="{{w.pick}}" style="height: 60px; border: 0; border-radius: 16px; background: {{w.bg}}; color: {{w.fg}}; box-shadow: {{w.ring}}; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">{{w.label}}</button>
+        </sc-for>
+      </div>
+    </section>
+
+    <section aria-labelledby="ml-t" style="background: #FFFFFF; border-radius: 28px; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+        <h2 id="ml-t" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Request leave</h2>
+        <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600">Sick today</button>
+      </div>
+      <div role="radiogroup" aria-label="Type" style="display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px; gap: 4px; background: #F4F3EF; border-radius: 999px">
+        <button type="button" role="radio" aria-checked="true" style="height: 40px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600">Annual</button>
+        <button type="button" role="radio" aria-checked="false" style="height: 40px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600">Sick</button>
+        <button type="button" role="radio" aria-checked="false" style="height: 40px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600">Other</button>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="ml-from" style="font-size: 13px; font-weight: 600">From</label><input id="ml-from" type="text" value="Thu 22 Oct" style="height: 48px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="ml-to" style="font-size: 13px; font-weight: 600">To</label><input id="ml-to" type="text" value="Fri 23 Oct" style="height: 48px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 20px; background: #FCE3D3; color: #9A3412">
+        <span style="font-size: 13px; font-weight: 600">1 task is due while you're away</span>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 8px 8px 12px; border-radius: 14px; background: #FFFFFF; color: #1C1B1F"><span style="font-size: 14px">Menu sync job tests · Thu 22</span><button type="button" style="height: 40px; padding: 0 12px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600">Move</button></div>
+      </div>
+      <span style="font-size: 12px; color: #6E6C73">Goes to Chenda Lim. The reason is optional and private.</span>
+      <button type="button" style="height: 52px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600">Send request</button>
+    </section>
+  </main>
+  <div style="position: absolute; left: 16px; right: 16px; bottom: 22px">
+    <dc-import name="MTabBar" current="menu" persona="employee" hint-size="358px,64px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const picked = (this.state && this.state.week) || 'balanced';
+    const looks = { room: ['Room', '#DCEFE2', '#1F5E3A'], balanced: ['Balanced', '#C9DDE8', '#1C1B1F'], full: ['Full', '#FCE3D3', '#9A3412'] };
+    return {
+      week: Object.keys(looks).map((id) => ({ label: looks[id][0], bg: looks[id][1], fg: looks[id][2], on: picked === id ? 'true' : 'false', ring: picked === id ? 'inset 0 0 0 2px #1C1B1F' : 'none', pick: () => this.setState({ week: id }) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

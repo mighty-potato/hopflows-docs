@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Need help · phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+textarea::placeholder{color:#6E6C73;opacity:1}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif">
+  <div aria-hidden="true" style="padding: 28px 16px; display: flex; flex-direction: column; gap: 12px">
+    <div style="height: 120px"></div>
+    <div style="height: 240px; border-radius: 28px; background: #FFFFFF"></div>
+  </div>
+  <div style="position: absolute; inset: 0; background: rgba(28,27,31,0.5)"></div>
+
+  <section role="dialog" aria-modal="true" aria-labelledby="mnh-title" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 10px 16px 30px; border-radius: 28px 28px 0 0; background: #FFFFFF; display: flex; flex-direction: column; gap: 14px">
+    <span aria-hidden="true" style="align-self: center; width: 40px; height: 5px; border-radius: 999px; background: #E7E5DF"></span>
+    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <h1 id="mnh-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Need help</h1>
+        <span style="font-size: 13px; color: #4A4950">Build the checkout API</span>
+      </div>
+      <a href="MTask.dc.html" aria-label="Close" style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 999px; background: #F4F3EF; display: flex; align-items: center; justify-content: center; color: #1C1B1F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
+    </div>
+    <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 8px">
+      <legend style="margin-bottom: 8px; font-size: 13px; font-weight: 600">What's stopping you?</legend>
+      <sc-for list="{{reasons}}" as="r" hint-placeholder-count="4">
+        <button type="button" role="radio" aria-checked="{{r.on}}" onClick="{{r.pick}}" style="min-height: 52px; padding: 0 16px; border: 0; border-radius: 16px; background: {{r.bg}}; color: {{r.fg}}; font-family: inherit; font-size: 15px; font-weight: 600; text-align: left; cursor: pointer">{{r.label}}</button>
+      </sc-for>
+    </fieldset>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <label for="mnh-note" style="font-size: 13px; font-weight: 600">Note for Chenda <span style="font-weight: 400; color: #6E6C73">· optional</span></label>
+      <textarea id="mnh-note" rows="2" placeholder="e.g. The sandbox errors when a coupon makes the total zero" style="box-sizing: border-box; padding: 12px 14px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; line-height: 22px; color: #1C1B1F; resize: none"></textarea>
+    </div>
+    <span style="font-size: 12px; line-height: 16px; color: #4A4950">The task stays In progress and is marked Blocked. Chenda gets an alert right away.</span>
+    <button type="button" style="height: 56px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 600; cursor: pointer">Tell Chenda</button>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const picked = (this.state && this.state.picked) || 'wait';
+    const opts = [['wait', 'Waiting on someone'], ['how', 'Not sure how to do it'], ['much', 'Too much on my plate'], ['other', 'Something else']];
+    return {
+      reasons: opts.map(([id, label]) => ({ label, on: picked === id ? 'true' : 'false', bg: picked === id ? '#1C1B1F' : '#F4F3EF', fg: picked === id ? '#FFFFFF' : '#1C1B1F', pick: () => this.setState({ picked: id }) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

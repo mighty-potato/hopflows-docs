@@ -349,7 +349,30 @@
       "w": 1440,
       "x": 4560,
       "y": 4580
-    }
+    },
+    "MSignIn.dc.html": {"page": "mobile", "x": 0, "y": 0, "w": 390, "h": 844, "title": "M01 · Sign in", "is_interactive": true},
+    "MWelcome.dc.html": {"page": "mobile", "x": 470, "y": 0, "w": 390, "h": 844, "title": "M02 · First steps", "is_interactive": true},
+    "MConnect.dc.html": {"page": "mobile", "x": 940, "y": 0, "w": 390, "h": 844, "title": "M03 · Alerts & Telegram setup", "is_interactive": true},
+    "MTabBar.dc.html": {"page": "mobile", "x": 1410, "y": 0, "w": 358, "h": 64, "title": "Shared · Tab bar", "is_interactive": true},
+    "MToday.dc.html": {"page": "mobile", "x": 0, "y": 1224, "w": 390, "h": 1040, "title": "M04 · Today", "is_interactive": true},
+    "MTask.dc.html": {"page": "mobile", "x": 470, "y": 1224, "w": 390, "h": 1000, "title": "M05 · Task", "is_interactive": true},
+    "MMyTasks.dc.html": {"page": "mobile", "x": 940, "y": 1224, "w": 390, "h": 1120, "title": "M06 · My tasks", "is_interactive": true},
+    "MAddWork.dc.html": {"page": "mobile", "x": 1410, "y": 1224, "w": 390, "h": 844, "title": "M07 · Add Work", "is_interactive": true},
+    "MNeedHelp.dc.html": {"page": "mobile", "x": 1880, "y": 1224, "w": 390, "h": 844, "title": "M08 · Need help", "is_interactive": true},
+    "MRoutine.dc.html": {"page": "mobile", "x": 2350, "y": 1224, "w": 390, "h": 844, "title": "M09 · Routine today", "is_interactive": true},
+    "MRequests.dc.html": {"page": "mobile", "x": 2820, "y": 1224, "w": 390, "h": 960, "title": "M10 · Requests I sent", "is_interactive": true},
+    "MWeek.dc.html": {"page": "mobile", "x": 3290, "y": 1224, "w": 390, "h": 1040, "title": "M11 · My week & leave", "is_interactive": true},
+    "MCalendar.dc.html": {"page": "mobile", "x": 0, "y": 2724, "w": 390, "h": 960, "title": "M12 · Calendar", "is_interactive": true},
+    "MInbox.dc.html": {"page": "mobile", "x": 470, "y": 2724, "w": 390, "h": 1000, "title": "M13 · Inbox", "is_interactive": true},
+    "MPush.dc.html": {"page": "mobile", "x": 940, "y": 2724, "w": 390, "h": 900, "title": "M14 · Alerts with one-tap buttons", "is_interactive": true},
+    "MSearch.dc.html": {"page": "mobile", "x": 1410, "y": 2724, "w": 390, "h": 844, "title": "M15 · Search", "is_interactive": true},
+    "MMenu.dc.html": {"page": "mobile", "x": 1880, "y": 2724, "w": 390, "h": 960, "title": "M16 · Menu", "is_interactive": true},
+    "MSettings.dc.html": {"page": "mobile", "x": 2350, "y": 2724, "w": 390, "h": 1040, "title": "M17 · Alerts & settings", "is_interactive": true},
+    "MLeadHome.dc.html": {"page": "mobile", "x": 0, "y": 4144, "w": 390, "h": 1100, "title": "M18 · Lead · Needs you", "is_interactive": true},
+    "MSort.dc.html": {"page": "mobile", "x": 470, "y": 4144, "w": 390, "h": 1080, "title": "M19 · Lead · Sort a request", "is_interactive": true},
+    "MApprove.dc.html": {"page": "mobile", "x": 940, "y": 4144, "w": 390, "h": 900, "title": "M20 · Lead · Approve leave", "is_interactive": true},
+    "MGoals.dc.html": {"page": "mobile", "x": 1410, "y": 4144, "w": 390, "h": 1100, "title": "M21 · Leader · Goals", "is_interactive": true},
+    "MSummary.dc.html": {"page": "mobile", "x": 1880, "y": 4144, "w": 390, "h": 1180, "title": "M22 · Leader · Weekly summary", "is_interactive": true}
   },
   "createdOnFiles": {
     "at": "2026-10-15T18:15:00Z",
@@ -415,7 +438,11 @@
       "w": 240,
       "x": 0,
       "y": 7520
-    }
+    },
+    "m0": {"kind": "title1", "page": "mobile", "maxW": 1768, "text": "Get started", "x": 0, "y": -300},
+    "m1": {"kind": "title1", "page": "mobile", "maxW": 3680, "text": "Employee · What should I do next?", "x": 0, "y": 924},
+    "m2": {"kind": "title1", "page": "mobile", "maxW": 2740, "text": "Everyone · Calendar, Inbox, alerts", "x": 0, "y": 2424},
+    "m3": {"kind": "title1", "page": "mobile", "maxW": 2270, "text": "Lead and leader on the go", "x": 0, "y": 3844}
   },
   "order": [
     "Main.dc.html",
@@ -456,8 +483,31 @@
     "Settings.dc.html",
     "People.dc.html",
     "Holidays.dc.html",
-    "Org.dc.html"
+    "Org.dc.html",
+    "MSignIn.dc.html",
+    "MWelcome.dc.html",
+    "MConnect.dc.html",
+    "MTabBar.dc.html",
+    "MToday.dc.html",
+    "MTask.dc.html",
+    "MMyTasks.dc.html",
+    "MAddWork.dc.html",
+    "MNeedHelp.dc.html",
+    "MRoutine.dc.html",
+    "MRequests.dc.html",
+    "MWeek.dc.html",
+    "MCalendar.dc.html",
+    "MInbox.dc.html",
+    "MPush.dc.html",
+    "MSearch.dc.html",
+    "MMenu.dc.html",
+    "MSettings.dc.html",
+    "MLeadHome.dc.html",
+    "MSort.dc.html",
+    "MApprove.dc.html",
+    "MGoals.dc.html",
+    "MSummary.dc.html"
   ],
-  "pages": [],
+  "pages": [{"id": "web", "name": "Web app"}, {"id": "mobile", "name": "Mobile app"}],
   "title": "HopFlows Web App"
 }

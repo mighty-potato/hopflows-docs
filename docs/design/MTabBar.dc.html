@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tab bar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<nav aria-label="Main" style="width: 100%; height: 64px; box-sizing: border-box; padding: 0 8px; border-radius: 999px; background: #1C1B1F; display: flex; align-items: center; justify-content: space-between; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif">
+  <a href="{{homeHref}}" aria-current="{{c.home}}" style="flex: 1; height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: {{f.home}}; font-size: 11px; font-weight: 600">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg>{{homeLabel}}</a>
+  <a href="MCalendar.dc.html" aria-current="{{c.calendar}}" style="flex: 1; height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: {{f.calendar}}; font-size: 11px; font-weight: 600">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>Calendar</a>
+  <a href="MAddWork.dc.html" aria-label="Add Work" style="width: 52px; height: 52px; margin: 0 4px; border-radius: 999px; background: #F7C83A; color: #1C1B1F; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></a>
+  <a href="MInbox.dc.html" aria-current="{{c.inbox}}" aria-label="Inbox, 3 new" style="position: relative; flex: 1; height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: {{f.inbox}}; font-size: 11px; font-weight: 600">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"></path><path d="M5.5 5h13L22 12v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"></path></svg>Inbox
+    <span aria-hidden="true" style="position: absolute; top: 4px; left: 50%; margin-left: 6px; min-width: 16px; height: 16px; padding: 0 4px; box-sizing: border-box; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center">3</span></a>
+  <a href="MMenu.dc.html" aria-current="{{c.menu}}" style="flex: 1; height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: {{f.menu}}; font-size: 11px; font-weight: 600">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>Menu</a>
+</nav>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"current":{"editor":"enum","options":["home","calendar","inbox","menu","none"],"default":"home"},"persona":{"editor":"enum","options":["employee","lead","leader"],"default":"employee"},"$preview":{"width":358,"height":64}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const current = this.props.current ?? 'home';
+    const persona = this.props.persona ?? 'employee';
+    const c = {}, f = {};
+    ['home', 'calendar', 'inbox', 'menu'].forEach((k) => {
+      c[k] = current === k ? 'page' : 'false';
+      f[k] = current === k ? '#FFFFFF' : '#A9A7AE';
+    });
+    const home = { employee: ['MToday.dc.html', 'Today'], lead: ['MLeadHome.dc.html', 'Needs you'], leader: ['MGoals.dc.html', 'Goals'] }[persona] || ['MToday.dc.html', 'Today'];
+    return { c, f, homeHref: home[0], homeLabel: home[1] };
+  }
+}
+</script>
+</body>
+</html>

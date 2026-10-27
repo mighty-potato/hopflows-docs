@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Add Work · phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif">
+  <div aria-hidden="true" style="padding: 28px 16px; display: flex; flex-direction: column; gap: 12px">
+    <div style="height: 64px"></div>
+    <div style="height: 300px; border-radius: 28px; background: #F7C83A"></div>
+    <div style="height: 200px; border-radius: 28px; background: #FFFFFF"></div>
+  </div>
+  <div style="position: absolute; inset: 0; background: rgba(28,27,31,0.5)"></div>
+
+  <section role="dialog" aria-modal="true" aria-labelledby="maw-title" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 10px 16px 30px; border-radius: 28px 28px 0 0; background: #FFFFFF; display: flex; flex-direction: column; gap: 16px">
+    <span aria-hidden="true" style="align-self: center; width: 40px; height: 5px; border-radius: 999px; background: #E7E5DF"></span>
+    <div style="display: flex; align-items: center; justify-content: space-between">
+      <h1 id="maw-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Add Work</h1>
+      <a href="MToday.dc.html" aria-label="Close" style="width: 44px; height: 44px; border-radius: 999px; background: #F4F3EF; display: flex; align-items: center; justify-content: center; color: #1C1B1F"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
+    </div>
+    <div role="radiogroup" aria-label="Who is it for?" style="display: grid; grid-template-columns: 1fr 1fr; padding: 4px; gap: 4px; background: #F4F3EF; border-radius: 999px">
+      <button type="button" role="radio" aria-checked="{{taskOn}}" onClick="{{pickTask}}" style="height: 44px; border: 0; border-radius: 999px; background: {{taskBg}}; color: {{taskFg}}; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Task for me</button>
+      <button type="button" role="radio" aria-checked="{{askOn}}" onClick="{{pickAsk}}" style="height: 44px; border: 0; border-radius: 999px; background: {{askBg}}; color: {{askFg}}; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Ask Chenda</button>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <label for="maw-what" style="font-size: 13px; font-weight: 600">What needs doing?</label>
+      <input id="maw-what" type="text" value="Shop tablet shows old prices after sync" style="height: 56px; box-sizing: border-box; padding: 0 16px; border: 2px solid #1C1B1F; border-radius: 16px; font-family: inherit; font-size: 17px; font-weight: 600; color: #1C1B1F">
+    </div>
+    <div style="display: flex; gap: 8px; overflow-x: auto">
+      <button type="button" style="flex-shrink: 0; height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"></rect><circle cx="12" cy="13" r="3.5"></circle><path d="M8 6l1.5-2h5L16 6"></path></svg>Photo</button>
+      <button type="button" style="flex-shrink: 0; height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>Due date</button>
+      <button type="button" style="flex-shrink: 0; height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600">Details</button>
+    </div>
+    <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{route}}</span>
+    <button type="button" style="height: 56px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 600; cursor: pointer">{{doneLabel}}</button>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mode":{"editor":"enum","options":["task","ask"],"default":"task"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const mode = (this.state && this.state.mode) || this.props.mode || 'task';
+    const task = mode === 'task';
+    return {
+      taskOn: task ? 'true' : 'false', askOn: task ? 'false' : 'true',
+      taskBg: task ? '#1C1B1F' : 'transparent', taskFg: task ? '#FFFFFF' : '#4A4950',
+      askBg: task ? 'transparent' : '#1C1B1F', askFg: task ? '#4A4950' : '#FFFFFF',
+      pickTask: () => this.setState({ mode: 'task' }), pickAsk: () => this.setState({ mode: 'ask' }),
+      route: task ? 'Goes to My tasks, with you as the owner. Works offline too.' : 'Goes to Chenda Lim. You will see her answer in Requests I sent.',
+      doneLabel: task ? 'Add to my tasks' : 'Send to Chenda'
+    };
+  }
+}
+</script>
+</body>
+</html>
