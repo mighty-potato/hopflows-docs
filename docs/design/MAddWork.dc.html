@@ -37,8 +37,15 @@ a{color:#1C1B1F}
       <label for="maw-what" style="font-size: 13px; font-weight: 600">What needs doing?</label>
       <input id="maw-what" type="text" value="Shop tablet shows old prices after sync" style="height: 56px; box-sizing: border-box; padding: 0 16px; border: 2px solid #1C1B1F; border-radius: 16px; font-family: inherit; font-size: 17px; font-weight: 600; color: #1C1B1F">
     </div>
+    <sc-if value="{{hasPhoto}}" hint-placeholder-val="{{true}}">
+      <div style="display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 16px; background: #F4F3EF">
+        <span aria-hidden="true" style="width: 56px; height: 56px; flex-shrink: 0; border-radius: 12px; background: linear-gradient(135deg, #C9DDE8, #E7E5DF)"></span>
+        <span style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 600">Photo attached</span><span style="font-size: 12px; color: #6E6C73">IMG_2041.jpg · 1.2 MB</span></span>
+        <button type="button" aria-label="Remove photo" onClick="{{removePhoto}}" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+      </div>
+    </sc-if>
     <div style="display: flex; gap: 8px; overflow-x: auto">
-      <button type="button" style="flex-shrink: 0; height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"></rect><circle cx="12" cy="13" r="3.5"></circle><path d="M8 6l1.5-2h5L16 6"></path></svg>Photo</button>
+      <button type="button" onClick="{{addPhoto}}" style="flex-shrink: 0; height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"></rect><circle cx="12" cy="13" r="3.5"></circle><path d="M8 6l1.5-2h5L16 6"></path></svg>{{photoLabel}}</button>
       <button type="button" style="flex-shrink: 0; height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>Due date</button>
       <button type="button" style="flex-shrink: 0; height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600">Details</button>
     </div>
@@ -47,17 +54,20 @@ a{color:#1C1B1F}
   </section>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"mode":{"editor":"enum","options":["task","ask"],"default":"task"},"$preview":{"width":390,"height":844}}'>
+<script type="text/x-dc" data-dc-script data-props='{"mode":{"editor":"enum","options":["task","ask"],"default":"task"},"photo":{"editor":"boolean","default":true},"$preview":{"width":390,"height":844}}'>
 class Component extends DCLogic {
   renderVals() {
     const mode = (this.state && this.state.mode) || this.props.mode || 'task';
     const task = mode === 'task';
+    const photo = this.state && this.state.photo !== undefined ? this.state.photo : this.props.photo !== false;
     return {
+      hasPhoto: photo, photoLabel: photo ? 'Change photo' : 'Photo',
+      addPhoto: () => this.setState({ photo: true }), removePhoto: () => this.setState({ photo: false }),
       taskOn: task ? 'true' : 'false', askOn: task ? 'false' : 'true',
       taskBg: task ? '#1C1B1F' : 'transparent', taskFg: task ? '#FFFFFF' : '#4A4950',
       askBg: task ? 'transparent' : '#1C1B1F', askFg: task ? '#4A4950' : '#FFFFFF',
       pickTask: () => this.setState({ mode: 'task' }), pickAsk: () => this.setState({ mode: 'ask' }),
-      route: task ? 'Goes to My tasks, with you as the owner. Works offline too.' : 'Goes to Chenda Lim. You will see her answer in Requests I sent.',
+      route: (task ? 'Goes to My tasks, with you as the owner.' : 'Goes to Chenda Lim. You will see her answer in Requests I sent.') + (photo ? ' The photo goes with it.' : (task ? ' Works offline too.' : '')),
       doneLabel: task ? 'Add to my tasks' : 'Send to Chenda'
     };
   }

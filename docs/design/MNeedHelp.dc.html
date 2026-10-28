@@ -13,7 +13,7 @@
 body{margin:0}
 a{color:#1C1B1F}
 :focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
-textarea::placeholder{color:#6E6C73;opacity:1}
+textarea::placeholder,input::placeholder{color:#6E6C73;opacity:1}
 </style>
 </helmet>
 <div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif">
@@ -39,8 +39,12 @@ textarea::placeholder{color:#6E6C73;opacity:1}
       </sc-for>
     </fieldset>
     <div style="display: flex; flex-direction: column; gap: 6px">
+      <label for="mnh-who" style="font-size: 13px; font-weight: 600">Who can unblock it? <span style="font-weight: 400; color: #6E6C73">· optional</span></label>
+      <input id="mnh-who" type="text" placeholder="A person, team or outside company" style="height: 48px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
       <label for="mnh-note" style="font-size: 13px; font-weight: 600">Note for Chenda <span style="font-weight: 400; color: #6E6C73">· optional</span></label>
-      <textarea id="mnh-note" rows="2" placeholder="e.g. The sandbox errors when a coupon makes the total zero" style="box-sizing: border-box; padding: 12px 14px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; line-height: 22px; color: #1C1B1F; resize: none"></textarea>
+      <textarea id="mnh-note" rows="1" placeholder="e.g. Errors when a coupon makes it zero" style="box-sizing: border-box; padding: 12px 14px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; line-height: 22px; color: #1C1B1F; resize: none"></textarea>
     </div>
     <span style="font-size: 12px; line-height: 16px; color: #4A4950">The task stays In progress and is marked Blocked. Chenda gets an alert right away.</span>
     <button type="button" style="height: 56px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 600; cursor: pointer">Tell Chenda</button>
