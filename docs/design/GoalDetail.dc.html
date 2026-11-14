@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Goal · Increase in-app sales by 20%</title>
 <script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
 </head>
 <body>
 <x-dc>
@@ -21,6 +22,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:1100px){.bento>*{grid-column:1 / -1 !important}}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -58,7 +60,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isError}}" hint-placeholder-val="{{false}}">
       <section role="alert" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; box-shadow: inset 0 0 0 2px #C2410C">
-        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 120px; height: 120px; border-radius: 24px; flex-shrink: 0"><dc-import name="PunhPunh" pose="calm" label="Punh Punh, calm" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load this Goal</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
@@ -138,7 +140,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             </div>
             <div style="flex: 1 1 220px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px">
               <sc-if value="{{f.isChenda}}" hint-placeholder-val="{{true}}">
-                <sc-if value="{{notAsked}}" hint-placeholder-val="{{true}}"><button type="button" id="fl-ask" onClick="{{ask}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Ask Chenda for an update</button></sc-if>
+                <sc-if value="{{notAsked}}" hint-placeholder-val="{{true}}"><button type="button" id="fl-ask" onClick="{{ask}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Ask Chenda for an update</button></sc-if>
                 <sc-if value="{{asked}}" hint-placeholder-val="{{false}}"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px"><span id="fl-asked" tabindex="-1" role="status" style="flex: 1 1 160px; font-size: 13px; line-height: 18px; color: #1F5E3A"><strong>Asked Chenda.</strong> Her answer comes to your Inbox.</span><button type="button" onClick="{{unask}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Undo</button></div></sc-if>
                 <a href="Deliverable.dc.html" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">Open the Deliverable</a>
               </sc-if>

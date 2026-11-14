@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Alerts setup · phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-direction: column">
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 8px">
+    <div aria-label="Step 2 of 3" style="display: flex; gap: 6px"><span style="width: 6px; height: 6px; border-radius: 999px; background: #1C1B1F"></span><span style="width: 28px; height: 6px; border-radius: 999px; background: #1C1B1F"></span><span style="width: 6px; height: 6px; border-radius: 999px; background: #E7E5DF"></span></div>
+    <a href="MToday.dc.html" style="min-height: 44px; display: flex; align-items: center; font-size: 15px; font-weight: 600; text-decoration: none">Skip</a>
+  </div>
+  <div style="flex: 1; box-sizing: border-box; padding: 16px 16px 32px; display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; flex-direction: column; gap: 6px; padding: 0 4px 8px">
+      <h1 style="margin: 0; font-size: 30px; line-height: 34px; font-weight: 600; letter-spacing: -0.04em">Never miss what matters</h1>
+      <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950">Act on alerts in one tap. Quiet from 20:00 to 07:00, unless it's urgent.</p>
+    </div>
+
+    <section style="background: #FFFFFF; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <span style="width: 44px; height: 44px; border-radius: 14px; background: #F7C83A; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1C1B1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10 21h4"></path></svg></span>
+        <div style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 16px; font-weight: 600">Phone alerts</span><span style="font-size: 13px; color: #4A4950">Start, Done or Need help from the alert</span></div>
+      </div>
+      <button type="button" style="height: 52px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600">Turn on alerts</button>
+    </section>
+
+    <section style="background: #FFFFFF; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <span style="width: 44px; height: 44px; border-radius: 14px; background: #C9DDE8; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1C1B1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3 10 14"></path><path d="M21 3 14 21l-4-7-7-4z"></path></svg></span>
+        <div style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 16px; font-weight: 600">Telegram</span><span style="font-size: 13px; color: #4A4950">Same alerts, plus add work by message</span></div>
+      </div>
+      <button type="button" style="height: 52px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600">Connect Telegram</button>
+    </section>
+
+    <a href="MToday.dc.html" style="margin-top: auto; height: 54px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center">Go to Today</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

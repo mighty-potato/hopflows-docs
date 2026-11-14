@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Company reports</title>
 <script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
 </head>
 <body>
 <x-dc>
@@ -21,7 +22,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
-@media (max-width:760px){
+@media (max-width:1200px){
 .hf-th-row{display:none !important}
 .hf-tr{display:flex !important;flex-direction:column}
 .hf-lbl{display:inline !important}
@@ -49,7 +50,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
         <sc-if value="{{saved}}" hint-placeholder-val="{{false}}"><span id="cr-saved" tabindex="-1" role="status" style="font-size: 12px; color: #1F5E3A">{{savedText}}</span></sc-if>
         <button type="button" onClick="{{saveXls}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #1C1B1F">Download Excel</button>
-        <button type="button" onClick="{{savePdf}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Download PDF</button>
+        <button type="button" onClick="{{savePdf}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #1C1B1F">Download PDF</button>
       </div>
     </div>
 
@@ -61,7 +62,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isError}}" hint-placeholder-val="{{false}}">
       <section role="alert" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; box-shadow: inset 0 0 0 2px #C2410C">
-        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 120px; height: 120px; border-radius: 24px; flex-shrink: 0"><dc-import name="PunhPunh" pose="calm" label="Punh Punh, calm" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load reports</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Last Monday's summary has the same Goal numbers.</p>

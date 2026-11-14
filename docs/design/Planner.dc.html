@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weekly plan</title>
 <script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
 </head>
 <body>
 <x-dc>
@@ -35,6 +36,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-ptable .hf-load{order:3;flex:1 1 100%}
 .hf-sm-only{display:block}
 }
+@media (max-width:1100px){.bento>*{grid-column:1 / -1 !important}}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -71,7 +73,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{stEmpty}}" hint-placeholder-val="{{false}}">
       <section aria-label="Nothing planned for week 43 yet" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
-        <img src="/_blob/a431a6fdd4e19f548f54f9fd97283158" alt="Punh Punh waving" style="width: 144px; height: 144px; border-radius: 28px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 144px; height: 144px; border-radius: 28px; flex-shrink: 0"><dc-import name="PunhPunh" pose="wave" label="Punh Punh waving" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Nothing planned for week 43 yet</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">Add work from Ready to plan, or carry over what's left from week 42. You can lock the week once there's a plan.</p>
@@ -81,7 +83,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{stError}}" hint-placeholder-val="{{false}}">
       <section role="alert" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; box-shadow: inset 0 0 0 2px #C2410C">
-        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 120px; height: 120px; border-radius: 24px; flex-shrink: 0"><dc-import name="PunhPunh" pose="calm" label="Punh Punh, calm" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load week 43's plan</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
@@ -128,7 +130,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: stretch">
       <section aria-label="Team total" style="grid-column: span 4; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
         <h2 style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em; text-wrap: balance">{{heroTitle}}</h2>
-        <span style="font-family: 'Geist Mono', monospace; font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums">{{plannedTotal}}h planned · {{toPlanTotal}}h to plan · counts open changes</span>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums">{{plannedTotal}}h planned · {{toPlanTotal}}h to plan</span>
         <span style="font-size: 15px; line-height: 22px; margin-top: auto">{{heroNext}}</span>
         <sc-if value="{{justMoved}}" hint-placeholder-val="{{false}}"><span id="moved-note" role="status" tabindex="-1" style="font-size: 13px; font-weight: 600">10h moved off Vannak's week.</span></sc-if>
         <sc-if value="{{showMoveBtn}}" hint-placeholder-val="{{true}}"><button type="button" id="move-btn" onClick="{{openMove}}" style="align-self: flex-start; height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Move Vannak's work</button></sc-if>
@@ -202,7 +204,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <span style="min-width: 96px; padding: 4px 10px; border-radius: 999px; background: {{c.bg}}; color: {{c.fg}}; font-size: 12px; font-weight: 600; text-align: center">{{c.kind}}</span>
             <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; line-height: 22px; font-weight: 600">{{c.what}}</span><span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{c.effect}}</span></div>
             <sc-if value="{{c.href}}" hint-placeholder-val="{{true}}"><a href="{{c.href}}" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">{{c.action}}</a></sc-if>
-            <sc-if value="{{c.leave}}" hint-placeholder-val="{{false}}"><button type="button" id="pl-lv-open" onClick="{{c.open}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Decide</button></sc-if>
+            <sc-if value="{{c.leave}}" hint-placeholder-val="{{false}}"><button type="button" id="pl-lv-open" onClick="{{c.open}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Decide</button></sc-if>
             <sc-if value="{{c.deciding}}" hint-placeholder-val="{{false}}"><div onKeyDown="{{c.key}}" style="flex: 1 1 100%; display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: 16px; background: #F4F3EF"><strong id="pl-lv-title" tabindex="-1" style="font-size: 15px">Dara's leave, Thu 22 – Fri 23 Oct</strong><span style="font-size: 13px; line-height: 18px; color: #4A4950">Dara's time to plan: 24h → 12h. Two tasks are due on those days.</span>
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 12px; border-radius: 12px; background: #FFFFFF"><span style="flex: 1 1 200px; font-size: 13px; line-height: 18px"><strong>Menu sync job tests</strong> · Medium · 10h · due Thu 22</span><div role="radiogroup" aria-label="What happens to Menu sync job tests" style="display: flex; gap: 2px; padding: 2px; border-radius: 999px; background: #F4F3EF"><sc-for list="{{c.testOpts}}" as="o" hint-placeholder-count="2"><button type="button" role="radio" id="{{o.id}}" tabindex="{{o.tab}}" aria-checked="{{o.on}}" onClick="{{o.pick}}" onKeyDown="{{o.key}}" style="height: 44px; padding: 0 12px; border: 0; border-radius: 999px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">{{o.name}}</button></sc-for></div></div>
               <div style="padding: 10px 12px; border-radius: 12px; background: #FFFFFF; font-size: 13px; line-height: 18px"><strong>Contract renewal check</strong> · confidential · due Thu 22 · Dara keeps it and does it Wed 21.</div>
@@ -323,7 +325,7 @@ class Component extends DCLogic {
       locked: lock === 'locked',
       weekState: lock === 'locked' ? 'locked Fri 16 Oct, 16:40' : 'not locked yet',
       heroTitle: lock === 'locked' ? 'Week 43 is locked · ' + (s.lockedTotal || plannedTotal) + 'h planned' : (overN.length === 0 ? 'Nobody is over' : overN.length === 1 ? 'One person is over' : overN.length + ' people are over'),
-      heroNext: lock === 'locked' ? (overN.length ? overN.join(' and ') + (overN.length > 1 ? ' are' : ' is') + ' still over. Changes now show in the weekly review, never as a miss.' : 'Everyone fits. Work added from now on shows as added in the weekly review.') : overN.length === 0 ? 'Everyone fits in week 43. Lock it when you\'re ready.' : [overN.indexOf('Vannak') >= 0 ? 'Vannak has more work than time: move his work here.' : '', overN.indexOf('Dara') >= 0 ? 'Dara is over because her leave is counted: decide it, and move Menu sync job tests to week 44.' : ''].filter(Boolean).join(' '),
+      heroNext: lock === 'locked' ? (overN.length ? overN.join(' and ') + (overN.length > 1 ? ' are' : ' is') + ' still over. Changes now show in the weekly review, never as a miss.' : 'Everyone fits. Work added from now on shows as added in the weekly review.') : overN.length === 0 ? 'Everyone fits in week 43. Lock it when you\'re ready.' : [overN.indexOf('Vannak') >= 0 ? 'Move some of Vannak\'s work first.' : '', overN.indexOf('Dara') >= 0 ? 'Dara is over only because of her leave. Decide it below.' : ''].filter(Boolean).join(' '),
       askLock: () => this.focusTo('lock-title', { lock: 'confirm' }),
       doLock: () => this.focusTo('locked-title', { lock: 'locked', lockedTotal: plannedTotal }),
       cancelLock: () => this.focusTo('lock-btn', { lock: 'planning' }),

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Needs you</title>
 <script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
 </head>
 <body>
 <x-dc>
@@ -21,6 +22,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:1100px){.bento>*{grid-column:1 / -1 !important}}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -49,7 +51,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isEmpty}}" hint-placeholder-val="{{false}}">
       <section aria-label="Nothing needs you right now" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
-        <img src="/_blob/a431a6fdd4e19f548f54f9fd97283158" alt="Punh Punh waving" style="width: 144px; height: 144px; border-radius: 28px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 144px; height: 144px; border-radius: 28px; flex-shrink: 0"><dc-import name="PunhPunh" pose="wave" label="Punh Punh waving" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Nothing needs you right now</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">New requests, reviews, Need help and leave requests show up here as they come in. Your team looks fine this week.</p>
@@ -59,7 +61,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isError}}" hint-placeholder-val="{{false}}">
       <section role="alert" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; box-shadow: inset 0 0 0 2px #C2410C">
-        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 120px; height: 120px; border-radius: 24px; flex-shrink: 0"><dc-import name="PunhPunh" pose="calm" label="Punh Punh, calm" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load Needs you</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
@@ -91,13 +93,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                 <button type="button" id="lv-decline" onClick="{{n.decline}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{n.second}}</button>
               </sc-if>
               <sc-if value="{{n.href}}" hint-placeholder-val="{{true}}">
-                <a href="{{n.href}}" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">{{n.action}}</a>
+                <a href="{{n.href}}" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">{{n.action}}</a>
               </sc-if>
               <sc-if value="{{n.isHelp}}" hint-placeholder-val="{{false}}">
                 <button type="button" id="hp-open" onClick="{{n.helpOpen}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Reply to Sophal</button>
               </sc-if>
               <sc-if value="{{n.inline}}" hint-placeholder-val="{{false}}">
-                <button type="button" id="lv-open" onClick="{{n.approve}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{n.action}}</button>
+                <button type="button" id="lv-open" onClick="{{n.approve}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{n.action}}</button>
               </sc-if>
             </div>
           </div>
@@ -198,9 +200,18 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1100}}'>
+<script type="text/x-dc" data-dc-script data-props='{"seed":{"editor":"enum","options":["shared","normal","busy","quiet"],"default":"shared"},"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
-  componentDidMount() { try { const q = JSON.parse(window.localStorage.getItem('hf-lead-queue') || '{}'); this.setState({ qDone: Object.keys(q || {}).length, revDone: !!window.localStorage.getItem('hf-lead-review'), hoDone: window.localStorage.getItem('hf-lead-handover') === 'done', coverAsked: !!window.localStorage.getItem('hf-lead-cover'), vannakReplied: !!window.localStorage.getItem('hf-lead-vannak'), helped: window.localStorage.getItem('hf-lead-help') ? true : !!(this.state || {}).helped, hc: window.localStorage.getItem('hf-lead-help') || (this.state || {}).hc }); } catch (e) {} try { const v = window.localStorage.getItem('hf-dara-leave'); if (v === 'approved') this.setState({ approved: true, choice: window.localStorage.getItem('hf-dara-leave-tests') === 'pisey' ? 'give' : 'later' }); else if (v === 'declined') this.setState({ declined: true, why: window.localStorage.getItem('hf-dara-leave-why') || '' }); else if (window.location.hash === '#leave') this.focusTo('lv-title', { sheet: true }); } catch (e) {} }
+  componentDidMount() {
+    this._hf = () => { let v = null; try { v = window.localStorage.getItem('hopflows.seed'); } catch (e) {} if (v && v !== (this.state && this.state.hfSeed)) this.setState({ hfSeed: v, hfLocal: null }); };
+    this._hf(); try { window.addEventListener('storage', this._hf); } catch (e) {} this._hfT = setInterval(this._hf, 1000); this.hfMountOld();
+  }
+  componentWillUnmount() { try { window.removeEventListener('storage', this._hf); } catch (e) {} clearInterval(this._hfT); }
+  seed() { const p = this.props.seed; return (p && p !== 'shared') ? p : ((this.state && this.state.hfSeed) || 'normal'); }
+  local() { return (this.state && this.state.hfLocal) || {}; }
+  setLocal(patch) { this.setState({ hfLocal: Object.assign({}, this.local(), patch) }); }
+
+  hfMountOld() { try { const q = JSON.parse(window.localStorage.getItem('hf-lead-queue') || '{}'); this.setState({ qDone: Object.keys(q || {}).length, revDone: !!window.localStorage.getItem('hf-lead-review'), hoDone: window.localStorage.getItem('hf-lead-handover') === 'done', coverAsked: !!window.localStorage.getItem('hf-lead-cover'), vannakReplied: !!window.localStorage.getItem('hf-lead-vannak'), helped: window.localStorage.getItem('hf-lead-help') ? true : !!(this.state || {}).helped, hc: window.localStorage.getItem('hf-lead-help') || (this.state || {}).hc }); } catch (e) {} try { const v = window.localStorage.getItem('hf-dara-leave'); if (v === 'approved') this.setState({ approved: true, choice: window.localStorage.getItem('hf-dara-leave-tests') === 'pisey' ? 'give' : 'later' }); else if (v === 'declined') this.setState({ declined: true, why: window.localStorage.getItem('hf-dara-leave-why') || '' }); else if (window.location.hash === '#leave') this.focusTo('lv-title', { sheet: true }); } catch (e) {} }
   // move keyboard focus to the part of the screen that just appeared
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() {
@@ -215,6 +226,7 @@ class Component extends DCLogic {
       help: { kbg: '#FCE3D3', kfg: '#9A3412' },
       plain: { kbg: '#F4F3EF', kfg: '#1C1B1F' }
     };
+    const seed = this.seed();
     const s = this.state || {};
     const declined = !!s.declined, approved = !!s.approved, sheet = !!s.sheet && !approved, later = s.choice !== 'give';
     const declining = !!s.declining && !declined && !approved;
@@ -246,9 +258,10 @@ class Component extends DCLogic {
       helpDoneText: 'Sent to Sophal: ' + { chase: 'you\'ll chase the provider for the live keys', pisey: 'Pisey takes it over on Monday with the handover', wait: 'it waits for the keys; you\'ll check on Wednesday' }[hc] + ((s.helpNote || '').trim() ? ' · "' + s.helpNote.trim().replace(/[.!?]+$/, '') + '"' : '') + '.',
       helpUndo: () => { try { window.localStorage.removeItem('hf-lead-help'); } catch (e) {} this.focusTo('hp-open', { helped: false }); } };
     const need = (kind, tone, title, meta, action, href, second) => Object.assign({ kind, title, meta, action, href: href || '', inline: !href, second: second || '', open: true, done: false, sheet: false }, k[tone], href ? {} : leave);
-    const qLeft = 4 - (s.qDone || 0);
-    const waiting = qLeft + (s.helped ? 0 : 1) + (s.revDone ? 0 : 1) + (approved || declined ? 0 : 1) + (s.hoDone ? 0 : 1) + (s.coverAsked ? 0 : 1) + (s.vannakReplied ? 0 : 1);
-    const parts = [qLeft ? qLeft + (qLeft === 1 ? ' request' : ' requests') + ' to sort' : '', s.helped ? '' : '1 Need help', s.revDone ? '' : '1 review', approved || declined ? '' : '1 leave request', s.hoDone ? '' : '1 handover', s.coverAsked ? '' : '1 routine gap', s.vannakReplied ? '' : '1 week status'].filter(Boolean);
+    const qT = seed === 'busy' ? 6 : 4; const qLeft = Math.max(0, qT - (s.qDone || 0));
+    const waiting = (seed === 'busy' ? 2 : 0) + qLeft + (s.helped ? 0 : 1) + (s.revDone ? 0 : 1) + (approved || declined ? 0 : 1) + (s.hoDone ? 0 : 1) + (s.coverAsked ? 0 : 1) + (s.vannakReplied ? 0 : 1);
+    const waitingN = seed === 'quiet' ? 0 : waiting;
+    const parts = [seed === 'busy' ? '2 more blocked or waiting tasks' : '', qLeft ? qLeft + (qLeft === 1 ? ' request' : ' requests') + ' to sort' : '', s.helped ? '' : '1 Need help', s.revDone ? '' : '1 review', approved || declined ? '' : '1 leave request', s.hoDone ? '' : '1 handover', s.coverAsked ? '' : '1 routine gap', s.vannakReplied ? '' : '1 week status'].filter(Boolean);
     const cap = {
       room: { word: 'Room', bg: '#DCEFE2', fg: '#1F5E3A' },
       balanced: { word: 'Balanced', bg: '#C9DDE8', fg: '#33454F' },
@@ -257,16 +270,20 @@ class Component extends DCLogic {
       away: { word: 'Away', bg: 'repeating-linear-gradient(45deg, #ECEAE4 0 6px, #E0DED7 6px 12px)', fg: '#4A4950' },
       leaving: { word: 'Leaving', bg: '#FFFFFF', fg: '#4A4950', ring: 'inset 0 0 0 1px #6E6C73' }
     };
-    const person = (name, init, c, says) => Object.assign({ name, init, id: name.split(' ')[0].toLowerCase(), says: says || '', aria: name + ': ' + cap[c].word + (says ? ', says Full' : '') + '. Open in Workload', ring: 'none' }, cap[c]);
-    const st = this.props.state ?? 'normal';
+    const BUSY = { 'Dara Sok': 'over', 'Rithy Heng': 'over', 'Vannak Prum': 'over', 'Pisey Chea': 'buffer', 'Chenda Lim (you)': 'buffer' };
+    const pickCap = (name, c) => seed === 'busy' ? (BUSY[name] || c) : seed === 'quiet' ? (c === 'away' || c === 'leaving' ? c : 'room') : c;
+    const person = (name, init, c0, says) => { const c = pickCap(name, c0); return Object.assign({ name, init, id: name.split(' ')[0].toLowerCase(), says: says || '', aria: name + ': ' + cap[c].word + (says ? ', says Full' : '') + '. Open in Workload', ring: 'none' }, cap[c]); };
+    const st0 = this.props.state ?? 'normal'; const st = seed === 'quiet' && st0 === 'normal' ? 'empty' : st0;
     return {
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
-      waiting,
+      waiting: waitingN,
       leaveDone: later ? 'Menu sync job tests moves to week 44, and Dara is told now.' : 'Menu sync job tests goes to Pisey, and Dara and Pisey are told now.',
       waitingLine: parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1] + '.',
       needs: [
         Object.assign(need('Need help', 'help', 'Payment webhook retries is blocked', "Sophal Ouk · since 16:05 · waiting on the provider's keys · Launch In-App Ordering v1", '', 'x'), help),
-        qLeft ? need('New requests', 'plain', qLeft + ' waiting in the Incoming Queue', qLeft === 4 ? 'Oldest: 2 days · 3 match work you already have' : (4 - qLeft) + ' sorted today', 'Sort', 'Queue.dc.html') : null,
+        seed === 'busy' ? need('Need help', 'help', 'Receipt printer driver is blocked', 'Dara Sok · since Mon · the vendor has not replied · Launch In-App Ordering v1', 'Open', 'TaskDetail.dc.html') : null,
+        seed === 'busy' ? need('Review', 'plain', 'Coupon rules screen', 'Pisey Chea · sent for review yesterday 17:40', 'Review', 'TaskDetail.dc.html#review') : null,
+        qLeft ? need('New requests', 'plain', qLeft + ' waiting in the Incoming Queue', qLeft === qT ? 'Oldest: 2 days · 3 match work you already have' : (4 - qLeft) + ' sorted today', 'Sort', 'Queue.dc.html') : null,
         s.revDone ? null : need('Review', 'plain', 'Build the checkout API', 'Dara Sok · sent for review 15:10', 'Review', 'TaskDetail.dc.html#review'),
         need('Leave', 'plain', 'Dara asks for Thu 22 – Fri 23 Oct', 'Annual · week 43 · 2 tasks due on those days', 'Check and approve', '', 'Decline'),
         s.hoDone ? null : need('Handover', 'plain', 'Sophal leaves Fri 23 Oct · finish the handover', 'Step 2 of 3 · 8 items · 13h of week 43 moves', 'Continue', 'Handover.dc.html'),

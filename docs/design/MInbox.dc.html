@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inbox · phone</title>
+<script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 1000px; overflow: hidden; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif">
+  <main style="box-sizing: border-box; padding: 28px 16px 120px; display: flex; flex-direction: column; gap: 12px">
+    <header style="display: flex; align-items: flex-end; gap: 8px; padding: 0 4px">
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 4px">
+        <span style="font-size: 12px; color: #6E6C73">{{needLine}}</span>
+        <h1 style="margin: 0; font-size: 34px; line-height: 36px; font-weight: 600; letter-spacing: -0.04em">Inbox</h1>
+      </div>
+      <a href="MSettings.dc.html" aria-label="Alert settings" style="width: 44px; height: 44px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"></path><circle cx="15" cy="6" r="2"></circle><circle cx="9" cy="12" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></a>
+    </header>
+
+    <sc-if value="{{urgent}}" hint-placeholder-val="{{true}}">
+    <section aria-label="Urgent" style="background: #FFFFFF; border-radius: 24px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: inset 0 0 0 2px #C2410C">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <span style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 12px; font-weight: 600"><span style="width: 7px; height: 7px; border-radius: 999px; background: #C2410C"></span>Urgent</span>
+        <span style="font-size: 12px; color: #6E6C73">{{urgent.meta}}</span>
+      </div>
+      <span style="font-size: 16px; line-height: 22px; font-weight: 600">{{urgent.title}}</span>
+      <div style="display: flex; gap: 8px">
+        <button type="button" onClick="{{startUrgent}}" style="flex: 1; height: 48px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">{{startLabel}}</button>
+        <a href="MNeedHelp.dc.html" style="height: 48px; padding: 0 16px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center">Need help</a>
+        <button type="button" style="height: 48px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 14px; font-weight: 600">Snooze</button>
+      </div>
+    </section>
+
+    </sc-if>
+
+    <section aria-label="Alerts" style="background: #FFFFFF; border-radius: 24px; padding: 4px 18px; display: flex; flex-direction: column">
+      <sc-for list="{{alerts}}" as="a" hint-placeholder-count="4">
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: {{a.line}}">
+          <div style="display: flex; gap: 12px">
+            <span aria-hidden="true" style="width: 10px; height: 10px; margin-top: 6px; border-radius: 999px; background: {{a.dot}}; flex-shrink: 0"></span>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; line-height: 21px">{{a.text}}</span><span style="font-size: 12px; color: #6E6C73">{{a.meta}}</span></div>
+          </div>
+          <sc-if value="{{a.b1}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; gap: 8px; padding-left: 22px">
+              <button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; box-shadow: inset 0 0 0 1.5px #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600">{{a.b1}}</button>
+              <sc-if value="{{a.b2}}" hint-placeholder-val="{{false}}"><button type="button" style="height: 44px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600">{{a.b2}}</button></sc-if>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </section>
+
+    <section aria-label="Morning summary" style="background: #C9DDE8; color: #33454F; border-radius: 24px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start">
+      <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 44px; height: 44px; border-radius: 14px; flex-shrink: 0"><dc-import name="PunhPunh" pose="waveRight" label="Punh Punh waving" hint-size="100%,100%"></dc-import></span>
+      <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; font-weight: 600; color: #1C1B1F">Morning summary · 08:00</span><span style="font-size: 13px; line-height: 19px; color: #1C1B1F">{{morning}}</span></div>
+    </section>
+  </main>
+  <div style="position: absolute; left: 16px; right: 16px; bottom: 22px">
+    <dc-import name="MTabBar" current="inbox" persona="employee" hint-size="358px,64px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"seed":{"editor":"enum","options":["shared","normal","busy","quiet"],"default":"shared"},"$preview":{"width":390,"height":1000}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._hf = () => { let v = null; try { v = window.localStorage.getItem('hopflows.seed'); } catch (e) {} if (v && v !== (this.state && this.state.hfSeed)) this.setState({ hfSeed: v, hfLocal: null }); };
+    this._hf(); try { window.addEventListener('storage', this._hf); } catch (e) {} this._hfT = setInterval(this._hf, 1000);
+  }
+  componentWillUnmount() { try { window.removeEventListener('storage', this._hf); } catch (e) {} clearInterval(this._hfT); }
+  seed() { const p = this.props.seed; return (p && p !== 'shared') ? p : ((this.state && this.state.hfSeed) || 'normal'); }
+  local() { return (this.state && this.state.hfLocal) || {}; }
+  setLocal(patch) { this.setState({ hfLocal: Object.assign({}, this.local(), patch) }); }
+  renderVals() {
+    const seed = this.seed();
+    const L = this.local();
+    const a = (text, meta, dot, b1, b2) => ({ text, meta, dot, b1: b1 || '', b2: b2 || '' });
+    const ALL = {
+      normal: { need: '3 need you', urgent: { meta: '13:06 · Chenda', title: 'Coupon breaks payment at checkout is now yours' },
+        morning: 'Good morning, Dara! Your three today: checkout API, menu photos, receipt footer. One meeting at 14:30.', list: [
+        a('Checkout API sync moved to 14:30', 'Chenda · 12:40', '#33454F', 'Accept', 'Decline'),
+        a('Write release notes was given to you', 'Chenda · 11:15', '#1C1B1F', 'Start', 'Later'),
+        a('Your request “Receipt printer offline” was joined with an earlier report', '10:02', '#6E6C73'),
+        a('Chenda gave you kudos for “Update receipt footer”', '10:30 · only you and your lead see this', '#F28FAA')] },
+      busy: { need: '4 need you', urgent: { meta: '08:52 · Chenda', title: 'Payment webhook times out for every shop. It is yours now.' },
+        morning: 'Good morning, Dara. A heavy one: the webhook is overdue and the printer driver is still blocked. Incident review at 10:00.', list: [
+        a('Incident review at 10:00 · Room 1', 'Chenda · 08:40', '#33454F', 'Accept', 'Decline'),
+        a('Menu sync job tests was given to you · due today', 'Chenda · 08:31', '#1C1B1F', 'Start', 'Later'),
+        a('Your week shows Too much. Chenda can see it.', 'Mon 08:00', '#C2410C', 'Update my week')] },
+      quiet: { need: 'Nothing needs you', urgent: null,
+        morning: 'Good morning, Dara! A calm day: your three are done and nothing is due. Maybe pick something from next week.', list: [
+        a('Chenda gave you kudos for “Build the checkout API”', '09:10 · only you and your lead see this', '#F28FAA'),
+        a('Coupon rules screen was accepted', 'Chenda · Thu', '#2E7D4F'),
+        a('Your leave Thu 22 – Fri 23 Oct was approved', 'Chenda · Wed', '#2E7D4F')] }
+    };
+    const d = ALL[seed] || ALL.normal;
+    return {
+      needLine: d.need, morning: d.morning,
+      urgent: d.urgent, startLabel: L.started ? 'Started ✓' : 'Start', startUrgent: () => this.setLocal({ started: !L.started }),
+      alerts: d.list.map((x, i, arr) => Object.assign(x, { line: i < arr.length - 1 ? '1px solid #F0EEE9' : '0' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

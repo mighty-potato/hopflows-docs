@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>My week and leave</title>
 <script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
 <link rel="stylesheet" href="/_blob/9275412045caede2fafcdfc2bb2771d3">
 </head>
 <body>
@@ -22,6 +23,7 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
 .hf-hide-sm{display:none !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:1100px){.bento>*{grid-column:1 / -1 !important}}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -106,7 +108,7 @@ input::placeholder,textarea::placeholder{color:#6E6C73;opacity:1}
         <sc-if value="{{isSick}}" hint-placeholder-val="{{false}}">
         <div role="status" style="display: flex; flex-direction: column; gap: 16px">
           <div style="display: flex; align-items: center; gap: 16px">
-            <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 72px; height: 72px; border-radius: 20px; object-fit: cover; flex-shrink: 0">
+            <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 72px; height: 72px; border-radius: 20px; flex-shrink: 0"><dc-import name="PunhPunh" pose="calm" label="Punh Punh, calm" hint-size="100%,100%"></dc-import></span>
             <div style="display: flex; flex-direction: column; gap: 4px"><h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Get well, Dara</h2><span style="font-size: 15px; line-height: 22px; color: #4A4950">You're marked sick for today, Fri 16 Oct. No approval needed, and Chenda has been told.</span></div>
           </div>
           <p style="margin: 0; padding: 12px 16px; border-radius: 16px; background: #F4F3EF; font-size: 13px; line-height: 18px">Today shows as Away. Your streak is safe, and normal alerts wait until you're back.</p>

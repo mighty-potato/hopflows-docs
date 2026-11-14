@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Today · phone</title>
+<script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 1040px; overflow: hidden; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif">
+  <main style="box-sizing: border-box; padding: 28px 16px 120px; display: flex; flex-direction: column; gap: 12px">
+    <header style="display: flex; align-items: flex-end; gap: 8px; padding: 0 4px 4px">
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 4px">
+        <span style="font-size: 12px; line-height: 16px; color: #6E6C73">{{dateLine}}</span>
+        <h1 style="margin: 0; font-size: 34px; line-height: 36px; font-weight: 600; letter-spacing: -0.04em">Today</h1>
+      </div>
+      <a href="MSearch.dc.html" aria-label="Search" style="width: 44px; height: 44px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></a>
+    </header>
+
+    <sc-if value="{{offline}}" hint-placeholder-val="{{false}}">
+      <div role="status" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px 8px 8px; border-radius: 22px; background: #C9DDE8; color: #33454F">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 40px; height: 40px; border-radius: 12px"><dc-import name="PunhPunh" pose="calm" label="Punh Punh, calm" hint-size="100%,100%"></dc-import></span>
+        <span style="font-size: 13px; line-height: 18px"><strong style="color: #1C1B1F">Offline</strong> — saved. We'll send it when you're back online.</span>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{working}}" hint-placeholder-val="{{true}}">
+      <section aria-label="Now" style="background: #F7C83A; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+          <span style="font-size: 13px; line-height: 18px; font-weight: 600">{{hero.due}}</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px"><span style="display: inline-flex; gap: 3px" aria-hidden="true"><sc-for list="{{bars}}" as="b" hint-placeholder-count="3"><span style="width: 14px; height: 6px; border-radius: 999px; background: {{b.bg}}"></span></sc-for></span>Top 3 · {{doneCount}} done</span>
+        </div>
+        <a href="MTask.dc.html" style="font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em; text-decoration: none; color: #1C1B1F">{{hero.title}}</a>
+        <div role="group" aria-label="Checklist" style="padding: 2px 14px; border-radius: 20px; background: rgba(255,255,255,0.6)">
+          <sc-for list="{{checks}}" as="c" hint-placeholder-count="3">
+            <label style="display: flex; align-items: center; gap: 12px; min-height: 46px; border-bottom: {{c.line}}; font-size: 15px; color: {{c.fg}}"><input type="checkbox" checked="{{c.done}}" onChange="{{c.toggle}}" style="width: 22px; height: 22px; accent-color: #1C1B1F"><span style="text-decoration: {{c.strike}}">{{c.label}}</span></label>
+          </sc-for>
+        </div>
+        <div style="display: flex; gap: 8px">
+          <button type="button" style="flex: 1; height: 52px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Send to review</button>
+          <a href="MNeedHelp.dc.html" style="height: 52px; padding: 0 18px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; text-decoration: none; font-size: 15px; font-weight: 600; display: flex; align-items: center">Need help</a>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{allClear}}" hint-placeholder-val="{{false}}">
+      <section aria-label="All clear" style="position: relative; overflow: hidden; background: #F7C83A; border-radius: 28px; padding: 22px 140px 22px 20px; min-height: 160px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 6px">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 56px; line-height: 56px; font-weight: 600; letter-spacing: -0.05em">3/3</span>
+        <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">All clear. Nice work.</span>
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; position: absolute; right: -8px; bottom: -14px; width: 150px; height: 150px; border-radius: 28px"><dc-import name="PunhPunh" pose="done" label="Punh Punh holding a ticked note" hint-size="100%,100%"></dc-import></span>
+      </section>
+    </sc-if>
+
+    <section aria-label="Your Top 3" style="background: #FFFFFF; border-radius: 28px; padding: 14px 20px; display: flex; flex-direction: column">
+      <h2 style="margin: 0 0 2px; font-size: 13px; line-height: 18px; font-weight: 600; color: #4A4950">Your Top 3</h2>
+      <sc-for list="{{top}}" as="t" hint-placeholder-count="3">
+        <a href="MTask.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 56px; border-bottom: {{t.line}}; text-decoration: none; color: #1C1B1F">
+          <span aria-hidden="true" style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 999px; border: {{t.ring}}; background: {{t.fill}}; color: #F7C83A; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><sc-if value="{{t.isDone}}" hint-placeholder-val="{{false}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"></path></svg></sc-if></span>
+          <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600; color: {{t.fg}}; text-decoration: {{t.strike}}">{{t.title}}</span><sc-if value="{{t.sub}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: {{t.subFg}}">{{t.sub}}</span></sc-if></span>
+          <span style="flex-shrink: 0; height: 32px; padding: 0 12px; border-radius: 999px; background: {{t.tagBg}}; color: {{t.tagFg}}; font-size: 12px; font-weight: 600; display: flex; align-items: center">{{t.tag}}</span>
+        </a>
+      </sc-for>
+    </section>
+
+    <section aria-label="Later today" style="background: #FFFFFF; border-radius: 28px; padding: 4px 20px; display: flex; flex-direction: column">
+      <sc-for list="{{later}}" as="l" hint-placeholder-count="3">
+        <a href="{{l.href}}" style="display: flex; align-items: center; gap: 12px; min-height: 54px; border-bottom: {{l.line}}; text-decoration: none; color: #1C1B1F">
+          <span style="width: 44px; display: flex; color: #4A4950; font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600"><sc-if value="{{l.isTime}}" hint-placeholder-val="{{true}}">{{l.lead}}</sc-if><sc-if value="{{l.isRoutine}}" hint-placeholder-val="{{false}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"></path><path d="M3 11V9a3 3 0 0 1 3-3h15"></path><path d="M7 22l-4-4 4-4"></path><path d="M21 13v2a3 3 0 0 1-3 3H3"></path></svg></sc-if><sc-if value="{{l.isTasks}}" hint-placeholder-val="{{false}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01"></path></svg></sc-if></span>
+          <span style="flex: 1; font-size: 15px">{{l.label}}</span>
+          <span style="font-size: 12px; color: {{l.metaFg}}">{{l.meta}}</span>
+        </a>
+      </sc-for>
+    </section>
+  </main>
+  <div style="position: absolute; left: 16px; right: 16px; bottom: 22px">
+    <dc-import name="MTabBar" current="home" persona="employee" hint-size="358px,64px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"seed":{"editor":"enum","options":["shared","normal","busy","quiet"],"default":"shared"},"state":{"editor":"enum","options":["working","allClear"],"default":"working"},"offline":{"editor":"boolean","default":false},"$preview":{"width":390,"height":1040}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._hf = () => { let v = null; try { v = window.localStorage.getItem('hopflows.seed'); } catch (e) {} if (v && v !== (this.state && this.state.hfSeed)) this.setState({ hfSeed: v, ticks: null }); };
+    this._hf(); try { window.addEventListener('storage', this._hf); } catch (e) {} this._hfT = setInterval(this._hf, 1000);
+  }
+  componentWillUnmount() { try { window.removeEventListener('storage', this._hf); } catch (e) {} clearInterval(this._hfT); }
+  seed() { const p = this.props.seed; return (p && p !== 'shared') ? p : ((this.state && this.state.hfSeed) || 'normal'); }
+  renderVals() {
+    const seed = this.seed();
+    const ALL = {
+      normal: { date: 'Fri 16 Oct · 12-day streak', due: 'Now · due 17:00', title: 'Build the checkout API',
+        checks: [['Design the endpoint', true], ['Add checks', true], ['Write tests', false]], done: 1,
+        top: [['now', 'Build the checkout API', '', 'Now'], ['todo', 'Check menu photos', 'Due today', 'Start'], ['done', 'Update receipt footer', '', 'Done']],
+        later: [['14:30', 'Checkout API sync', 'Room 2', 'MCalendar.dc.html', ''], ['↻', 'Routines', '1 of 2 done', 'MRoutine.dc.html', ''], ['≡', '5 more tasks', '1 blocked', 'MMyTasks.dc.html', 'warn']] },
+      busy: { date: 'Mon 9 Nov · streak paused', due: 'Now · overdue', title: 'Payment webhook times out',
+        checks: [['Reproduce the timeout', true], ['Add a retry', false], ['Ask the provider for logs', false]], done: 0,
+        top: [['now', 'Payment webhook times out', 'Overdue', 'Now'], ['blocked', 'Fix receipt printer driver', 'Waiting on vendor', 'Blocked'], ['todo', 'Menu sync job tests', 'Due today', 'Start']],
+        later: [['10:00', 'Incident review', 'Room 1', 'MCalendar.dc.html', ''], ['↻', 'Routines', '0 of 2 done', 'MRoutine.dc.html', 'warn'], ['≡', '9 more tasks', '3 blocked', 'MMyTasks.dc.html', 'warn']] },
+      quiet: { date: 'Fri 16 Oct · 20-day streak', due: 'Now', title: '', checks: [], done: 3,
+        top: [['done', 'Build the checkout API', '', 'Done'], ['done', 'Check menu photos', '', 'Done'], ['done', 'Update receipt footer', '', 'Done']],
+        later: [['—', 'No meetings left today', '', 'MCalendar.dc.html', ''], ['↻', 'Routines', '2 of 2 done', 'MRoutine.dc.html', ''], ['≡', '2 more tasks this week', 'None blocked', 'MMyTasks.dc.html', '']] }
+    };
+    const d = ALL[seed] || ALL.normal;
+    const ticks = (this.state && this.state.ticks) || d.checks.map((c) => c[1]);
+    const state = seed === 'quiet' ? 'allClear' : (this.props.state ?? 'working');
+    const tag = { now: ['#1C1B1F', '#FFFFFF'], todo: ['#F4F3EF', '#1C1B1F'], blocked: ['#FCE3D3', '#9A3412'], done: ['transparent', '#6E6C73'] };
+    return {
+      dateLine: d.date,
+      hero: { due: d.due, title: d.title },
+      working: state === 'working', allClear: state === 'allClear',
+      offline: this.props.offline ?? false,
+      doneCount: d.done,
+      bars: [0, 1, 2].map((i) => ({ bg: i < d.done ? '#1C1B1F' : 'rgba(28,27,31,0.18)' })),
+      checks: d.checks.map((c, i, a) => ({ label: c[0], done: !!ticks[i], fg: ticks[i] ? '#4A4950' : '#1C1B1F', strike: ticks[i] ? 'line-through' : 'none', line: i < a.length - 1 ? '1px solid rgba(28,27,31,0.08)' : '0', toggle: () => { const n = ticks.slice(); n[i] = !n[i]; this.setState({ ticks: n }); } })),
+      top: d.top.map((t, i, a) => ({
+        title: t[1], sub: t[2], subFg: t[0] === 'blocked' || t[2] === 'Overdue' ? '#9A3412' : '#6E6C73', tag: t[3],
+        tagBg: tag[t[0]][0], tagFg: tag[t[0]][1], isDone: t[0] === 'done',
+        ring: t[0] === 'now' ? '6px solid #F7C83A' : (t[0] === 'done' ? '0' : (t[0] === 'blocked' ? '2px solid #C2410C' : '2px solid #6E6C73')),
+        fill: t[0] === 'now' || t[0] === 'done' ? '#1C1B1F' : 'transparent',
+        fg: t[0] === 'done' ? '#6E6C73' : '#1C1B1F', strike: t[0] === 'done' ? 'line-through' : 'none',
+        line: i < a.length - 1 ? '1px solid #F0EEE9' : '0'
+      })),
+      later: d.later.map((l, i, a) => ({ lead: l[0], isTime: l[0] !== '↻' && l[0] !== '≡', isRoutine: l[0] === '↻', isTasks: l[0] === '≡', label: l[1], meta: l[2], href: l[3], metaFg: l[4] === 'warn' ? '#9A3412' : '#6E6C73', line: i < a.length - 1 ? '1px solid #F0EEE9' : '0' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

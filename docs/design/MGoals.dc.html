@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Goals · phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 1100px; overflow: hidden; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif">
+  <main style="box-sizing: border-box; padding: 28px 16px 120px; display: flex; flex-direction: column; gap: 12px">
+    <header style="display: flex; align-items: flex-end; gap: 8px; padding: 0 4px">
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 4px">
+        <span style="font-size: 12px; color: #6E6C73">Riverline Co. · Q4</span>
+        <h1 style="margin: 0; font-size: 34px; line-height: 36px; font-weight: 600; letter-spacing: -0.04em">Goals</h1>
+      </div>
+      <a href="MSearch.dc.html" aria-label="Search" style="width: 44px; height: 44px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></a>
+    </header>
+
+    <section aria-label="Goals on track" style="background: #F7C83A; border-radius: 28px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; align-items: flex-end; gap: 12px">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 64px; line-height: 64px; font-weight: 600; letter-spacing: -0.05em">{{onTrack}}</span>
+        <span style="padding-bottom: 6px; font-size: 15px; font-weight: 600">Goals on track</span>
+      </div>
+      <div style="display: flex; gap: 6px">
+        <sc-for list="{{chips}}" as="c" hint-placeholder-count="2"><span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; background: #FFFFFF; color: {{c.fg}}; font-size: 12px; font-weight: 600"><span style="width: 7px; height: 7px; border-radius: 999px; background: {{c.dot}}"></span>{{c.text}}</span></sc-for>
+      </div>
+    </section>
+
+    <a href="MSummary.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 22px; background: #C9DDE8; color: #1C1B1F; text-decoration: none">
+      <span style="flex: 1; display: flex; flex-direction: column"><span style="font-size: 12px; color: #33454F">Weekly summary · Mon 12 Oct</span><span style="font-size: 15px; font-weight: 600">{{summaryLine}}</span></span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+    </a>
+
+    <sc-for list="{{goals}}" as="g" hint-placeholder-count="4">
+      <article style="background: #FFFFFF; border-radius: 24px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px">
+          <span style="font-size: 15px; line-height: 21px; font-weight: 600">{{g.title}}</span>
+          <span style="flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; background: {{g.bg}}; color: {{g.fg}}; font-size: 12px; font-weight: 600"><span style="width: 7px; height: 7px; border-radius: 999px; background: {{g.dot}}"></span>{{g.flag}}</span>
+        </div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between"><span style="font-family: 'Geist Mono', monospace; font-size: 22px; font-weight: 600; letter-spacing: -0.03em">{{g.now}}</span><span style="font-size: 12px; color: #6E6C73">target {{g.target}}</span></div>
+        <div style="height: 8px; border-radius: 999px; background: #E7E5DF"><div style="height: 8px; border-radius: 999px; background: #1C1B1F; width: {{g.pct}}"></div></div>
+        <sc-if value="{{g.why}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; line-height: 16px; color: #4A4950">{{g.why}}</span></sc-if>
+      </article>
+    </sc-for>
+  </main>
+  <div style="position: absolute; left: 16px; right: 16px; bottom: 22px">
+    <dc-import name="MTabBar" current="home" persona="leader" hint-size="358px,64px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"seed":{"editor":"enum","options":["shared","normal","busy","quiet"],"default":"shared"},"$preview":{"width":390,"height":1100}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._hf = () => { let v = null; try { v = window.localStorage.getItem('hopflows.seed'); } catch (e) {} if (v && v !== (this.state && this.state.hfSeed)) this.setState({ hfSeed: v, hfLocal: null }); };
+    this._hf(); try { window.addEventListener('storage', this._hf); } catch (e) {} this._hfT = setInterval(this._hf, 1000);
+  }
+  componentWillUnmount() { try { window.removeEventListener('storage', this._hf); } catch (e) {} clearInterval(this._hfT); }
+  seed() { const p = this.props.seed; return (p && p !== 'shared') ? p : ((this.state && this.state.hfSeed) || 'normal'); }
+  local() { return (this.state && this.state.hfLocal) || {}; }
+  setLocal(patch) { this.setState({ hfLocal: Object.assign({}, this.local(), patch) }); }
+  renderVals() {
+    const seed = this.seed();
+    const f = {
+      ok: { flag: 'On track', bg: '#DCEFE2', fg: '#1F5E3A', dot: '#2E7D4F' },
+      risk: { flag: 'At risk', bg: '#FCE3D3', fg: '#9A3412', dot: '#C2410C' },
+      off: { flag: 'Off track', bg: '#F2B8B2', fg: '#7A1F18', dot: '#C0352B' }
+    };
+    const g = (title, k, now, target, pct, why) => Object.assign({ title, now, target, pct, why: why || '' }, f[k]);
+    const chip = (text, fg, dot) => ({ text, fg, dot });
+    const ALL = {
+      normal: { on: '5/8', chips: [chip('2 at risk', '#9A3412', '#C2410C'), chip('1 off track', '#9B2C24', '#C0352B')], line: '1 new flag · 2 Deliverables done', goals: [
+        g('Increase in-app sales by 20%', 'risk', '+14%', '+20%', '70%', 'Waiting on the payment provider · 7 days'),
+        g('Onboard 40 pilot schools', 'off', '22', '40', '55%', 'Scope change · decision waiting for you'),
+        g('Cut support reply time to 4h', 'ok', '5.2h', '4h', '76%'),
+        g('Reach 25,000 monthly users', 'ok', '21,400', '25,000', '55%')] },
+      busy: { on: '3/8', chips: [chip('3 at risk', '#9A3412', '#C2410C'), chip('2 off track', '#9B2C24', '#C0352B')], line: '4 new flags · 0 Deliverables done', goals: [
+        g('Increase in-app sales by 20%', 'off', '+6%', '+20%', '30%', 'Payment provider still silent · 21 days'),
+        g('Onboard 40 pilot schools', 'off', '14', '40', '35%', 'Scope change · decision waiting for you · 3 weeks'),
+        g('Cut support reply time to 4h', 'risk', '7.8h', '4h', '40%', 'Two people away this week'),
+        g('Reach 25,000 monthly users', 'risk', '19,900', '25,000', '45%', 'Launch slipped to December')] },
+      quiet: { on: '8/8', chips: [chip('All on track', '#1F5E3A', '#2E7D4F')], line: 'No new flags · 3 Deliverables done', goals: [
+        g('Increase in-app sales by 20%', 'ok', '+19%', '+20%', '95%'),
+        g('Onboard 40 pilot schools', 'ok', '36', '40', '90%'),
+        g('Cut support reply time to 4h', 'ok', '3.9h', '4h', '100%'),
+        g('Reach 25,000 monthly users', 'ok', '24,600', '25,000', '98%')] }
+    };
+    const d = ALL[seed] || ALL.normal;
+    return { onTrack: d.on, chips: d.chips, summaryLine: d.line, goals: d.goals };
+  }
+}
+</script>
+</body>
+</html>

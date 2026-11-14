@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weekly summary</title>
 <script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
 </head>
 <body>
 <x-dc>
@@ -21,6 +22,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:1100px){.bento>*{grid-column:1 / -1 !important}}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -38,7 +40,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
         <sc-if value="{{pdfDone}}" hint-placeholder-val="{{false}}"><span id="pdf-done" tabindex="-1" role="status" style="font-size: 12px; color: #1F5E3A">Saved "Weekly summary week 42.pdf" · 2 pages</span></sc-if>
         <button type="button" id="ew-btn" aria-expanded="{{ewOpen}}" aria-controls="ew-panel" onClick="{{toggleEarlier}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #FFFFFF; color: #1C1B1F">Earlier summaries</button>
-        <button type="button" onClick="{{savePdf}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; padding: 0 18px; background: #1C1B1F; color: #FFFFFF; display: inline-flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"></path></svg>Save as PDF</button>
+        <button type="button" onClick="{{savePdf}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; padding: 0 18px; background: #FFFFFF; color: #1C1B1F; display: inline-flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"></path></svg>Save as PDF</button>
       </div>
     </div>
 
@@ -61,7 +63,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isFirst}}" hint-placeholder-val="{{false}}">
       <section aria-labelledby="sm-first" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
-        <img src="/_blob/a431a6fdd4e19f548f54f9fd97283158" alt="Punh Punh waving" style="width: 144px; height: 144px; border-radius: 28px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 144px; height: 144px; border-radius: 28px; flex-shrink: 0"><dc-import name="PunhPunh" pose="wave" label="Punh Punh waving" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 id="sm-first" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Your first summary comes Monday at 8:00</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">Every Monday it tells you which Goals are on track, which risk flags are new, and what is waiting for your decision. It also comes as a push alert.</p>
@@ -71,7 +73,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isHoliday}}" hint-placeholder-val="{{false}}">
       <section aria-labelledby="sm-hol" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
-        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 120px; height: 120px; border-radius: 24px; flex-shrink: 0"><dc-import name="PunhPunh" pose="calm" label="Punh Punh, calm" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 id="sm-hol" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">This week's summary comes Tuesday</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">Monday 19 Oct is a holiday on Riverline's calendar, so the week 42 summary comes on Tue 20 Oct at 8:00. Decisions waiting are already on the Goals page.</p>
@@ -81,7 +83,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isError}}" hint-placeholder-val="{{false}}">
       <section role="alert" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; box-shadow: inset 0 0 0 2px #C2410C">
-        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 120px; height: 120px; border-radius: 24px; flex-shrink: 0"><dc-import name="PunhPunh" pose="calm" label="Punh Punh, calm" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load the summary</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. The push alert you got this morning has the same numbers.</p>
@@ -93,15 +95,15 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <div class="bento hf-sum-cols" style="columns: 2 400px; column-gap: 12px">
       <section aria-label="Are we on track" style="break-inside: avoid; margin: 0 0 12px; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-height: 260px; box-sizing: border-box">
         <span style="font-size: 13px; font-weight: 600">Goals on track</span>
-        <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">5<span style="font-size: 40px; letter-spacing: -0.02em"> of 8</span></span>
-        <span style="font-size: 15px; line-height: 22px; margin-top: auto">Same count as last week: support reply time came back on track, pilot schools went Off track.</span>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">{{onTrackN}}<span style="font-size: 40px; letter-spacing: -0.02em"> of 8</span></span>
+        <span style="font-size: 15px; line-height: 22px; margin-top: auto">{{heroLine}}</span>
       </section>
       <section aria-label="Decisions" style="break-inside: avoid; margin: 0 0 12px; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
         <h2 style="margin: 0 0 4px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em; color: #1C1B1F">{{decTitle}}</h2>
         <sc-if value="{{someDecided}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; line-height: 18px">{{decidedLine}}</span></sc-if>
-        <sc-if value="{{openA}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">Approve Goal: Cut stock-outs by 30%</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Adds about 6h a week to Operations from January. Suggested: send it back for now.</span></span><a href="Goals.dc.html#decide-stockouts" aria-label="Approve or send back: Cut stock-outs by 30%" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Approve or send back</a></div></sc-if>
-        <sc-if value="{{openB}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">School App sign-up flow: move the date or cut scope?</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Move the date: about 30 of 40 schools by 15 Dec. Keep the date: about 34. Or lower the target to 34.</span></span><a href="Goals.dc.html#decide-schoolapp" aria-label="Decide date or scope: School App sign-up flow" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide: date or scope</a></div></sc-if>
-        <sc-if value="{{openC}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">Cut new-hire setup: a flag open 3 weeks. What now?</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Lend about 12h a week from Design: 2 days by 18 Dec. Move the end date to Wed 31 Mar. Or wait: likely 3 days.</span></span><a href="Goals.dc.html#decide-newhire" aria-label="Decide what to do: Cut new-hire setup" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide what to do</a></div></sc-if>
+        <sc-if value="{{openA}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">Approve Goal: Cut stock-outs by 30%</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Adds about 6h a week to Operations from January. Suggested: send it back for now.</span></span><a href="Goals.dc.html#decide-stockouts" aria-label="Approve or send back: Cut stock-outs by 30%" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; box-shadow: inset 0 0 0 1.5px #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Approve or send back</a></div></sc-if>
+        <sc-if value="{{openB}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">School App sign-up flow: move the date or cut scope?</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Move the date: about 30 of 40 schools by 15 Dec. Keep the date: about 34. Or lower the target to 34.</span></span><a href="Goals.dc.html#decide-schoolapp" aria-label="Decide date or scope: School App sign-up flow" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; box-shadow: inset 0 0 0 1.5px #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide: date or scope</a></div></sc-if>
+        <sc-if value="{{openC}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 22px; background: #FFFFFF; color: #1C1B1F"><span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 18px"><span style="font-weight: 600">Cut new-hire setup: a flag open 3 weeks. What now?</span><span style="font-size: 12px; line-height: 16px; color: #4A4950">Lend about 12h a week from Design: 2 days by 18 Dec. Move the end date to Wed 31 Mar. Or wait: likely 3 days.</span></span><a href="Goals.dc.html#decide-newhire" aria-label="Decide what to do: Cut new-hire setup" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; box-shadow: inset 0 0 0 1.5px #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Decide what to do</a></div></sc-if>
       </section>
       <section aria-label="Risk flags" style="break-inside: avoid; margin: 0 0 12px; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Risk flags</h2>
@@ -143,9 +145,18 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","first","holiday","error"],"default":"normal"},"$preview":{"width":1440,"height":1240}}'>
+<script type="text/x-dc" data-dc-script data-props='{"seed":{"editor":"enum","options":["shared","normal","busy","quiet"],"default":"shared"},"state":{"editor":"enum","options":["normal","loading","first","holiday","error"],"default":"normal"},"$preview":{"width":1440,"height":1240}}'>
 class Component extends DCLogic {
-  componentDidMount() { try { const d = JSON.parse(window.localStorage.getItem('hf-leader-decided') || '{}'); if (d && (d.a || d.b || d.c)) this.setState({ decided: d }); } catch (e) {} }
+  componentDidMount() {
+    this._hf = () => { let v = null; try { v = window.localStorage.getItem('hopflows.seed'); } catch (e) {} if (v && v !== (this.state && this.state.hfSeed)) this.setState({ hfSeed: v, hfLocal: null }); };
+    this._hf(); try { window.addEventListener('storage', this._hf); } catch (e) {} this._hfT = setInterval(this._hf, 1000); this.hfMountOld();
+  }
+  componentWillUnmount() { try { window.removeEventListener('storage', this._hf); } catch (e) {} clearInterval(this._hfT); }
+  seed() { const p = this.props.seed; return (p && p !== 'shared') ? p : ((this.state && this.state.hfSeed) || 'normal'); }
+  local() { return (this.state && this.state.hfLocal) || {}; }
+  setLocal(patch) { this.setState({ hfLocal: Object.assign({}, this.local(), patch) }); }
+
+  hfMountOld() { try { const d = JSON.parse(window.localStorage.getItem('hf-leader-decided') || '{}'); if (d && (d.a || d.b || d.c)) this.setState({ decided: d }); } catch (e) {} }
   // move keyboard focus to the part of the screen that just appeared
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() {
@@ -156,6 +167,7 @@ class Component extends DCLogic {
     }
   }
   renderVals() {
+    const seed = this.seed();
     const st = this.props.state ?? 'normal';
     const ui = this.state || {};
     const ok = st === 'normal';
@@ -169,7 +181,7 @@ class Component extends DCLogic {
     const c = (goal, why, now, k) => Object.assign({ goal, why, now, k, href: goal === 'Increase in-app sales by 20%' ? 'GoalDetail.dc.html' : goal === '3 more Goals' ? 'Goals.dc.html#goal-keep-the-app-rating-at-4-5-or-higher' : 'Goals.dc.html#goal-' + goal.toLowerCase().replace(/[^a-z0-9]+/g, '-') }, s[k]);
     const d = (name, pct, k) => ({ name, v: pct + '%', w: Math.round(pct / 40 * 100) + '%', bg: k });
     // risk flags: every row opens its item and says who to ask
-    const dec = ui.decided || {};
+    const dec = seed === 'quiet' ? { a: 1, b: 1, c: 1 } : (ui.decided || {});
     const tag = { New: '#1C1B1F', 'Still open': '#4A4950', Decision: '#33454F', Cleared: '#1F5E3A' };
     const fl = (t, item, text, who, href) => ({ tag: t, tagColor: tag[t], item, text, who, href });
     const flags = [
@@ -178,11 +190,20 @@ class Component extends DCLogic {
       fl('Still open', 'Launch In-App Ordering v1', 'At risk · Waiting on others: payment provider keys late · since Fri 9 Oct', 'Who to ask: Chenda Lim, Technical · back on track by Fri 23 Oct', 'GoalDetail.dc.html'),
       fl('Cleared', 'Support inbox rules', '“Second person joined from Operations”', 'Cleared by Bopha Meas, Operations', 'Goals.dc.html#goal-cut-support-reply-time-to-4-hours')
     ];
+    if (seed === 'busy') flags.unshift(
+      fl('New', 'Reach 25,000 monthly users', 'At risk · Sign-ups slowed while the launch slipped · since Mon 9 Nov', 'Who to ask: Kosal Nhem, Marketing · back on track by Fri 27 Nov', 'Goals.dc.html#goal-reach-25-000-monthly-users'),
+      fl('New', 'Cut card fees in shops by 15%', 'At risk · Card reader rollout two weeks late · since Tue 10 Nov', 'Who to ask: Bopha Meas, Operations · no back-on-track date yet', 'Goals.dc.html#goal-cut-card-fees-in-shops-by-15-'));
+    if (seed === 'quiet') { flags.length = 0; flags.push(
+      fl('Cleared', 'School App sign-up flow', '“Khmer sign-up forms shipped”', 'Cleared by Chenda Lim, Technical', 'Goals.dc.html'),
+      fl('Cleared', 'Launch In-App Ordering v1', '“Payment provider keys arrived”', 'Cleared by Chenda Lim, Technical', 'GoalDetail.dc.html'),
+      fl('Cleared', 'Staff laptop setup guide', '“Pisey is writing it this week”', 'Cleared by Bopha Meas, Operations', 'Goals.dc.html')); }
     const nLeft = ['a', 'b', 'c'].filter((k) => !dec[k]).length;
     return {
       openA: !dec.a, openB: !dec.b, openC: !dec.c, someDecided: nLeft < 3,
       decTitle: nLeft ? 'Decisions waiting · ' + nLeft : 'No decisions waiting',
-      decidedLine: (3 - nLeft) + ' decided on the Goals page today.' + (nLeft ? '' : ' You\'re up to date.'),
+      decidedLine: seed === 'quiet' ? 'Nothing needs your decision this week.' : (3 - nLeft) + ' decided on the Goals page today.' + (nLeft ? '' : ' You\'re up to date.'),
+      onTrackN: { busy: '3', quiet: '8' }[seed] || '5',
+      heroLine: { busy: 'Down from 5 last week: monthly users and card fees went At risk, pilot schools are still Off track.', quiet: 'Up from 5 last week: in-app sales, pilot schools and new-hire setup are all back on track.' }[seed] || 'Same count as last week: support reply time came back on track, pilot schools went Off track.',
       flags,
       ok, isLoading: st === 'loading', isFirst: st === 'first', isHoliday: st === 'holiday', isError: st === 'error',
       dateLine: st === 'holiday' ? 'Week 42 (12–16 Oct) · comes Tue 20 Oct, after the holiday' : st === 'first' ? 'Comes every Monday at 8:00 · also sent by push' : 'Monday 19 October · covers week 42 (12–16 Oct) · also sent by push',
@@ -203,7 +224,7 @@ class Component extends DCLogic {
         c('Cut new-hire setup to 2 days', 'Result behind pace; flag open 3 weeks. ' + (dec.c ? 'You decided today.' : 'Now a decision for you.'), 'At risk', 'risk'),
         c('Reach 25,000 monthly users', 'Ahead of pace. No change.', 'On track', 'ok'),
         c('3 more Goals', 'On pace or ahead, no change: app rating, card fees, school partners', 'On track', 'ok')
-      ].sort((x, y) => ({ off: 0, risk: 1, ok: 2 })[x.k] - ({ off: 0, risk: 1, ok: 2 })[y.k]),
+      ].map((x) => seed === 'quiet' ? Object.assign(x, { now: 'On track', k: 'ok', why: x.k === 'ok' ? x.why : 'Back on track this week. Flag cleared.' }, s.ok) : seed === 'busy' && x.goal === 'Reach 25,000 monthly users' ? Object.assign(x, { now: 'At risk', k: 'risk', why: 'Behind pace; sign-ups slowed while the launch slipped (new flag).' }, s.risk) : seed === 'busy' && x.goal === '3 more Goals' ? Object.assign(x, { goal: '2 more Goals', why: 'On pace or ahead, no change: app rating, school partners' }) : x).concat(seed === 'busy' ? [c('Cut card fees in shops by 15%', 'Behind pace; card reader rollout two weeks late (new flag).', 'At risk', 'risk')] : []).sort((x, y) => ({ off: 0, risk: 1, ok: 2 })[x.k] - ({ off: 0, risk: 1, ok: 2 })[y.k]),
       depts: [
         d('Operations · over buffer', 31, 'repeating-linear-gradient(45deg, #1C1B1F 0 4px, #6E6C73 4px 8px)'),
         d('Technical', 13, '#1C1B1F'),

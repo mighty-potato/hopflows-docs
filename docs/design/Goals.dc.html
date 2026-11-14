@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Goals</title>
 <script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
 </head>
 <body>
 <x-dc>
@@ -23,6 +24,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:1100px){.bento>*{grid-column:1 / -1 !important}}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -50,7 +52,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isEmpty}}" hint-placeholder-val="{{false}}">
       <section aria-label="No Goals for Q4 yet" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
-        <img src="/_blob/a431a6fdd4e19f548f54f9fd97283158" alt="Punh Punh waving" style="width: 144px; height: 144px; border-radius: 28px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 144px; height: 144px; border-radius: 28px; flex-shrink: 0"><dc-import name="PunhPunh" pose="wave" label="Punh Punh waving" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">No Goals for Q4 yet</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">A Goal is a result with a number and a date, like "Increase in-app sales by 20% by 31 Dec". Leads can suggest one and you approve it.</p>
@@ -60,7 +62,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isError}}" hint-placeholder-val="{{false}}">
       <section role="alert" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; box-shadow: inset 0 0 0 2px #C2410C">
-        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 120px; height: 120px; border-radius: 24px; flex-shrink: 0"><dc-import name="PunhPunh" pose="calm" label="Punh Punh, calm" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load Goals</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
@@ -70,6 +72,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{ok}}" hint-placeholder-val="{{true}}">
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: stretch">
+      <sc-if value="{{hasDecisions}}" hint-placeholder-val="{{true}}">
       <section aria-labelledby="dc-title" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <h2 id="dc-title" tabindex="-1" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">{{dc.title}}</h2>
         <span style="font-size: 13px; line-height: 18px; color: #6E6C73">{{dc.sub}}</span>
@@ -78,7 +81,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <sc-if value="{{a.closed}}" hint-placeholder-val="{{true}}">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 0">
               <span style="flex: 1 1 240px; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 15px; font-weight: 600">Approve Goal: Cut stock-outs by 30%</span><span style="font-size: 12px; color: #6E6C73">Proposed by Bopha Meas, Operations · Tue 13 Oct</span></span>
-              <button type="button" id="da-open" aria-expanded="false" aria-label="Approve or send back: Cut stock-outs by 30%" onClick="{{a.open}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Approve or send back</button>
+              <button type="button" id="da-open" aria-expanded="false" aria-label="Approve or send back: Cut stock-outs by 30%" onClick="{{a.open}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Approve or send back</button>
             </div>
           </sc-if>
           <sc-if value="{{a.panel}}" hint-placeholder-val="{{false}}">
@@ -124,7 +127,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <sc-if value="{{b.closed}}" hint-placeholder-val="{{true}}">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 0">
               <span style="flex: 1 1 240px; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 15px; font-weight: 600">School App sign-up flow: move the date or cut scope?</span><span style="font-size: 12px; color: #6E6C73">Off track · 6 days · asked by Chenda Lim</span></span>
-              <button type="button" id="db-open" aria-expanded="false" aria-label="Decide date or scope: School App sign-up flow" onClick="{{b.open}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Decide: date or scope</button>
+              <button type="button" id="db-open" aria-expanded="false" aria-label="Decide date or scope: School App sign-up flow" onClick="{{b.open}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Decide: date or scope</button>
             </div>
           </sc-if>
           <sc-if value="{{b.panel}}" hint-placeholder-val="{{false}}">
@@ -154,7 +157,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <sc-if value="{{c.closed}}" hint-placeholder-val="{{true}}">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px 0">
               <span style="flex: 1 1 240px; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 15px; font-weight: 600">Cut new-hire setup: a flag open 3 weeks. What now?</span><span style="font-size: 12px; color: #6E6C73">At risk since Mon 28 Sep · Time: not enough people · Bopha Meas, Operations</span></span>
-              <button type="button" id="dn-open" aria-expanded="false" aria-label="Decide what to do: Cut new-hire setup" onClick="{{c.open}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #1C1B1F; color: #FFFFFF">Decide what to do</button>
+              <button type="button" id="dn-open" aria-expanded="false" aria-label="Decide what to do: Cut new-hire setup" onClick="{{c.open}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: #F4F3EF; color: #1C1B1F">Decide what to do</button>
             </div>
           </sc-if>
           <sc-if value="{{c.panel}}" hint-placeholder-val="{{false}}">
@@ -181,15 +184,22 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           </sc-if>
         </div>
       </section>
+      </sc-if>
+      <sc-if value="{{noDecisions}}" hint-placeholder-val="{{false}}">
+      <section aria-labelledby="dq-title" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <h2 id="dq-title" style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Nothing waits for your decision</h2>
+        <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">When a Goal slips and a lead asks you to choose, the choice shows up here with what each option costs.</p>
+      </section>
+      </sc-if>
 
       <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <section aria-labelledby="gs-title" style="background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
-          <h2 id="gs-title" style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em; font-variant-numeric: tabular-nums">5 of 8 on track</h2>
+          <h2 id="gs-title" style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 600; letter-spacing: -0.035em; font-variant-numeric: tabular-nums">{{onTrackLine}}</h2>
           <span style="font-size: 15px; line-height: 22px">{{heroLine}}</span>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px">
-            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #9A3412"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>2 at risk</span>
-            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #7A1F18"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C0352B"></span>1 off track</span>
-          </div>
+          <sc-if value="{{hasFlags}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-wrap: wrap; gap: 6px">
+            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #9A3412"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>{{riskN}} at risk</span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #7A1F18"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C0352B"></span>{{offN}} off track</span>
+          </div></sc-if>
         </section>
         <section aria-label="Latest weekly summary" style="background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
           <span style="font-size: 12px">Weekly summary · Mon 19 Oct · week 42</span>
@@ -220,7 +230,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: {{g.bg}}; color: {{g.fg}}; font-size: 13px; font-weight: 600; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{g.dot}}"></span>{{g.flag}}</span>
           </div>
           <div style="display: flex; flex-direction: column; gap: 6px">
-            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">{{g.now}}</span><span style="font-size: 12px; color: #6E6C73">target {{g.target}}</span></div>
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><span style="font-family: 'Geist Mono', monospace; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">{{g.now}}</span><span style="font-size: 12px; color: #6E6C73">target {{g.target}}</span></div>
             <div role="img" aria-label="{{g.paceLabel}}" style="position: relative; margin-top: 8px; height: 10px; border-radius: 999px; background: #E7E5DF"><div style="height: 10px; border-radius: 999px; background: #1C1B1F; width: {{g.pct}}"></div><div aria-hidden="true" style="position: absolute; top: -9px; left: {{g.need}}; transform: translateX(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #1C1B1F"></div><div aria-hidden="true" style="position: absolute; top: 0; left: {{g.need}}; width: 2px; height: 10px; margin-left: -1px; background: #FFFFFF"></div></div>
             <span style="font-size: 12px; color: #6E6C73">Started at {{g.start}}</span>
           </div>
@@ -239,8 +249,17 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1100}}'>
+<script type="text/x-dc" data-dc-script data-props='{"seed":{"editor":"enum","options":["shared","normal","busy","quiet"],"default":"shared"},"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
+  componentDidMount() {
+    this._hf = () => { let v = null; try { v = window.localStorage.getItem('hopflows.seed'); } catch (e) {} if (v && v !== (this.state && this.state.hfSeed)) this.setState({ hfSeed: v, hfLocal: null }); };
+    this._hf(); try { window.addEventListener('storage', this._hf); } catch (e) {} this._hfT = setInterval(this._hf, 1000); this.hfMountOld();
+  }
+  componentWillUnmount() { try { window.removeEventListener('storage', this._hf); } catch (e) {} clearInterval(this._hfT); }
+  seed() { const p = this.props.seed; return (p && p !== 'shared') ? p : ((this.state && this.state.hfSeed) || 'normal'); }
+  local() { return (this.state && this.state.hfLocal) || {}; }
+  setLocal(patch) { this.setState({ hfLocal: Object.assign({}, this.local(), patch) }); }
+
   // move keyboard focus to the part of the screen that just appeared
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   // one Tab stop per choice group; arrow keys move and pick, like native radio buttons
@@ -258,7 +277,7 @@ class Component extends DCLogic {
       });
     });
   }
-  componentDidMount() {
+  hfMountOld() {
     // decisions made earlier today stay made
     try { const d = JSON.parse(window.localStorage.getItem('hf-leader-decided') || '{}'); const st = {}; if (d.a && d.aStep) st.aStep = d.aStep; if (d.b && d.bPick) { st.bStep = 'sent'; st.bPick = d.bPick; } if (d.c && d.cPick) { st.cStep = 'sent'; st.cPick = d.cPick; } this._loaded = true; if (Object.keys(st).length) this.setState(st); } catch (e) { this._loaded = true; }
     // arriving from the weekly summary: focus the decision that the link opened
@@ -276,6 +295,7 @@ class Component extends DCLogic {
     }
   }
   renderVals() {
+    const seed = this.seed();
     const s = this.state || {};
     // the weekly summary links here with #decide-stockouts or #decide-schoolapp to open that decision
     let hash = '';
@@ -367,7 +387,22 @@ class Component extends DCLogic {
       'Cut new-hire setup to 2 days': 'Flag set by Bopha Meas, Mon 28 Sep · 3 weeks · no back-on-track date yet'
     };
     const needBy = { 'Increase in-app sales by 20%': 45, 'Onboard 40 pilot schools': 60, 'Cut new-hire setup to 2 days': 70, 'Cut support reply time to 4 hours': 70, 'Reach 25,000 monthly users': 50, 'Keep the app rating at 4.5 or higher': 100, 'Cut card fees in shops by 15%': 55, 'Sign 5 school partners': 60 };
-    const g = (title, k, now, target, start, pct, why, del, products, depts, end, href, owner, askName) => {
+    const KO = seed === 'busy' ? { 'Reach 25,000 monthly users': 'risk', 'Cut card fees in shops by 15%': 'risk' } : seed === 'quiet' ? { 'Increase in-app sales by 20%': 'ok', 'Onboard 40 pilot schools': 'ok', 'Cut new-hire setup to 2 days': 'ok' } : {};
+    if (seed === 'busy') {
+      verdicts['Reach 25,000 monthly users'] = ['Behind pace;', 'sign-ups slowed while the in-app ordering launch slipped.'];
+      verdicts['Cut card fees in shops by 15%'] = ['Behind pace;', 'the new card reader rollout is two weeks late.'];
+      flagLines['Reach 25,000 monthly users'] = 'Flag set by Kosal Nhem, Mon 9 Nov · 2 days · back on track by Fri 27 Nov';
+      flagLines['Cut card fees in shops by 15%'] = 'Flag set by Bopha Meas, Tue 10 Nov · 1 day · no back-on-track date yet';
+    }
+    if (seed === 'quiet') {
+      verdicts['Increase in-app sales by 20%'] = ['Ahead of pace.', 'No flags. Payment keys arrived and the launch is on date.'];
+      verdicts['Onboard 40 pilot schools'] = ['On pace.', 'No flags. Khmer sign-up forms shipped this week.'];
+      verdicts['Cut new-hire setup to 2 days'] = ['On pace.', 'No flags. The setup guide is being written.'];
+      for (const t in flagLines) delete flagLines[t];
+    }
+    const g = (title, k0, now, target, start, pct, why, del, products, depts, end, href, owner, askName) => {
+      const k = KO[title] || k0;
+      if (seed === 'quiet') askName = '';
       const have = parseInt(pct, 10), need = needBy[title];
       const pace = have > need ? { paceWord: 'ahead of pace', paceColor: '#1F5E3A' } : have < need ? { paceWord: 'behind pace', paceColor: '#9A3412' } : { paceWord: 'on pace', paceColor: '#1C1B1F' };
       const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -402,10 +437,13 @@ class Component extends DCLogic {
     all.sort((x, y) => rank[x.k] - rank[y.k]);
     const goals = all.filter((x) => (fv.flag === 'All' || x.flag === fv.flag) && (fv.product === 'All' || x.plist.includes(fv.product)) && (fv.dept === 'All' || x.depts.includes(fv.dept)));
     const filtered = fv.flag !== 'All' || fv.product !== 'All' || fv.dept !== 'All';
+    const nOk = all.filter((x) => x.k === 'ok').length, nRisk = all.filter((x) => x.k === 'risk').length, nOff = all.filter((x) => x.k === 'off').length;
     const st = this.props.state ?? 'normal';
     return {
+      onTrackLine: nOk + ' of 8 on track', riskN: nRisk, offN: nOff, hasFlags: nRisk + nOff > 0,
+      hasDecisions: seed !== 'quiet', noDecisions: seed === 'quiet',
       dc, a, b, c,
-      heroLine: '3 Goals need attention this quarter.' + (left === 0 ? ' All 3 of your decisions are made.' : 3 - left > 0 ? ' ' + (3 - left) + ' of your 3 decisions made today.' : ''),
+      heroLine: seed === 'quiet' ? 'Every Goal is on track. Nothing needs your decision this week.' : (nRisk + nOff) + ' Goals need attention this quarter.' + (left === 0 ? ' All 3 of your decisions are made.' : 3 - left > 0 ? ' ' + (3 - left) + ' of your 3 decisions made today.' : ''),
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
       goals, filters, filtered, noMatch: goals.length === 0,
       showOkBtn: !s.showOk, okToggle: () => this.setState({ showOk: true }),

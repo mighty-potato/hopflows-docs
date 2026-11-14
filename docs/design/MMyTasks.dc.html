@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>My tasks · phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;family=Noto+Sans+Khmer:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1C1B1F}
+:focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 1120px; overflow: hidden; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif">
+  <main style="box-sizing: border-box; padding: 28px 16px 120px; display: flex; flex-direction: column; gap: 12px">
+    <header style="display: flex; align-items: flex-end; gap: 8px; padding: 0 4px">
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 4px">
+        <span style="font-size: 12px; color: #6E6C73">{{weekLine}}</span>
+        <h1 style="margin: 0; font-size: 34px; line-height: 36px; font-weight: 600; letter-spacing: -0.04em">My tasks</h1>
+      </div>
+      <div role="radiogroup" aria-label="View" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
+        <button type="button" role="radio" aria-checked="true" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600">List</button>
+        <button type="button" role="radio" aria-checked="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600">Board</button>
+      </div>
+    </header>
+
+    <div role="group" aria-label="Filter" style="display: flex; gap: 6px; overflow-x: auto; margin: 0 -16px; padding: 2px 16px">
+      <sc-for list="{{chips}}" as="c" hint-placeholder-count="4"><button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="flex-shrink: 0; height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: {{c.bg}}; color: {{c.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{c.label}}</button></sc-for>
+    </div>
+
+    <sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+      <section aria-label="{{g.name}}" style="background: #FFFFFF; border-radius: 24px; padding: 8px; display: flex; flex-direction: column">
+        <h2 style="margin: 0; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 16px; background: {{g.bg}}; color: {{g.fg}}; font-size: 15px; line-height: 22px; font-weight: 600">
+          <span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 999px; background: {{g.dot}}"></span>
+          <span style="flex: 1">{{g.name}}</span>
+          <span style="min-width: 26px; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{g.count}}</span>
+        </h2>
+        <sc-for list="{{g.items}}" as="t" hint-placeholder-count="2">
+          <div style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 6px 8px 6px 12px; border-bottom: {{t.line}}">
+            <a href="MTask.dc.html" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; text-decoration: none; color: #1C1B1F">
+              <span style="display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; font-weight: 600; color: {{t.fg}}">{{t.title}}<sc-if value="{{t.top}}" hint-placeholder-val="{{false}}"><span role="img" aria-label="Top 3 priority" style="width: 18px; height: 18px; flex-shrink: 0; border-radius: 999px; background: #F7C83A; display: inline-flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1C1B1F" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path></svg></span></sc-if></span>
+              <span style="font-size: 12px; line-height: 16px; color: {{t.metaFg}}">{{t.meta}}</span>
+            </a>
+            <sc-if value="{{t.action}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{t.act}}" style="cursor: pointer; flex-shrink: 0; height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{t.btnBg}}; color: {{t.btnFg}}; font-family: inherit; font-size: 13px; font-weight: 600">{{t.action}}</button></sc-if>
+          </div>
+        </sc-for>
+        <sc-if value="{{g.folded}}" hint-placeholder-val="{{false}}"><button type="button" aria-expanded="false" style="height: 44px; margin: 4px 0 0; border: 0; border-radius: 14px; background: transparent; color: #1F5E3A; font-family: inherit; font-size: 13px; font-weight: 600">{{g.foldLabel}}</button></sc-if>
+      </section>
+    </sc-for>
+  </main>
+  <div style="position: absolute; left: 16px; right: 16px; bottom: 22px">
+    <dc-import name="MTabBar" current="none" persona="employee" hint-size="358px,64px"></dc-import>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"seed":{"editor":"enum","options":["shared","normal","busy","quiet"],"default":"shared"},"$preview":{"width":390,"height":1120}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._hf = () => { let v = null; try { v = window.localStorage.getItem('hopflows.seed'); } catch (e) {} if (v && v !== (this.state && this.state.hfSeed)) this.setState({ hfSeed: v, hfLocal: null }); };
+    this._hf(); try { window.addEventListener('storage', this._hf); } catch (e) {} this._hfT = setInterval(this._hf, 1000);
+  }
+  componentWillUnmount() { try { window.removeEventListener('storage', this._hf); } catch (e) {} clearInterval(this._hfT); }
+  seed() { const p = this.props.seed; return (p && p !== 'shared') ? p : ((this.state && this.state.hfSeed) || 'normal'); }
+  local() { return (this.state && this.state.hfLocal) || {}; }
+  setLocal(patch) { this.setState({ hfLocal: Object.assign({}, this.local(), patch) }); }
+  renderVals() {
+    const seed = this.seed();
+    const L = this.local();
+    const moved = L.moved || {};
+    const filter = L.filter || 'all';
+    // [title, meta, group, top, private]
+    const ALL = {
+      normal: { week: 'Week 42', tasks: [
+        ['Build the checkout API', 'Due today', 'In progress', true],
+        ['Fix receipt printer driver', 'Blocked · waiting on vendor', 'Needs help'],
+        ['Check menu photos with Design', 'Due today', 'To do', true],
+        ['Menu sync job tests', 'Due Thu 22', 'To do'],
+        ['Contract renewal check', 'Due Thu 22 · private', 'To do'],
+        ['Menu sync job release', 'Due Mon 9 Nov', 'To do'],
+        ['Write release notes', 'Due Tue 10 Nov', 'To do'],
+        ['Coupon rules screen', 'Chenda checks it', 'Awaiting review'],
+        ['Update receipt footer', 'Done Thu', 'Done', true], ['Resize menu photos', 'Done Wed', 'Done']] },
+      busy: { week: 'Week 46 · over by 9h', tasks: [
+        ['Payment webhook times out', 'Overdue · since Sun', 'In progress', true],
+        ['Fix receipt printer driver', 'Blocked · vendor silent 5 days', 'Needs help'],
+        ['Shop tablet shows old prices', 'Blocked · waiting on Rithy', 'Needs help'],
+        ['Menu sync job tests', 'Due today', 'To do', true],
+        ['Checkout error messages in Khmer', 'Overdue · Fri', 'To do', true],
+        ['Contract renewal check', 'Due Tue · private', 'To do'],
+        ['Menu sync job release', 'Due Wed', 'To do'],
+        ['Order tracking screen', 'Due Thu', 'To do'],
+        ['Coupon rules screen', 'Sent back · 2 changes', 'Needs help'],
+        ['Update receipt footer', 'Done Mon', 'Done']] },
+      quiet: { week: 'Week 42 · room to spare', tasks: [
+        ['Write release notes', 'Due Tue 10 Nov', 'To do'],
+        ['Menu sync job release', 'Due Mon 9 Nov', 'To do'],
+        ['Coupon rules screen', 'Chenda checks it', 'Awaiting review'],
+        ['Build the checkout API', 'Done today', 'Done', true], ['Check menu photos with Design', 'Done today', 'Done', true],
+        ['Update receipt footer', 'Done Thu', 'Done', true], ['Resize menu photos', 'Done Wed', 'Done']] }
+    };
+    const d = ALL[seed] || ALL.normal;
+    const tasks = d.tasks.map(([title, meta, group, top]) => ({ title, meta: moved[title] ? moved[title][1] : meta, group: moved[title] ? moved[title][0] : group, top: !!top }));
+    const look = {
+      'In progress': ['#C9DDE8', '#1C1B1F', '#1C1B1F', 'Review', '#1C1B1F', '#FFFFFF', 'Awaiting review', 'Sent to Chenda'],
+      'Needs help': ['#FCE3D3', '#9A3412', '#C2410C', 'Unblock', '#FCE3D3', '#9A3412', 'To do', 'Unblocked · ready to start'],
+      'To do': ['#E7E5DF', '#1C1B1F', '#6E6C73', 'Start', '#F4F3EF', '#1C1B1F', 'In progress', 'Started just now'],
+      'Awaiting review': ['#F9D3DE', '#1C1B1F', '#6E4850', '', '', '', '', ''],
+      'Done': ['#DCEFE2', '#1F5E3A', '#2E7D4F', '', '', '', '', '']
+    };
+    const keep = (t) => filter === 'all' || (filter === 'top' && t.top) || (filter === 'blocked' && t.group === 'Needs help') || (filter === 'review' && t.group === 'Awaiting review');
+    const groups = Object.keys(look).map((name) => {
+      const lk = look[name];
+      const all = tasks.filter((t) => t.group === name);
+      const shown = name === 'Done' ? [] : all.filter(keep);
+      return {
+        name, count: all.length, bg: lk[0], fg: lk[1], dot: lk[2], folded: name === 'Done' && all.length > 0 && filter === 'all', foldLabel: 'Show ' + all.length + ' done tasks',
+        items: shown.map((t, i, a) => ({ title: t.title, meta: t.meta, top: t.top, fg: '#1C1B1F', metaFg: name === 'Needs help' || /Overdue/.test(t.meta) ? '#9A3412' : '#6E6C73',
+          action: name === 'To do' && t.meta.indexOf('Due') !== 0 && t.meta.indexOf('Unblocked') !== 0 && t.meta.indexOf('Overdue') !== 0 ? '' : lk[3], btnBg: lk[4], btnFg: lk[5],
+          act: () => this.setLocal({ moved: Object.assign({}, moved, { [t.title]: [lk[6], lk[7]] }) }),
+          line: i < a.length - 1 ? '1px solid #F0EEE9' : '0' })),
+        show: name === 'Done' ? all.length > 0 && filter === 'all' : shown.length > 0
+      };
+    }).filter((g) => g.show);
+    const chipDefs = [['all', 'All', tasks.length], ['top', 'Top 3', tasks.filter((t) => t.top && t.group !== 'Done').length], ['blocked', 'Blocked', tasks.filter((t) => t.group === 'Needs help').length], ['review', 'Awaiting review', tasks.filter((t) => t.group === 'Awaiting review').length]];
+    return {
+      weekLine: d.week, groups,
+      chips: chipDefs.map(([id, label, n]) => ({ label: label + ' · ' + n, on: filter === id ? 'true' : 'false', bg: filter === id ? '#1C1B1F' : '#FFFFFF', fg: filter === id ? '#FFFFFF' : '#1C1B1F', pick: () => this.setLocal({ filter: id }) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

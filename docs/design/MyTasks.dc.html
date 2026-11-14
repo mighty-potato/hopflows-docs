@@ -62,9 +62,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <sc-for list="{{col.cards}}" as="card" hint-placeholder-count="2">
               <article class="hf-task-row" style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-top: 1px solid #F0EEE9">
                 <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px">
-                  <span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 999px; background: {{col.dot}}; flex-shrink: 0; margin-left: 4px"></span><div style="flex: 1 1 240px; min-width: 0"><a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{card.title}}</a><sc-if value="{{card.topThree}}" hint-placeholder-val="{{false}}"><span role="img" aria-label="Top 3 priority" title="Top 3 priority" style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-left: 8px; vertical-align: -4px; border-radius: 999px; background: #F7C83A; color: #1C1B1F"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path></svg></span></sc-if><p style="margin: 2px 0 0; font-size: 13px; line-height: 18px; color: #6E6C73">Due {{card.due}}</p></div>
+                  <span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 999px; background: {{col.dot}}; flex-shrink: 0; margin-left: 4px"></span><div style="flex: 1 1 240px; min-width: 0"><a href="TaskDetail.dc.html" style="font-size: 15px; line-height: 22px; font-weight: 600; text-decoration: none">{{card.title}}</a><sc-if value="{{card.topThree}}" hint-placeholder-val="{{false}}"><span role="img" aria-label="Top 3 priority" title="Top 3 priority" style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-left: 8px; vertical-align: -4px; border-radius: 999px; background: #F7C83A; color: #1C1B1F"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path></svg></span></sc-if><p style="margin: 2px 0 0; font-size: 13px; line-height: 18px; color: {{card.dueColor}}; font-weight: {{card.dueWeight}}">{{card.dueText}}</p></div>
                   <sc-if value="{{card.confidential}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px">Confidential</span></sc-if>
-                  <sc-if value="{{card.hasAction}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{card.primary}}" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{card.action}}</button></sc-if>
+                  <sc-if value="{{card.hasAction}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{card.primary}}" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{card.listBg}}; color: {{card.listFg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{card.action}}</button></sc-if>
                   <sc-if value="{{card.noAction}}" hint-placeholder-val="{{false}}"><details class="hf-status-menu"><summary aria-label="Update status: {{card.title}}">Update status</summary><div class="hf-status-options">
 <sc-if value="{{card.canStart}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{card.start}}">Start</button></sc-if>
 <sc-if value="{{card.canFinish}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{card.finish}}">{{card.finishLabel}}</button></sc-if>
@@ -129,13 +129,22 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
   <dc-import name="MobileNav" current="tasks" hint-size="390px,80px"></dc-import>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"view":{"editor":"enum","options":["list","board","table"],"default":"list"},"$preview":{"width":1440,"height":1000}}'>
+<script type="text/x-dc" data-dc-script data-props='{"seed":{"editor":"enum","options":["shared","normal","busy","quiet"],"default":"shared"},"view":{"editor":"enum","options":["list","board","table"],"default":"list"},"$preview":{"width":1440,"height":1000}}'>
 class Component extends DCLogic {
+  componentDidMount() {
+    this._hf = () => { let v = null; try { v = window.localStorage.getItem('hopflows.seed'); } catch (e) {} if (v && v !== (this.state && this.state.hfSeed)) this.setState({ hfSeed: v, hfLocal: null }); };
+    this._hf(); try { window.addEventListener('storage', this._hf); } catch (e) {} this._hfT = setInterval(this._hf, 1000);
+  }
+  componentWillUnmount() { try { window.removeEventListener('storage', this._hf); } catch (e) {} clearInterval(this._hfT); }
+  seed() { const p = this.props.seed; return (p && p !== 'shared') ? p : ((this.state && this.state.hfSeed) || 'normal'); }
+  local() { return (this.state && this.state.hfLocal) || {}; }
+  setLocal(patch) { this.setState({ hfLocal: Object.assign({}, this.local(), patch) }); }
+
   renderVals() {
     const local = this.state || {};
     const view = local.view || this.props.view || 'list';
     const views = [['list', 'List'], ['board', 'Board'], ['table', 'Table']].map(([id, name]) => ({name, on: view === id ? 'true' : 'false', bg: view === id ? '#1C1B1F' : 'transparent', fg: view === id ? '#FFFFFF' : '#4A4950', pick: () => this.setState({view: id})}));
-    const seed = [
+    const base = [
       {id: 'photos', title: 'Check menu photos with Design', where: 'Menu refresh · from Pisey on Wed', due: 'Today', size: 'Small', status: 'To do', week: 'From Pisey'},
       {id: 'notes', title: 'Write release notes', where: 'Launch In-App Ordering v1', due: 'Tue 10 Nov', size: 'Small', status: 'To do'},
       {id: 'tests', title: 'Menu sync job tests', where: 'Menu sync · moving to week 44 for your leave', due: 'Thu 22', size: 'Medium', status: 'To do'},
@@ -147,6 +156,16 @@ class Component extends DCLogic {
       {id: 'footer', title: 'Update receipt footer text', where: 'Standalone · from Pisey on Wed', due: 'Today', size: 'Small', status: 'Done', week: 'From Pisey'},
       {id: 'banner', title: 'Coupon banner text', where: 'Launch In-App Ordering v1', due: 'Thu 15', size: 'Small', status: 'Done'}
     ];
+    const wk = this.seed();
+    const BUSY = { notes: {overdue: true}, release: {overdue: true}, checkout: {blocked: true, blockerNote: 'waiting on the payment provider keys'}, photos: {overdue: true, due: 'Wed 11'} };
+    const QUIET = { checkout: {status: 'Done'}, printer: {status: 'Done', blocked: false}, coupon: {status: 'Done'}, notes: {status: 'In progress'} };
+    const extra = wk === 'busy' ? [
+      {id: 'hotfix', title: 'Hotfix: double charge on refunds', where: 'Urgent request from Chenda · added today', due: 'Today', size: 'Medium', status: 'To do', week: 'Added'},
+      {id: 'stock', title: 'Stock sync times out on weekends', where: 'Standalone · added this week', due: 'Today', size: '8h', status: 'To do', week: 'Added'},
+      {id: 'kiosk', title: 'Kiosk login loop', where: 'From Sophal’s handover', due: 'Fri 13', size: 'Medium', status: 'To do', week: 'Added'}
+    ] : [];
+    const over = wk === 'busy' ? BUSY : wk === 'quiet' ? QUIET : {};
+    const seed = extra.concat(base.map((t) => Object.assign({}, t, over[t.id] || {})));
     const update = (id, patch, notice) => this.setState({changes: Object.assign({}, local.changes, {[id]: Object.assign({}, (local.changes || {})[id], patch)}), notice, undoChanges: local.changes || {}, canUndo: true});
     const cards = seed.map(seedCard => {
       const c = Object.assign({week: 'Planned', confidential: false, blocked: false, needsReview: false, blockerNote: ''}, seedCard, (local.changes || {})[seedCard.id]);
@@ -162,11 +181,14 @@ class Component extends DCLogic {
         noAction: !(c.status === 'To do' || c.status === 'In progress'),
         boardBg: c.blocked ? '#FCE3D3' : '#FFFFFF',
         boardTitleFg: c.status === 'Done' ? '#4A4950' : '#1C1B1F',
-        dueLabel: c.status === 'Done' ? 'Done' : (c.due === 'Today' ? 'Due today' : 'Due ' + c.due),
-        dueBg: c.status === 'Done' ? '#DCEFE2' : (c.due === 'Today' ? '#F7C83A' : '#F4F3EF'),
+        dueText: c.overdue && c.status !== 'Done' ? 'Overdue · was due ' + c.due : 'Due ' + c.due, dueColor: c.overdue && c.status !== 'Done' ? '#9B2C24' : '#6E6C73', dueWeight: c.overdue && c.status !== 'Done' ? '600' : '400',
+        dueLabel: c.status === 'Done' ? 'Done' : c.overdue ? 'Overdue · ' + c.due : (c.due === 'Today' ? 'Due today' : 'Due ' + c.due),
+        dueBg: c.status === 'Done' ? '#DCEFE2' : c.overdue ? '#F2B8B2' : (c.due === 'Today' ? '#F7C83A' : '#F4F3EF'),
         dueFg: c.status === 'Done' ? '#1F5E3A' : '#1C1B1F',
-        btnBg: c.blocked ? '#FFFFFF' : '#1C1B1F',
-        btnFg: c.blocked ? '#1C1B1F' : '#FFFFFF',
+        btnBg: c.blocked ? '#FFFFFF' : (c.status === 'To do' ? '#F4F3EF' : '#1C1B1F'),
+        btnFg: c.blocked ? '#1C1B1F' : (c.status === 'To do' ? '#1C1B1F' : '#FFFFFF'),
+        listBg: c.blocked ? '#FCE3D3' : (c.status === 'To do' ? '#F4F3EF' : '#1C1B1F'),
+        listFg: c.blocked ? '#9A3412' : (c.status === 'To do' ? '#1C1B1F' : '#FFFFFF'),
         action: c.blocked ? 'Unblock' : (c.status === 'To do' ? 'Start' : finishLabel),
         primary: c.blocked ? unblock : (c.status === 'To do' ? start : finish),
         finishLabel, start, finish, unblock,
