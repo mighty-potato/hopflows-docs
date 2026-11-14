@@ -33,12 +33,12 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div style="display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap">
         <div style="display: flex; flex-direction: column; gap: 6px">
           <span style="font-size: 12px; color: #6E6C73">Calendar · Cambodia holidays</span>
-          <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">October 2026</h1>
+          <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">{{monthTitle}}</h1>
         </div>
         <div style="display: flex; gap: 4px">
-          <button type="button" aria-label="Previous month" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
-          <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Today</button>
-          <button type="button" aria-label="Next month" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+          <button type="button" aria-label="Previous month" onClick="{{prevMonth}}" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+          <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer" onClick="{{thisMonth}}">Today</button>
+          <button type="button" aria-label="Next month" onClick="{{nextMonth}}" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
         </div>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
@@ -114,30 +114,50 @@ class Component extends DCLogic {
     };
     const labels = {holiday: 'Holiday', meeting: 'Meeting', event: 'Event', due: 'Task deadline', overdue: 'Overdue task', leave: 'Leave'};
     const it = (k, t) => Object.assign({t, kind: labels[k], isTask: k === 'due' || k === 'overdue'}, K[k]);
-    const items = {
-      '2': [it('leave', 'You: away')],
-      '6': [it('meeting', '10:00 Team retro')],
-      '9': [it('event', '12:00 Team lunch')],
-      '13': [it('overdue', 'Payment error copy · overdue')],
-      '15': [it('holiday', "King Father's Commemoration Day")],
-      '16': [it('meeting', '14:30 Checkout API sync · moved from 14:00'), it('due', 'Build the checkout API'), it('due', 'Coupon rules screen')],
-      '19': [it('meeting', '09:00 Sprint planning'), it('due', 'Write release notes')],
-      '20': [it('meeting', '10:00 Data sync weekly'), it('due', 'Menu sync job tests')],
-      '21': [it('event', 'Training: secure coding')],
-      '22': [it('leave', 'You: leave asked')],
-      '23': [it('leave', 'You: leave asked')],
-      '27': [it('meeting', '10:00 Data sync weekly')],
-      '29': [it('holiday', 'Coronation Day')],
-      '30': [it('due', 'Order tracking screen')]
+    const month = 9 + (((this.state || {}).m) || 0);
+    const first = new Date(2026, month, 1);
+    const mi = first.getMonth(), year = first.getFullYear();
+    const isOct = year === 2026 && mi === 9, isNow = isOct;
+    const byMonth = {
+      '2026-8': {
+        '18': [it('leave', 'You: away · sick')],
+        '24': [it('holiday', 'Constitution Day')],
+        '28': [it('meeting', '09:00 Sprint planning')]
+      },
+      '2026-9': {
+        '2': [it('leave', 'You: away')],
+        '6': [it('meeting', '10:00 Team retro')],
+        '9': [it('event', '12:00 Team lunch')],
+        '13': [it('overdue', 'Payment error copy · overdue')],
+        '15': [it('holiday', "King Father's Commemoration Day")],
+        '16': [it('meeting', '14:30 Checkout API sync · moved from 14:00'), it('due', 'Build the checkout API'), it('due', 'Coupon rules screen')],
+        '19': [it('meeting', '09:00 Sprint planning')],
+        '20': [it('meeting', '10:00 Data sync weekly')],
+        '21': [it('event', 'Training: secure coding'), it('due', 'Fix receipt printer driver')],
+        '22': [it('leave', 'You: leave asked'), it('due', 'Menu sync job tests')],
+        '23': [it('leave', 'You: leave asked')],
+        '27': [it('meeting', '10:00 Data sync weekly')],
+        '29': [it('holiday', 'Coronation Day')]
+      },
+      '2026-10': {
+        '2': [it('meeting', '10:00 Release check-in')],
+        '3': [it('meeting', '10:00 Data sync weekly')],
+        '9': [it('holiday', 'Independence Day'), it('due', 'Menu sync job release')],
+        '10': [it('due', 'Write release notes')]
+      }
     };
+    const items = Object.assign({}, byMonth[year + '-' + mi] || {});
+    // opened by the lead (#as-lead): her own leave is Fri 23 only, so Thu 22 keeps just its deadline
+    try { if (window.location.hash === '#as-lead' && isOct && items['22']) items['22'] = items['22'].filter((x) => x.kind !== 'Leave'); } catch (e) {}
+
+    const lead = (first.getDay() + 6) % 7, count = new Date(year, mi + 1, 0).getDate(), prevCount = new Date(year, mi, 0).getDate();
     const days = [];
-    const start = [28, 29, 30];
-    start.forEach((n) => days.push({ n: String(n), other: true }));
-    for (let d = 1; d <= 31; d++) days.push({ n: String(d), other: false });
-    days.push({ n: '1', other: true });
+    for (let k = lead; k > 0; k--) days.push({ n: String(prevCount - k + 1), other: true });
+    for (let d = 1; d <= count; d++) days.push({ n: String(d), other: false });
+    for (let d = 1; days.length % 7; d++) days.push({ n: String(d), other: true });
     const out = days.map((d, i) => {
       const weekend = i % 7 >= 5;
-      const today = !d.other && d.n === '16';
+      const today = isNow && !d.other && d.n === '16';
       const its = d.other ? [] : (items[d.n] || []);
       return {
         n: d.n,
@@ -147,13 +167,16 @@ class Component extends DCLogic {
         numFg: today ? '#FFFFFF' : (d.other ? '#6E6C73' : '#1C1B1F')
       };
     });
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const step = (n) => () => this.setState({ m: (((this.state || {}).m) || 0) + n });
     const view = (this.state || {}).view || 'responsive';
     const makeViews = fallback => [['month','Month'],['week','Week'],['list','Agenda']].map(([id, name]) => {
       const selected = (view === 'responsive' ? fallback : view) === id;
       return {name, on: selected ? 'true' : 'false', bg: selected ? '#1C1B1F' : 'transparent', fg: selected ? '#FFFFFF' : '#4A4950', pick: () => this.setState({view: id})};
     });
-    const agenda = Object.keys(items).map(Number).sort((a,b) => a-b).filter(d => view === 'week' ? d >= 12 && d <= 18 : d >= 16 || items[String(d)].some(it => it.kind === 'Overdue task')).map(d => ({label: (d === 16 ? 'Today · ' : '') + ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date(2026,9,d).getDay()] + ' ' + d + ' Oct', items: items[String(d)]}));
-    return {dows: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], days: out, agenda, desktopViews: makeViews('month'), mobileViews: makeViews('list'), calendarClass: 'hf-calendar-' + (view === 'responsive' ? 'responsive' : 'explicit-' + view)};
+    const agenda = Object.keys(items).map(Number).sort((a,b) => a-b).filter(d => !isNow ? true : view === 'week' ? d >= 12 && d <= 18 : d >= 16 || items[String(d)].some(it => it.kind === 'Overdue task')).map(d => ({label: (isNow && d === 16 ? 'Today · ' : '') + ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date(year,mi,d).getDay()] + ' ' + d + ' ' + monthNames[mi].slice(0,3), items: items[String(d)]}));
+    return {monthTitle: monthNames[mi] + ' ' + year, prevMonth: step(-1), nextMonth: step(1), thisMonth: () => this.setState({ m: 0 }),
+      dows: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], days: out, agenda, desktopViews: makeViews('month'), mobileViews: makeViews('list'), calendarClass: 'hf-calendar-' + (view === 'responsive' ? 'responsive' : 'explicit-' + view)};
   }
 }
 </script>

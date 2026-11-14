@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Set up your company</title>
 <script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
 </head>
 <body>
 <x-dc>
@@ -16,7 +17,9 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 :focus-visible{outline:2px solid #1C1B1F;outline-offset:2px}
 @media (max-width:1024px){
 .hf-masonry{flex-direction:column !important;align-items:stretch !important}
-.hf-masonry>.hf-col{display:contents}
+.hf-masonry>.hf-col{display:contents !important}
+.hf-masonry,.hf-masonry>.hf-col>*{min-width:0;max-width:100%;box-sizing:border-box}
+.hf-steps ol{max-width:100%}
 .hf-steps ol{flex-direction:row !important;overflow-x:auto}
 .hf-steps li{flex:0 0 auto}
 .hf-steps .hf-step-note{display:none}
@@ -30,10 +33,11 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 </helmet>
 <div class="hf-shell" style="min-height: 100vh; box-sizing: border-box; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; padding: 24px 40px 40px; display: flex; flex-direction: column; gap: 24px">
   <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
-    <div style="display: flex; align-items: center; gap: 10px">
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; min-width: 0">
       <img src="/_blob/637eea0f0cb0fc9affcb69602a64aeba" alt="" style="width: 36px; height: 36px; display: block">
       <span style="font-size: 19px; font-weight: 600; letter-spacing: -0.03em">HopFlows</span>
-      <span style="font-size: 13px; color: #4A4950">· Set up your company</span>
+      <span style="font-size: 13px; color: #4A4950; white-space: nowrap">· Set up your company</span>
+      <span style="font-size: 12px; color: #6E6C73; overflow-wrap: anywhere">Signed in as bopha.meas@riverline.example</span>
     </div>
     <a href="People.dc.html" style="height: 44px; display: inline-flex; align-items: center; padding: 0 18px; border-radius: 999px; background: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600">Finish later</a>
   </div>
@@ -54,8 +58,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </ol>
       </nav>
       <section aria-label="Punh Punh" style="order: 3; background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px; display: flex; align-items: center; gap: 14px">
-        <img src="/_blob/af734ff66eba4c9a8304432b5f21b934" alt="Punh Punh holding a ticked note" style="width: 88px; height: 88px; object-fit: cover; flex-shrink: 0">
-        <span style="font-size: 13px; line-height: 18px">Nothing is sent until the last step. Your team gets their invites together, so nobody signs in to an empty company.</span>
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 88px; height: 88px; flex-shrink: 0"><dc-import name="PunhPunh" pose="done" label="Punh Punh holding a ticked note" hint-size="100%,100%"></dc-import></span>
+        <span style="font-size: 13px; line-height: 18px">Nobody is added until the last step. Your team is added together, so nobody signs in to an empty company.</span>
       </section>
     </div>
 
@@ -84,7 +88,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </div>
         <div style="display: flex; align-items: flex-start; gap: 10px; padding: 14px 16px; border-radius: 22px; background: #DCEFE2; color: #1F5E3A; font-size: 13px; line-height: 18px">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px"><path d="M20 6 9 17l-5-5"></path></svg>
-          <span><strong>Cambodia's 2026 public holidays are loaded</strong> · 22 days. You can add company days off in Holiday calendars.</span>
+          <span><strong>Cambodia's 2026 public holidays are loaded</strong> · 21 days. You can add company days off in Holiday calendars.</span>
         </div>
         </sc-if>
 
@@ -105,9 +109,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
           <span style="font-size: 13px; font-weight: 600">Add</span>
           <sc-for list="{{suggest}}" as="g" hint-placeholder-count="3">
-            <button type="button" onClick="{{g.add}}" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>{{g.name}}</button>
+            <button type="button" onClick="{{g.add}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>{{g.name}}</button>
           </sc-for>
-          <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">Another name…</button>
+          <sc-if value="{{notNaming}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{startNaming}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">Another name…</button></sc-if>
+          <sc-if value="{{naming}}" hint-placeholder-val="{{false}}"><label for="dp-new" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">New department name</label><input id="dp-new" type="text" placeholder="Department name" style="flex: 1 1 160px; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><button type="button" onClick="{{addNamed}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add</button></sc-if>
         </div>
         <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73"><strong style="color: #4A4950">Others can see our work</strong> lets people in other departments look at this department's Goals, Deliverables and Tasks, read-only. Workload and reports always stay inside. Turn it off for HR or Finance.</p>
         </sc-if>
@@ -115,24 +120,24 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <sc-if value="{{s3}}" hint-placeholder-val="{{false}}">
         <div style="display: flex; flex-direction: column; gap: 10px">
           <h1 id="setup-title" style="margin: 0; font-size: 40px; line-height: 44px; font-weight: 600; letter-spacing: -0.04em">People</h1>
-          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950; max-width: 560px">Paste work emails, one per line or separated by commas. Then check each person's department and role.</p>
+          <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950; max-width: 560px">Paste the Google emails people sign in with, one per line or separated by commas. Then check each person's department and role.</p>
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="pp-paste" style="font-size: 13px; line-height: 18px; font-weight: 600">Emails</label>
+          <label for="pp-paste" style="font-size: 13px; line-height: 18px; font-weight: 600">Google emails</label>
           <textarea id="pp-paste" rows="3" style="box-sizing: border-box; padding: 14px 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 20px; color: #1C1B1F; resize: vertical">dara.sok@riverline.example, rithy.heng@riverline.example, pisey.chea@riverline.example, malis.ouk@riverline.example …</textarea>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px"><button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Upload a CSV</button><button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Copy invite link</button></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px"><button type="button" onClick="{{pickCsv}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{csvLabel}}</button></div>
         </div>
         <div style="display: flex; flex-direction: column">
-          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-bottom: 6px"><span style="font-size: 13px; font-weight: 600">12 people found</span><span style="font-size: 12px; color: #6E6C73">Showing 5</span></div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-bottom: 6px"><span style="font-size: 13px; font-weight: 600">12 people found</span><sc-if value="{{fewPeople}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{showAllPeople}}" style="height: 44px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; cursor: pointer">Showing 5 · show all 12</button></sc-if></div>
           <sc-for list="{{people}}" as="p" hint-placeholder-count="5">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 0; border-top: 1px solid #F0EEE9">
               <span style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; line-height: 22px; font-weight: 600">{{p.name}}</span><span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #6E6C73; overflow-wrap: anywhere">{{p.email}}</span></span>
               <select aria-label="Department for {{p.name}}" style="flex: 0 1 160px; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 13px; color: #1C1B1F"><option>{{p.dept}}</option><option>Technical</option><option>Marketing</option><option>Operations</option><option>HR</option></select>
-              <select aria-label="Role for {{p.name}}" style="flex: 0 1 140px; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 13px; color: #1C1B1F"><option>{{p.role}}</option><option>Member</option><option>Leadership</option><option>Admin</option></select>
+              <select aria-label="Role for {{p.name}}" style="flex: 0 1 140px; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 13px; color: #1C1B1F"><option>{{p.role}}</option><option>Member</option><option>Lead</option><option>Leadership</option><option>Admin</option></select>
             </div>
           </sc-for>
         </div>
-        <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Leads can invite more people to their own department later. Roles: Member for most people, Leadership for people who own company Goals, Admin to manage the company.</p>
+        <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Admins can add more people from People later. Roles: Member for most people, Lead for the person you picked for a department in step 2, Leadership for people who own company Goals, Admin to manage the company.</p>
         </sc-if>
 
         <sc-if value="{{s4}}" hint-placeholder-val="{{false}}">
@@ -143,10 +148,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </div>
         <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px">
           <sc-for list="{{products}}" as="p" hint-placeholder-count="2">
-            <li style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 4px 4px 4px 16px; border-radius: 22px; background: #F4F3EF"><span style="flex: 1; min-width: 0; font-size: 15px; font-weight: 600">{{p.name}}</span><button type="button" aria-label="Remove {{p.name}}" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></li>
+            <li style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 4px 4px 4px 16px; border-radius: 22px; background: #F4F3EF"><span style="flex: 1; min-width: 0; font-size: 15px; font-weight: 600">{{p.name}}</span><button type="button" aria-label="Remove {{p.name}}" onClick="{{p.remove}}" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></li>
           </sc-for>
         </ul>
-        <div style="display: flex; gap: 8px"><label for="pr-new" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">New product</label><input id="pr-new" type="text" placeholder="Add a product, for example Delivery App" style="flex: 1; min-width: 0; height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><button type="button" style="height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add</button></div>
+        <div style="display: flex; gap: 8px"><label for="pr-new" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">New product</label><input id="pr-new" type="text" placeholder="Add a product, for example Delivery App" style="flex: 1; min-width: 0; height: 48px; box-sizing: border-box; padding: 0 16px; border: 0; border-radius: 16px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><button type="button" onClick="{{addProduct}}" style="height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add</button></div>
         </sc-if>
 
         <sc-if value="{{s5}}" hint-placeholder-val="{{false}}">
@@ -155,14 +160,15 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
           <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4A4950; max-width: 560px">{{doneCopy}}</p>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
-          <div style="flex: 1 1 150px; padding: 16px; border-radius: 22px; background: #F4F3EF; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Departments</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">{{deptCount}}</span><span style="font-size: 12px; color: #6E6C73">1 without a lead</span></div>
-          <div style="flex: 1 1 150px; padding: 16px; border-radius: 22px; background: #F4F3EF; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">People to invite</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">12</span><span style="font-size: 12px; color: #6E6C73">3 leads, 1 admin</span></div>
-          <div style="flex: 1 1 150px; padding: 16px; border-radius: 22px; background: #F4F3EF; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Holidays</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">22</span><span style="font-size: 12px; color: #6E6C73">Cambodia 2026</span></div>
+          <div style="flex: 1 1 150px; padding: 16px; border-radius: 22px; background: #F4F3EF; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Departments</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">{{deptCount}}</span><span style="font-size: 12px; color: #6E6C73">{{noLeadNote}}</span></div>
+          <div style="flex: 1 1 150px; padding: 16px; border-radius: 22px; background: #F4F3EF; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">People to add</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">12</span><span style="font-size: 12px; color: #6E6C73">2 leads, 1 leader, plus you as admin</span></div>
+          <div style="flex: 1 1 150px; padding: 16px; border-radius: 22px; background: #F4F3EF; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #6E6C73">Holidays</span><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">21</span><span style="font-size: 12px; color: #6E6C73">Cambodia 2026</span></div>
         </div>
         <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px">
-          <li style="padding: 14px 16px; border-radius: 22px; background: #F4F3EF; font-size: 15px; line-height: 22px"><strong>Employees</strong> get an email, sign in, see First steps with Punh Punh, then Today.</li>
+          <li style="padding: 14px 16px; border-radius: 22px; background: #F4F3EF; font-size: 15px; line-height: 22px"><strong>Employees</strong> sign in with Google, see First steps with Punh Punh, then Today.</li>
           <li style="padding: 14px 16px; border-radius: 22px; background: #F4F3EF; font-size: 15px; line-height: 22px"><strong>Leads</strong> also get “Plan week 43” on Needs you, to lock their team's first week.</li>
           <li style="padding: 14px 16px; border-radius: 22px; background: #F4F3EF; font-size: 15px; line-height: 22px"><strong>You</strong> can add Goals now, or let leaders do it after they join.</li>
+          <sc-if value="{{hasNoLead}}" hint-placeholder-val="{{true}}"><li style="padding: 14px 16px; border-radius: 22px; background: #FFE4CC; color: #7A3E00; font-size: 15px; line-height: 22px"><strong>{{noLeadNames}}</strong> {{noLeadVerb}} no lead yet, so nobody plans its week or sorts its requests. Requests go to you until you pick one in People.</li></sc-if>
         </ul>
         </sc-if>
 
@@ -178,9 +184,10 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
             <button type="button" onClick="{{next}}" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer">{{nextLabel}}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
           </sc-if>
           <sc-if value="{{canSend}}" hint-placeholder-val="{{false}}">
-            <button type="button" onClick="{{send}}" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Send 12 invites</button>
+            <button type="button" onClick="{{send}}" style="height: 48px; padding: 0 26px; border: 0; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Add 12 people</button>
           </sc-if>
           <sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
+            <a href="Goals.dc.html" style="height: 48px; padding: 0 18px; border-radius: 999px; color: #1C1B1F; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Add Goals</a>
             <a href="People.dc.html" style="height: 48px; padding: 0 26px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center">Go to People</a>
           </sc-if>
         </div>
@@ -198,9 +205,9 @@ class Component extends DCLogic {
     const meta = [
       ['Company', 'Name, country, working days'],
       ['Departments', 'Who leads each team'],
-      ['People', 'Paste emails, pick teams'],
+      ['People', 'Paste Google emails, pick teams'],
       ['Products', 'Optional'],
-      ['Check and invite', 'Nothing is sent before this']
+      ['Check and add', 'Nobody is added before this']
     ];
     const steps = meta.map(([name, note], i) => {
       const n = i + 1, cur = n === step, done = n < step;
@@ -220,7 +227,7 @@ class Component extends DCLogic {
     });
     const closed = st.closed || { HR: true };
     const added = st.added || [];
-    const base = [['Technical', 'Chenda Lim'], ['Marketing', 'Malis Ouk'], ['Operations', 'Kosal Nhem'], ['HR', 'Not yet']];
+    const base = [['Technical', 'Chenda Lim'], ['Marketing', 'Kosal Nhem'], ['Operations', 'Bopha Meas'], ['HR', 'Not yet']];
     const all = base.concat(added.map((n) => [n, 'Not yet']));
     const depts = all.map(([name, lead]) => {
       const open = !closed[name];
@@ -228,26 +235,35 @@ class Component extends DCLogic {
         visLabel: open ? 'Others can see our work' : 'Only this department',
         toggle: () => this.setState({ closed: Object.assign({}, closed, { [name]: open }) }) };
     });
-    const suggest = ['Design', 'Finance', 'Sales'].filter((n) => added.indexOf(n) < 0)
+    const suggest = ['Design', 'Shops', 'Finance'].filter((n) => added.indexOf(n) < 0)
       .map((name) => ({ name, add: () => this.setState({ added: added.concat([name]) }) }));
     const sent = !!st.sent;
+    const noLead = all.filter(([, lead]) => lead === 'Not yet').map(([n]) => n);
+    const more = [['Pisey Chea', 'Technical', 'Member'], ['Vannak Prum', 'Technical', 'Member'], ['Sophal Ouk', 'Technical', 'Member'], ['Sreymom Ly', 'Technical', 'Member'], ['Malis Ouk', 'Marketing', 'Member'], ['Sophea Tan', 'Operations', 'Member'], ['Sreymom Kim', 'Design', 'Member']].map(([name, dept, role]) => ({ name, email: name.toLowerCase().replace(' ', '.') + '@riverline.example', dept, role }));
     return {
       stepNo: String(step), steps, days, depts, suggest,
       s1: step === 1, s2: step === 2, s3: step === 3, s4: step === 4, s5: step === 5,
       people: [
         { name: 'Dara Sok', email: 'dara.sok@riverline.example', dept: 'Technical', role: 'Member' },
-        { name: 'Chenda Lim', email: 'chenda.lim@riverline.example', dept: 'Technical', role: 'Member' },
+        { name: 'Chenda Lim', email: 'chenda.lim@riverline.example', dept: 'Technical', role: 'Lead' },
         { name: 'Rithy Heng', email: 'rithy.heng@riverline.example', dept: 'Technical', role: 'Member' },
-        { name: 'Malis Ouk', email: 'malis.ouk@riverline.example', dept: 'Marketing', role: 'Member' },
-        { name: 'Sokha Meng', email: 'sokha.meng@riverline.example', dept: 'Operations', role: 'Leadership' }
-      ],
-      products: [{ name: 'Retail App' }, { name: 'School App' }],
+        { name: 'Kosal Nhem', email: 'kosal.nhem@riverline.example', dept: 'Marketing', role: 'Lead' },
+        { name: 'Sokha Meng', email: 'sokha.meng@riverline.example', dept: 'No department', role: 'Leadership' }
+      ].concat(st.allPeople ? more : []),
+      products: (st.products || ['Retail App', 'School App']).map((name, i, arr) => ({ name, remove: () => this.setState({ products: arr.filter((x) => x !== name) }) })),
+      addProduct: () => { const el = document.getElementById('pr-new'); const v = el && el.value.trim(); if (v) { el.value = ''; this.setState({ products: (st.products || ['Retail App', 'School App']).concat([v]) }); } },
+      csvLabel: st.csv ? 'riverline-team.csv · 12 people read' : 'Upload a CSV', pickCsv: () => this.setState({ csv: true, allPeople: true }),
+      naming: !!st.naming, notNaming: !st.naming, startNaming: () => this.setState({ naming: true }),
+      addNamed: () => { const el = document.getElementById('dp-new'); const v = el && el.value.trim(); if (v) { el.value = ''; this.setState({ added: added.concat([v]), naming: false }); } },
+      fewPeople: !st.allPeople, showAllPeople: () => this.setState({ allPeople: true }),
+      hasNoLead: noLead.length > 0, noLeadNames: noLead.join(', '), noLeadVerb: noLead.length === 1 ? 'has' : 'have',
+      noLeadNote: noLead.length ? noLead.length + ' without a lead' : 'All have a lead',
       deptCount: String(all.length),
       hasBack: step > 1 && !sent, canSkip: step >= 2 && step <= 4,
       notLast: step < 5, nextLabel: step === 4 ? 'Check everything' : 'Next',
       canSend: step === 5 && !sent, sent,
-      doneTitle: sent ? 'Invites sent' : 'Ready to invite your team',
-      doneCopy: sent ? 'Riverline Co. is set up. People who haven\'t joined yet show as Invited in People, and you can send their invite again from there.' : 'Check the numbers, then send. Everything here can be changed later in Admin.',
+      doneTitle: sent ? 'Team added' : 'Ready to add your team',
+      doneCopy: sent ? 'Riverline Co. is set up. People who haven\'t signed in yet show as Invited in People.' : 'Check the numbers, then add them. Everything here can be changed later in Admin.',
       back: go(step - 1), next: go(step + 1),
       send: () => this.setState({ sent: true })
     };

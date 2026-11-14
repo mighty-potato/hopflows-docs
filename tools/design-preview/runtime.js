@@ -48,7 +48,12 @@
     const template = doc.querySelector('x-dc');
     if (!template) throw Error(`No x-dc in ${name}`);
     async function build(node, scope) {
-      if (node.nodeType === Node.TEXT_NODE) return document.createTextNode(value(node.textContent, scope));
+      if (node.nodeType === Node.TEXT_NODE) {
+        // Keep the spaces around a lone {{hole}}: "<strong>Chenda:</strong> {{said}}" must not close up.
+        const raw = node.textContent, hole = raw.match(whole);
+        if (!hole) return document.createTextNode(value(raw, scope));
+        return document.createTextNode(raw.match(/^\s*/)[0] + String(evaluate(hole[1], scope) ?? '') + raw.match(/\s*$/)[0]);
+      }
       if (node.nodeType !== Node.ELEMENT_NODE) return document.createDocumentFragment();
       const tag = node.hasAttribute('data-sc-for') ? 'sc-for' : node.hasAttribute('data-sc-if') ? 'sc-if' : node.tagName.toLowerCase();
       const children = node.content?.childNodes || node.childNodes;
@@ -86,7 +91,7 @@
       for (const attr of node.attributes) {
         const val = value(attr.value, scope);
         if (/^on/.test(attr.name) && typeof val === 'function') el.addEventListener(attr.name.slice(2).toLowerCase(), val);
-        else if (['checked','disabled','required','open'].includes(attr.name)) { if (val !== false && val !== 'false' && val != null) {el.setAttribute(attr.name, ''); el[attr.name] = true;} }
+        else if (['checked','disabled','required','open','selected'].includes(attr.name)) { if (val !== false && val !== 'false' && val != null) {el.setAttribute(attr.name, ''); el[attr.name] = true;} }
         else el.setAttribute(attr.name, String(val ?? ''));
       }
       for (const child of node.childNodes) el.append(await build(child, scope));
@@ -111,6 +116,10 @@
       parent.postMessage({type: 'preview-ready', name, diagnostics: diagnostics()}, location.origin);
     };
     await instance.redraw();
+    // Screens use these hooks (focus moves, the Sidebar's scroll); call them as the real runtime does.
+    const draw = instance.redraw;
+    instance.redraw = async () => { await draw(); try { instance.componentDidUpdate && instance.componentDidUpdate(); } catch (e) { (window.previewErrors ||= []).push(e.message); } };
+    queueMicrotask(() => { try { instance.componentDidMount && instance.componentDidMount(); } catch (e) { (window.previewErrors ||= []).push(e.message); } });
     return instance;
   }
   window.addEventListener('DOMContentLoaded', async () => {

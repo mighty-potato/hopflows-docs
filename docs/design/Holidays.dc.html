@@ -21,6 +21,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:1100px){.bento>*{grid-column:1 / -1 !important}}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -36,18 +37,18 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Holiday calendars</h1>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
-        <button type="button" style="height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Load 2027 public holidays</button>
-        <button type="button" style="height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Add a day off</button>
+        <button type="button" style="height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer" onClick="{{load27}}">{{load27Label}}</button>
+        <button type="button" style="height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer" aria-expanded="{{addingAttr}}" onClick="{{toggleAdd}}">Add a day off</button>
       </div>
     </div>
 
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
       <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 12px; min-width: 0">
-        <button type="button" aria-pressed="true" style="display: flex; flex-direction: column; gap: 4px; padding: 20px 24px; border: 0; border-radius: 28px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; text-align: left; cursor: pointer">
+        <button type="button" aria-pressed="{{khOn}}" onClick="{{pickKh}}" style="display: flex; flex-direction: column; gap: 4px; padding: 20px 24px; border: 0; border-radius: 28px; background: {{khBg}}; color: {{khFg}}; font-family: inherit; text-align: left; cursor: pointer">
           <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Cambodia</span>
           <span style="font-size: 12px; opacity: 0.8">Main calendar · 38 people</span>
         </button>
-        <button type="button" aria-pressed="false" style="display: flex; flex-direction: column; gap: 4px; padding: 20px 24px; border: 0; border-radius: 28px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; text-align: left; cursor: pointer">
+        <button type="button" aria-pressed="{{vnOn}}" onClick="{{pickVn}}" style="display: flex; flex-direction: column; gap: 4px; padding: 20px 24px; border: 0; border-radius: 28px; background: {{vnBg}}; color: {{vnFg}}; font-family: inherit; text-align: left; cursor: pointer">
           <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Vietnam office</span>
           <span style="font-size: 12px; color: #6E6C73">4 people</span>
         </button>
@@ -57,18 +58,38 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         </section>
       </div>
 
-      <section aria-label="Cambodia 2026" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; min-width: 0">
+      <section aria-label="{{calName}} 2026" style="grid-column: span 8; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; min-width: 0">
         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px">
-          <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Cambodia · rest of 2026</h2>
-          <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">Show earlier this year · 14</button>
+          <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{calName}} · {{rangeLabel}}</h2>
+          <button type="button" aria-expanded="{{earlierAttr}}" onClick="{{toggleEarlier}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">{{earlierLabel}}</button>
         </div>
+        <sc-if value="{{loaded27}}" hint-placeholder-val="{{false}}">
+          <p role="status" style="margin: 12px 0 0; padding: 12px 16px; border-radius: 16px; background: #DCEFE2; color: #1F5E3A; font-size: 13px; line-height: 18px"><strong>2027 public holidays are loaded</strong> · 21 days. 4 follow the lunar calendar and show as Date to confirm until you set them.</p>
+        </sc-if>
+        <sc-if value="{{adding}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; margin-top: 12px; padding: 14px; border-radius: 22px; background: #F4F3EF">
+            <div style="flex: 1 1 130px; display: flex; flex-direction: column; gap: 6px"><label for="hd-date" style="font-size: 13px; font-weight: 600">Day</label><input id="hd-date" type="text" value="Thu 24 Dec" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+            <div style="flex: 2 1 200px; display: flex; flex-direction: column; gap: 6px"><label for="hd-name" style="font-size: 13px; font-weight: 600">What is it?</label><input id="hd-name" type="text" value="Year-end close" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+            <div style="flex: 1 1 130px; display: flex; flex-direction: column; gap: 6px"><label for="hd-len" style="font-size: 13px; font-weight: 600">How long</label><select id="hd-len" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Whole day</option><option>Half day · morning</option><option>Half day · afternoon</option></select></div>
+            <button type="button" onClick="{{toggleAdd}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Cancel</button>
+            <button type="button" onClick="{{saveAdd}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add day off</button>
+            <p style="flex: 1 1 100%; margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">Everyone on this calendar gets less available time that week. Weeks already locked keep their plan, and the change shows in the weekly review.</p>
+          </div>
+        </sc-if>
         <sc-for list="{{days}}" as="d" hint-placeholder-count="5">
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 14px 0; border-bottom: 1px solid #F0EEE9">
             <span style="width: 120px; font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600">{{d.date}}</span>
             <span style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">{{d.name}}</span><span style="font-size: 12px; color: #6E6C73">{{d.note}}</span></span>
             <span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: {{d.bg}}; color: {{d.fg}}">{{d.kind}}</span>
-            <button type="button" aria-label="Edit {{d.name}}" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"></path></svg></button>
+            <button type="button" aria-label="Edit {{d.name}}" aria-expanded="{{d.openAttr}}" onClick="{{d.toggle}}" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"></path></svg></button>
           </div>
+          <sc-if value="{{d.open}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; margin: 0 0 12px; padding: 14px; border-radius: 22px; background: #F4F3EF">
+              <div style="flex: 1 1 180px; display: flex; flex-direction: column; gap: 6px"><label for="{{d.inputId}}" style="font-size: 13px; font-weight: 600">{{d.editLabel}}</label><input id="{{d.inputId}}" type="text" value="{{d.editValue}}" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F"></div>
+              <button type="button" onClick="{{d.remove}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remove</button>
+              <button type="button" onClick="{{d.save}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Save</button>
+            </div>
+          </sc-if>
         </sc-for>
       </section>
     </div>
@@ -78,20 +99,54 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1040}}'>
 class Component extends DCLogic {
   renderVals() {
+    const s = this.state || {};
     const k = {
       pub: { kind: 'Public', bg: '#F4F3EF', fg: '#1C1B1F' },
       co: { kind: 'Company', bg: '#F9D3DE', fg: '#6E4850' },
       check: { kind: 'Date to confirm', bg: '#FCE3D3', fg: '#9A3412' }
     };
-    const d = (date, name, note, t) => Object.assign({ date, name, note }, k[t]);
+    const cal = s.cal || 'kh';
+    const edits = s.edits || {}, removed = s.removed || {};
+    const d = (date, name, note, t) => {
+      const e = edits[name];
+      const tt = e && t === 'check' ? 'pub' : t;
+      const id = 'hd-' + name.toLowerCase().replace(/[^a-z]+/g, '-');
+      return Object.assign({ date: e || date, name, note: e && t === 'check' ? '3 whole days' : note, open: s.open === name, openAttr: s.open === name ? 'true' : 'false',
+        toggle: () => this.setState({ open: s.open === name ? '' : name }), inputId: id,
+        editLabel: t === 'check' && !e ? 'Dates for ' + name : 'Day', editValue: e || (t === 'check' ? 'Mon 23 – Wed 25 Nov' : date),
+        save: () => { const el = document.getElementById(id); this.setState({ edits: Object.assign({}, edits, { [name]: (el && el.value.trim()) || date }), open: '' }); },
+        remove: () => this.setState({ removed: Object.assign({}, removed, { [name]: true }), open: '' }) }, k[tt]);
+    };
+    const earlierKh = [
+      d('Thu 1 Jan', "New Year's Day", 'Whole day', 'pub'), d('Wed 7 Jan', 'Victory Day', 'Whole day', 'pub'),
+      d('Mon 9 Mar', "Women's Day", 'Whole day · moved from Sun 8 Mar', 'pub'), d('Tue 14 – Thu 16 Apr', 'Khmer New Year', '3 whole days', 'pub'),
+      d('Fri 1 May', 'Labour Day', 'Whole day', 'pub'), d('May', 'Visak Bochea and Royal Ploughing', '2 whole days · lunar', 'pub'),
+      d('Thu 14 May', "King's Birthday", 'Whole day', 'pub'), d('Thu 18 Jun', "Queen Mother's Birthday", 'Whole day', 'pub'),
+      d('Thu 24 Sep', 'Constitution Day', 'Whole day', 'pub'), d('Sep', 'Pchum Ben', '3 whole days · lunar', 'pub')
+    ];
+    const restKh = [
+      d('Thu 15 Oct', "King Father's Commemoration Day", 'Whole day', 'pub'),
+      d('Thu 29 Oct', 'Coronation Day', 'Whole day', 'pub'),
+      d('Mon 9 Nov', 'Independence Day', 'Whole day', 'pub'),
+      d('[3 days, Nov]', 'Water Festival', 'Follows the lunar calendar · add the dates', 'check'),
+      d('Fri 18 Dec', 'Company retreat', 'Half day · afternoon', 'co')
+    ];
+    const earlierVn = [d('Thu 1 Jan', "New Year's Day", 'Whole day', 'pub'), d('Mon 16 – Fri 20 Feb', 'Tết', '5 whole days', 'pub'), d('Thu 30 Apr – Fri 1 May', 'Reunification Day and Labour Day', '2 whole days', 'pub'), d('Wed 2 Sep', 'National Day', 'Whole day', 'pub')];
+    const restVn = [d('Fri 18 Dec', 'Company retreat', 'Half day · afternoon', 'co')];
+    const added = (s.added || []).filter((a) => a.cal === cal).map((a) => d(a.date, a.name, a.note, 'co'));
+    const earlier = cal === 'kh' ? earlierKh : earlierVn, rest = (cal === 'kh' ? restKh : restVn).concat(added);
+    const days = (s.earlier ? earlier.concat(rest) : rest).filter((x) => !removed[x.name]);
+    const on = { bg: '#1C1B1F', fg: '#FFFFFF' }, off = { bg: '#FFFFFF', fg: '#1C1B1F' };
     return {
-      days: [
-        d('Thu 15 Oct', "King Father's Commemoration Day", 'Whole day', 'pub'),
-        d('Thu 29 Oct', 'Coronation Day', 'Whole day', 'pub'),
-        d('Mon 9 Nov', 'Independence Day', 'Whole day', 'pub'),
-        d('[3 days, Nov]', 'Water Festival', 'Follows the lunar calendar · add the dates', 'check'),
-        d('Fri 18 Dec', 'Company retreat', 'Half day · afternoon', 'co')
-      ]
+      days, calName: cal === 'kh' ? 'Cambodia' : 'Vietnam office', rangeLabel: s.earlier ? 'all of 2026' : 'rest of 2026',
+      khOn: cal === 'kh' ? 'true' : 'false', vnOn: cal === 'vn' ? 'true' : 'false',
+      khBg: (cal === 'kh' ? on : off).bg, khFg: (cal === 'kh' ? on : off).fg, vnBg: (cal === 'vn' ? on : off).bg, vnFg: (cal === 'vn' ? on : off).fg,
+      pickKh: () => this.setState({ cal: 'kh', open: '', adding: false }), pickVn: () => this.setState({ cal: 'vn', open: '', adding: false }),
+      earlierAttr: s.earlier ? 'true' : 'false', earlierLabel: s.earlier ? 'Hide earlier this year' : 'Show earlier this year · ' + (cal === 'kh' ? '15' : '9'),
+      toggleEarlier: () => this.setState({ earlier: !s.earlier }),
+      loaded27: !!s.loaded27, load27Label: s.loaded27 ? '2027 loaded' : 'Load 2027 public holidays', load27: () => this.setState({ loaded27: true }),
+      adding: !!s.adding, addingAttr: s.adding ? 'true' : 'false', toggleAdd: () => this.setState({ adding: !s.adding }),
+      saveAdd: () => { const g = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ''; }; const name = g('hd-name'); if (!name) return; this.setState({ adding: false, added: (s.added || []).concat([{ cal, date: g('hd-date') || 'Thu 24 Dec', name, note: g('hd-len') || 'Whole day' }]) }); }
     };
   }
 }

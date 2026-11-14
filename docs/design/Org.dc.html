@@ -21,6 +21,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-main{padding:16px !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:1100px){.bento>*{grid-column:1 / -1 !important}}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -31,7 +32,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <dc-import name="Topbar" hint-size="100%,48px"></dc-import>
 
     <div style="display: flex; flex-direction: column; gap: 6px">
-      <span style="font-size: 12px; color: #6E6C73">Riverline Co. · 3 products · 5 departments</span>
+      <span style="font-size: 12px; color: #6E6C73">{{summary}}</span>
       <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Products &amp; teams</h1>
       <p style="margin: 4px 0 0; font-size: 15px; line-height: 22px; color: #4A4950">Products are what the company runs. Departments are who does the work. Work links to both, so one Goal can help several products and one person can be in several teams.</p>
     </div>
@@ -40,20 +41,31 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <section aria-labelledby="org-products" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px">
           <h2 id="org-products" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Products</h2>
-          <button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add product</button>
+          <button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer" aria-expanded="{{addingProductAttr}}" onClick="{{toggleAddProduct}}">Add product</button>
         </div>
+        <sc-if value="{{addingProduct}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; border-radius: 22px; background: #F4F3EF"><label for="org-new-product" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Product name, for example Delivery App</label><input id="org-new-product" type="text" placeholder="Product name, for example Delivery App" style="flex: 1 1 180px; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F"><button type="button" onClick="{{toggleAddProduct}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Cancel</button><button type="button" onClick="{{saveProduct}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add</button></div>
+        </sc-if>
         <sc-for list="{{products}}" as="p" hint-placeholder-count="3">
           <div style="display: flex; flex-direction: column; gap: 8px; padding: 14px 0; border-top: 1px solid #F0EEE9">
             <div style="display: flex; align-items: center; gap: 10px">
               <span style="flex: 1; min-width: 0; font-size: 15px; line-height: 22px; font-weight: 600">{{p.name}}</span>
               <span style="font-size: 12px; color: #6E6C73">Owner · {{p.owner}}</span>
-              <button type="button" aria-label="Edit {{p.name}}" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"></path></svg></button>
+              <button type="button" aria-label="Edit {{p.name}}" aria-expanded="{{p.openAttr}}" onClick="{{p.toggle}}" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"></path></svg></button>
             </div>
+            <sc-if value="{{p.open}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 16px; background: #F4F3EF">
+              <label for="{{p.ownerId}}" style="font-size: 13px; font-weight: 600">Owner</label>
+              <select id="{{p.ownerId}}" onChange="{{p.setOwner}}" style="flex: 1 1 160px; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>{{p.owner}}</option><option>Sokha Meng</option><option>Bopha Meas</option><option>Kosal Nhem</option><option>Chenda Lim</option></select>
+              <button type="button" onClick="{{p.remove}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Archive product</button>
+            </div>
+            </sc-if>
             <div style="display: flex; flex-wrap: wrap; gap: 6px">
               <sc-for list="{{p.areas}}" as="a" hint-placeholder-count="3">
-                <span style="display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{a}}</span>
+                <span style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 999px; background: #F4F3EF; font-size: 12px">{{a}}</span>
               </sc-for>
-              <button type="button" style="height: 30px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600; text-decoration: underline; cursor: pointer">Add area</button>
+              <sc-if value="{{p.notAddingArea}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{p.startArea}}" style="height: 44px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600; text-decoration: underline; cursor: pointer">Add area</button></sc-if>
+              <sc-if value="{{p.addingArea}}" hint-placeholder-val="{{false}}"><label for="{{p.areaId}}" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">New area for {{p.name}}</label><input id="{{p.areaId}}" type="text" placeholder="Area name" style="flex: 1 1 140px; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><button type="button" onClick="{{p.saveArea}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add</button></sc-if>
             </div>
           </div>
         </sc-for>
@@ -63,8 +75,11 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <section aria-labelledby="org-depts" style="grid-column: span 6; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; gap: 4px; min-width: 0">
         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px">
           <h2 id="org-depts" style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Departments</h2>
-          <button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add department</button>
+          <button type="button" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer" aria-expanded="{{addingDeptAttr}}" onClick="{{toggleAddDept}}">Add department</button>
         </div>
+        <sc-if value="{{addingDept}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; border-radius: 22px; background: #F4F3EF"><label for="org-new-dept" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Department name, for example Finance</label><input id="org-new-dept" type="text" placeholder="Department name, for example Finance" style="flex: 1 1 180px; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #1C1B1F"><button type="button" onClick="{{toggleAddDept}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Cancel</button><button type="button" onClick="{{saveDept}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add</button></div>
+        </sc-if>
         <sc-for list="{{depts}}" as="d" hint-placeholder-count="5">
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 14px 0; border-top: 1px solid #F0EEE9">
             <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
@@ -84,19 +99,40 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1040}}'>
 class Component extends DCLogic {
   renderVals() {
+    const s = this.state || {};
+    const base = [
+      { name: 'Retail App', owner: 'Sokha Meng', areas: ['Ordering', 'Menu', 'Payments'] },
+      { name: 'Shops POS', owner: 'Bopha Meas', areas: ['Receipts', 'Stock'] },
+      { name: 'School App', owner: 'Not set', areas: ['Enrolment', 'Fees'] }
+    ];
+    const list = (s.products || base);
+    const patch = (name, change) => this.setState(Object.assign({ products: list.map((p) => p.name === name ? Object.assign({}, p, change(p)) : p) }, { areaFor: '' }));
+    const val = (id) => { const el = document.getElementById(id); const v = el ? el.value.trim() : ''; if (el) el.value = ''; return v; };
+    const products = list.map((p) => {
+      const key = p.name.toLowerCase().replace(/[^a-z]+/g, '-');
+      return Object.assign({}, p, {
+        open: s.open === p.name, openAttr: s.open === p.name ? 'true' : 'false', toggle: () => this.setState({ open: s.open === p.name ? '' : p.name }),
+        ownerId: 'org-owner-' + key, setOwner: (e) => patch(p.name, () => ({ owner: e.target.value })),
+        remove: () => this.setState({ products: list.filter((x) => x.name !== p.name), open: '' }),
+        areaId: 'org-area-' + key, addingArea: s.areaFor === p.name, notAddingArea: s.areaFor !== p.name,
+        startArea: () => this.setState({ areaFor: p.name }),
+        saveArea: () => { const v = val('org-area-' + key); if (v) patch(p.name, (x) => ({ areas: x.areas.concat([v]) })); else this.setState({ areaFor: '' }); }
+      });
+    });
+    const depts = [
+      { name: 'Technical', lead: 'Chenda Lim', people: '7', chat: '4 new requests' },
+      { name: 'Design', lead: 'Sreymom Kim', people: '5', chat: 'Queue empty' },
+      { name: 'Marketing', lead: 'Kosal Nhem', people: '6', chat: '2 new requests' },
+      { name: 'Operations', lead: 'Bopha Meas', people: '7', chat: '6 new requests' },
+      { name: 'Shops', lead: 'Sophea Tan', people: '17', chat: '1 new request' }
+    ].concat((s.depts || []).map((name) => ({ name, lead: 'Not set', people: '0', chat: 'Pick a lead in People' })));
     return {
-      products: [
-        { name: 'Retail App', owner: 'Sokha Meng', areas: ['Ordering', 'Menu', 'Payments'] },
-        { name: 'Shops POS', owner: 'Bopha Meas', areas: ['Receipts', 'Stock'] },
-        { name: 'School App', owner: 'Not set', areas: ['Enrolment', 'Fees'] }
-      ],
-      depts: [
-        { name: 'Technical', lead: 'Chenda Lim', people: '12', chat: '4 new requests' },
-        { name: 'Design', lead: 'Sreymom Kim', people: '5', chat: 'Queue empty' },
-        { name: 'Marketing', lead: 'Kosal Nhem', people: '6', chat: '2 new requests' },
-        { name: 'Operations', lead: 'Bopha Meas', people: '7', chat: '6 new requests' },
-        { name: 'Shops', lead: 'Vannak Prum', people: '12', chat: '1 new request' }
-      ]
+      products, depts,
+      summary: 'Riverline Co. · ' + products.length + (products.length === 1 ? ' product · ' : ' products · ') + depts.length + ' departments',
+      addingProduct: !!s.addP, addingProductAttr: s.addP ? 'true' : 'false', toggleAddProduct: () => this.setState({ addP: !s.addP }),
+      saveProduct: () => { const v = val('org-new-product'); this.setState(v ? { addP: false, products: list.concat([{ name: v, owner: 'Not set', areas: [] }]) } : { addP: false }); },
+      addingDept: !!s.addD, addingDeptAttr: s.addD ? 'true' : 'false', toggleAddDept: () => this.setState({ addD: !s.addD }),
+      saveDept: () => { const v = val('org-new-dept'); this.setState(v ? { addD: false, depts: (s.depts || []).concat([v]) } : { addD: false }); }
     };
   }
 }

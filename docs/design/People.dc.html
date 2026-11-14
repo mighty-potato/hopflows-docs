@@ -32,12 +32,11 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
     <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <span style="font-size: 12px; color: #6E6C73">Riverline Co. · 42 people · 5 departments</span>
+        <span style="font-size: 12px; color: #6E6C73">{{summary}}</span>
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">People</h1>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
-        <button type="button" style="height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Copy invite link</button>
-        <button type="button" style="height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Invite by email</button>
+        <button type="button" style="height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer" aria-expanded="{{inviteOpen}}" onClick="{{toggleInvite}}">Add person by Google email</button>
       </div>
     </div>
 
@@ -47,14 +46,34 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </div>
 
     <div style="display: flex; flex-wrap: wrap; gap: 8px">
-      <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-size: 13px; font-weight: 600">All · 42</span>
-      <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px">Invited · 3</span>
-      <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px">Suspended · 1</span>
-      <span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #FFFFFF; font-size: 13px">Department ▾</span>
+      <sc-for list="{{chips}}" as="c" hint-placeholder-count="3">
+        <button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{c.bg}}; color: {{c.fg}}; font-family: inherit; font-size: 13px; font-weight: {{c.w}}; cursor: pointer">{{c.label}}</button>
+      </sc-for>
+      <label for="pp-dept" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Department</label>
+      <select id="pp-dept" onChange="{{setDept}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; font-family: inherit; font-size: 13px; color: #1C1B1F; cursor: pointer"><option value="">All departments</option><option>Technical</option><option>Design</option><option>Marketing</option><option>Operations</option><option>Shops</option></select>
+      <span style="margin-left: auto; align-self: center; font-size: 12px; color: #6E6C73">{{showing}}</span>
     </div>
 
+    <sc-if value="{{showInvite}}" hint-placeholder-val="{{false}}">
+    <section aria-label="Add people by Google email" style="background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; gap: 12px">
+      <sc-if value="{{inviting}}" hint-placeholder-val="{{true}}">
+        <div style="display: flex; flex-direction: column; gap: 6px"><label for="pp-emails" style="font-size: 13px; line-height: 18px; font-weight: 600">Google emails <span style="font-weight: 400; color: #6E6C73">· the accounts they sign in with, one per line or separated by commas</span></label><textarea id="pp-emails" rows="2" style="box-sizing: border-box; padding: 12px 14px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 20px; color: #1C1B1F; resize: vertical">nary.kong@riverline.example, veasna.pich@riverline.example</textarea></div>
+        <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px">
+          <div style="flex: 1 1 180px; display: flex; flex-direction: column; gap: 6px"><label for="pp-idept" style="font-size: 13px; line-height: 18px; font-weight: 600">Department</label><select id="pp-idept" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Shops</option><option>Technical</option><option>Design</option><option>Marketing</option><option>Operations</option></select></div>
+          <div style="flex: 1 1 180px; display: flex; flex-direction: column; gap: 6px"><label for="pp-irole" style="font-size: 13px; line-height: 18px; font-weight: 600">Role</label><select id="pp-irole" style="height: 44px; box-sizing: border-box; padding: 0 14px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: inherit; font-size: 15px; color: #1C1B1F"><option>Member</option><option>Leadership</option><option>Admin</option></select></div>
+          <button type="button" onClick="{{toggleInvite}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Cancel</button>
+          <button type="button" onClick="{{sendInvites}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Add 2 people</button>
+        </div>
+        <p style="margin: 0; font-size: 12px; line-height: 16px; color: #6E6C73">They can sign in with Google straight away. They show as Invited until their first sign-in.</p>
+      </sc-if>
+      <sc-if value="{{invited}}" hint-placeholder-val="{{false}}">
+        <p role="status" style="margin: 0; padding: 12px 16px; border-radius: 16px; background: #DCEFE2; color: #1F5E3A; font-size: 13px; line-height: 18px"><strong>2 people added.</strong> Nary Kong and Veasna Pich show as Invited below until they first sign in with Google.</p>
+      </sc-if>
+    </section>
+    </sc-if>
+
     <section aria-label="People" style="background: #FFFFFF; border-radius: 28px; padding: 8px 24px 16px; min-width: 0">
-      <div style="overflow-x: auto">
+      <div style="overflow-x: auto; position: relative">
         <table style="width: 100%; min-width: 900px; border-collapse: collapse; font-size: 13px">
           <thead>
             <tr style="text-align: left; color: #6E6C73; font-size: 12px">
@@ -76,8 +95,21 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                 <td style="padding: 12px 8px; color: #4A4950">{{p.cal}}</td>
                 <td style="padding: 12px 8px; color: #4A4950">{{p.days}}</td>
                 <td style="padding: 12px 8px"><span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: {{p.fg}}"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{p.dot}}"></span>{{p.status}}</span></td>
-                <td style="padding: 12px 0 12px 8px; text-align: right"><button type="button" aria-label="More for {{p.name}}" style="width: 40px; height: 40px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"></path></svg></button></td>
+                <td style="padding: 12px 0 12px 8px; text-align: right"><button type="button" aria-label="More for {{p.name}}" aria-expanded="{{p.openAttr}}" onClick="{{p.toggle}}" style="width: 44px; height: 44px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"></path></svg></button></td>
               </tr>
+              <sc-if value="{{p.open}}" hint-placeholder-val="{{false}}">
+              <tr>
+                <td colspan="7" style="padding: 0 0 12px">
+                  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 16px; background: #F4F3EF">
+                    <span style="flex: 1 1 200px; min-width: 0; font-size: 13px; line-height: 18px; color: #4A4950">{{p.menuNote}}</span>
+                    <sc-for list="{{p.actions}}" as="x" hint-placeholder-count="2">
+                      <sc-if value="{{x.href}}" hint-placeholder-val="{{false}}"><a href="{{x.href}}" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">{{x.name}}</a></sc-if>
+                      <sc-if value="{{x.plain}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{x.run}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{x.name}}</button></sc-if>
+                    </sc-for>
+                  </div>
+                </td>
+              </tr>
+              </sc-if>
             </sc-for>
           </tbody>
         </table>
@@ -89,25 +121,57 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1040}}'>
 class Component extends DCLogic {
   renderVals() {
+    const st = this.state || {};
     const s = {
       active: { status: 'Active', fg: '#1F5E3A', dot: '#2E7D4F' },
       invited: { status: 'Invited', fg: '#33454F', dot: '#33454F' },
       leaving: { status: 'Active · leaving 23 Oct', fg: '#9A3412', dot: '#C2410C' },
       suspended: { status: 'Suspended', fg: '#4A4950', dot: '#6E6C73' }
     };
-    const p = (name, init, email, role, depts, cal, days, k) => Object.assign({ name, init, email, role, depts, cal, days }, s[k]);
+    const over = st.over || {}, notes = st.notes || {};
+    const set = (name, k, note) => () => this.setState({ over: Object.assign({}, over, k ? { [name]: k } : {}), notes: Object.assign({}, notes, { [name]: note }) });
+    const p = (name, init, role, depts, cal, days, k0) => {
+      const k = over[name] || k0;
+      const email = name.toLowerCase().replace(' ', '.') + '@riverline.example';
+      const act = (n, run, href) => ({ name: n, run: run || null, href: href || '', plain: !href });
+      const actions = k === 'invited' ? [act('Remind by email', set(name, '', 'Reminder sent to ' + email + ': sign in with Google to join.')), act('Remove', () => this.setState({ gone: Object.assign({}, st.gone || {}, { [name]: true }), open: '' }))]
+        : k === 'suspended' ? [act('Reactivate', set(name, 'active', name + ' can sign in again.'))]
+        : k === 'leaving' ? [act('Hand over work', null, 'Handover.dc.html')]
+        : name === 'Bopha Meas' ? []
+        : [act('Suspend', set(name, 'suspended', name + ' can no longer sign in. Their work stays where it is until you hand it over.'))];
+      const base = k === 'leaving' ? 'Leaves on Fri 23 Oct. Chenda is handing over 8 items; the account closes once that is done.'
+        : name === 'Bopha Meas' ? 'This is you. A company needs at least one admin, so you can\'t suspend yourself.'
+        : k === 'invited' ? 'Added, not signed in with Google yet.' : k === 'suspended' ? 'Suspended. Can\'t sign in.' : 'Role, departments and work days are changed by clicking the cell.';
+      return Object.assign({ name, init, email, role, depts, cal, days, k, open: st.open === name, openAttr: st.open === name ? 'true' : 'false', toggle: () => this.setState({ open: st.open === name ? '' : name }), actions, menuNote: notes[name] || base }, s[k]);
+    };
+    const all = [
+      p('Bopha Meas', 'BM', 'Admin · leads Operations', 'Operations', 'Cambodia', 'Mon–Fri', 'active'),
+      p('Chenda Lim', 'CL', 'Member · leads Technical', 'Technical', 'Cambodia', 'Mon–Fri', 'active'),
+      p('Dara Sok', 'DS', 'Member', 'Technical', 'Cambodia', 'Mon–Fri', 'active'),
+      p('Kosal Nhem', 'KN', 'Leadership · leads Marketing', 'Marketing', 'Cambodia', 'Mon–Fri', 'active'),
+      p('Pisey Chea', 'PC', 'Member', 'Technical 60% · Design 40%', 'Cambodia', 'Mon–Fri', 'active'),
+      p('Sokha Meng', 'SM', 'Leadership', '—', 'Cambodia', 'Mon–Fri', 'active'),
+      p('Sophal Ouk', 'SO', 'Member', 'Technical', 'Cambodia', 'Mon–Fri', 'leaving'),
+      p('Sophea Tan', 'ST', 'Member · leads Shops', 'Shops', 'Cambodia', 'Mon–Sat morning', 'active'),
+      p('Linh Tran', 'LT', 'Member', 'Design', 'Vietnam office', 'Mon–Fri', 'invited'),
+      p('Minh Vo', 'MV', 'Member', 'Design', 'Vietnam office', 'Mon–Fri', 'invited'),
+      p('Ratha Keo', 'RK', 'Member', 'Shops', 'Cambodia', 'Mon–Sat morning', 'invited'),
+      p('Thida Mao', 'TM', 'Member', 'Shops', 'Cambodia', 'Mon–Fri', 'suspended')
+    ].concat(st.invited ? [p('Nary Kong', 'NK', 'Member', 'Shops', 'Cambodia', 'Mon–Fri', 'invited'), p('Veasna Pich', 'VP', 'Member', 'Shops', 'Cambodia', 'Mon–Fri', 'invited')] : []);
+    const filter = st.filter || 'all', dept = st.dept || '', gone = st.gone || {};
+    const people = all.filter((x) => !gone[x.name]).filter((x) => (filter === 'all' || x.k === filter) && (!dept || x.depts.indexOf(dept) >= 0));
+    const total = 42 + (st.invited ? 2 : 0) - Object.keys(gone).length;
+    const count = (k) => all.filter((x) => x.k === k && !gone[x.name]).length;
+    const chips = [['all', 'All · ' + total], ['invited', 'Invited · ' + count('invited')], ['suspended', 'Suspended · ' + count('suspended')]].map(([id, label]) => {
+      const on = filter === id;
+      return { label, on: on ? 'true' : 'false', bg: on ? '#1C1B1F' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1C1B1F', w: on ? '600' : '400', pick: () => this.setState({ filter: id }) };
+    });
     return {
-      people: [
-        p('Bopha Meas', 'BM', 'bopha@riverline.example', 'Admin', 'Operations', 'Cambodia', 'Mon–Fri', 'active'),
-        p('Chenda Lim', 'CL', 'chenda@riverline.example', 'Member · leads Technical', 'Technical', 'Cambodia', 'Mon–Fri', 'active'),
-        p('Dara Sok', 'DS', 'dara@riverline.example', 'Member', 'Technical', 'Cambodia', 'Mon–Fri', 'active'),
-        p('Kosal Nhem', 'KN', 'kosal@riverline.example', 'Leadership · leads Marketing', 'Marketing', 'Cambodia', 'Mon–Fri', 'active'),
-        p('Pisey Chea', 'PC', 'pisey@riverline.example', 'Member', 'Technical 60% · Design 40%', 'Cambodia', 'Mon–Fri', 'active'),
-        p('Sokha Meng', 'SM', 'sokha@riverline.example', 'Leadership', '—', 'Cambodia', 'Mon–Fri', 'active'),
-        p('Sophal Ouk', 'SO', 'sophal@riverline.example', 'Member', 'Technical', 'Cambodia', 'Mon–Fri', 'leaving'),
-        p('Sophea Tan', 'ST', 'sophea@riverline.example', 'Member', 'Shops', 'Cambodia', 'Mon–Sat morning', 'active'),
-        p('Linh Tran', 'LT', 'linh@riverline.example', 'Member', 'Design', 'Vietnam office', 'Mon–Fri', 'invited')
-      ]
+      people, chips, summary: 'Riverline Co. · ' + total + ' people · 5 departments',
+      showing: filter === 'all' && !dept ? 'Showing ' + people.length + ' of ' + total : people.length + (people.length === 1 ? ' person' : ' people'),
+      setDept: (e) => this.setState({ dept: e.target.value }),
+      showInvite: !!st.invite || !!st.invited, inviting: !!st.invite && !st.invited, invited: !!st.invited, inviteOpen: st.invite ? 'true' : 'false',
+      toggleInvite: () => this.setState({ invite: !st.invite }), sendInvites: () => this.setState({ invited: true, invite: false })
     };
   }
 }

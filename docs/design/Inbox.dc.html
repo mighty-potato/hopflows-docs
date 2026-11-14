@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Inbox</title>
 <script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
 <link rel="stylesheet" href="/_blob/9275412045caede2fafcdfc2bb2771d3">
 </head>
 <body>
@@ -21,6 +22,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-hide-sm{display:none !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:1100px){.bento>*{grid-column:1 / -1 !important}}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -36,8 +38,8 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Inbox</h1>
       </div>
       <div role="tablist" aria-label="Filter" style="display: flex; padding: 2px; gap: 2px; background: #FFFFFF; border-radius: 999px">
-        <button type="button" role="tab" aria-selected="true" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Needs action · 3</button>
-        <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: #4A4950; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">All</button>
+        <button type="button" role="tab" aria-selected="{{actSel}}" onClick="{{showAction}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{actBg}}; color: {{actFg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Needs action · {{needCount}}</button>
+        <button type="button" role="tab" aria-selected="{{allSel}}" onClick="{{showAll}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: {{allBg}}; color: {{allFg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">All · {{allCount}}</button>
       </div>
     </div>
 
@@ -52,7 +54,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isEmpty}}" hint-placeholder-val="{{false}}">
       <section aria-label="You're all caught up" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
-        <img src="/_blob/a431a6fdd4e19f548f54f9fd97283158" alt="Punh Punh waving" style="width: 144px; height: 144px; border-radius: 28px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 144px; height: 144px; border-radius: 28px; flex-shrink: 0"><dc-import name="PunhPunh" pose="wave" label="Punh Punh waving" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">You're all caught up</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">Alerts about your tasks, requests, leave and meetings show up here. Urgent ones also arrive as a push alert.</p>
@@ -62,53 +64,61 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{isError}}" hint-placeholder-val="{{false}}">
       <section role="alert" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; box-shadow: inset 0 0 0 2px #C2410C">
-        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 120px; height: 120px; border-radius: 24px; flex-shrink: 0"><dc-import name="PunhPunh" pose="calm" label="Punh Punh, calm" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Couldn't load your Inbox</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">HopFlows can't reach the server. Check your connection, then try again. Nothing you did is lost.</p>
-          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
+          <div style="display: flex; gap: 8px; margin-top: 6px"><button type="button" onClick="{{retry}}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">Try again</button></div>
         </div>
       </section>
     </sc-if>
     <sc-if value="{{ok}}" hint-placeholder-val="{{true}}">
     <div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-items: start">
       <div style="grid-column: span 8; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <sc-if value="{{showUrgent}}" hint-placeholder-val="{{true}}">
         <section aria-label="Urgent" style="background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; box-shadow: inset 0 0 0 2px #C2410C">
           <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
             <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FCE3D3; color: #9A3412; font-size: 13px; font-weight: 600"><span style="width: 8px; height: 8px; border-radius: 999px; background: #C2410C"></span>Urgent</span>
-            <span style="font-size: 12px; color: #6E6C73">13:06 · from Chenda Lim</span>
+            <span style="font-size: 12px; color: #6E6C73">{{urgent.meta}}</span>
           </div>
-          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Card payments fail at the Toul Kork shop: now yours</span>
-          <span style="font-size: 13px; line-height: 18px; color: #4A4950">Due today. If nobody starts it in 15 minutes it goes to Chenda.</span>
+          <span style="font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{urgent.title}}</span>
+          <span style="font-size: 13px; line-height: 18px; color: #4A4950">{{urgentNote}}</span>
           <div style="display: flex; flex-wrap: wrap; gap: 8px">
-            <button type="button" style="height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Start</button>
+            <sc-if value="{{urgentOpen}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{startUrgent}}" style="height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Start</button></sc-if>
+            <sc-if value="{{urgentStarted}}" hint-placeholder-val="{{false}}"><a href="TaskDetail.dc.html" style="height: 44px; padding: 0 20px; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Open task</a><button type="button" onClick="{{undoUrgent}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Undo</button></sc-if>
             <a href="NeedHelp.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Need help</a>
-            <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Snooze</button>
+            <sc-if value="{{canSnooze}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{snooze}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Remind me in 5 min</button></sc-if>
           </div>
         </section>
+        </sc-if>
 
+        <sc-if value="{{nothingLeft}}" hint-placeholder-val="{{false}}"><section role="status" style="background: #DCEFE2; color: #1F5E3A; border-radius: 28px; padding: 20px 24px; font-size: 15px; line-height: 22px"><strong>Nothing needs you right now.</strong> Everything else is under All.</section></sc-if>
+        <sc-if value="{{hasAlerts}}" hint-placeholder-val="{{true}}">
         <section aria-label="Alerts" style="background: #FFFFFF; border-radius: 28px; padding: 8px 24px; display: flex; flex-direction: column">
           <sc-for list="{{alerts}}" as="a" hint-placeholder-count="5">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 16px 0; border-bottom: 1px solid #F0EEE9">
               <span style="width: 40px; height: 40px; border-radius: 14px; background: {{a.bg}}; color: {{a.fg}}; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{a.tag}}</span>
-              <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; line-height: 22px">{{a.text}}</span><span style="font-size: 12px; color: #6E6C73">{{a.meta}}</span></div>
+              <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; line-height: 22px">{{a.text}}</span><span style="font-size: 12px; color: {{a.metaFg}}">{{a.meta}}</span></div>
               <div style="display: flex; gap: 6px">
-                <sc-if value="{{a.b2}}" hint-placeholder-val="{{false}}"><button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">{{a.b2}}</button></sc-if>
-                <sc-if value="{{a.b1}}" hint-placeholder-val="{{true}}"><button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer">{{a.b1}}</button></sc-if>
+                <sc-if value="{{a.b2}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{a.do2}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{a.b2}}</button></sc-if>
+                <sc-if value="{{a.l2}}" hint-placeholder-val="{{false}}"><a href="{{a.href2}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; box-sizing: border-box">{{a.l2}}</a></sc-if>
+                <sc-if value="{{a.b1}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{a.do1}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; box-shadow: inset 0 0 0 1.5px #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{a.b1}}</button></sc-if>
+                <sc-if value="{{a.l1}}" hint-placeholder-val="{{false}}"><a href="{{a.href1}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; box-shadow: inset 0 0 0 1.5px #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; box-sizing: border-box">{{a.l1}}</a></sc-if>
               </div>
             </div>
           </sc-for>
           <div style="height: 8px"></div>
         </section>
+        </sc-if>
       </div>
 
       <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 12px; min-width: 0">
         <section aria-label="Morning summary" style="background: #C9DDE8; color: #33454F; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
           <div style="display: flex; align-items: center; gap: 10px">
-            <img src="/_blob/780266c96f9700604ecc05b950fef158" alt="Punh Punh waving" style="width: 44px; height: 44px; border-radius: 14px; object-fit: cover">
+            <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 44px; height: 44px; border-radius: 14px"><dc-import name="PunhPunh" pose="waveRight" label="Punh Punh waving" hint-size="100%,100%"></dc-import></span>
             <div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 600; color: #1C1B1F">Morning summary · 08:00</span><span style="font-size: 12px">from Punh Punh</span></div>
           </div>
-          <span style="font-size: 13px; line-height: 20px; color: #1C1B1F">Good morning, Dara! Today: checkout API, menu photos, receipt rounding. One meeting at 14:00. Release notes are due Monday.</span>
+          <span style="font-size: 13px; line-height: 20px; color: #1C1B1F">{{morning}}</span>
         </section>
         <section aria-label="Where alerts go" style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 4px">
           <h2 style="margin: 0 0 6px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">Where alerts go</h2>
@@ -124,27 +134,86 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
   <dc-import name="MobileNav" current="inbox" hint-size="390px,80px"></dc-import>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1000}}'>
+<script type="text/x-dc" data-dc-script data-props='{"seed":{"editor":"enum","options":["shared","normal","busy","quiet"],"default":"shared"},"state":{"editor":"enum","options":["normal","loading","empty","error"],"default":"normal"},"$preview":{"width":1440,"height":1000}}'>
 class Component extends DCLogic {
+  componentDidMount() {
+    this._hf = () => { let v = null; try { v = window.localStorage.getItem('hopflows.seed'); } catch (e) {} if (v && v !== (this.state && this.state.hfSeed)) this.setState({ hfSeed: v, hfLocal: null }); };
+    this._hf(); try { window.addEventListener('storage', this._hf); } catch (e) {} this._hfT = setInterval(this._hf, 1000);
+  }
+  componentWillUnmount() { try { window.removeEventListener('storage', this._hf); } catch (e) {} clearInterval(this._hfT); }
+  seed() { const p = this.props.seed; return (p && p !== 'shared') ? p : ((this.state && this.state.hfSeed) || 'normal'); }
+  local() { return (this.state && this.state.hfLocal) || {}; }
+  setLocal(patch) { this.setState({ hfLocal: Object.assign({}, this.local(), patch) }); }
   renderVals() {
+    const seed = this.seed();
+    const L = this.local();
     const t = {
       meet: { tag: 'Mtg', bg: '#C9DDE8', fg: '#33454F' },
       req: { tag: 'Req', bg: '#F4F3EF', fg: '#1C1B1F' },
       kudos: { tag: 'Thx', bg: '#F9D3DE', fg: '#6E4850' },
       lock: { tag: 'Lock', bg: '#F4F3EF', fg: '#1C1B1F' },
-      task: { tag: 'Task', bg: '#F4F3EF', fg: '#1C1B1F' }
+      task: { tag: 'Task', bg: '#F4F3EF', fg: '#1C1B1F' },
+      warn: { tag: '!', bg: '#FCE3D3', fg: '#9A3412' },
+      ok: { tag: 'OK', bg: '#DCEFE2', fg: '#1F5E3A' }
     };
-    const a = (k, text, meta, b1, b2) => Object.assign({ text, meta, b1: b1 || '', b2: b2 || '' }, t[k]);
-    const st = this.props.state ?? 'normal';
+    // each alert: what its buttons do. Links go to the screen; Accept, Decline and Start are answered here.
+    const links = { Open: 'TaskDetail.dc.html', 'Ask Chenda': 'NeedHelp.dc.html', 'Update my week': 'Leave.dc.html', 'See request': 'MyRequests.dc.html', Calendar: 'Calendar.dc.html' };
+    const done = { Accept: 'You accepted · it is on your Calendar', Decline: 'You declined · Chenda is told', Start: 'Started · it is In progress in My tasks' };
+    const a = (k, text, meta, b1, b2) => Object.assign({ k, text, meta, b1: b1 || '', b2: b2 || '' }, t[k]);
+    const ALL = {
+      normal: { need: 3, urgent: { meta: '14:05 · from Chenda Lim', title: 'Card payments fail at the Toul Kork shop: now yours', sub: 'Due today. If nobody starts it by 14:20, it goes back to Chenda.', back: '14:20', remind: '14:15' },
+        morning: 'Good morning, Dara! Today: checkout API, menu photos, receipt footer text. One meeting at 14:00. Coupon rules screen is with Chenda.', list: [
+        a('meet', 'Checkout API sync moved to 14:30', 'Chenda Lim · 12:40', 'Accept', 'Decline'),
+        a('task', 'Write release notes was given to you', 'Chenda Lim · 11:15 · due Tue 10 Nov', 'Open'),
+        a('kudos', 'Chenda gave you kudos for “Update receipt footer text”', '10:30 · only you and your lead see this', ''),
+        a('lock', 'You have a confidential update. Open it here to see it.', 'Yesterday 17:20', 'Open'),
+        a('req', 'Chenda answered your request “Khmer font in menu PDFs”: back on Tue 3 Nov', 'Technical · yesterday 16:40', '', 'See request')] },
+      busy: { need: 5, urgent: { meta: '08:52 · from Chenda Lim', title: 'Payment webhook times out for every shop: now yours', sub: 'Overdue since yesterday. Chenda gets an alert every hour until someone starts it.', remind: '08:57' },
+        morning: 'Good morning, Dara. A heavy day: the webhook is overdue and the printer driver is still blocked. Incident review at 10:00.', list: [
+        a('meet', 'Incident review at 10:00 · Room 1', 'Chenda Lim · 08:40', 'Accept', 'Decline'),
+        a('task', 'Menu sync job tests was given to you · due today', 'Chenda Lim · 08:31', 'Start', 'Open'),
+        a('warn', 'Vendor has not answered about the printer driver · 5 days', 'Auto-reminder · 08:00', 'Ask Chenda'),
+        a('warn', 'Your week shows Too much. Chenda can see it.', 'Mon 08:00', 'Update my week'),
+        a('req', 'Your request “Shop tablet shows old prices” is waiting on Rithy', 'Technical · Sun', '')] },
+      quiet: { need: 0, urgent: null,
+        morning: 'Good morning, Dara! A calm day: your three are done and nothing is due. Maybe pick something from next week.', list: [
+        a('kudos', 'Chenda gave you kudos for “Build the checkout API”', '09:10 · only you and your lead see this', ''),
+        a('ok', 'Coupon rules screen was accepted', 'Chenda Lim · Thu', ''),
+        a('ok', 'Your leave Thu 22 – Fri 23 Oct was approved', 'Chenda Lim · Wed', '')] }
+    };
+    const d = ALL[seed] || ALL.normal;
+    const st = L.retried ? 'normal' : (this.props.state ?? 'normal');
+    const filter = L.filter || 'action', urgent = L.urgent || 'open', answered = L.answered || {};
+    const list = d.list.map((x, i) => {
+      const ans = answered[i];
+      const btn = (lab) => lab && !links[lab] ? lab : '', lnk = (lab) => links[lab] ? lab : '';
+      const answer = (lab) => () => this.setLocal({ answered: Object.assign({}, answered, { [i]: lab }) });
+      const needs = !ans && !!(btn(x.b1) || btn(x.b2) || (x.k === 'task' && x.b1));
+      if (ans) return Object.assign({}, x, { meta: done[ans] || ans, metaFg: ans === 'Decline' ? '#4A4950' : '#1F5E3A', b1: '', l1: x.k === 'meet' ? 'Calendar' : (x.k === 'task' ? 'Open' : ''), href1: x.k === 'meet' ? links.Calendar : links.Open, b2: 'Undo', l2: '', do2: () => { const n = Object.assign({}, answered); delete n[i]; this.setLocal({ answered: n }); }, need: false });
+      return Object.assign({}, x, { metaFg: '#6E6C73', need: needs,
+        b1: btn(x.b1), do1: answer(x.b1), l1: lnk(x.b1), href1: links[x.b1] || '',
+        b2: btn(x.b2), do2: answer(x.b2), l2: lnk(x.b2), href2: links[x.b2] || '' });
+    });
+    const urgentNeeds = !!d.urgent && urgent !== 'started';
+    const needCount = list.filter((x) => x.need).length + (urgentNeeds ? 1 : 0);
+    const shown = filter === 'all' ? list : list.filter((x) => x.need);
+    const on = { bg: '#1C1B1F', fg: '#FFFFFF' }, off = { bg: 'transparent', fg: '#4A4950' };
+    const u = d.urgent || {};
     return {
       ok: st === 'normal', isLoading: st === 'loading', isEmpty: st === 'empty', isError: st === 'error',
-      alerts: [
-        a('meet', 'Checkout API sync moved to 14:30', 'Chenda Lim · 12:40', 'Accept', 'Decline'),
-        a('task', 'Write release notes was given to you', 'Chenda Lim · 11:15', 'Start', 'Open'),
-        a('req', 'Your request “Receipt printer offline” was joined with an earlier report', 'Technical · 10:02', ''),
-        a('kudos', 'Chenda gave you kudos for “Fix receipt rounding on the POS”', '10:30 · only you and your lead see this', ''),
-        a('lock', 'You have a confidential update. Open it here to see it.', 'Yesterday 17:20', 'Open')
-      ]
+      retry: () => this.setLocal({ retried: true }),
+      urgent: d.urgent, morning: d.morning,
+      needCount: String(needCount), allCount: String(list.length + (d.urgent ? 1 : 0)),
+      actSel: filter === 'action' ? 'true' : 'false', allSel: filter === 'all' ? 'true' : 'false',
+      actBg: (filter === 'action' ? on : off).bg, actFg: (filter === 'action' ? on : off).fg,
+      allBg: (filter === 'all' ? on : off).bg, allFg: (filter === 'all' ? on : off).fg,
+      showAction: () => this.setLocal({ filter: 'action' }), showAll: () => this.setLocal({ filter: 'all' }),
+      showUrgent: !!d.urgent && (filter === 'all' || urgentNeeds),
+      urgentOpen: urgent !== 'started', urgentStarted: urgent === 'started', canSnooze: urgent === 'open',
+      urgentNote: urgent === 'started' ? 'You started it. It is in My tasks as In progress, and Chenda can see that.' : (urgent === 'snoozed' ? 'You will be reminded at ' + (u.remind || 'in 5 minutes') + '.' + (u.back ? ' If nobody has started it by ' + u.back + ', it goes back to Chenda.' : '') : u.sub),
+      startUrgent: () => this.setLocal({ urgent: 'started' }), undoUrgent: () => this.setLocal({ urgent: 'open' }), snooze: () => this.setLocal({ urgent: 'snoozed' }),
+      nothingLeft: filter === 'action' && needCount === 0, hasAlerts: shown.length > 0,
+      alerts: shown
     };
   }
 }

@@ -180,3 +180,50 @@ Always "Xh planned of Yh to plan". Add "Zh available" only when it explains Too 
 
 - Payment webhook retries (not "Payment webhook").
 - Weekly plan (sidebar) opens "Plan next week".
+
+## Company and admin (Setup, People, Holiday calendars, Products & teams)
+
+Bopha Meas is the company admin and created Riverline Co.; work emails are `first.last@riverline.example` everywhere (Sign in, Setup, People, Settings).
+
+| Department | Lead | People | Queue |
+|---|---|---|---|
+| Technical | Chenda Lim | 7 | 4 new requests |
+| Design | Sreymom Kim | 5 | empty |
+| Marketing | Kosal Nhem | 6 | 2 new requests |
+| Operations | Bopha Meas | 7 | 6 new requests |
+| Shops | Sophea Tan | 17 | 1 new request |
+
+42 people: 41 department places, less Pisey Chea counted twice (Technical 60%, Design 40%), plus Sokha Meng (Leadership, no department). 38 are on the Cambodia holiday calendar and 4 on Vietnam office. People draws 12 of the 42: 3 invited (Linh Tran, Minh Vo, Ratha Keo) and 1 suspended (Thida Mao).
+
+Setup is the same company on day one: Technical (Chenda Lim), Marketing (Kosal Nhem), Operations (Bopha Meas) and HR with no lead yet; 12 people to invite.
+
+Cambodia 2026 has 21 public holiday days: 15 before today (Fri 16 Oct) and 6 after (King Father's Commemoration Day Thu 15 Oct is shown with the rest of the year, Coronation Day Thu 29 Oct, Independence Day Mon 9 Nov, Water Festival 3 days in November, date to confirm). Lunar holidays earlier in the year are listed by month only.
+
+## Lead Reports tabs (Technical, weeks 39–42)
+
+- Goal status: only the Goals a Technical Deliverable feeds. Onboard 40 pilot schools (22 of 40, Off track, School App sign-up flow), Increase in-app sales by 20% (+14%, At risk, Launch In-App Ordering v1), Reach 25,000 monthly users (21,400, On track, Store sales dashboard v1).
+- New requests: 23 sorted in four weeks (11 of them in week 42). Shop team 9, Technical 6, Meetings 4, Other departments 4. Became a task 11, joined 5, postponed 3, closed 4. 19 of 23 (83%) answered within a working day. Reported more than once: receipt printer at Toul Kork (3), coupon fails at checkout (2).
+- Workload and routines: surprise work 10%, 18%, 8%, 13% for weeks 39–42 (hours added ÷ planned + added). Week 42 colours match Workload: 1 Room, 3 Balanced, 1 Using buffer, 2 away or leaving. Routines 46 of 49 on time; 8 leave days, 2 sick days.
+
+## Dara's alerts (Inbox, Fri 16 Oct 14:10)
+
+Needs action · 3: urgent "Card payments fail at the Toul Kork shop" (14:05, goes back to Chenda at 14:20 if nobody starts it), Checkout API sync moved to 14:30 (12:40), Write release notes given to you (11:15, due Tue 10 Nov). Also listed under All: kudos for Update receipt footer text (10:30), a confidential update (yesterday 17:20), Chenda's answer on Khmer font in menu PDFs (yesterday 16:40). Today's "6 more open tasks" is My tasks' 10, less the Top 3 and the other done task.
+
+## Personal screens for other roles
+
+Today, My tasks, Requests I sent, My week & leave, My routines, Calendar, Inbox, Alerts & settings, Add Work and Search are drawn once, for Dara. When a lead, leader or admin opens one, the link carries `#as-lead`, `#as-leader` or `#as-admin` (the Sidebar adds it to every link, and keeps it on Task, Need help, Event, My week report and the other-team page). The Sidebar then shows that person and swaps Dara's names and work for theirs; the wording table is `personaWords` in `Sidebar.dc.html`. Search results and another team's Deliverable are company facts and stay as they are. Without the hash every screen is Dara's, so the canvas artboards do not change.
+
+| | Lead | Leader | Admin |
+|---|---|---|---|
+| Person | Chenda Lim | Sokha Meng | Bopha Meas |
+| Checks their work, approves leave | Sokha Meng | Kosal Nhem | Sokha Meng |
+| Backup approver | Bopha Meas | Bopha Meas | Kosal Nhem |
+| Helper on the Top 3 task | Pisey Chea | Chenda Lim | Sophea Tan |
+| Top 3 task in progress | School App: date or scope note (part of School App sign-up flow) | Mid-quarter note on the Q4 Goals | November rota for the shops |
+
+The rest of their week has the same shape as Dara's with manager work in place of developer work: Check the budget sheet with Finance (due today), Reply to the laptop supplier (done 10:24), Renew the office internet contract (blocked on the vendor), Team budget request (awaiting review), Write the monthly update (Tue 10 Nov), Interview notes for the new hire (Thu 22), Supplier review meeting prep (Mon 9 Nov), Contract renewal check (confidential). The 14:30 meeting is Leads check-in.
+
+Chenda plans her own week, so her My week & leave differs: leave asked for Fri 23 Oct only (waiting for Sokha), which is why the Planner shows her with 24h available in week 43; 19h planned of 18h to plan. Her Calendar shows the leave on Fri 23 only.
+
+Alerts & settings: push on or off per device, quiet hours (from 18:00–22:00, until 06:00–08:00; the morning summary moves to 08:30 if quiet hours end at 08:00), and when each kind of alert arrives (Right away, Morning summary, Inbox only). Urgent alerts stay fixed.
+

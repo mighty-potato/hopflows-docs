@@ -25,6 +25,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-masonry{flex-direction:column !important;flex-wrap:nowrap !important;align-items:stretch !important}
 .hf-masonry>.hf-col{display:contents !important}
 }
+@media (max-width:1100px){.bento>*{grid-column:1 / -1 !important}}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -40,20 +41,24 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
         <h1 style="margin: 0; font-size: 40px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">Reports</h1>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Technical ▾</button>
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Last 4 weeks ▾</button>
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"></path></svg>Excel</button>
-        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">PDF</button>
+        <span style="height: 44px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Technical</span>
+        <span style="height: 44px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Last 4 weeks</span>
+        <button type="button" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer" onClick="{{getExcel}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"></path></svg>Excel</button>
+        <button type="button" onClick="{{getPdf}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">PDF</button>
       </div>
     </div>
 
+    <sc-if value="{{hasFile}}" hint-placeholder-val="{{false}}">
+      <p role="status" style="margin: 0; padding: 12px 16px; border-radius: 16px; background: #DCEFE2; color: #1F5E3A; font-size: 13px; line-height: 18px"><strong>{{fileName}}</strong> is downloading. Confidential tasks you can't see are left out, and the file is deleted from HopFlows after 7 days.</p>
+    </sc-if>
+
     <div role="tablist" aria-label="Report" style="display: flex; flex-wrap: wrap; gap: 6px">
-      <button type="button" role="tab" aria-selected="true" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Plan vs. reality</button>
-      <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Goal status</button>
-      <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">New requests</button>
-      <button type="button" role="tab" aria-selected="false" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Workload and routines</button>
+      <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="4">
+        <button type="button" role="tab" aria-selected="{{tb.on}}" onClick="{{tb.pick}}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: {{tb.bg}}; color: {{tb.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{tb.name}}</button>
+      </sc-for>
     </div>
 
+    <sc-if value="{{isPlan}}" hint-placeholder-val="{{true}}">
     <div class="bento hf-masonry" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
       <div class="hf-col" style="flex: 4 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
       <section aria-label="Promises kept" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
@@ -120,6 +125,44 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       </section>
       </div>
     </div>
+    </sc-if>
+
+    <sc-if value="{{isOther}}" hint-placeholder-val="{{false}}">
+    <div class="bento hf-masonry" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
+      <div class="hf-col" style="flex: 4 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+        <section aria-label="{{panel.heroLabel}}" style="order: 1; background: #F7C83A; color: #1C1B1F; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 13px; font-weight: 600">{{panel.heroLabel}}</span>
+          <span style="font-family: 'Geist Mono', monospace; font-size: 88px; line-height: 88px; font-weight: 600; letter-spacing: -0.05em">{{panel.big}}</span>
+          <span style="font-size: 15px; line-height: 22px; margin-top: auto">{{panel.text}}</span>
+        </section>
+        <section aria-label="{{panel.sideTitle}}" style="order: 4; background: #FFFFFF; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
+          <h2 style="margin: 0 0 8px; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{panel.sideTitle}}</h2>
+          <sc-for list="{{panel.side}}" as="r" hint-placeholder-count="4">
+            <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid #F0EEE9"><span style="font-size: 13px">{{r.k}}</span><span style="font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600; text-align: right">{{r.v}}</span></div>
+          </sc-for>
+        </section>
+      </div>
+      <div class="hf-col" style="flex: 8 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+        <section aria-label="{{panel.title}}" style="order: 2; background: #FFFFFF; border-radius: 28px; padding: 16px 24px; min-width: 0">
+          <h2 style="margin: 8px 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.02em">{{panel.title}}</h2>
+          <div style="overflow-x: auto">
+            <table style="width: 100%; min-width: 560px; border-collapse: collapse; font-size: 13px">
+              <thead><tr style="color: #6E6C73; font-size: 12px; text-align: left"><sc-for list="{{panel.cols}}" as="c" hint-placeholder-count="4"><th scope="col" style="padding: 10px 12px 10px 0; font-weight: 400">{{c}}</th></sc-for></tr></thead>
+              <tbody>
+                <sc-for list="{{panel.rows}}" as="row" hint-placeholder-count="4">
+                  <tr style="border-top: 1px solid #F0EEE9">
+                    <th scope="row" style="padding: 12px 12px 12px 0; text-align: left; font-weight: 600">{{row.head}}</th>
+                    <sc-for list="{{row.cells}}" as="c" hint-placeholder-count="3"><td style="padding: 12px 12px 12px 0">{{c}}</td></sc-for>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin: 8px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">{{panel.note}}</p>
+        </section>
+      </div>
+    </div>
+    </sc-if>
   </main>
 </div>
 </x-dc>
@@ -131,7 +174,58 @@ class Component extends DCLogic {
       label, p: p + 'h', a: a + 'h', pw: (p / max * 100).toFixed(1) + '%', aw: (a / max * 100).toFixed(1) + '%',
       locked, done, carried, pushed, reassigned, cancelled
     });
+    const s = this.state || {};
+    const tab = s.tab || 'plan';
+    const names = [['plan', 'Plan vs. reality'], ['goals', 'Goal status'], ['requests', 'New requests'], ['load', 'Workload and routines']];
+    const row = (head, ...cells) => ({ head, cells });
+    const kv = (k, v) => ({ k, v });
+    const panels = {
+      goals: {
+        heroLabel: 'Goals Technical works on', big: '1 of 3',
+        text: 'One Goal is on track. Two carry a flag from a Technical Deliverable, so both are on the leaders\' weekly summary.',
+        sideTitle: 'Open flags', side: [kv('Launch In-App Ordering v1', 'At risk · 7 days'), kv('School App sign-up flow', 'Off track · 3 days')],
+        title: 'Goal status', cols: ['Goal', 'Result so far', 'Flag', 'Your Deliverable'],
+        rows: [
+          row('Onboard 40 pilot schools', '22 of 40', 'Off track · scope change', 'School App sign-up flow · due Fri 6 Nov'),
+          row('Increase in-app sales by 20%', '+14%', 'At risk · waiting on others', 'Launch In-App Ordering v1 · due Mon 30 Nov'),
+          row('Reach 25,000 monthly users', '21,400', 'On track', 'Store sales dashboard v1 · due Fri 13 Nov')
+        ],
+        note: 'Only Goals that a Technical Deliverable feeds. Leaders see every Goal in their own Reports.'
+      },
+      requests: {
+        heroLabel: 'Sorted within a day · 4 weeks', big: '83%',
+        text: '19 of 23 requests got an answer within one working day. The 4 slow ones all came in while Chenda was away on Fri 2 Oct.',
+        sideTitle: 'Reported more than once', side: [kv('Receipt printer at Toul Kork', '3 reports'), kv('Coupon fails at checkout', '2 reports')],
+        title: 'New requests · weeks 39–42', cols: ['Where it came from', 'Requests', 'Became a task', 'Joined', 'Postponed', 'Closed'],
+        rows: [
+          row('Shop team', '9', '5', '3', '0', '1'),
+          row('Technical', '6', '3', '1', '1', '1'),
+          row('Meetings', '4', '2', '0', '1', '1'),
+          row('Other departments', '4', '1', '1', '1', '1'),
+          row('Total', '23', '11', '5', '3', '4')
+        ],
+        note: 'Sorted requests only. The 4 still in the Incoming Queue are not counted yet.'
+      },
+      load: {
+        heroLabel: 'Surprise work · week 42', big: '13%',
+        text: '14h of 110h was added after the week was locked. Weeks 39 to 41 were 10%, 18% and 8%. This is a department number; nobody is ranked.',
+        sideTitle: 'Routines and leave · 4 weeks', side: [kv('Routines done on time', '46 of 49'), kv('Routines with nobody', '1 · Close shop, Saturdays'), kv('Leave days', '8'), kv('Sick days', '2')],
+        title: 'Team colours by week', cols: ['Week', 'Room', 'Balanced', 'Using buffer', 'Too much', 'Away or leaving'],
+        rows: [
+          row('Wk 39', '1', '5', '1', '0', '0'),
+          row('Wk 40', '0', '3', '3', '1', '0'),
+          row('Wk 41', '2', '4', '0', '0', '1'),
+          row('Wk 42', '1', '3', '1', '0', '2')
+        ],
+        note: 'Number of people in each colour. Names and hours are on Workload, for people with the “See team time” right.'
+      }
+    };
+    const files = { plan: 'plan-vs-reality', goals: 'goal-status', requests: 'new-requests', load: 'workload-and-routines' };
     return {
+      tabs: names.map(([id, name]) => ({ name, on: tab === id ? 'true' : 'false', bg: tab === id ? '#1C1B1F' : '#FFFFFF', fg: tab === id ? '#FFFFFF' : '#1C1B1F', pick: () => this.setState({ tab: id, file: '' }) })),
+      isPlan: tab === 'plan', isOther: tab !== 'plan', panel: panels[tab] || panels.goals,
+      hasFile: !!s.file, fileName: 'technical-' + files[tab] + '-wk39-42.' + (s.file || 'xlsx'),
+      getExcel: () => this.setState({ file: 'xlsx' }), getPdf: () => this.setState({ file: 'pdf' }),
       weeks: [
         w('Wk 39', 92, 10, 19, 16, 2, 1, 0, 0),
         w('Wk 40', 98, 22, 20, 15, 3, 2, 0, 0),

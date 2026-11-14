@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>First steps</title>
 <script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
 </head>
 <body>
 <x-dc>
@@ -35,7 +36,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
   <div style="flex: 1; width: 100%; max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; align-content: center" class="bento">
     <section aria-label="Punh Punh" class="hf-art" style="grid-column: span 5; background: #C9DDE8; border-radius: 28px; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; min-height: 460px">
-      <img src="/_blob/8baaebf55e0c1d993e17cdd2cd7bfe02" alt="Punh Punh holding a blank note, ready to start" style="width: 100%; max-width: 460px; aspect-ratio: 1 / 1; object-fit: cover; display: block">
+      <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 100%; max-width: 460px; aspect-ratio: 1 / 1; display: block"><dc-import name="PunhPunh" pose="welcome" label="Punh Punh holding a blank note, ready to start" hint-size="100%,100%"></dc-import></span>
     </section>
 
     <section aria-label="Welcome" class="hf-card" style="grid-column: span 7; background: #FFFFFF; border-radius: 28px; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px; min-width: 0">
@@ -128,7 +129,7 @@ class Component extends DCLogic {
       brBg: br.bg, brFg: br.fg, brLabel: s.browser ? 'On' : 'Allow alerts',
       phBg: ph.bg, phFg: ph.fg, phLabel: s.link ? 'Link sent' : 'Send me the link',
       allowBrowser: () => this.setState({ browser: true }), sendLink: () => this.setState({ link: true }),
-      ftLabel: ['Start', 'Done', 'Nice. That is every task.'][ft],
+      ftLabel: ['Start', 'Done', 'Nice. Every task works like this.'][ft],
       ftBg: ft === 2 ? '#DCEFE2' : (ft === 1 ? '#1C1B1F' : '#F4F3EF'),
       ftFg: ft === 2 ? '#1F5E3A' : (ft === 1 ? '#FFFFFF' : '#1C1B1F'),
       firstTask: () => this.setState({ ft: Math.min(ft + 1, 2) })

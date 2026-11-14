@@ -27,6 +27,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 @media (max-width:560px){
 .hf-tiles{grid-template-columns:minmax(0,1fr) !important}
 }
+@media (max-width:1100px){.bento>*{grid-column:1 / -1 !important}}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -45,13 +46,19 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
       <div class="hf-tiles" style="grid-column: span 12; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
         <section aria-label="Push" style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 8px">
           <span style="font-size: 12px; color: #6E6C73">Push alerts · phone and browser</span>
-          <div style="display: flex; justify-content: space-between; gap: 8px; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 15px">Android phone</span><span style="font-size: 13px; font-weight: 600; color: #1F5E3A">On</span></div>
-          <div style="display: flex; justify-content: space-between; gap: 8px; padding: 8px 0"><span style="font-size: 15px">Chrome on laptop</span><span style="font-size: 13px; font-weight: 600; color: #1F5E3A">On</span></div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 0; border-bottom: 1px solid #F0EEE9"><span style="font-size: 15px">Android phone</span><button type="button" role="switch" aria-checked="{{phone.on}}" aria-label="{{phone.name}}" onClick="{{phone.toggle}}" style="height: 44px; padding: 0 4px 0 12px; margin: -8px 0; border: 0; border-radius: 999px; background: transparent; color: {{phone.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer">{{phone.label}}<span style="width: 40px; height: 24px; border-radius: 999px; background: {{phone.track}}; display: flex; align-items: center; justify-content: {{phone.side}}; padding: 2px; box-sizing: border-box"><span style="width: 20px; height: 20px; border-radius: 999px; background: #FFFFFF"></span></span></button></div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 0"><span style="font-size: 15px">Chrome on laptop</span><button type="button" role="switch" aria-checked="{{laptop.on}}" aria-label="{{laptop.name}}" onClick="{{laptop.toggle}}" style="height: 44px; padding: 0 4px 0 12px; margin: -8px 0; border: 0; border-radius: 999px; background: transparent; color: {{laptop.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer">{{laptop.label}}<span style="width: 40px; height: 24px; border-radius: 999px; background: {{laptop.track}}; display: flex; align-items: center; justify-content: {{laptop.side}}; padding: 2px; box-sizing: border-box"><span style="width: 20px; height: 20px; border-radius: 999px; background: #FFFFFF"></span></span></button></div>
         </section>
         <section aria-label="Quiet hours" style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 8px">
           <span style="font-size: 12px; color: #6E6C73">Quiet hours · only urgent alerts break them</span>
-          <span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">20:00–07:00</span>
-          <span style="font-size: 13px; color: #4A4950">Morning summary at <span style="font-family: 'Geist Mono', monospace">08:00</span> · at most 5 normal pushes a day</span>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px"><span style="font-family: 'Geist Mono', monospace; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.04em">{{quiet}}</span><button type="button" aria-expanded="{{quietOpen}}" onClick="{{toggleQuiet}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{quietBtn}}</button></div>
+          <sc-if value="{{editingQuiet}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-wrap: wrap; gap: 8px">
+              <label style="flex: 1 1 110px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #4A4950">From<select onChange="{{setFrom}}" style="height: 44px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: 'Geist Mono', monospace; font-size: 15px; color: #1C1B1F"><sc-for list="{{fromTimes}}" as="o" hint-placeholder-count="5"><option selected="{{o.sel}}">{{o.t}}</option></sc-for></select></label>
+              <label style="flex: 1 1 110px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #4A4950">Until<select onChange="{{setTo}}" style="height: 44px; box-sizing: border-box; padding: 0 12px; border: 0; border-radius: 14px; background: #F4F3EF; font-family: 'Geist Mono', monospace; font-size: 15px; color: #1C1B1F"><sc-for list="{{toTimes}}" as="o" hint-placeholder-count="5"><option selected="{{o.sel}}">{{o.t}}</option></sc-for></select></label>
+            </div>
+          </sc-if>
+          <span style="font-size: 13px; color: #4A4950">Morning summary at <span style="font-family: 'Geist Mono', monospace">{{summaryAt}}</span> · at most 5 normal pushes a day</span>
         </section>
         <section aria-label="Language" style="background: #FFFFFF; border-radius: 28px; padding: 20px; display: flex; flex-direction: column; gap: 8px">
           <span style="font-size: 12px; color: #6E6C73">Language for alerts and the app</span>
@@ -81,14 +88,27 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
                 <tr style="border-top: 1px solid #F0EEE9">
                   <th scope="row" style="padding: 12px 8px 12px 0; text-align: left; font-weight: 400"><span style="display: flex; flex-direction: column"><span style="font-size: 15px; font-weight: 600">{{k.name}}</span><span style="font-size: 12px; color: #6E6C73">{{k.note}}</span></span></th>
                   <td style="padding: 12px 8px; text-align: center"><input type="checkbox" checked disabled aria-label="Inbox, always on" style="width: 20px; height: 20px; accent-color: #1C1B1F"></td>
-                  <td style="padding: 12px 8px; text-align: center"><input type="checkbox" checked="{{k.push}}" aria-label="Push" style="width: 20px; height: 20px; accent-color: #1C1B1F"></td>
-                  <td style="padding: 12px 0 12px 8px"><span style="display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 12px; background: #F4F3EF; font-size: 13px; font-weight: 600">{{k.when}}</span></td>
+<td style="padding: 4px 8px; text-align: center"><label style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; cursor: pointer"><input type="checkbox" checked="{{k.push}}" disabled="{{k.fixed}}" aria-label="Push for {{k.name}}" style="width: 22px; height: 22px; margin: 0; accent-color: #1C1B1F"></label></td>
+                  <td style="padding: 12px 0 12px 8px">
+                    <sc-if value="{{k.fixed}}" hint-placeholder-val="{{false}}"><span style="display: inline-flex; align-items: center; height: 44px; padding: 0 14px; border-radius: 12px; background: #F4F3EF; font-size: 13px; font-weight: 600">{{k.when}}</span></sc-if>
+                    <sc-if value="{{k.canPick}}" hint-placeholder-val="{{true}}"><select aria-label="When for {{k.name}}" onChange="{{k.setWhen}}" style="height: 44px; padding: 0 12px; border: 0; border-radius: 12px; background: #F4F3EF; font-family: inherit; font-size: 13px; font-weight: 600; color: #1C1B1F; cursor: pointer"><sc-for list="{{k.options}}" as="o" hint-placeholder-count="3"><option selected="{{o.sel}}">{{o.t}}</option></sc-for></select></sc-if>
+                  </td>
                 </tr>
               </sc-for>
             </tbody>
           </table>
         </div>
         <p style="margin: 8px 0 0; font-size: 12px; line-height: 16px; color: #6E6C73">Push alerts never show a confidential task's title or details: just “You have a confidential update”. Chat apps like Telegram, Slack and Microsoft Teams come later.</p>
+      </section>
+
+      <section aria-label="Account" style="grid-column: span 12; background: #FFFFFF; border-radius: 28px; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px">
+        <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 12px; line-height: 16px; color: #6E6C73">Account</span>
+          <span style="font-size: 15px; line-height: 22px; font-weight: 600">Dara Sok · Technical at Riverline Co.</span>
+          <span style="font-size: 13px; line-height: 18px; color: #4A4950; overflow-wrap: anywhere">Signed in with Google as dara.sok@riverline.example</span>
+        </div>
+        <a href="Welcome.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Open first steps again</a>
+        <a href="SignIn.dc.html" style="height: 44px; padding: 0 16px; border-radius: 999px; background: #F4F3EF; color: #1C1B1F; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Sign out</a>
       </section>
     </div>
   </main>
@@ -98,8 +118,27 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1200}}'>
 class Component extends DCLogic {
   renderVals() {
-    const k = (name, note, push, tg, when) => ({ name, note, push, tg, when });
+    const s = this.state || {};
+    const whenOf = s.when || {};
+    const k = (name, note, push, tg, when0) => {
+      const fixed = when0.indexOf('fixed') >= 0, when = whenOf[name] || when0;
+      return { name, note, push, tg, when, fixed, canPick: !fixed,
+        options: ['Right away', 'Morning summary', 'Inbox only'].map((t) => ({ t, sel: t === when })),
+        setWhen: (e) => this.setState({ when: Object.assign({}, whenOf, { [name]: e.target.value }) }) };
+    };
+    const sw = (key, name) => {
+      const on = s[key] !== false;
+      return { name: name + ' push alerts', on: on ? 'true' : 'false', label: on ? 'On' : 'Off', fg: on ? '#1F5E3A' : '#4A4950', track: on ? '#2E7D4F' : '#6E6C73', side: on ? 'flex-end' : 'flex-start', toggle: () => this.setState({ [key]: !on }) };
+    };
+    const from = s.from || '20:00', to = s.to || '07:00';
+    const pick = (list, cur) => list.map((t) => ({ t, sel: t === cur }));
     return {
+      phone: sw('phone', 'Android phone'), laptop: sw('laptop', 'Chrome on laptop'),
+      quiet: from + '–' + to, editingQuiet: !!s.quietOpen, quietOpen: s.quietOpen ? 'true' : 'false', quietBtn: s.quietOpen ? 'Done' : 'Change',
+      toggleQuiet: () => this.setState({ quietOpen: !s.quietOpen }),
+      fromTimes: pick(['18:00', '19:00', '20:00', '21:00', '22:00'], from), toTimes: pick(['06:00', '06:30', '07:00', '07:30', '08:00'], to),
+      setFrom: (e) => this.setState({ from: e.target.value }), setTo: (e) => this.setState({ to: e.target.value }),
+      summaryAt: to >= '08:00' ? '08:30' : '08:00',
       kinds: [
         k('Urgent request or problem', 'Always right away, even in quiet hours', true, true, 'Right away · fixed'),
         k('Task given or handed over to you', 'With Start and Open buttons', true, true, 'Right away'),

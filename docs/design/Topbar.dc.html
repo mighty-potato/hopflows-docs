@@ -28,7 +28,7 @@ body{margin:0}
 class Component extends DCLogic {
   // "/" opens Search from anywhere except while typing
   componentDidMount() {
-    this._slash = (e) => { const t = e.target; if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return; if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return; e.preventDefault(); window.location.href = 'Search.dc.html'; };
+    this._slash = (e) => { const t = e.target; if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return; if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return; e.preventDefault(); window.location.href = 'Search.dc.html' + (/^#as-/.test(window.location.hash || '') ? window.location.hash : ''); };
     document.addEventListener('keydown', this._slash);
   }
   componentWillUnmount() { document.removeEventListener('keydown', this._slash); }

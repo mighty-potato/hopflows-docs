@@ -19,12 +19,22 @@ BLOBS = {
     '8baaebf55e0c1d993e17cdd2cd7bfe02': 'assets/punh-punh-welcome.png',
     '45ad8afd0afb75ee4546f634d05e9875': 'assets/punh-punh-welcome-right.png',
     '9275412045caede2fafcdfc2bb2771d3': 'employee.css',
+    'e17ab95c5365982c14d2a135beab1048': 'assets/punh-punh-done.png',
+    '9597d47894c01bf32edad1adec7171b0': 'assets/punh-punh-wave.png',
+    '19d56eabefcd2894ce3ffd8a04586049': 'assets/punh-punh-wave-right.png',
+    '4a106b6408e07c582451a0d0b422c54e': 'assets/punh-punh-welcome.png',
+    '20ad163f483b629730c244c8ad0bc7ea': 'assets/punh-punh-welcome-right.png',
 }
 
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
+
+    def end_headers(self):
+        # Screens are edited while the preview is open; never serve a stale copy.
+        self.send_header('Cache-Control', 'no-store')
+        super().end_headers()
 
     def do_GET(self):
         path = self.path.split('?', 1)[0]

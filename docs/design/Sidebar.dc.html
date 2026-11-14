@@ -13,8 +13,8 @@
 <style>
 body{margin:0}
 .hf-show-sm{display:none !important}
-@media (max-width:760px){.hf-show-sm{display:flex !important}.hf-hide-sm{display:none !important}}
-@media (max-width:760px){.hf-nav-list{-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent);padding-right:40px !important}}
+@media (max-width:760px) and (min-width:300px){.hf-show-sm{display:flex !important}.hf-hide-sm{display:none !important}#hf-mine{flex-direction:row !important;padding-left:0 !important}}
+@media (max-width:760px) and (min-width:300px){.hf-nav-list{-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent);padding-right:40px !important}}
 .hf-skip{position:absolute;left:-9999px;top:0}
 .hf-skip:focus{position:fixed;left:16px;top:16px;z-index:100;padding:12px 18px;border-radius:999px;background:#1C1B1F;color:#FFFFFF;font-weight:600;text-decoration:none}
 </style>
@@ -43,7 +43,7 @@ body{margin:0}
     <!-- phones: the role links come first in the page, so Tab order matches the screen -->
     <sc-if value="{{isLead}}" hint-placeholder-val="{{false}}">
       <a class="hf-show-sm" href="LeadHome.dc.html" aria-current="{{n.needs.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.needs.bg}}; color: {{n.needs.fg}}">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.5h.01"></path></svg><span style="flex: 1">Needs you</span><span style="min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{needsCount}}</span></a>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.5h.01"></path></svg><span style="flex: 1">Needs you</span><span style="min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; display: {{needsShow}}; align-items: center; justify-content: center">{{needsCount}}</span></a>
       <a class="hf-show-sm" href="Queue.dc.html" aria-current="{{n.queue.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.queue.bg}}; color: {{n.queue.fg}}">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="2"></rect><rect x="3" y="14" width="18" height="6" rx="2"></rect></svg><span style="flex: 1">Incoming Queue</span><span style="font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500">{{queueCount}}</span></a>
       <a class="hf-show-sm" href="Planner.dc.html" aria-current="{{n.plan.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.plan.bg}}; color: {{n.plan.fg}}">
@@ -73,7 +73,7 @@ body{margin:0}
       <a href="Calendar.dc.html" aria-current="{{n.calendar.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.calendar.bg}}; color: {{n.calendar.fg}}">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>Calendar</a>
       <a href="Inbox.dc.html" aria-current="{{n.inbox.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.inbox.bg}}; color: {{n.inbox.fg}}">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"></path><path d="M5.5 5h13L22 12v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"></path></svg><span style="flex: 1">Inbox</span><span style="min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center">3</span></a>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"></path><path d="M5.5 5h13L22 12v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"></path></svg><span style="flex: 1">Inbox</span><span style="min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; display: {{inboxShow}}; align-items: center; justify-content: center">{{inboxN}}</span></a>
       <button type="button" class="hf-hide-sm" aria-expanded="{{moreOpen}}" aria-controls="hf-more" onClick="{{toggleMore}}" style="margin-top: 8px; display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border: 0; border-radius: 16px; background: transparent; color: #4A4950; font-family: inherit; font-size: 15px; font-weight: 500; white-space: nowrap; cursor: pointer; text-align: left">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"></path></svg><span style="flex: 1">More</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate({{moreRot}})"><path d="m6 9 6 6 6-6"></path></svg></button>
       <sc-if value="{{showMore}}" hint-placeholder-val="{{false}}">
@@ -108,12 +108,12 @@ body{margin:0}
     <a href="Calendar.dc.html" aria-current="{{n.calendar.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.calendar.bg}}; color: {{n.calendar.fg}}">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>Calendar</a>
     <a href="Inbox.dc.html" aria-current="{{n.inbox.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.inbox.bg}}; color: {{n.inbox.fg}}">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"></path><path d="M5.5 5h13L22 12v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"></path></svg><span style="flex: 1">Inbox</span><span style="min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center">3</span></a>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"></path><path d="M5.5 5h13L22 12v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"></path></svg><span style="flex: 1">Inbox</span><span style="min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; display: {{inboxShow}}; align-items: center; justify-content: center">{{inboxN}}</span></a>
 
     <sc-if value="{{isLead}}" hint-placeholder-val="{{false}}">
       <div class="hf-hide-sm" style="padding: 14px 14px 6px; font-size: 12px; color: #6E6C73">Team · Technical</div>
       <a class="hf-hide-sm" href="LeadHome.dc.html" aria-current="{{n.needs.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.needs.bg}}; color: {{n.needs.fg}}">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.5h.01"></path></svg><span style="flex: 1">Needs you</span><span style="min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{needsCount}}</span></a>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.5h.01"></path></svg><span style="flex: 1">Needs you</span><span style="min-width: 22px; height: 22px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: #F7C83A; color: #1C1B1F; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 600; display: {{needsShow}}; align-items: center; justify-content: center">{{needsCount}}</span></a>
       <a class="hf-hide-sm" href="Queue.dc.html" aria-current="{{n.queue.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.queue.bg}}; color: {{n.queue.fg}}">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="2"></rect><rect x="3" y="14" width="18" height="6" rx="2"></rect></svg><span style="flex: 1">Incoming Queue</span><span style="font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500">{{queueCount}}</span></a>
       <a class="hf-hide-sm" href="Planner.dc.html" aria-current="{{n.plan.cur}}" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 14px; border-radius: 16px; text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; background: {{n.plan.bg}}; color: {{n.plan.fg}}">
@@ -167,14 +167,113 @@ body{margin:0}
   </div>
 </nav>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"needs":{"editor":"text","default":"10"},"persona":{"editor":"enum","options":["employee","lead","leader","admin"],"default":"employee"},"current":{"editor":"text","default":"today"},"$preview":{"width":232,"height":1010}}'>
+<script type="text/x-dc" data-dc-script data-props='{"seed":{"editor":"enum","options":["shared","normal","busy","quiet"],"default":"shared"},"needs":{"editor":"text","default":"10"},"persona":{"editor":"enum","options":["employee","lead","leader","admin"],"default":"employee"},"current":{"editor":"text","default":"today"},"$preview":{"width":232,"height":1010}}'>
 class Component extends DCLogic {
-  componentDidMount() { setTimeout(() => { try { document.querySelectorAll('.hf-nav-list [aria-current="page"]').forEach((el) => { if (el.offsetParent) el.scrollIntoView({ block: 'nearest', inline: 'center' }); }); } catch (e) {} }, 300); }
+  // Personal screens (Today, My tasks, Inbox…) are drawn once, for Dara. A lead, leader or admin opens them
+  // with #as-lead, #as-leader or #as-admin: this keeps that hash on every link and shows their own names
+  // and sample work in place of Dara's. The agreed wording is in LEAD_DATA.md, "Personal screens for other roles".
+  personaOf() {
+    const own = this.props.persona ?? 'employee';
+    let as = '';
+    try { const m = /^#as-(lead|leader|admin)$/.exec(window.location.hash || ''); as = m ? m[1] : ''; } catch (e) {}
+    return { own, persona: own === 'employee' && as ? as : own };
+  }
+  personaWords(persona) {
+    const who = {
+      lead: { me: 'Chenda Lim', ap: 'Sokha Meng', bk: 'Bopha Meas', dept: 'Technical', mail: 'chenda.lim', help: 'Pisey Chea',
+        now: 'School App: date or scope note', part: 'School App sign-up flow', brief: 'the School App note' },
+      leader: { me: 'Sokha Meng', ap: 'Kosal Nhem', bk: 'Bopha Meas', dept: 'Leadership', mail: 'sokha.meng', help: 'Chenda Lim',
+        now: 'Mid-quarter note on the Q4 Goals', part: 'Company update · October', brief: 'the Goals note' },
+      admin: { me: 'Bopha Meas', ap: 'Sokha Meng', bk: 'Kosal Nhem', dept: 'Operations', mail: 'bopha.meas', help: 'Sophea Tan',
+        now: 'November rota for the shops', part: 'Shops opening hours review', brief: 'the shop rota' }
+    }[persona];
+    const f = (n) => n.split(' ')[0];
+    const w = {
+      'Dara Sok': who.me, 'Dara': f(who.me), 'Chenda Lim': who.ap, 'Chenda': f(who.ap), 'Sokha Meng': who.bk,
+      'Rithy Heng': who.help, 'Rithy': f(who.help), 'dara.sok@': who.mail + '@',
+      ", your lead. If she's away, to": ', who approves your leave. If they are away, to',
+      'you and your lead': 'you and ' + f(who.ap),
+      // their own work, in the same shape as Dara's week
+      'Build the checkout API': who.now, 'Launch In-App Ordering v1': who.part,
+      'Design the endpoint': 'List the options', 'Add checks for coupon and total': 'Add the numbers for each option', 'Add checks': 'Add the numbers', 'Write tests': 'Write the recommendation',
+      'One endpoint that takes the cart, applies coupons and returns the final total. Done means tests pass and Chenda has checked it in the payment sandbox.': 'One page that sets out the options, what each one costs and which one you recommend. Done means the numbers are checked and ' + f(who.ap) + ' has read it.',
+      'Payment sandbox keys': "Last month's numbers", 'Sandbox keys work now. Coupon totals match.': 'The numbers are in the sheet now. Totals match.', 'waiting on the payment provider': "waiting on last month's numbers",
+      'Payment provider support (outside the company)': 'Finance (another department)',
+      "Live keys still haven't come from the payment provider, so I can't test real payments. Sandbox works. I emailed them on Wednesday, no answer yet.": "Last month's numbers still haven't come from Finance, so I can't finish the options. I asked on Wednesday, no answer yet.",
+      'Check menu photos with Design': 'Check the budget sheet with Finance', 'Update receipt footer text': 'Reply to the laptop supplier',
+      'Fix receipt printer driver': 'Renew the office internet contract', 'Coupon rules screen': 'Team budget request',
+      'Write release notes': 'Write the monthly update', 'Menu sync job tests': 'Interview notes for the new hire', 'Menu sync job release': 'Supplier review meeting prep',
+      'Payment error copy': 'Expense report for September', 'Checkout API sync': 'Leads check-in',
+      'checkout API, menu photos, receipt footer text': who.brief + ', the budget sheet, the supplier reply',
+      'Check overnight error emails': 'Check new requests', 'Open shop checklist': 'Office opening check',
+      'Checkout fails with the 10% coupon': 'Second laptop for the new hire', 'Add Khmer search to the menu': 'Budget for the team offsite',
+      'Receipt prints the wrong shop address': 'Wrong address on the supplier invoice', 'Khmer font in menu PDFs': 'Extra training day in November',
+      'Resize menu photos for the app': 'Update the office seating plan',
+      'The receipt printer problem': 'The office internet problem', 'made room for the receipt problem': 'made room for the internet problem', 'From the shop team on Tue': 'From the office on Tue',
+      'Coupon banner text': 'Offsite agenda', 'The endpoint docs saved me an hour.': 'The options page saved me an hour.',
+      'Payment webhook retries': 'Quarterly budget review', 'Order history endpoint': 'Hiring plan draft', 'Coupon banner tests': 'Offsite venue shortlist', 'Shop tablet login times out': 'Printer contract question',
+      'Coupon fix walkthrough': 'Budget walkthrough', 'Coupon breaks payment at checkout': 'Check the budget sheet with Finance'
+    };
+    if (persona !== 'lead') w['Technical'] = who.dept;
+    if (persona === 'lead') Object.assign(w, {
+      // Chenda plans her own week: 19h planned of 18h in week 43, with 24h available because Fri 23 is her leave
+      'Next week (week 43) as Chenda plans it': 'Next week (week 43) as you planned it',
+      '22h planned of 12h to plan, because your leave on Thu 22 and Fri 23 is counted. That is too much, so Chenda is moving Menu sync job tests (10h) to week 44. Then it is 12h of 12h.': '19h planned of 18h to plan, with your leave on Fri 23 counted. One hour comes out of your buffer.',
+      'Chenda already counts it: next week you have 12h to plan instead of 24h. Menu sync job tests (10h, due Thu 22) moves to week 44, which Chenda suggests.': 'Your plan already counts it: next week you have 24h available instead of 32h, and still 18h to plan. Nothing has to move.',
+      "One more task is due while you're away:": 'One task is due the day before:',
+      'Annual · Thu 22 – Fri 23 Oct': 'Annual · Fri 23 Oct', 'Thu 22 to Fri 23 Oct': 'Fri 23 Oct'
+    });
+    return w;
+  }
+  personaPass() {
+    let own, persona;
+    try { ({ own, persona } = this.personaOf()); } catch (e) { return; }
+    if (persona === 'employee' || this._pass) return;
+    const suffix = '#as-' + persona;
+    const personal = own === 'employee';
+    const home = /^(Main|MyTasks|MyRequests|Leave|MyRoutines|Calendar|Inbox|Settings|AddWork|Search)\.dc\.html$/;
+    const inside = /^(TaskDetail|NeedHelp|Event|OtherTeam|MyReport)\.dc\.html$/;
+    const page = (window.location.pathname.split('/').pop() || '').replace('.dc.html', '');
+    const words = personal && ['Search', 'OtherTeam'].indexOf(page) < 0 ? this.personaWords(persona) : null;
+    const keys = words ? Object.keys(words).sort((a, b) => b.length - a.length) : [];
+    const re = keys.length ? new RegExp(keys.map((k) => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'g') : null;
+    const swap = (s) => s.replace(re, (m) => words[m]);
+    const seen = new WeakMap();
+    const run = () => {
+      document.querySelectorAll('a[href]').forEach((a) => { const h = a.getAttribute('href'); if (home.test(h) || (personal && inside.test(h))) a.setAttribute('href', h + suffix); });
+      if (!re) return;
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+        if (seen.get(n) === n.nodeValue || /^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName) || (n.parentNode.closest && n.parentNode.closest('nav[aria-label="Main"]'))) continue;
+        const out = swap(n.nodeValue);
+        if (out !== n.nodeValue) n.nodeValue = out;
+        seen.set(n, out);
+      }
+      document.querySelectorAll('[aria-label], [placeholder], [alt], input[type="text"], textarea').forEach((el) => {
+        const done = seen.get(el) || {};
+        ['aria-label', 'placeholder', 'alt'].forEach((a) => { const v = el.getAttribute(a); if (v && done[a] !== v) { const out = swap(v); if (out !== v) el.setAttribute(a, out); done[a] = out; } });
+        if ('value' in el && !done.value && el.value && document.activeElement !== el) { el.value = swap(el.value); done.value = true; }
+        seen.set(el, done);
+      });
+    };
+    this._pass = run;
+    try { run(); new MutationObserver(run).observe(document.body, { childList: true, subtree: true, characterData: true }); } catch (e) {}
+  }
+  componentDidMount() {
+    this._hf = () => { let v = null; try { v = window.localStorage.getItem('hopflows.seed'); } catch (e) {} if (v && v !== (this.state && this.state.hfSeed)) this.setState({ hfSeed: v, hfLocal: null }); };
+    this._hf(); try { window.addEventListener('storage', this._hf); } catch (e) {} this._hfT = setInterval(this._hf, 1000); this.hfMountOld(); this.personaPass();
+  }
+  componentWillUnmount() { try { window.removeEventListener('storage', this._hf); } catch (e) {} clearInterval(this._hfT); }
+  seed() { const p = this.props.seed; return (p && p !== 'shared') ? p : ((this.state && this.state.hfSeed) || 'normal'); }
+  local() { return (this.state && this.state.hfLocal) || {}; }
+  setLocal(patch) { this.setState({ hfLocal: Object.assign({}, this.local(), patch) }); }
+
+  hfMountOld() { setTimeout(() => { try { document.querySelectorAll('.hf-nav-list [aria-current="page"]').forEach((el) => { if (el.offsetParent) el.scrollIntoView({ block: 'nearest', inline: 'center' }); }); } catch (e) {} }, 300); }
   focusTo(id, patch) { this.setState(Object.assign({}, patch, { focusId: id, focusN: ((this.state && this.state.focusN) || 0) + 1 })); }
   componentDidUpdate() { const s = this.state || {}; if (s.focusN && s.focusN !== this._focusN) { this._focusN = s.focusN; requestAnimationFrame(() => { const el = document.getElementById(s.focusId); if (el) el.focus(); }); } }
   renderVals() {
     const lead = (() => { try { const g = (k) => window.localStorage.getItem(k); const q = 4 - Object.keys(JSON.parse(g('hf-lead-queue') || '{}') || {}).length; return { q, needs: q + (g('hf-lead-help') ? 0 : 1) + (g('hf-lead-review') ? 0 : 1) + (g('hf-dara-leave') ? 0 : 1) + (g('hf-lead-handover') === 'done' ? 0 : 1) + (g('hf-lead-cover') ? 0 : 1) + (g('hf-lead-vannak') ? 0 : 1) }; } catch (e) { return { q: 4, needs: 10 }; } })();
-    const persona = this.props.persona ?? 'employee';
+    const persona = this.personaOf().persona;
     const current = this.props.current ?? 'today';
     const keys = ['today','tasks','requests','week','myroutines','calendar','inbox','needs','queue','plan','workload','deliverables','team','routines','review','goals','summary','reports','people','holidays','org','settings'];
     const n = {};
@@ -208,7 +307,8 @@ class Component extends DCLogic {
       toggleMine: () => this.setState({ mineOpen: !(this.state && this.state.mineOpen) }),
       n,
       me: people[persona] || people.employee,
-      needsCount: this.props.needs ?? String(lead.needs), queueCount: String(lead.q),
+      needsCount: this.props.needs ?? ({ busy: '14', quiet: '0' }[this.seed()] || String(lead.needs)), needsShow: String(this.props.needs ?? ({ busy: '14', quiet: '0' }[this.seed()] || lead.needs)) === '0' ? 'none' : 'flex',
+      inboxN: { busy: '5', quiet: '0' }[this.seed()] || '3', inboxShow: this.seed() === 'quiet' ? 'none' : 'flex', queueCount: String(lead.q),
       isLead: persona === 'lead',
       isLeader: persona === 'leader',
       isAdmin: persona === 'admin',

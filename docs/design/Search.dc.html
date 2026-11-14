@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Search</title>
 <script src="./support.js"></script>
+<script src="/_blob/880563f50256634379fba580ec49bdc4"></script>
 <link rel="stylesheet" href="/_blob/9275412045caede2fafcdfc2bb2771d3">
 </head>
 <body>
@@ -21,6 +22,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 .hf-hide-sm{display:none !important}
 .bento>*{grid-column:1 / -1 !important}
 }
+@media (max-width:1100px){.bento>*{grid-column:1 / -1 !important}}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F4F3EF; color: #1C1B1F; font-family: 'Geist', 'Noto Sans Khmer', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
@@ -28,12 +30,13 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     <dc-import name="Sidebar" persona="employee" current="none" hint-size="232px,900px"></dc-import>
   </div>
   <main id="main" class="hf-main" style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 40px 48px; display: flex; flex-direction: column; gap: 20px">
+    <h1 style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0">Search</h1>
     <form role="search" style="display: flex; gap: 8px; align-items: center">
       <label for="q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search</label>
       <div style="flex: 1; min-width: 0; height: 64px; display: flex; align-items: center; gap: 12px; padding: 0 20px; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 2px #1C1B1F">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
         <input id="q" type="search" value="{{q}}" placeholder="Search tasks, people, events…" style="flex: 1; min-width: 0; height: 56px; border: 0; background: transparent; font-family: inherit; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; color: #1C1B1F; outline: none">
-        <sc-if value="{{found}}" hint-placeholder-val="{{true}}"><span style="font-size: 12px; color: #6E6C73">8 results</span></sc-if><sc-if value="{{none}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: #6E6C73">No results</span></sc-if>
+        <sc-if value="{{found}}" hint-placeholder-val="{{true}}"><span style="font-size: 12px; color: #6E6C73">{{resultCount}}</span></sc-if><sc-if value="{{none}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: #6E6C73">No results</span></sc-if>
       </div>
       <a href="Main.dc.html" style="height: 48px; padding: 0 18px; border-radius: 999px; background: #FFFFFF; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center">Close</a>
     </form>
@@ -57,17 +60,25 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
 
     <sc-if value="{{found}}" hint-placeholder-val="{{true}}">
     <div style="display: flex; flex-wrap: wrap; gap: 8px">
-      <button type="button" aria-pressed="true" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #1C1B1F; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Everything</button>
-      <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Tasks · 3</button>
-      <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Deliverables · 2</button>
-      <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Requests · 1</button>
-      <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Events · 1</button>
-      <button type="button" aria-pressed="false" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">People · 1</button>
-      <span style="width: 1px; background: #E7E5DF; margin: 0 4px"></span>
-      <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Status ▾</button>
-      <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Person ▾</button>
-      <button type="button" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: #FFFFFF; color: #1C1B1F; font-family: inherit; font-size: 13px; cursor: pointer">Date ▾</button>
+      <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="6">
+        <button type="button" aria-pressed="{{tb.on}}" onClick="{{tb.pick}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; cursor: pointer; background: {{tb.bg}}; color: {{tb.fg}}; font-weight: {{tb.w}}">{{tb.label}}</button>
+      </sc-for>
+      <span style="width: 1px; height: 28px; background: #E7E5DF; margin: 0 4px"></span>
+      <sc-for list="{{filters}}" as="fl" hint-placeholder-count="3">
+        <button type="button" aria-expanded="{{fl.open}}" onClick="{{fl.toggle}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; cursor: pointer; background: {{fl.bg}}; color: {{fl.fg}}; font-weight: {{fl.w}}">{{fl.label}} ▾</button>
+      </sc-for>
     </div>
+    <sc-if value="{{hasOpenFilter}}" hint-placeholder-val="{{false}}">
+    <div role="group" aria-label="{{openName}}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 8px; border-radius: 22px; background: #FFFFFF">
+      <span style="padding: 0 8px; font-size: 12px; color: #6E6C73">{{openName}}</span>
+      <sc-for list="{{options}}" as="o" hint-placeholder-count="4">
+        <button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: {{o.bg}}; color: {{o.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{o.name}}</button>
+      </sc-for>
+    </div>
+    </sc-if>
+    <sc-if value="{{noneLeft}}" hint-placeholder-val="{{false}}">
+      <p role="status" style="margin: 0; padding: 20px 24px; border-radius: 28px; background: #FFFFFF; font-size: 15px; line-height: 22px">Nothing matches these filters. <button type="button" onClick="{{clearFilters}}" style="min-height: 44px; padding: 0 6px; border: 0; background: transparent; color: #1C1B1F; font-family: inherit; font-size: 15px; font-weight: 600; text-decoration: underline; cursor: pointer">Clear filters</button></p>
+    </sc-if>
 
     <div class="bento" style="columns: 2 320px; column-gap: 12px; margin-bottom: -12px">
       <sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
@@ -94,7 +105,7 @@ a{color:#1C1B1F}a:hover{color:#4A4950}
     </sc-if>
     <sc-if value="{{none}}" hint-placeholder-val="{{false}}">
       <section role="status" style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px">
-        <img src="/_blob/45ad8afd0afb75ee4546f634d05e9875" alt="Punh Punh, calm" style="width: 120px; height: 120px; border-radius: 24px; object-fit: cover; flex-shrink: 0">
+        <span style="display: inline-block; flex-shrink: 0; overflow: hidden; width: 120px; height: 120px; border-radius: 24px; flex-shrink: 0"><dc-import name="PunhPunh" pose="calm" label="Punh Punh, calm" hint-size="100%,100%"></dc-import></span>
         <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
           <h2 style="margin: 0; font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.03em">Nothing matches “refund policy”</h2>
           <p style="margin: 0; max-width: 60ch; font-size: 15px; line-height: 22px; color: #4A4950">Try a shorter word, or someone's name. Search only shows things you're allowed to see, so a confidential task won't appear here.</p>
@@ -111,6 +122,38 @@ class Component extends DCLogic {
   renderVals() {
     const typed = this.props.typed ?? true;
     const r = (title, meta, status, href) => ({ title, meta, status, href: href || '', plain: !href });
+    const s = this.state || {};
+    const tab = s.tab || 'all', open = s.open || '';
+    const x = (kind, title, meta, status, href, who, when) => Object.assign(r(title, meta, status, href), { kind, who: who || '', when: when || '' });
+    const everything = [
+      x('Tasks', 'Build the checkout API', 'Dara Sok · due today', 'In Progress', 'TaskDetail.dc.html', 'Me', 'This week'),
+      x('Tasks', 'Checkout error messages in Khmer', 'Pisey Chea · due Fri 30 Oct', 'To Do', 'TaskDetail.dc.html', 'Pisey Chea', 'This month'),
+      x('Tasks', 'Checkout page speed', 'Vannak Prum · done 7 Oct', 'Done', 'TaskDetail.dc.html', 'Vannak Prum', 'This month'),
+      x('Requests', 'Checkout fails with the 10% coupon', 'Your request · sent today 13:58', 'Waiting for Chenda', 'MyRequests.dc.html', 'Me', 'This week'),
+      x('Deliverables', 'Launch In-App Ordering v1', 'Includes the checkout · Chenda Lim', 'At risk', 'Deliverable.dc.html', 'Chenda Lim', ''),
+      x('Deliverables', 'Checkout launch campaign', 'Marketing · Malis Ouk · view only', 'On track', 'OtherTeam.dc.html', 'Malis Ouk', ''),
+      x('Events', 'Checkout API sync', 'Today 14:30 · Room 2', 'Meeting', 'Calendar.dc.html', 'Me', 'This week'),
+      x('People', 'Rithy Heng', 'Technical · helps on Build the checkout API', 'Person', '', 'Rithy Heng', '')
+    ];
+    const pass = (it) => (!s.status || it.status === s.status) && (!s.person || it.who === s.person) && (!s.date || it.when === s.date);
+    const kept = everything.filter(pass);
+    const inTab = kept.filter((it) => tab === 'all' || it.kind === tab);
+    const shown = inTab.length;
+    const section = (name, kinds) => ({ name, items: inTab.filter((it) => kinds.indexOf(it.kind) >= 0) });
+    const groups = [section('Tasks', ['Tasks']), section('Requests', ['Requests']), section('Deliverables', ['Deliverables']), section('Events and people', ['Events', 'People'])].filter((g) => g.items.length);
+    const tabs = [['all', 'Everything']].concat(['Tasks', 'Deliverables', 'Requests', 'Events', 'People'].map((k) => [k, k + ' · ' + kept.filter((it) => it.kind === k).length])).map(([k, label]) => {
+      const on = tab === k;
+      return { label, on: on ? 'true' : 'false', bg: on ? '#1C1B1F' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1C1B1F', w: on ? '600' : '400', pick: () => this.setState({ tab: k }) };
+    });
+    const choices = { status: ['To Do', 'In Progress', 'Done'], person: ['Me', 'Pisey Chea', 'Vannak Prum', 'Rithy Heng'], date: ['This week', 'This month'] };
+    const filters = ['status', 'person', 'date'].map((k) => {
+      const val = s[k] || '', name = k[0].toUpperCase() + k.slice(1);
+      return { label: val ? name + ': ' + val : name, open: open === k ? 'true' : 'false', bg: val ? '#1C1B1F' : '#FFFFFF', fg: val ? '#FFFFFF' : '#1C1B1F', w: val ? '600' : '400', toggle: () => this.setState({ open: open === k ? '' : k }) };
+    });
+    const options = open ? ['Any'].concat(choices[open]).map((name) => {
+      const on = (s[open] || '') === (name === 'Any' ? '' : name);
+      return { name, on: on ? 'true' : 'false', bg: on ? '#1C1B1F' : '#F4F3EF', fg: on ? '#FFFFFF' : '#1C1B1F', pick: () => this.setState({ [open]: name === 'Any' ? '' : name, open: '' }) };
+    }) : [];
     return {
       found: typed && !(this.props.noResults ?? false),
       none: typed && (this.props.noResults ?? false),
@@ -120,32 +163,17 @@ class Component extends DCLogic {
         { name: 'Your open work', items: [
           r('Build the checkout API', 'Due today 17:00 · In Progress', 'Top 3', 'TaskDetail.dc.html'),
           r('Check menu photos with Design', 'Due today · To Do', 'Top 3', 'TaskDetail.dc.html'),
-          r('Write release notes', 'Due Mon 19 · To Do', 'To Do', 'TaskDetail.dc.html')
+          r('Write release notes', 'Due Tue 10 Nov · To Do', 'To Do', 'TaskDetail.dc.html')
         ]},
         { name: 'Recently opened', items: [
           r('Launch In-App Ordering v1', 'Deliverable · Chenda Lim', 'At risk', 'Deliverable.dc.html'),
-          r('Coupon breaks payment at checkout', 'Your request · today', 'Task for Rithy', 'MyRequests.dc.html'),
+          r('Checkout fails with the 10% coupon', 'Your request · sent today 13:58', 'Waiting for Chenda', 'MyRequests.dc.html'),
           r('Checkout API sync', 'Today 14:30 · Room 2', 'Meeting', 'Calendar.dc.html')
         ]}
       ],
-      groups: [
-        { name: 'Tasks', items: [
-          r('Build the checkout API', 'Dara Sok · due today', 'In Progress', 'TaskDetail.dc.html'),
-          r('Checkout error messages in Khmer', 'Pisey Chea · due Fri 30 Oct', 'To Do', 'TaskDetail.dc.html'),
-          r('Checkout page speed', 'Vannak Prum · done 7 Oct', 'Done', 'TaskDetail.dc.html')
-        ]},
-        { name: 'Requests', items: [
-          r('Coupon breaks payment at checkout', 'Your request · today', 'Task for Rithy', 'MyRequests.dc.html')
-        ]},
-        { name: 'Deliverables', items: [
-          r('Launch In-App Ordering v1', 'Includes the checkout · Chenda Lim', 'At risk', 'Deliverable.dc.html'),
-          r('Checkout launch campaign', 'Marketing · Malis Ouk · view only', 'On track', 'OtherTeam.dc.html')
-        ]},
-        { name: 'Events and people', items: [
-          r('Checkout API sync', 'Today 14:30 · Room 2', 'Meeting', 'Calendar.dc.html'),
-          r('Rithy Heng', 'Technical · helps on Build the checkout API', 'Person', '')
-        ]}
-      ]
+      groups, tabs, filters, options, hasOpenFilter: !!open, openName: open ? open[0].toUpperCase() + open.slice(1) : '',
+      resultCount: shown === 1 ? '1 result' : shown + ' results', noneLeft: shown === 0,
+      clearFilters: () => this.setState({ tab: 'all', status: '', person: '', date: '', open: '' })
     };
   }
 }
